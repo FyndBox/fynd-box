@@ -33,7 +33,7 @@ module.exports = {
       },
     },
     {
-      files: ["frontend/**/*.{js,jsx,ts,tsx}"],
+      files: ["fyndbox-frontend/**/*.{js,jsx,ts,tsx}"],
       env: {
         browser: true,
       },
@@ -42,7 +42,7 @@ module.exports = {
       },
     },
     {
-      files: ["backend/**/*.ts"],
+      files: ["fyndbox-backend/**/*.ts"],
       env: {
         node: true,
       },
