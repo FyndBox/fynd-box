@@ -21,33 +21,29 @@ jobs:
           curl -fsSL https://get.pnpm.io/install.sh | SHELL=bash sh -
           export PNPM_HOME="/home/runner/.local/share/pnpm"
           export PATH="$PNPM_HOME:$PATH"
-        shell: bash
-
-      - name: Install dependencies in root (for monorepo)
-        run: pnpm install
-        shell: bash
+          pnpm --version
 
   build:
     runs-on: ubuntu-latest
     needs: install
     steps:
+      - uses: actions/checkout@v2
+
       - name: Build Frontend
         run: |
           export PNPM_HOME="/home/runner/.local/share/pnpm"
           export PATH="$PNPM_HOME:$PATH"
           cd fyndbox-frontend
-          pnpm install
+          pnpm install # Install frontend-specific dependencies
           pnpm run build
-        shell: bash
 
       - name: Build Backend
         run: |
           export PNPM_HOME="/home/runner/.local/share/pnpm"
           export PATH="$PNPM_HOME:$PATH"
           cd fyndbox-backend
-          pnpm install
+          pnpm install # Install backend-specific dependencies
           pnpm run build
-        shell: bash
 
   deploy:
     runs-on: ubuntu-latest
