@@ -16,12 +16,20 @@ jobs:
         with:
           node-version: "18"
 
+      # Install pnpm via standalone script
       - name: Install pnpm via standalone script
         run: |
           curl -fsSL https://get.pnpm.io/install.sh | SHELL=bash sh -
           export PNPM_HOME="/home/runner/.local/share/pnpm"
           export PATH="$PNPM_HOME:$PATH"
-          pnpm --version
+          echo "PNPM_HOME=$PNPM_HOME" >> $GITHUB_ENV
+          echo "$PNPM_HOME/bin" >> $GITHUB_PATH
+
+      - name: Verify pnpm installation
+        run: pnpm --version
+
+      - name: Install dependencies in root (for monorepo)
+        run: pnpm install
 
   build:
     runs-on: ubuntu-latest
@@ -34,7 +42,7 @@ jobs:
           export PNPM_HOME="/home/runner/.local/share/pnpm"
           export PATH="$PNPM_HOME:$PATH"
           cd fyndbox-frontend
-          pnpm install # Install frontend-specific dependencies
+          pnpm install
           pnpm run build
 
       - name: Build Backend
@@ -42,7 +50,7 @@ jobs:
           export PNPM_HOME="/home/runner/.local/share/pnpm"
           export PATH="$PNPM_HOME:$PATH"
           cd fyndbox-backend
-          pnpm install # Install backend-specific dependencies
+          pnpm install
           pnpm run build
 
   deploy:
@@ -52,5 +60,3 @@ jobs:
       - name: Deploy to Production
         run: |
           echo "Deploying backend and frontend to the server"
-          # Add your deployment script here
-        shell: bash
