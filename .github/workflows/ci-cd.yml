@@ -42,9 +42,16 @@ jobs:
     needs: install
     steps:
       - name: Build Frontend
-        run: cd fyndbox-frontend && pnpm run build
+        run: |
+          ls -al
+          cd fyndbox-frontend
+          ls -al
+          pnpm run build
+
       - name: Build Backend
-        run: cd fyndbox-backend && pnpm run build
+        run: |
+          cd fyndbox-backend
+          pnpm run build
 
   # Deploy to production (add your deployment commands here)
   deploy:
