@@ -17,12 +17,19 @@ jobs:
           node-version: "18"
 
       - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Set the Shell (Explicit)
         run: |
-          export SHELL=/bin/bash
-          pnpm install
+          npm install -g pnpm
+          echo "export PATH=$(npm bin -g):$PATH" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Verify pnpm installation
+        run: |
+          pnpm -v
+        shell: bash
+
+      - name: Install dependencies in root
+        run: pnpm install
+        shell: bash
 
   build:
     runs-on: ubuntu-latest
@@ -35,12 +42,14 @@ jobs:
           cd fyndbox-frontend
           pnpm install # Install frontend-specific dependencies
           pnpm run build
+        shell: bash
 
       - name: Build Backend
         run: |
           cd fyndbox-backend
           pnpm install # Install backend-specific dependencies
           pnpm run build
+        shell: bash
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,3 +58,5 @@ jobs:
       - name: Deploy to Production
         run: |
           echo "Deploying backend and frontend to the server"
+          # Add your deployment script here
+        shell: bash
