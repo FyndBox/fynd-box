@@ -16,20 +16,17 @@ jobs:
         with:
           node-version: "18"
 
-      # Install pnpm via standalone script
       - name: Install pnpm via standalone script
         run: |
-          curl -fsSL https://get.pnpm.io/install.sh | SHELL=bash sh -
+          curl -fsSL https://get.pnpm.io/install.sh | sh -
           export PNPM_HOME="/home/runner/.local/share/pnpm"
           export PATH="$PNPM_HOME:$PATH"
-          echo "PNPM_HOME=$PNPM_HOME" >> $GITHUB_ENV
-          echo "$PNPM_HOME/bin" >> $GITHUB_PATH
+          # Source the bashrc to make pnpm command available
+          echo "source /home/runner/.bashrc" >> ~/.bashrc
+          source ~/.bashrc
 
       - name: Verify pnpm installation
         run: pnpm --version
-
-      - name: Install dependencies in root (for monorepo)
-        run: pnpm install
 
   build:
     runs-on: ubuntu-latest
@@ -60,3 +57,4 @@ jobs:
       - name: Deploy to Production
         run: |
           echo "Deploying backend and frontend to the server"
+          # Add your deployment script here
