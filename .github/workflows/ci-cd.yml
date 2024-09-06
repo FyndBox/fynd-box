@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+env:
+  NODE_VERSION: 18.20.0
+  PNMP_VERSION: 9.9.0
+
 jobs:
   # Install dependencies and build both frontend and backend
   build:
@@ -18,14 +22,12 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "18"
+          node-version: ${{env.NODE_VERSION}}
 
       # Step 3: Install PNPM
-      - name: Install PNPM via standalone script
+      - name: Install PNPM
         run: |
-          curl -fsSL https://get.pnpm.io/install.sh | sh -
-          export PNPM_HOME="$HOME/.local/share/pnpm"
-          export PATH="$PNPM_HOME:$PATH"
+          npm install -g pnpm@${{env.PNMP_VERSION}}
           echo "PNPM version: $(pnpm --version)"
 
       # Step 4: Install dependencies in monorepo root
