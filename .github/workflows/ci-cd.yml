@@ -19,7 +19,7 @@ jobs:
       - name: Install pnpm via standalone script
         run: |
           curl -fsSL https://get.pnpm.io/install.sh | SHELL=bash sh -
-          export PATH="$HOME/.local/share/pnpm:$PATH"
+          echo "source $HOME/.bashrc" >> $GITHUB_ENV # Ensure PATH is updated in the current environment
 
       - name: Install dependencies in root (for monorepo)
         run: pnpm install
