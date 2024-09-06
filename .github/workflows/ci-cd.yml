@@ -17,10 +17,14 @@ jobs:
           node-version: "18"
 
       - name: Install pnpm
-        run: npm install -g pnpm
+        run: |
+          npm install -g pnpm
+          pnpm setup # Ensure pnpm is in the PATH for future steps
+        shell: bash
 
       - name: Install dependencies in root (for monorepo)
         run: pnpm install
+        shell: bash
 
   build:
     runs-on: ubuntu-latest
@@ -33,12 +37,14 @@ jobs:
           cd fyndbox-frontend
           pnpm install # Install frontend-specific dependencies
           pnpm run build
+        shell: bash
 
       - name: Build Backend
         run: |
           cd fyndbox-backend
           pnpm install # Install backend-specific dependencies
           pnpm run build
+        shell: bash
 
   deploy:
     runs-on: ubuntu-latest
