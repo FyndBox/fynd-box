@@ -17,11 +17,20 @@ jobs:
           node-version: "18"
 
       # Install pnpm using the standalone installer and force it to use bash
-      - name: Install pnpm via standalone script
+      - name: Install PNPM (Standalone Script)
         run: |
           export SHELL=/bin/bash
           curl -fsSL https://get.pnpm.io/install.sh | bash -
           source ~/.bashrc
+          export PNPM_HOME="/home/runner/.local/share/pnpm"
+          export PATH="$PNPM_HOME:$PATH"
+          echo "PNPM installed and added to path"
+
+      - name: Verify PNPM installation
+        run: pnpm --version
+
+      - name: Install dependencies in root (for monorepo)
+        run: pnpm install
 
   build:
     runs-on: ubuntu-latest
@@ -50,3 +59,13 @@ jobs:
           cd fyndbox-backend
           pnpm install
           pnpm run build
+
+  # Deploy to production (add your deployment commands here)
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to Production
+        run: |
+          echo "Deploying backend and frontend to the server"
+          # Add your deployment script here
