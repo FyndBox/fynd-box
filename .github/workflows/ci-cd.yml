@@ -19,15 +19,9 @@ jobs:
       - name: Install pnpm
         run: |
           npm install -g pnpm
-          echo "export PATH=$(npm bin -g):$PATH" >> $GITHUB_ENV
         shell: bash
 
-      - name: Verify pnpm installation
-        run: |
-          pnpm -v
-        shell: bash
-
-      - name: Install dependencies in root
+      - name: Install dependencies in root (for monorepo)
         run: pnpm install
         shell: bash
 
