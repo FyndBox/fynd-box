@@ -35,8 +35,8 @@ jobs:
         run: |
           pnpm install
 
-      # Step 5: Build the frontend
-      - name: Build the project
+      # Step 5: Build the frontend and backend
+      - name: Build the Project
         run: |
           pnpm run build
 
