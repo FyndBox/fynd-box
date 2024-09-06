@@ -16,10 +16,10 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Install pnpm
+      - name: Install pnpm via standalone script
         run: |
-          npm install -g pnpm
-          pnpm env use --global 18
+          curl -fsSL https://get.pnpm.io/install.sh | sh -
+          export PATH="~/.local/share/pnpm:$PATH"
 
       - name: Install dependencies in root (for monorepo)
         run: pnpm install
