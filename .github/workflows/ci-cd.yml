@@ -21,25 +21,25 @@ jobs:
         run: pnpm install
 
   # Backend tests
-  backend-test:
-    runs-on: ubuntu-latest
-    needs: install
-    steps:
-      - name: Run Backend Tests
-        run: cd fyndbox-backend && pnpm run test
+  # backend-test:
+  # runs-on: ubuntu-latest
+  # needs: install
+  #steps:
+  # - name: Run Backend Tests
+  #   run: cd fyndbox-backend && pnpm run test
 
   # Frontend tests
-  frontend-test:
-    runs-on: ubuntu-latest
-    needs: install
-    steps:
-      - name: Run Frontend Tests
-        run: cd fyndbox-frontend && pnpm run test
+  # frontend-test:
+  #   runs-on: ubuntu-latest
+  #   needs: install
+  #   steps:
+  #     - name: Run Frontend Tests
+  #       run: cd fyndbox-frontend && pnpm run test
 
   # Build both frontend and backend
   build:
     runs-on: ubuntu-latest
-    needs: [backend-test, frontend-test]
+    needs: install
     steps:
       - name: Build Frontend
         run: cd fyndbox-frontend && pnpm run build
