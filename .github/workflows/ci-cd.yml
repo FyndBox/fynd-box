@@ -36,20 +36,9 @@ jobs:
           pnpm install
 
       # Step 5: Build the frontend
-      - name: Build Frontend (React + Vite)
+      - name: Build the project
         run: |
-          cd fyndbox-frontend
-          pnpm install
           pnpm run build
-        working-directory: ./fyndbox-frontend
-
-      # Step 6: Build the backend
-      - name: Build Backend (NestJS)
-        run: |
-          cd fyndbox-backend
-          pnpm install
-          pnpm run build
-        working-directory: ./fyndbox-backend
 
   # Deploy step to production
   deploy:
