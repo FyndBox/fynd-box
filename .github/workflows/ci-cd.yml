@@ -18,8 +18,8 @@ jobs:
 
       - name: Install pnpm via standalone script
         run: |
-          curl -fsSL https://get.pnpm.io/install.sh | sh -
-          export PATH="~/.local/share/pnpm:$PATH"
+          curl -fsSL https://get.pnpm.io/install.sh | SHELL=bash sh -
+          export PATH="$HOME/.local/share/pnpm:$PATH"
 
       - name: Install dependencies in root (for monorepo)
         run: pnpm install
