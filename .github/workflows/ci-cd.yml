@@ -26,7 +26,7 @@ jobs:
     needs: install
     steps:
       - name: Run Backend Tests
-        run: cd backend && pnpm run test
+        run: cd fyndbox-backend && pnpm run test
 
   # Frontend tests
   frontend-test:
@@ -34,7 +34,7 @@ jobs:
     needs: install
     steps:
       - name: Run Frontend Tests
-        run: cd frontend && pnpm run test
+        run: cd fyndbox-frontend && pnpm run test
 
   # Build both frontend and backend
   build:
@@ -42,9 +42,9 @@ jobs:
     needs: [backend-test, frontend-test]
     steps:
       - name: Build Frontend
-        run: cd frontend && pnpm run build
+        run: cd fyndbox-frontend && pnpm run build
       - name: Build Backend
-        run: cd backend && pnpm run build
+        run: cd fyndbox-backend && pnpm run build
 
   # Deploy to production (add your deployment commands here)
   deploy:
