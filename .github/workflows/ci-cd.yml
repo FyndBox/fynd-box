@@ -6,18 +6,20 @@ on:
       - main
 
 jobs:
-  # Install dependencies for both frontend and backend
   install:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
           node-version: "18"
+
       - name: Install pnpm
         run: npm install -g pnpm
-      - name: Install Dependencies
+
+      - name: Install dependencies in root (for monorepo)
         run: pnpm install
 
   build:
@@ -26,29 +28,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install pnpm (again after checkout)
-        run: npm install -g pnpm
-
-      - name: List Root Directory (Debugging)
-        run: ls -al
-        shell: bash
-
-      - name: Check if Frontend Directory Exists
-        run: test -d fyndbox-frontend || echo "Directory fyndbox-frontend not found!"
-        shell: bash
-
       - name: Build Frontend
         run: |
           cd fyndbox-frontend
-          ls -al
+          pnpm install # Install frontend-specific dependencies
           pnpm run build
-        shell: bash
 
       - name: Build Backend
         run: |
           cd fyndbox-backend
+          pnpm install # Install backend-specific dependencies
           pnpm run build
-        shell: bash
 
   deploy:
     runs-on: ubuntu-latest
@@ -57,4 +47,4 @@ jobs:
       - name: Deploy to Production
         run: |
           echo "Deploying backend and frontend to the server"
-          # Add your deployment script or commands here
+          # Add your deployment script here
