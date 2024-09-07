@@ -1,8 +1,8 @@
-import { Module, OnModuleInit } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { DatabaseService } from './database/database.service';
 import { UserModule } from './user/user.module';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
@@ -10,26 +10,56 @@ import { UserModule } from './user/user.module';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USERNAME'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_NAME'),
-        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-        synchronize: true, // In production, turn this off
-      }),
+      async useFactory(configService: ConfigService) {
+        const dbName = configService.get<string>('DB_NAME');
+        const dbHost = configService.get<string>('DB_HOST');
+        const dbPort = configService.get<number>('DB_PORT');
+        const dbUser = configService.get<string>('DB_USERNAME');
+        const dbPassword = configService.get<string>('DB_PASSWORD');
+
+        // Create a temporary DataSource to connect to the 'postgres' database
+        const tempDataSource = new DataSource({
+          type: 'postgres',
+          host: dbHost,
+          port: dbPort,
+          username: dbUser,
+          password: dbPassword,
+          database: 'postgres', // Connect to default database
+        });
+
+        await tempDataSource.initialize();
+
+        // Check if the target database exists
+        const result = await tempDataSource.query(
+          `SELECT 1 FROM pg_database WHERE datname = $1`,
+          [dbName],
+        );
+
+        if (result.length === 0) {
+          // Database does not exist, create it
+          await tempDataSource.query(`CREATE DATABASE "${dbName}"`);
+          console.log(`Database ${dbName} created successfully.`);
+        } else {
+          console.log(`Database ${dbName} already exists.`);
+        }
+
+        // Close the temporary connection
+        await tempDataSource.destroy();
+
+        // Now return the TypeORM configuration to connect to the target database
+        return {
+          type: 'postgres',
+          host: dbHost,
+          port: dbPort,
+          username: dbUser,
+          password: dbPassword,
+          database: dbName,
+          entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          synchronize: true, // Disable in production
+        };
+      },
     }),
     UserModule,
   ],
-  providers: [DatabaseService],
 })
-export class AppModule implements OnModuleInit {
-  constructor(private readonly databaseService: DatabaseService) {}
-
-  async onModuleInit() {
-    await this.databaseService.createRoleIfNotExists();
-    await this.databaseService.createDatabaseIfNotExists();
-  }
-}
+export class AppModule {}
