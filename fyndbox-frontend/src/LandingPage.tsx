@@ -20,7 +20,11 @@ const LandingPage: FC = () => {
         <Button variant="contained" color="primary" href="#login">
           Login
         </Button>
+              
       </Box>
+      <Typography variant='h1'>heading h1</Typography>
+      <Typography variant='h2'>heading h2</Typography>
+      <Typography variant='h3'>heading h3</Typography>
     </Container>
   );
 };
