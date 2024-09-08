@@ -1,27 +1,26 @@
-import { Container, Typography, Button, Box } from "@mui/material";
-import bkImage from '../src/assets/banner.jpg'
+// src/components/LandingPage.tsx
+import { Button, Box } from "@mui/material";
 import { FC } from "react";
+import { StyledContainer, StyledTypography } from "./LandingPageStyles";
 
 const LandingPage: FC = () => {
   return (
-    <Container maxWidth="md" sx={{backgroundImage:`url(${bkImage})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover", paddingTop: '150px', paddingBottom: '250px', backgroundPositionX: 'center'}}>
+    <StyledContainer maxWidth="md">
       <Box textAlign="center">
-        <Typography variant="h3" gutterBottom mb={8} sx={{color: '#ffffff'}}>
+        <StyledTypography variant="h3" gutterBottom mb={8}>
           Välkommen till FyndBox
-        </Typography>
-        <Typography variant="h6" gutterBottom mb={10}  sx={{color: '#ffffff'}}>
+        </StyledTypography>
+        <StyledTypography variant="h6" gutterBottom mb={10}>
           Vi erbjuder en effektiv och smidig lösning för att få fullständig
           kontroll över ditt lager. Med vår webbplatform kan du enkelt
           organisera och hantera dina inventarier genom att lägga till lådor och
           ange bilder samt antal för varje objekt.
-        </Typography>
+        </StyledTypography>
         <Button variant="contained" color="primary" href="#login">
           Login
         </Button>
       </Box>
-    </Container>
+    </StyledContainer>
   );
 };
 

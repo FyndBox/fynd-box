@@ -1,17 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import App from "./App";
-
-const theme = createTheme({
-  // Define your theme configuration here
-  palette: {
-    primary: {
-      main: "#1976d2",
-    },
-  },
-});
+import theme from "./theme/theme";
 
 const rootElement = document.getElementById("root") as HTMLElement;
 const root = createRoot(rootElement);
