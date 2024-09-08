@@ -35,7 +35,12 @@ jobs:
         run: |
           pnpm install
 
-      # Step 5: Build the frontend and backend
+      # Step 5: Checking Lint for the frontend and backend
+      - name: Lint the Project
+        run: |
+          pnpm run lint
+
+      # Step 6: Build the frontend and backend
       - name: Build the Project
         run: |
           pnpm run build
