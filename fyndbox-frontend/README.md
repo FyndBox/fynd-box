@@ -1,50 +1,67 @@
-# React + TypeScript + Vite
+# FyndBox Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the FyndBox application, built with **React** and **Vite** and styled using **Material UI**. It provides an intuitive interface for managing your inventory and other features.
 
-Currently, two official plugins are available:
+## Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The project structure is as follows:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```plaintext
+fyndbox-frontend/
+├── dist/                  # Build output for production
+├── node_modules/          # Project dependencies
+├── public/                # Public assets (favicon, manifest, etc.)
+├── src/                   # Source code for the application
+│   ├── assets/            # Static assets like images
+│   ├── components/        # Reusable components
+│   ├── hooks/             # Custom React hooks
+│   ├── pages/             # Individual pages (e.g., Landing, Login)
+│   ├── services/          # API or service logic
+│   ├── theme/             # Theme and styling configuration (Material UI)
+│   ├── App.tsx            # Main App component
+│   └── main.tsx           # Vite entry file
+├── .gitignore             # Files and folders to ignore in git
+├── package.json           # Project metadata and dependencies
+├── pnpm-lock.yaml         # Dependency lock file for pnpm
+├── tsconfig.json          # TypeScript configuration
+├── vite.config.ts         # Vite configuration
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Installation
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+1. **Install dependencies**:
+   Make sure you have [pnpm](https://pnpm.io/) installed globally, then run:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+   ```bash
+   pnpm install
+   ```
+2. **Lint checking**:
+   ```bash
+    pnpm run lint
+    ```
+   Lint the project for coding style issues
+
+3. **Start the development server**:
+
+   ```bash
+    pnpm run dev
+   ```
+
+   This will start the Vite development server at http://localhost:5173.
+
+
+4. **Build for production**:
+   ```bash
+    pnpm run build
+   ```
+5. **Preview the production build**:
+   ```bash
+    pnpm run preview
+   ```
+
+## Technologies Used
+- **React**: JavaScript library for building user interfaces
+- **Vite**: A fast build tool and development server
+- **Material UI**: A popular React UI framework for styling and components
+- **TypeScript**: For static typing in JavaScript
+- **pnpm**: Fast, disk space-efficient package manager
