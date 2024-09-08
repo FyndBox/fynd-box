@@ -14,4 +14,3 @@ export const StyledContainer = styled(Container)({
 export const StyledTypography = styled(Typography)({
   color: "#ffffff",
 });
-

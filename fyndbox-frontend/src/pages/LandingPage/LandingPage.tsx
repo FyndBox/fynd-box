@@ -1,3 +1,4 @@
+// src/components/LandingPage.tsx
 import { Button, Box } from "@mui/material";
 import { FC } from "react";
 import { StyledContainer, StyledTypography } from "./LandingPageStyles";
