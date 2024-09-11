@@ -13,6 +13,7 @@ import { ApiResponse } from '../interfaces/api-response.interface';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { CreateUserDto } from '../user/dto/create-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -43,8 +44,33 @@ export class AuthController {
     }
   }
 
+  @Post('signup')
+  async signup(
+    @Body() createUserDto: CreateUserDto,
+  ): Promise<ApiResponse<{ access_token: string }>> {
+    try {
+      const token = await this.authService.signup(createUserDto);
+      return {
+        statusCode: HttpStatus.CREATED,
+        success: true,
+        message: 'User registered successfully',
+        data: token,
+      };
+    } catch (error) {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.BAD_REQUEST,
+          success: false,
+          message: error.message || 'Error registering user',
+          error: error.message,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
   @Patch('password')
-  @UseGuards(AuthGuard('jwt')) // Protect this route with JWT
+  @UseGuards(AuthGuard('jwt'))
   async updatePassword(
     @Request() req,
     @Body() updatePasswordDto: UpdatePasswordDto,
