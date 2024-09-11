@@ -6,10 +6,10 @@ const LandingPage: FC = () => {
   return (
     <StyledContainer maxWidth="md">
       <Box textAlign="center">
-        <StyledTypography variant="h3" gutterBottom mb={8}>
+        <StyledTypography variant="h3" mb={8}>
           Välkommen till FyndBox
         </StyledTypography>
-        <StyledTypography variant="h6" gutterBottom mb={10}>
+        <StyledTypography variant="h6" mb={10}>
           Vi erbjuder en effektiv och smidig lösning för att få fullständig
           kontroll över ditt lager. Med vår webbplatform kan du enkelt
           organisera och hantera dina inventarier genom att lägga till lådor och
