@@ -8,6 +8,7 @@ import * as bcrypt from 'bcrypt';
 import { UserService } from '../user/user.service';
 import { LoginDto } from './dto/login.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { CreateUserDto } from '../user/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -35,6 +36,25 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  async signup(
+    createUserDto: CreateUserDto,
+  ): Promise<{ access_token: string }> {
+    const existingUser = await this.userService
+      .findByEmail(createUserDto.email)
+      .catch(() => null);
+
+    if (existingUser) {
+      throw new BadRequestException('Email is already registered');
+    }
+
+    const newUser = await this.userService.create(createUserDto);
+
+    const payload = { email: newUser.email, sub: newUser.id };
+    const access_token = this.jwtService.sign(payload);
+
+    return { access_token };
   }
 
   async updatePassword(
