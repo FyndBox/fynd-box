@@ -1,37 +1,45 @@
+import { handleApiCall } from "../utils/handleApiCall";
 import apiClient from "./apiClient";
+import { ApiResponse } from "../../../shared/types/api-response";
 
-export interface LoginResponse {
+export interface AuthResponse {
   access_token: string;
 }
 
 export const login = async (
   email: string,
   password: string
-): Promise<LoginResponse> => {
-  const response = await apiClient.post<LoginResponse>("/auth/login", {
-    email,
-    password,
-  });
-  return response.data;
+): Promise<AuthResponse> => {
+  return handleApiCall(
+    apiClient.post<ApiResponse<AuthResponse>>("/auth/login", {
+      email,
+      password,
+    })
+  );
 };
 
 export const signup = async (
   name: string,
   email: string,
   password: string
-): Promise<LoginResponse> => {
-  const response = await apiClient.post<LoginResponse>("/auth/signup", {
-    name,
-    email,
-    password,
-  });
-  return response.data;
+): Promise<AuthResponse> => {
+  return handleApiCall(
+    apiClient.post<ApiResponse<AuthResponse>>("/auth/signup", {
+      name,
+      email,
+      password,
+    })
+  );
 };
 
-// Example for updating password
 export const updatePassword = async (
   currentPassword: string,
   newPassword: string
 ): Promise<void> => {
-  await apiClient.patch("/auth/password", { currentPassword, newPassword });
+  return handleApiCall(
+    apiClient.patch<ApiResponse<void>>("/auth/password", {
+      currentPassword,
+      newPassword,
+    })
+  );
 };
