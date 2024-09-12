@@ -9,11 +9,11 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiResponse } from '../interfaces/api-response.interface';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
+import { ApiResponse } from '@shared/types/api-response';
 
 @Controller('auth')
 export class AuthController {

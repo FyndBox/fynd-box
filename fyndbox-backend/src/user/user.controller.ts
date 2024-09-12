@@ -11,10 +11,10 @@ import {
 } from '@nestjs/common';
 import { instanceToPlain } from 'class-transformer';
 import { UserService } from './user.service';
-import { ApiResponse } from '../interfaces/api-response.interface';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserResponseDto } from './dto/user-response.dto';
+import { ApiResponse } from '@shared/types/api-response';
 
 @Controller('users')
 export class UserController {
