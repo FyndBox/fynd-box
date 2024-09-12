@@ -19,7 +19,7 @@ export const SignupPage =() =>{
 
                 </Stack>
                 <Stack spacing={4}>
-                    <Button variant="outlined" size="small" color="primary" >Bli meolem</Button>
+                    <Button variant="outlined" size="small" width='50%' color="primary" >Bli meolem</Button>
                 </Stack>
             </Stack>
             </Box>
