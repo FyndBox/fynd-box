@@ -1,13 +1,14 @@
 {
   "name": "fyndbox-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "pnpm --filter @fyndbox/shared build && vite",
-    "build": "pnpm --filter @fyndbox/shared build && tsc -b && vite build",
+    "dev": "vite",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
