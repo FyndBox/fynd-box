@@ -14,7 +14,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserResponseDto } from './dto/user-response.dto';
-import { ApiResponse } from '@shared/types/api-response';
+import { ApiResponse } from '@fyndbox/shared/types/api-response';
 
 @Controller('users')
 export class UserController {

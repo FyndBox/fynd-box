@@ -6,9 +6,10 @@
   "scripts": {
     "start:frontend": "pnpm --filter fyndbox-frontend dev",
     "start:backend": "pnpm --filter fyndbox-backend start:dev",
-    "start": "concurrently \"pnpm start:frontend\" \"pnpm start:backend\"",
-    "build:frontend": "pnpm --filter fyndbox-frontend build",
-    "build:backend": "pnpm --filter fyndbox-backend build",
+    "start": "concurrently \"pnpm build:shared && pnpm start:frontend\" \"pnpm build:shared && pnpm start:backend\"",
+    "build:frontend": "pnpm build:shared && pnpm --filter fyndbox-frontend build",
+    "build:backend": "pnpm build:shared && pnpm --filter fyndbox-backend build",
+    "build:shared": "pnpm --filter @fyndbox/shared build",
     "build": "concurrently \"pnpm build:frontend\" \"pnpm build:backend\"",
     "lint:frontend": "pnpm --filter fyndbox-frontend lint",
     "lint:backend": "pnpm --filter fyndbox-backend lint",

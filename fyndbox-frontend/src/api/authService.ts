@@ -1,6 +1,6 @@
 import { handleApiCall } from "../utils/handleApiCall";
 import apiClient from "./apiClient";
-import { ApiResponse } from "../../../shared/types/api-response";
+import { ApiResponse } from '@fyndbox/shared/types/api-response';
 
 export interface AuthResponse {
   access_token: string;
