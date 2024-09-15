@@ -9,11 +9,11 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiResponse } from '../interfaces/api-response.interface';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
+import { ApiResponse } from '@fyndbox/shared/types/api-response';
 
 @Controller('auth')
 export class AuthController {
@@ -72,7 +72,7 @@ export class AuthController {
   @Patch('password')
   @UseGuards(AuthGuard('jwt'))
   async updatePassword(
-    @Request() req,
+    @Request() req: any,
     @Body() updatePasswordDto: UpdatePasswordDto,
   ): Promise<ApiResponse<void>> {
     const userId = req.user.userId;

@@ -4,12 +4,14 @@
   "private": true,
   "description": "",
   "scripts": {
-    "start:frontend": "pnpm --filter fyndbox-frontend dev",
-    "start:backend": "pnpm --filter fyndbox-backend start:dev",
-    "start": "concurrently \"pnpm start:frontend\" \"pnpm start:backend\"",
+    "build:shared": "pnpm --filter @fyndbox/shared build",
     "build:frontend": "pnpm --filter fyndbox-frontend build",
     "build:backend": "pnpm --filter fyndbox-backend build",
-    "build": "concurrently \"pnpm build:frontend\" \"pnpm build:backend\"",
+    "build": "pnpm run build:shared && pnpm run build:frontend && pnpm run build:backend",
+    "start:frontend": "pnpm --filter fyndbox-frontend dev",
+    "start:backend": "pnpm --filter fyndbox-backend start:dev",
+    "start": "pnpm run build:shared && concurrently \"pnpm start:frontend\" \"pnpm start:backend\"",
+    "build:start": "pnpm run build && pnpm run start",
     "lint:frontend": "pnpm --filter fyndbox-frontend lint",
     "lint:backend": "pnpm --filter fyndbox-backend lint",
     "lint": "concurrently \"pnpm lint:frontend\" \"pnpm lint:backend\""
@@ -27,6 +29,7 @@
     "concurrently": "^8.2.2",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-react": "^7.35.0"
+    "eslint-plugin-react": "^7.35.0",
+    "rimraf": "^6.0.1"
   }
 }
