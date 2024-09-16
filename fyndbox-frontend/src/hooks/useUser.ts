@@ -8,7 +8,6 @@ import {
 import { User } from '../types/user';
 
 interface UpdateUserData {
-  id: number;
   user: Partial<User>;
 }
 
@@ -19,10 +18,10 @@ export const useUsers = () => {
   });
 };
 
-export const useUser = (id: number) => {
+export const useUser = () => {
   return useQuery<User, Error>({
-    queryKey: ['user', id],
-    queryFn: () => getUserById(id),
+    queryKey: ['user'],
+    queryFn: () => getUserById(),
   });
 };
 
@@ -31,7 +30,7 @@ export const useUpdateUser = () => {
 
   return useMutation<User, Error, UpdateUserData>(
     // @ts-ignore
-    (data: UpdateUserData) => updateUser(data.id, data.user),
+    (data: UpdateUserData) => updateUser(data.user),
     {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['users'] });
@@ -46,9 +45,9 @@ export const useUpdateUser = () => {
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<void, Error, number>(
+  return useMutation<void, Error>(
     // @ts-ignore
-    (id: number) => deleteUser(id),
+    () => deleteUser(),
     {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['users'] });

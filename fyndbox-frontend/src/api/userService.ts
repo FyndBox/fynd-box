@@ -7,19 +7,14 @@ export const getUsers = async (): Promise<User[]> => {
   return handleApiCall(apiClient.get<ApiResponse<User[]>>('/users'));
 };
 
-export const getUserById = async (id: number): Promise<User> => {
-  return handleApiCall(apiClient.get<ApiResponse<User>>(`/users/${id}`));
+export const getUserById = async (): Promise<User> => {
+  return handleApiCall(apiClient.get<ApiResponse<User>>(`/users/me`));
 };
 
-export const updateUser = async (
-  id: number,
-  userData: Partial<User>,
-): Promise<User> => {
-  return handleApiCall(
-    apiClient.put<ApiResponse<User>>(`/users/${id}`, userData),
-  );
+export const updateUser = async (userData: Partial<User>): Promise<User> => {
+  return handleApiCall(apiClient.put<ApiResponse<User>>(`/users`, userData));
 };
 
-export const deleteUser = async (id: number): Promise<void> => {
-  return handleApiCall(apiClient.delete<ApiResponse<void>>(`/users/${id}`));
+export const deleteUser = async (): Promise<void> => {
+  return handleApiCall(apiClient.delete<ApiResponse<void>>(`/users`));
 };
