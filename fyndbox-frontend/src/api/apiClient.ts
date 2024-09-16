@@ -1,19 +1,19 @@
-import axios from "axios";
+import axios from 'axios';
 
-const getToken = () => localStorage.getItem("token");
+const getToken = () => localStorage.getItem('token');
 
-const publicRoutes = ["/auth/login", "/auth/signup"];
+const publicRoutes = ['/auth/login', '/auth/signup'];
 
 const apiClient = axios.create({
-  baseURL: "http://localhost:3000", // Replace with your backend URL
+  baseURL: '/api',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
 apiClient.interceptors.request.use(
   (config) => {
-    const isPublicRoute = publicRoutes.includes(config.url || "");
+    const isPublicRoute = publicRoutes.includes(config.url || '');
 
     if (!isPublicRoute) {
       const token = getToken();
@@ -24,16 +24,16 @@ apiClient.interceptors.request.use(
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     const errorMessage =
-      error.response?.data?.message || "An error occurred. Please try again.";
+      error.response?.data?.message || 'An error occurred. Please try again.';
     return Promise.reject(new Error(errorMessage));
-  }
+  },
 );
 
 export default apiClient;

@@ -4,10 +4,11 @@ import {
   Post,
   Put,
   Delete,
+  Request,
   Body,
-  Param,
   HttpException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { instanceToPlain } from 'class-transformer';
 import { UserService } from './user.service';
@@ -15,12 +16,14 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserResponseDto } from './dto/user-response.dto';
 import { ApiResponse } from '@fyndbox/shared/types/api-response';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   async findAll(): Promise<ApiResponse<UserResponseDto[]>> {
     try {
       const users = await this.userService.findAll();
@@ -43,12 +46,12 @@ export class UserController {
     }
   }
 
-  @Get(':id')
-  async findOne(
-    @Param('id') id: number,
-  ): Promise<ApiResponse<UserResponseDto>> {
+  @Get('me')
+  @UseGuards(AuthGuard('jwt'))
+  async findOne(@Request() req: any): Promise<ApiResponse<UserResponseDto>> {
     try {
-      const user = await this.userService.findOne(id);
+      const userId = req.user.userId;
+      const user = await this.userService.findOne(userId);
       if (!user) {
         return {
           statusCode: HttpStatus.NOT_FOUND,
@@ -100,13 +103,15 @@ export class UserController {
     }
   }
 
-  @Put(':id')
+  @Put()
+  @UseGuards(AuthGuard('jwt'))
   async update(
-    @Param('id') id: number,
+    @Request() req: any,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<ApiResponse<UserResponseDto>> {
     try {
-      const updatedUser = await this.userService.update(id, updateUserDto);
+      const userId = req.user.userId;
+      const updatedUser = await this.userService.update(userId, updateUserDto);
       return {
         statusCode: HttpStatus.OK,
         success: true,
@@ -126,10 +131,12 @@ export class UserController {
     }
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: number): Promise<ApiResponse<void>> {
+  @Delete()
+  @UseGuards(AuthGuard('jwt'))
+  async remove(@Request() req: any): Promise<ApiResponse<void>> {
     try {
-      await this.userService.remove(id);
+      const userId = req.user.userId;
+      await this.userService.remove(userId);
       return {
         statusCode: HttpStatus.OK,
         success: true,
