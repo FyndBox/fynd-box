@@ -1,14 +1,15 @@
-import { FC } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LandingPage from "./pages/LandingPage/LandingPage";
-
+import { FC } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import LandingPage from './pages/LandingPage/LandingPage';
+import LoginPage from './pages/LoginPage/LoginPage';
 
 const App: FC = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        
+        <Route path="/login" element={<LoginPage />} />
+
         {/* 
         <Route
           path="/dashboard"
@@ -20,7 +21,6 @@ const App: FC = () => {
         />
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/login" />} />  */}
-      
       </Routes>
     </BrowserRouter>
   );
