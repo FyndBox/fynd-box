@@ -2,6 +2,8 @@ import { Box } from '@mui/material';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
+  ButtonGroup,
+  OutlinedButton,
   StyledButton,
   StyledContainer,
   StyledTypography,
@@ -13,9 +15,14 @@ const LandingPage: FC = () => {
   const handleLoginClick = () => {
     navigate('/login');
   };
+
+  const handleSignupClick = () => {
+    navigate('/signup');
+  };
+
   return (
     <StyledContainer maxWidth="md">
-      <Box textAlign="center">
+      <Box textAlign="center" pt={6}>
         <StyledTypography variant="h1" mb={6}>
           Välkommen till FyndBox
         </StyledTypography>
@@ -25,15 +32,23 @@ const LandingPage: FC = () => {
           organisera och hantera dina inventarier genom att lägga till lådor och
           ange bilder samt antal för varje objekt.
         </StyledTypography>
-        <StyledButton
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 2 }}
-          onClick={handleLoginClick}
-        >
-          Logga in
-        </StyledButton>
+        <ButtonGroup>
+          <StyledButton
+            fullWidth
+            variant="contained"
+            onClick={handleLoginClick}
+          >
+            Logga in
+          </StyledButton>
+
+          <OutlinedButton
+            fullWidth
+            variant="outlined"
+            onClick={handleSignupClick}
+          >
+            Bli medlem
+          </OutlinedButton>
+        </ButtonGroup>
       </Box>
     </StyledContainer>
   );
