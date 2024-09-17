@@ -1,26 +1,32 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import bkImage from '../../assets/banner.jpg';
 
-export const StyledContainer = styled(Container)({
+export const HomeContainer = styled(Container)(({ theme }) => ({
   backgroundImage: `url(${bkImage})`,
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   height: '100vh',
-  backgroundPositionX: 'center',
-});
+  backgroundPosition: 'center',
+  color: theme.palette.primary.contrastText,
+  role: 'presentation',
+}));
 
-export const StyledTypography = styled(Typography)({
-  color: '#ffffff',
-});
-
-export const ButtonGroup = styled(Box)(({ theme }) => ({
+export const HomeSubContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  width: '95%',
+  justifyContent: 'center',
+  alignItems: 'center',
+  textAlign: 'center',
+  padding: theme.spacing(8, 6),
+  height: '100vh',
+}));
+
+export const ActionButtonsGroup = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
   gap: theme.spacing(2),
-  padding: theme.spacing(4, 0),
-  margin: '0 auto',
+  width: '100%',
 }));
 
 export const BaseButton = styled(Button)(({ theme }) => ({
@@ -29,19 +35,19 @@ export const BaseButton = styled(Button)(({ theme }) => ({
   textTransform: 'none',
 }));
 
-export const StyledButton = styled(BaseButton)(({ theme }) => ({
+export const LoginButton = styled(BaseButton)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
-  color: '#FFFFFF',
+  color: theme.palette.primary.contrastText,
   '&:hover': {
-    backgroundColor: '#3D6249',
+    backgroundColor: theme.palette.primary.dark,
   },
 }));
 
-export const OutlinedButton = styled(BaseButton)(({ theme }) => ({
+export const RegisterButton = styled(BaseButton)(({ theme }) => ({
   borderColor: theme.palette.primary.main,
+  backgroundColor: theme.palette.secondary.main,
   color: theme.palette.primary.main,
   '&:hover': {
-    borderColor: '#3D6249',
-    color: '#3D6249',
+    backgroundColor: theme.palette.secondary.dark,
   },
 }));

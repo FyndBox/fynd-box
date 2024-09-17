@@ -1,13 +1,13 @@
-import { Box } from '@mui/material';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  ButtonGroup,
-  OutlinedButton,
-  StyledButton,
-  StyledContainer,
-  StyledTypography,
+  ActionButtonsGroup,
+  HomeContainer,
+  RegisterButton,
+  LoginButton,
+  HomeSubContainer,
 } from './LandingPage.styles';
+import { Typography } from '@mui/material';
 
 const LandingPage: FC = () => {
   const navigate = useNavigate();
@@ -21,36 +21,31 @@ const LandingPage: FC = () => {
   };
 
   return (
-    <StyledContainer maxWidth="md">
-      <Box textAlign="center" pt={6}>
-        <StyledTypography variant="h1" mb={6}>
+    <HomeContainer maxWidth="md">
+      <HomeSubContainer>
+        <Typography variant="h1" mb={8}>
           Välkommen till FyndBox
-        </StyledTypography>
-        <StyledTypography variant="body1" mb={10}>
+        </Typography>
+        <Typography variant="body1" mb={10}>
           Vi erbjuder en effektiv och smidig lösning för att få fullständig
           kontroll över ditt lager. Med vår webbplatform kan du enkelt
           organisera och hantera dina inventarier genom att lägga till lådor och
           ange bilder samt antal för varje objekt.
-        </StyledTypography>
-        <ButtonGroup>
-          <StyledButton
-            fullWidth
-            variant="contained"
-            onClick={handleLoginClick}
-          >
-            Logga in
-          </StyledButton>
-
-          <OutlinedButton
+        </Typography>
+        <ActionButtonsGroup mt={10}>
+          <RegisterButton
             fullWidth
             variant="outlined"
             onClick={handleSignupClick}
           >
             Bli medlem
-          </OutlinedButton>
-        </ButtonGroup>
-      </Box>
-    </StyledContainer>
+          </RegisterButton>
+          <LoginButton fullWidth variant="contained" onClick={handleLoginClick}>
+            Logga in
+          </LoginButton>
+        </ActionButtonsGroup>
+      </HomeSubContainer>
+    </HomeContainer>
   );
 };
 
