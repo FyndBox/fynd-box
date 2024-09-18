@@ -1,15 +1,36 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+export const LoginFormContainer = styled(Container)(({ theme }) => ({
+  height: '100vh',
+}));
+
 export const LoginHeader = styled(Typography)(({ theme }) => ({
-  padding: theme.spacing(4, 0),
+  padding: theme.spacing(6, 0),
   alignSelf: 'flex-start',
 }));
 
+export const TextFieldsContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1),
+  width: '100%',
+}));
+
+export const ActionButtonsGroup = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
+  alignItems: 'center',
+  textAlign: 'center',
+  padding: theme.spacing(6, 0),
+}));
+
 export const BaseButton = styled(Button)(({ theme }) => ({
-  borderRadius: '50px',
-  padding: theme.spacing(1.5, 4),
+  borderRadius: '28px',
+  padding: theme.spacing(1.25, 2),
   textTransform: 'none',
+  width: '20rem',
 }));
 
 export const LoginButton = styled(BaseButton)(({ theme }) => ({
@@ -27,31 +48,4 @@ export const RegisterButton = styled(BaseButton)(({ theme }) => ({
   '&:hover': {
     backgroundColor: theme.palette.secondary.dark,
   },
-}));
-
-export const LoginFormContainer = styled(Container)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '100vh',
-  padding: theme.spacing(8, 6),
-}));
-
-export const LoginFormSubContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '100%',
-  maxWidth: '500px', // Constrain form width
-}));
-
-export const ActionButtonsGroup = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  width: '80%',
-  padding: theme.spacing(6, 0),
-  alignItems: 'center', // Center the button group horizontally
 }));

@@ -1,13 +1,14 @@
 import { FC } from 'react';
-import { InputAdornment, TextField, Typography } from '@mui/material';
-import { MailOutline, LockOutlined } from '@mui/icons-material';
+import { InputAdornment, TextField } from '@mui/material';
+import { Email, Lock } from '@mui/icons-material';
 import {
   LoginFormContainer,
   LoginHeader,
-  LoginFormSubContainer,
   ActionButtonsGroup,
+  TextFieldsContainer,
+  LoginButton,
+  RegisterButton,
 } from './LoginPage.styles';
-import { LoginButton, RegisterButton } from '../LandingPage/LandingPage.styles';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage: FC = () => {
@@ -23,28 +24,26 @@ const LoginPage: FC = () => {
 
   return (
     <LoginFormContainer maxWidth="md">
-      <LoginFormSubContainer>
-        <LoginHeader variant="h2">Logga in</LoginHeader>
+      <LoginHeader variant="h2">Logga in</LoginHeader>
 
+      <TextFieldsContainer>
         <TextField
           fullWidth
           label="Email"
           variant="standard"
           margin="normal"
+          placeholder="email@adress.com"
+          helperText=" * Vänligen ange giltig e-postadress"
           slotProps={{
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <MailOutline />
+                  <Email />
                 </InputAdornment>
               ),
             },
           }}
         />
-
-        <Typography variant="caption" color="error">
-          * Vänligen ange giltig e-postadress
-        </Typography>
 
         <TextField
           fullWidth
@@ -56,26 +55,25 @@ const LoginPage: FC = () => {
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <LockOutlined />
+                  <Lock />
                 </InputAdornment>
               ),
             },
           }}
         />
-
-        <ActionButtonsGroup pt={10}>
-          <LoginButton fullWidth variant="contained" onClick={handleLoginClick}>
-            Logga in
-          </LoginButton>
-          <RegisterButton
-            fullWidth
-            variant="outlined"
-            onClick={handleSignupClick}
-          >
-            Bli medlem
-          </RegisterButton>
-        </ActionButtonsGroup>
-      </LoginFormSubContainer>
+      </TextFieldsContainer>
+      <ActionButtonsGroup>
+        <LoginButton fullWidth variant="contained" onClick={handleLoginClick}>
+          Logga in
+        </LoginButton>
+        <RegisterButton
+          fullWidth
+          variant="outlined"
+          onClick={handleSignupClick}
+        >
+          Bli medlem
+        </RegisterButton>
+      </ActionButtonsGroup>
     </LoginFormContainer>
   );
 };
