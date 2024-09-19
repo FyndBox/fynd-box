@@ -29,6 +29,7 @@ interface AuthContextType {
   logout: () => void;
   isAuthenticated: boolean;
   error: string | null;
+  setError: (error: string | null) => void;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -83,7 +84,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ token, login, signup, logout, isAuthenticated, error }}
+      value={{ token, login, signup, logout, isAuthenticated, error, setError }}
     >
       {children}
     </AuthContext.Provider>
