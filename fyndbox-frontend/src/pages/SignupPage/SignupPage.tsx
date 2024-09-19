@@ -23,7 +23,7 @@ export const SignupPage = () => {
             fullWidth
             margin="normal"
             type={'text'}
-            label="Name"
+            label="Namn"
             variant="standard"
             slotProps={{
               input: {
@@ -39,7 +39,7 @@ export const SignupPage = () => {
             fullWidth
             margin="normal"
             type={'email'}
-            label="Email@example.com"
+            label="email@adress.com"
             variant="standard"
             slotProps={{
               input: {
@@ -60,7 +60,7 @@ export const SignupPage = () => {
             fullWidth
             margin="normal"
             type={'password'}
-            label="Password"
+            label="Losenard"
             variant="standard"
             slotProps={{
               input: {
