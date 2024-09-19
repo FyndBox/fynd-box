@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { InputAdornment, TextField } from '@mui/material';
+import { FC, useState } from 'react';
+import { InputAdornment, TextField, Typography } from '@mui/material';
 import { Email, Lock } from '@mui/icons-material';
 import {
   LoginFormContainer,
@@ -10,12 +10,35 @@ import {
   RegisterButton,
 } from './LoginPage.styles';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
+  const { login, error } = useAuth();
 
-  const handleLoginClick = () => {
-    navigate('/login');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+
+  const handleLoginClick = async () => {
+    setEmailError(false);
+    setPasswordError(false);
+
+    if (!email) {
+      setEmailError(true);
+    }
+    if (!password) {
+      setPasswordError(true);
+    }
+
+    if (email && password) {
+      const success = await login(email, password);
+
+      if (success) {
+        alert('done');
+      }
+    }
   };
 
   const handleSignupClick = () => {
@@ -25,7 +48,6 @@ const LoginPage: FC = () => {
   return (
     <LoginFormContainer maxWidth="md">
       <LoginHeader variant="h2">Logga in</LoginHeader>
-
       <TextFieldsContainer>
         <TextField
           fullWidth
@@ -33,7 +55,10 @@ const LoginPage: FC = () => {
           variant="standard"
           margin="normal"
           placeholder="example@domain.com"
-          helperText=""
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          error={emailError}
+          helperText={emailError ? '* Vänligen ange giltig e-postadress' : ''}
           slotProps={{
             input: {
               startAdornment: (
@@ -51,6 +76,10 @@ const LoginPage: FC = () => {
           variant="standard"
           margin="normal"
           type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          error={passwordError}
+          helperText={passwordError ? '* Lösenord krävs' : ''}
           slotProps={{
             input: {
               startAdornment: (
@@ -62,6 +91,11 @@ const LoginPage: FC = () => {
           }}
         />
       </TextFieldsContainer>
+      {error && (
+        <Typography variant="caption" color="error">
+          {error}
+        </Typography>
+      )}
       <ActionButtonsGroup>
         <LoginButton fullWidth variant="contained" onClick={handleLoginClick}>
           Logga in
