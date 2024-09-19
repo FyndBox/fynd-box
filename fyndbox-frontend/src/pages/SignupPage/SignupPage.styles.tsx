@@ -1,20 +1,20 @@
-import { Typography, Button, TextField, Container,Box, } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Typography, Button, Container, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-
-export const StyledContainer = styled(Container)({
-  display:'flex',
-  alignItems:'center',
-  alignContent:'center',
-  flexDirection:'column',
-  margin:'auto',
-  marginTop:5,
-  padding:30,
+export const SignupContainer = styled(Container)({
+  height: '100vh',
 });
 
 export const SignupHeader = styled(Typography)(({ theme }) => ({
-  padding: theme.spacing(1.5, 0),
+  padding: theme.spacing(6, 0),
   alignSelf: 'flex-start',
+}));
+
+export const TextFieldsContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1),
+  width: '100%',
 }));
 
 export const ActionButtonsGroup = styled(Box)(({ theme }) => ({
@@ -41,11 +41,3 @@ export const RegisterButton = styled(BaseButton)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.dark,
   },
 }));
-
-export const StyledTextField = styled(TextField)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(1),
-  width: '100%',
-}));  
-
