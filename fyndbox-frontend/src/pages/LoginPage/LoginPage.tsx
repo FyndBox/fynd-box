@@ -28,12 +28,12 @@ const LoginPage: FC = () => {
 
       <TextFieldsContainer>
         <TextField
-          fullWidth 
+          fullWidth
           label="Email"
           variant="standard"
           margin="normal"
-          placeholder="email@adress.com"
-          helperText=" * Vänligen ange giltig e-postadress"
+          placeholder="example@domain.com"
+          helperText=""
           slotProps={{
             input: {
               startAdornment: (
@@ -43,7 +43,6 @@ const LoginPage: FC = () => {
               ),
             },
           }}
-          required
         />
 
         <TextField
@@ -61,7 +60,6 @@ const LoginPage: FC = () => {
               ),
             },
           }}
-          required
         />
       </TextFieldsContainer>
       <ActionButtonsGroup>
