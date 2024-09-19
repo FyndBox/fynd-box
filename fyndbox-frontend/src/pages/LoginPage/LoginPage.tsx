@@ -1,65 +1,81 @@
 import { FC } from 'react';
-import { InputAdornment, TextField, Typography } from '@mui/material';
-import { MailOutline, LockOutlined } from '@mui/icons-material';
+import { InputAdornment, TextField } from '@mui/material';
+import { Email, Lock } from '@mui/icons-material';
 import {
   LoginFormContainer,
-  StyledButton,
-  OutlinedButton,
-  StyledHeader,
-  ButtonGroup,
+  LoginHeader,
+  ActionButtonsGroup,
+  TextFieldsContainer,
+  LoginButton,
+  RegisterButton,
 } from './LoginPage.styles';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage: FC = () => {
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+
+  const handleSignupClick = () => {
+    navigate('/signup');
+  };
+
   return (
-    <LoginFormContainer>
-      <StyledHeader variant="h2">Logga in</StyledHeader>
+    <LoginFormContainer maxWidth="md">
+      <LoginHeader variant="h2">Logga in</LoginHeader>
 
-      <TextField
-        fullWidth
-        label="Email"
-        variant="outlined"
-        margin="normal"
-        slotProps={{
-          input: {
-            startAdornment: (
-              <InputAdornment position="start">
-                <MailOutline />
-              </InputAdornment>
-            ),
-          },
-        }}
-      />
+      <TextFieldsContainer>
+        <TextField
+          fullWidth
+          label="Email"
+          variant="standard"
+          margin="normal"
+          placeholder="email@adress.com"
+          helperText=" * Vänligen ange giltig e-postadress"
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Email />
+                </InputAdornment>
+              ),
+            },
+          }}
+          required
+        />
 
-      <Typography variant="caption" color="error">
-        * Vänligen ange giltig e-postadress
-      </Typography>
-
-      <TextField
-        fullWidth
-        label="Lösenord"
-        variant="outlined"
-        margin="normal"
-        type="password"
-        slotProps={{
-          input: {
-            startAdornment: (
-              <InputAdornment position="start">
-                <LockOutlined />
-              </InputAdornment>
-            ),
-          },
-        }}
-      />
-
-      <ButtonGroup>
-        <StyledButton fullWidth variant="contained">
+        <TextField
+          fullWidth
+          label="Lösenord"
+          variant="standard"
+          margin="normal"
+          type="password"
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Lock />
+                </InputAdornment>
+              ),
+            },
+          }}
+          required
+        />
+      </TextFieldsContainer>
+      <ActionButtonsGroup>
+        <LoginButton fullWidth variant="contained" onClick={handleLoginClick}>
           Logga in
-        </StyledButton>
-
-        <OutlinedButton fullWidth variant="outlined">
+        </LoginButton>
+        <RegisterButton
+          fullWidth
+          variant="outlined"
+          onClick={handleSignupClick}
+        >
           Bli medlem
-        </OutlinedButton>
-      </ButtonGroup>
+        </RegisterButton>
+      </ActionButtonsGroup>
     </LoginFormContainer>
   );
 };

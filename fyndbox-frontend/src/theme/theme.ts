@@ -1,12 +1,18 @@
-import { createTheme } from "@mui/material/styles";
-import typography from "./typography";
+import { createTheme } from '@mui/material/styles';
+import typography from './typography';
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#157145",
+      light: '#438d6a',
+      main: '#157145',
+      dark: '#0e4f30',
+      contrastText: '#ffffff',
     },
     secondary: {
-      main: "#ffffff",
+      light: '#ECEFF1',
+      main: '#ffffff',
+      dark: '#CFD8DC',
+      contrastText: '#000000',
     },
   },
   typography,

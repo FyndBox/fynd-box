@@ -30,7 +30,6 @@ const typography: TypographyOptions = {
     fontSize: '1rem',
     letterSpacing: '-0.005em',
     lineHeight: '1.5',
-    color: '#000000',
   },
   button: {
     fontWeight: 400,
