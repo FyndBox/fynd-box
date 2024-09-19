@@ -2,14 +2,14 @@ import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {Typography } from '@mui/material';
-
+import { FormHelperText } from '@mui/material';
 import {
   StyledContainer,
   StyledTextField,
-  StyledHeader,
-  ButtonGroup,
-  OutlinedButton,
+  SignupHeader,
+  RegisterButton,
+  ActionButtonsGroup,
+  
 } from './SignupPage.styles';
 
 export const SignupPage = () => {
@@ -17,7 +17,7 @@ export const SignupPage = () => {
     <div>
       <form>
         <StyledContainer>
-          <StyledHeader variant="h2">Skapa nytt konto</StyledHeader>
+          <SignupHeader variant="h2">Skapa nytt konto</SignupHeader>
 
           <StyledTextField
             fullWidth
@@ -41,6 +41,12 @@ export const SignupPage = () => {
             type={'email'}
             label="email@adress.com"
             variant="standard"
+            // helperText=" * Vänligen ange giltig e-postadress"
+            helperText={
+              <FormHelperText>
+                <span style={{ color: 'red' }}>*</span> Vänligen ange giltig e-postadress
+              </FormHelperText>
+            }
             slotProps={{
               input: {
                 startAdornment: (
@@ -51,10 +57,6 @@ export const SignupPage = () => {
               },
             }}
           />
-
-          <Typography variant="caption" color="error">
-              * Vänligen ange giltig e-postadress
-          </Typography>
 
           <StyledTextField
             fullWidth
@@ -72,14 +74,17 @@ export const SignupPage = () => {
               },
             }}
           />
-
-          <ButtonGroup>
-            <OutlinedButton fullWidth variant="outlined">
+ 
+          <ActionButtonsGroup>
+            <RegisterButton
+              fullWidth
+              variant="outlined"
+              // onClick={handleSignupClick}
+            >
               Bli medlem
-            </OutlinedButton>
-          </ButtonGroup>
-   
-
+            </RegisterButton>
+          </ActionButtonsGroup>
+    
         </StyledContainer>
       </form>
     </div>

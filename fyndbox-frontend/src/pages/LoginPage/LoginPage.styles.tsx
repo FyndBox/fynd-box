@@ -15,7 +15,7 @@ export const TextFieldsContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(1),
   width: '100%',
-}));
+}));  
 
 export const ActionButtonsGroup = styled(Box)(({ theme }) => ({
   display: 'flex',
