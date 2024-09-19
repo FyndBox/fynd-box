@@ -2,12 +2,14 @@ import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {Typography } from '@mui/material';
 
 import {
   StyledContainer,
-  StyledTypography,
-  StyledButton,
   StyledTextField,
+  StyledHeader,
+  ButtonGroup,
+  OutlinedButton,
 } from './SignupPage.styles';
 
 export const SignupPage = () => {
@@ -15,7 +17,7 @@ export const SignupPage = () => {
     <div>
       <form>
         <StyledContainer>
-          <StyledTypography variant="h2">Skapa nytt konto</StyledTypography>
+          <StyledHeader variant="h2">Skapa nytt konto</StyledHeader>
 
           <StyledTextField
             fullWidth
@@ -39,7 +41,6 @@ export const SignupPage = () => {
             type={'email'}
             label="Email@example.com"
             variant="standard"
-            helperText="*Some important text"
             slotProps={{
               input: {
                 startAdornment: (
@@ -50,6 +51,11 @@ export const SignupPage = () => {
               },
             }}
           />
+
+          <Typography variant="caption" color="error">
+              * Vänligen ange giltig e-postadress
+          </Typography>
+
           <StyledTextField
             fullWidth
             margin="normal"
@@ -67,7 +73,13 @@ export const SignupPage = () => {
             }}
           />
 
-          <StyledButton variant="outlined">Bli meolem</StyledButton>
+          <ButtonGroup>
+            <OutlinedButton fullWidth variant="outlined">
+              Bli medlem
+            </OutlinedButton>
+          </ButtonGroup>
+   
+
         </StyledContainer>
       </form>
     </div>
