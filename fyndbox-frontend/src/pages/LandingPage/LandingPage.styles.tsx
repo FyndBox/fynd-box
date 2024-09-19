@@ -26,13 +26,16 @@ export const ActionButtonsGroup = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(2),
-  width: '100%',
+  alignItems: 'center',
+  textAlign: 'center',
+  padding: theme.spacing(6, 0),
 }));
 
 export const BaseButton = styled(Button)(({ theme }) => ({
-  borderRadius: '50px',
-  padding: theme.spacing(1.5, 4),
+  borderRadius: '28px',
+  padding: theme.spacing(1.25, 2),
   textTransform: 'none',
+  width: '20rem',
 }));
 
 export const LoginButton = styled(BaseButton)(({ theme }) => ({

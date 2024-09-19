@@ -43,6 +43,7 @@ const LoginPage: FC = () => {
               ),
             },
           }}
+          required
         />
 
         <TextField
@@ -60,6 +61,7 @@ const LoginPage: FC = () => {
               ),
             },
           }}
+          required
         />
       </TextFieldsContainer>
       <ActionButtonsGroup>

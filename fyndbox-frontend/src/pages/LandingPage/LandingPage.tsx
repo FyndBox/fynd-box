@@ -33,6 +33,9 @@ const LandingPage: FC = () => {
           ange bilder samt antal för varje objekt.
         </Typography>
         <ActionButtonsGroup mt={10}>
+          <LoginButton fullWidth variant="contained" onClick={handleLoginClick}>
+            Logga in
+          </LoginButton>
           <RegisterButton
             fullWidth
             variant="outlined"
@@ -40,9 +43,6 @@ const LandingPage: FC = () => {
           >
             Bli medlem
           </RegisterButton>
-          <LoginButton fullWidth variant="contained" onClick={handleLoginClick}>
-            Logga in
-          </LoginButton>
         </ActionButtonsGroup>
       </HomeSubContainer>
     </HomeContainer>

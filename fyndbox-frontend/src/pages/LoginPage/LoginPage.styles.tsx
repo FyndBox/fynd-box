@@ -1,7 +1,7 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const LoginFormContainer = styled(Container)(({ theme }) => ({
+export const LoginFormContainer = styled(Container)(({}) => ({
   height: '100vh',
 }));
 
