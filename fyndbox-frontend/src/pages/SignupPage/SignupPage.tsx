@@ -2,12 +2,14 @@ import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
+import { FormHelperText } from '@mui/material';
 import {
   StyledContainer,
-  StyledTypography,
-  StyledButton,
   StyledTextField,
+  SignupHeader,
+  RegisterButton,
+  ActionButtonsGroup,
+  
 } from './SignupPage.styles';
 
 export const SignupPage = () => {
@@ -15,13 +17,13 @@ export const SignupPage = () => {
     <div>
       <form>
         <StyledContainer>
-          <StyledTypography variant="h2">Skapa nytt konto</StyledTypography>
+          <SignupHeader variant="h2">Skapa nytt konto</SignupHeader>
 
           <StyledTextField
             fullWidth
             margin="normal"
             type={'text'}
-            label="Name"
+            label="Namn"
             variant="standard"
             slotProps={{
               input: {
@@ -37,9 +39,14 @@ export const SignupPage = () => {
             fullWidth
             margin="normal"
             type={'email'}
-            label="Email@example.com"
+            label="email@adress.com"
             variant="standard"
-            helperText="*Some important text"
+            // helperText=" * Vänligen ange giltig e-postadress"
+            helperText={
+              <FormHelperText>
+                <span style={{ color: 'red' }}>*</span> Vänligen ange giltig e-postadress
+              </FormHelperText>
+            }
             slotProps={{
               input: {
                 startAdornment: (
@@ -50,11 +57,12 @@ export const SignupPage = () => {
               },
             }}
           />
+
           <StyledTextField
             fullWidth
             margin="normal"
             type={'password'}
-            label="Password"
+            label="Losenard"
             variant="standard"
             slotProps={{
               input: {
@@ -66,8 +74,17 @@ export const SignupPage = () => {
               },
             }}
           />
-
-          <StyledButton variant="outlined">Bli meolem</StyledButton>
+ 
+          <ActionButtonsGroup>
+            <RegisterButton
+              fullWidth
+              variant="outlined"
+              // onClick={handleSignupClick}
+            >
+              Bli medlem
+            </RegisterButton>
+          </ActionButtonsGroup>
+    
         </StyledContainer>
       </form>
     </div>

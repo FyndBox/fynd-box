@@ -28,7 +28,7 @@ const LoginPage: FC = () => {
 
       <TextFieldsContainer>
         <TextField
-          fullWidth
+          fullWidth 
           label="Email"
           variant="standard"
           margin="normal"
