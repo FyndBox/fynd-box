@@ -16,6 +16,7 @@ import {
 } from './LoginPage.styles';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { isEmailValid, isPasswordValidForLogin } from '../../utils/validation';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
@@ -27,24 +28,11 @@ const LoginPage: FC = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  const isValidEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
   const handleLoginClick = async () => {
-    setEmailError(false);
-    setPasswordError(false);
+    setEmailError(!isEmailValid(email));
+    setPasswordError(!isPasswordValidForLogin(password));
 
-    if (!email || !isValidEmail(email)) {
-      setEmailError(true);
-    }
-
-    if (!password) {
-      setPasswordError(true);
-    }
-
-    if (email && isValidEmail(email) && password) {
+    if (isEmailValid(email) && isPasswordValidForLogin(password)) {
       const success = await login(email, password);
 
       if (success) {

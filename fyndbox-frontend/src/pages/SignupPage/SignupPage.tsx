@@ -17,6 +17,11 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import {
+  isEmailValid,
+  isNameValid,
+  isPasswordValid,
+} from '../../utils/validation';
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -29,39 +34,10 @@ export const SignupPage = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  const isNameValid = (name: string): boolean => {
-    if (!name.trim() || name.length < 3 || name.length > 50) {
-      return false;
-    }
-    const regex = /^[A-Za-z\s]+$/;
-    return regex.test(name);
-  };
-
-  const isEmailValid = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email)) {
-      return false;
-    }
-    return true;
-  };
-
-  const isPasswordValid = (password: string): boolean => {
-    const passwordRegex =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/;
-    if (!password || !passwordRegex.test(password)) {
-      return false;
-    }
-    return true;
-  };
-
   const handleSignupClick = async () => {
-    setNameError(false);
-    setEmailError(false);
-    setPasswordError(false);
-
-    if (!isNameValid(name)) setNameError(true);
-    if (!isEmailValid(email)) setEmailError(true);
-    if (!isPasswordValid(password)) setPasswordError(true);
+    setNameError(!isNameValid(name));
+    setEmailError(!isEmailValid(email));
+    setPasswordError(!isPasswordValid(password));
 
     if (isNameValid(name) && isEmailValid(email) && isPasswordValid(password)) {
       const success = await signup(name, email, password);
