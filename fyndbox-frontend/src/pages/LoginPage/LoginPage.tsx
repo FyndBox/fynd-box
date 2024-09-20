@@ -36,8 +36,6 @@ const LoginPage: FC = () => {
     setEmailError(false);
     setPasswordError(false);
 
-    console.info(isValidEmail(email));
-
     if (!email || !isValidEmail(email)) {
       setEmailError(true);
     }
@@ -69,11 +67,11 @@ const LoginPage: FC = () => {
       <TextFieldsContainer>
         <TextField
           fullWidth
-          label="Email"
+          label="E-postadress"
           type="email"
           variant="standard"
           margin="normal"
-          placeholder="example@domain.com"
+          placeholder="exempel@domän.com"
           value={email}
           onChange={(e) => {
             setEmailError(false);

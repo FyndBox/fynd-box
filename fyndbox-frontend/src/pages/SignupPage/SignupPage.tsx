@@ -1,6 +1,12 @@
 import InputAdornment from '@mui/material/InputAdornment';
-import { IconButton,TextField } from '@mui/material';
-import {  Email, Lock, AccountCircle,Visibility, VisibilityOff} from '@mui/icons-material';
+import { IconButton, TextField, Typography } from '@mui/material';
+import {
+  Email,
+  Lock,
+  AccountCircle,
+  Visibility,
+  VisibilityOff,
+} from '@mui/icons-material';
 import {
   SignupContainer,
   SignupHeader,
@@ -19,71 +25,49 @@ export const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [nameError, setNameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [nameError, setNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
-  // Function to validate the name input: no numbers and not empty
-  const validateName = (name: string) => {
-    const regex = /^[A-Za-z\s]+$/; // Only letters and spaces
-    if (!name) {
-      setNameError('Name cannot be empty.');
+  const isNameValid = (name: string): boolean => {
+    if (!name.trim() || name.length < 3 || name.length > 50) {
       return false;
-    } else if (!regex.test(name)) {
-      setNameError('Name should only contain letters and spaces.');
-      return false;
-    } else if (password.length > 20) {
-      setPasswordError('Password cannot exceed 20 characters.');
-      return false;
-    } else {
-      setNameError('');
-      return true;
     }
+    const regex = /^[A-Za-z\s]+$/;
+    return regex.test(name);
   };
 
-  // Function to validate email
-  const isValidEmail = (email: string) => {
+  const isEmailValid = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email || !emailRegex.test(email)) {
-      setEmailError('Please provide a valid email address.');
       return false;
-    } else {
-      setEmailError('');
-      return true;
     }
+    return true;
   };
 
-  // Function to validate password
-  const isValidPassword = (password: string) => {
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{1,20}$/;
-    if (!password) {
-      setPasswordError('Password cannot be empty.');
+  const isPasswordValid = (password: string): boolean => {
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/;
+    if (!password || !passwordRegex.test(password)) {
       return false;
-    } else if (!passwordRegex.test(password)) {
-      setPasswordError('Password must include letters, numbers, and special characters.');
-      return false;
-    } else if (password.length > 20) {
-      setPasswordError('Password cannot exceed 20 characters.');
-      return false;
-    } else {
-      setPasswordError('');
-      return true;
     }
+    return true;
   };
 
-  // Function to handle form submission
   const handleSignupClick = async () => {
-    const isNameValid = validateName(name);
-    const isEmailValid = isValidEmail(email);
-    const isPasswordValid = isValidPassword(password);
+    setNameError(false);
+    setEmailError(false);
+    setPasswordError(false);
 
-    if (isNameValid && isEmailValid && isPasswordValid) {
-      const success = await signup(name, email, password); // Call signup function from your auth context
+    if (!isNameValid(name)) setNameError(true);
+    if (!isEmailValid(email)) setEmailError(true);
+    if (!isPasswordValid(password)) setPasswordError(true);
+
+    if (isNameValid(name) && isEmailValid(email) && isPasswordValid(password)) {
+      const success = await signup(name, email, password);
       if (success) {
         alert('Signup successful!');
-        navigate('/dashboard'); // Redirect after successful signup
-      } else {
-        setError('Signup failed. Please try again.');
+        navigate('/dashboard');
       }
     }
   };
@@ -91,7 +75,7 @@ export const SignupPage = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  
+
   return (
     <SignupContainer>
       <SignupHeader variant="h2">Skapa nytt konto</SignupHeader>
@@ -106,11 +90,21 @@ export const SignupPage = () => {
           value={name}
           onChange={(e) => {
             setName(e.target.value);
-            if (error) setError(null); // Clear error from previous attempt
+            setNameError(false);
+            if (error) setError(null);
           }}
-          error={!!nameError}
-          helperText={nameError}
-          inputProps={{ maxLength: 20 }}
+          error={nameError}
+          helperText={
+            nameError ? (
+              <>
+                * Vänligen ange ett giltigt namn: <br />
+                - Namnet får bara innehålla bokstäver och mellanslag. <br />-
+                Namnet måste vara 3-50 tecken långt.
+              </>
+            ) : (
+              ''
+            )
+          }
           slotProps={{
             input: {
               startAdornment: (
@@ -125,16 +119,17 @@ export const SignupPage = () => {
           fullWidth
           margin="normal"
           type="email"
-          placeholder="example@domain.com"
-          label="Email"
+          placeholder="exempel@domän.com"
+          label="E-postadress"
           variant="standard"
           value={email}
           onChange={(e) => {
+            setEmailError(false);
             setEmail(e.target.value);
             if (error) setError(null);
           }}
-          error={!!emailError}
-          helperText={emailError}
+          error={emailError}
+          helperText={emailError ? '* Vänligen ange giltig e-postadress' : ''}
           slotProps={{
             input: {
               startAdornment: (
@@ -149,18 +144,30 @@ export const SignupPage = () => {
         <TextField
           fullWidth
           margin="normal"
-          type="password"
           label="Lösenord"
           placeholder=""
           variant="standard"
-          inputProps={{ maxLength: 20 }}
           value={password}
+          type={showPassword ? 'text' : 'password'}
           onChange={(e) => {
             setPassword(e.target.value);
+            setPasswordError(false);
             if (error) setError(null);
           }}
-          error={!!passwordError}
-          helperText={passwordError}
+          error={passwordError}
+          helperText={
+            passwordError ? (
+              <>
+                * Vänligen ange ett giltigt lösenord: <br />
+                - Måste innehålla 8-20 tecken <br />
+                - Måste innehålla minst en bokstav <br />
+                - Måste innehålla minst en siffra <br />- Måste innehålla minst
+                ett specialtecken (endast @$!%*#?& är tillåtna) .
+              </>
+            ) : (
+              ''
+            )
+          }
           slotProps={{
             input: {
               startAdornment: (
@@ -183,7 +190,11 @@ export const SignupPage = () => {
           }}
         />
       </TextFieldsContainer>
-
+      {error && (
+        <Typography variant="caption" color="error">
+          {error}
+        </Typography>
+      )}
       <ActionButtonsGroup>
         <RegisterButton
           fullWidth
