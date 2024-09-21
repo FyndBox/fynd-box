@@ -7,12 +7,7 @@ import {
   Visibility,
   VisibilityOff,
 } from '@mui/icons-material';
-import {
-  SignupContainer,
-  RegisterButton,
-  ActionButtonsGroup,
-  TextFieldsContainer,
-} from './SignupPage.styles';
+import { SignupContainer, TextFieldsContainer } from './SignupPage.styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
@@ -23,6 +18,7 @@ import {
 } from '../../utils/validation';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
+import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -174,15 +170,10 @@ export const SignupPage = () => {
             {error}
           </Typography>
         )}
-        <ActionButtonsGroup>
-          <RegisterButton
-            fullWidth
-            variant="outlined"
-            onClick={handleSignupClick}
-          >
-            Bli medlem
-          </RegisterButton>
-        </ActionButtonsGroup>
+        <AuthButtonsGroup
+          showLoginButton={false}
+          onRegisterClick={handleSignupClick}
+        />
       </SignupContainer>
     </>
   );

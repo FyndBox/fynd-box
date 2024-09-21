@@ -6,18 +6,13 @@ import {
   Typography,
 } from '@mui/material';
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
-import {
-  LoginFormContainer,
-  ActionButtonsGroup,
-  TextFieldsContainer,
-  LoginButton,
-  RegisterButton,
-} from './LoginPage.styles';
+import { LoginFormContainer, TextFieldsContainer } from './LoginPage.styles';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { isEmailValid, isPasswordValidForLogin } from '../../utils/validation';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
+import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
@@ -123,18 +118,10 @@ const LoginPage: FC = () => {
             {error}
           </Typography>
         )}
-        <ActionButtonsGroup>
-          <LoginButton fullWidth variant="contained" onClick={handleLoginClick}>
-            Logga in
-          </LoginButton>
-          <RegisterButton
-            fullWidth
-            variant="outlined"
-            onClick={handleSignupClick}
-          >
-            Bli medlem
-          </RegisterButton>
-        </ActionButtonsGroup>
+        <AuthButtonsGroup
+          onLoginClick={handleLoginClick}
+          onRegisterClick={handleSignupClick}
+        />
       </LoginFormContainer>
     </>
   );

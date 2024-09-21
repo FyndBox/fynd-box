@@ -1,13 +1,8 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  ActionButtonsGroup,
-  HomeContainer,
-  RegisterButton,
-  LoginButton,
-  HomeSubContainer,
-} from './LandingPage.styles';
 import { Typography } from '@mui/material';
+import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
+import { HomeContainer, HomeSubContainer } from './LandingPage.styles';
 
 const LandingPage: FC = () => {
   const navigate = useNavigate();
@@ -32,18 +27,10 @@ const LandingPage: FC = () => {
           organisera och hantera dina inventarier genom att lägga till lådor och
           ange bilder samt antal för varje objekt.
         </Typography>
-        <ActionButtonsGroup mt={10}>
-          <LoginButton fullWidth variant="contained" onClick={handleLoginClick}>
-            Logga in
-          </LoginButton>
-          <RegisterButton
-            fullWidth
-            variant="outlined"
-            onClick={handleSignupClick}
-          >
-            Bli medlem
-          </RegisterButton>
-        </ActionButtonsGroup>
+        <AuthButtonsGroup
+          onLoginClick={handleLoginClick}
+          onRegisterClick={handleSignupClick}
+        />
       </HomeSubContainer>
     </HomeContainer>
   );
