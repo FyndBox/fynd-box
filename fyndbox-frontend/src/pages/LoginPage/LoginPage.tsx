@@ -1,10 +1,5 @@
 import { FC, useState } from 'react';
-import {
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import { LoginFormContainer } from './LoginPage.styles';
 import { useNavigate } from 'react-router-dom';
