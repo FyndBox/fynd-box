@@ -1,21 +1,17 @@
 import { FC, useState } from 'react';
-import {
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
-import {
-  LoginFormContainer,
-  LoginHeader,
-  ActionButtonsGroup,
-  TextFieldsContainer,
-  LoginButton,
-  RegisterButton,
-} from './LoginPage.styles';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { isEmailValid, isPasswordValidForLogin } from '../../utils/validation';
+import AppHeader from '../../components/AppHeader/AppHeader';
+import PageHeader from '../../components/PageHeader/PageHeader';
+import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
+import CustomTextField from '../../components/CustomTextField/CustomTextField';
+import {
+  FullPageContainer,
+  TextFieldsContainer,
+} from '../../styles/commonStyles';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
@@ -27,26 +23,11 @@ const LoginPage: FC = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  const isValidEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
   const handleLoginClick = async () => {
-    setEmailError(false);
-    setPasswordError(false);
+    setEmailError(!isEmailValid(email));
+    setPasswordError(!isPasswordValidForLogin(password));
 
-    console.info(isValidEmail(email));
-
-    if (!email || !isValidEmail(email)) {
-      setEmailError(true);
-    }
-
-    if (!password) {
-      setPasswordError(true);
-    }
-
-    if (email && isValidEmail(email) && password) {
+    if (isEmailValid(email) && isPasswordValidForLogin(password)) {
       const success = await login(email, password);
 
       if (success) {
@@ -64,89 +45,59 @@ const LoginPage: FC = () => {
   };
 
   return (
-    <LoginFormContainer maxWidth="md">
-      <LoginHeader variant="h2">Logga in</LoginHeader>
-      <TextFieldsContainer>
-        <TextField
-          fullWidth
-          label="Email"
-          type="email"
-          variant="standard"
-          margin="normal"
-          placeholder="example@domain.com"
-          value={email}
-          onChange={(e) => {
-            setEmailError(false);
-            setEmail(e.target.value);
-            if (error) setError(null);
-          }}
-          error={emailError}
-          helperText={emailError ? '* Vänligen ange giltig e-postadress' : ''}
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Email />
-                </InputAdornment>
-              ),
-            },
-          }}
+    <>
+      <AppHeader />
+      <FullPageContainer>
+        <PageHeader heading="Logga in" />
+        <TextFieldsContainer>
+          <CustomTextField
+            label="E-postadress"
+            type="email"
+            placeholder="exempel@domän.com"
+            value={email}
+            onChange={(e) => {
+              setEmailError(false);
+              setEmail(e.target.value);
+              if (error) setError(null);
+            }}
+            error={emailError}
+            helperText={emailError ? '* Vänligen ange giltig e-postadress' : ''}
+            startIcon={<Email />}
+          />
+          <CustomTextField
+            label="Lösenord"
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setPasswordError(false);
+              if (error) setError(null);
+            }}
+            error={passwordError}
+            helperText={passwordError ? '* Lösenord krävs' : ''}
+            startIcon={<Lock />}
+            endIcon={
+              <IconButton
+                onClick={togglePasswordVisibility}
+                aria-label="toggle password visibility"
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            }
+          />
+        </TextFieldsContainer>
+        {error && (
+          <Typography variant="caption" color="error">
+            {error}
+          </Typography>
+        )}
+        <AuthButtonsGroup
+          onLoginClick={handleLoginClick}
+          onRegisterClick={handleSignupClick}
         />
-
-        <TextField
-          fullWidth
-          label="Lösenord"
-          variant="standard"
-          margin="normal"
-          type={showPassword ? 'text' : 'password'}
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            setPasswordError(false);
-            if (error) setError(null);
-          }}
-          error={passwordError}
-          helperText={passwordError ? '* Lösenord krävs' : ''}
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Lock />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={togglePasswordVisibility}
-                    aria-label="toggle password visibility"
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
-      </TextFieldsContainer>
-      {error && (
-        <Typography variant="caption" color="error">
-          {error}
-        </Typography>
-      )}
-      <ActionButtonsGroup>
-        <LoginButton fullWidth variant="contained" onClick={handleLoginClick}>
-          Logga in
-        </LoginButton>
-        <RegisterButton
-          fullWidth
-          variant="outlined"
-          onClick={handleSignupClick}
-        >
-          Bli medlem
-        </RegisterButton>
-      </ActionButtonsGroup>
-    </LoginFormContainer>
+      </FullPageContainer>
+    </>
   );
 };
 

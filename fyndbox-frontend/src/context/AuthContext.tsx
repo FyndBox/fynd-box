@@ -25,7 +25,7 @@ const setTokenInLocalStorage = (token: string | null): void => {
 interface AuthContextType {
   token: string | null;
   login: (email: string, password: string) => Promise<boolean>;
-  signup: (name: string, email: string, password: string) => Promise<void>;
+  signup: (name: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isAuthenticated: boolean;
   error: string | null;
@@ -70,10 +70,12 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       const { access_token } = await signupApi(name, email, password);
       setToken(access_token);
       setTokenInLocalStorage(access_token);
+      return true;
     } catch (err) {
       setError(
         err instanceof Error ? err.message : 'An unknown error occurred',
       );
+      return false;
     }
   };
 
