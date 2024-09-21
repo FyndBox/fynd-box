@@ -16,7 +16,7 @@ const LandingPage: FC = () => {
   };
 
   return (
-    <HomeContainer maxWidth="md">
+    <HomeContainer>
       <HomeSubContainer>
         <Typography variant="h1" mb={8}>
           Välkommen till FyndBox
