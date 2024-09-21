@@ -6,7 +6,7 @@ export const LoginFormContainer = styled(Container)(({}) => ({
 }));
 
 export const LoginHeader = styled(Typography)(({ theme }) => ({
-  padding: theme.spacing(6, 0),
+  padding: theme.spacing(3, 0),
   alignSelf: 'flex-start',
 }));
 
@@ -15,7 +15,7 @@ export const TextFieldsContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(1),
   width: '100%',
-}));  
+}));
 
 export const ActionButtonsGroup = styled(Box)(({ theme }) => ({
   display: 'flex',

@@ -22,6 +22,7 @@ import {
   isNameValid,
   isPasswordValid,
 } from '../../utils/validation';
+import AppHeader from '../../components/AppHeader/AppHeader';
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -53,134 +54,137 @@ export const SignupPage = () => {
   };
 
   return (
-    <SignupContainer>
-      <SignupHeader variant="h2">Skapa nytt konto</SignupHeader>
+    <>
+      <AppHeader />
+      <SignupContainer>
+        <SignupHeader variant="h2">Skapa nytt konto</SignupHeader>
 
-      <TextFieldsContainer>
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Namn"
-          placeholder="John Doe"
-          variant="standard"
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-            setNameError(false);
-            if (error) setError(null);
-          }}
-          error={nameError}
-          helperText={
-            nameError ? (
-              <>
-                * Vänligen ange ett giltigt namn: <br />
-                - Namnet får bara innehålla bokstäver och mellanslag. <br />-
-                Namnet måste vara 3-50 tecken långt.
-              </>
-            ) : (
-              ''
-            )
-          }
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AccountCircle />
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
-        <TextField
-          fullWidth
-          margin="normal"
-          type="email"
-          placeholder="exempel@domän.com"
-          label="E-postadress"
-          variant="standard"
-          value={email}
-          onChange={(e) => {
-            setEmailError(false);
-            setEmail(e.target.value);
-            if (error) setError(null);
-          }}
-          error={emailError}
-          helperText={emailError ? '* Vänligen ange giltig e-postadress' : ''}
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Email />
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
+        <TextFieldsContainer>
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Namn"
+            placeholder="John Doe"
+            variant="standard"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              setNameError(false);
+              if (error) setError(null);
+            }}
+            error={nameError}
+            helperText={
+              nameError ? (
+                <>
+                  * Vänligen ange ett giltigt namn: <br />
+                  - Namnet får bara innehålla bokstäver och mellanslag. <br />-
+                  Namnet måste vara 3-50 tecken långt.
+                </>
+              ) : (
+                ''
+              )
+            }
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            type="email"
+            placeholder="exempel@domän.com"
+            label="E-postadress"
+            variant="standard"
+            value={email}
+            onChange={(e) => {
+              setEmailError(false);
+              setEmail(e.target.value);
+              if (error) setError(null);
+            }}
+            error={emailError}
+            helperText={emailError ? '* Vänligen ange giltig e-postadress' : ''}
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Email />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
 
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Lösenord"
-          placeholder=""
-          variant="standard"
-          value={password}
-          type={showPassword ? 'text' : 'password'}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            setPasswordError(false);
-            if (error) setError(null);
-          }}
-          error={passwordError}
-          helperText={
-            passwordError ? (
-              <>
-                * Vänligen ange ett giltigt lösenord: <br />
-                - Måste innehålla 8-20 tecken <br />
-                - Måste innehålla minst en bokstav <br />
-                - Måste innehålla minst en siffra <br />- Måste innehålla minst
-                ett specialtecken (endast @$!%*#?& är tillåtna) .
-              </>
-            ) : (
-              ''
-            )
-          }
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Lock />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={togglePasswordVisibility}
-                    aria-label="toggle password visibility"
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
-      </TextFieldsContainer>
-      {error && (
-        <Typography variant="caption" color="error">
-          {error}
-        </Typography>
-      )}
-      <ActionButtonsGroup>
-        <RegisterButton
-          fullWidth
-          variant="outlined"
-          onClick={handleSignupClick}
-        >
-          Bli medlem
-        </RegisterButton>
-      </ActionButtonsGroup>
-    </SignupContainer>
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Lösenord"
+            placeholder=""
+            variant="standard"
+            value={password}
+            type={showPassword ? 'text' : 'password'}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setPasswordError(false);
+              if (error) setError(null);
+            }}
+            error={passwordError}
+            helperText={
+              passwordError ? (
+                <>
+                  * Vänligen ange ett giltigt lösenord: <br />
+                  - Måste innehålla 8-20 tecken <br />
+                  - Måste innehålla minst en bokstav <br />
+                  - Måste innehålla minst en siffra <br />- Måste innehålla
+                  minst ett specialtecken (endast @$!%*#?& är tillåtna) .
+                </>
+              ) : (
+                ''
+              )
+            }
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Lock />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={togglePasswordVisibility}
+                      aria-label="toggle password visibility"
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+        </TextFieldsContainer>
+        {error && (
+          <Typography variant="caption" color="error">
+            {error}
+          </Typography>
+        )}
+        <ActionButtonsGroup>
+          <RegisterButton
+            fullWidth
+            variant="outlined"
+            onClick={handleSignupClick}
+          >
+            Bli medlem
+          </RegisterButton>
+        </ActionButtonsGroup>
+      </SignupContainer>
+    </>
   );
 };
 

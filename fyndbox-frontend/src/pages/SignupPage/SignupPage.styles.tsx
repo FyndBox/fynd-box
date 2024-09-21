@@ -6,7 +6,7 @@ export const SignupContainer = styled(Container)({
 });
 
 export const SignupHeader = styled(Typography)(({ theme }) => ({
-  padding: theme.spacing(6, 0),
+  padding: theme.spacing(3, 0),
   alignSelf: 'flex-start',
 }));
 
