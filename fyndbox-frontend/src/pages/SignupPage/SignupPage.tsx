@@ -7,7 +7,7 @@ import {
   Visibility,
   VisibilityOff,
 } from '@mui/icons-material';
-import { SignupContainer, TextFieldsContainer } from './SignupPage.styles';
+import { SignupContainer } from './SignupPage.styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
@@ -19,6 +19,7 @@ import {
 import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
+import TextFieldsContainer from '../../components/TextFieldsContainer/TextFieldsContainer';
 
 export const SignupPage = () => {
   const navigate = useNavigate();
