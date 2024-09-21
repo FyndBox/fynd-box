@@ -8,7 +8,6 @@ import {
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   LoginFormContainer,
-  LoginHeader,
   ActionButtonsGroup,
   TextFieldsContainer,
   LoginButton,
@@ -18,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { isEmailValid, isPasswordValidForLogin } from '../../utils/validation';
 import AppHeader from '../../components/AppHeader/AppHeader';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const LoginPage: FC = () => {
     <>
       <AppHeader />
       <LoginFormContainer maxWidth="md">
-        <LoginHeader variant="h2">Logga in</LoginHeader>
+        <PageHeader heading="Logga in" />
         <TextFieldsContainer>
           <TextField
             fullWidth

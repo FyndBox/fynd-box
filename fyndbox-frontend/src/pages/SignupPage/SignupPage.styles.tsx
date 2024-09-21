@@ -1,14 +1,9 @@
-import { Typography, Button, Container, Box } from '@mui/material';
+import { Button, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const SignupContainer = styled(Container)({
   height: '100vh',
 });
-
-export const SignupHeader = styled(Typography)(({ theme }) => ({
-  padding: theme.spacing(3, 0),
-  alignSelf: 'flex-start',
-}));
 
 export const TextFieldsContainer = styled(Box)(({ theme }) => ({
   display: 'flex',

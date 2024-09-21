@@ -9,7 +9,6 @@ import {
 } from '@mui/icons-material';
 import {
   SignupContainer,
-  SignupHeader,
   RegisterButton,
   ActionButtonsGroup,
   TextFieldsContainer,
@@ -23,6 +22,7 @@ import {
   isPasswordValid,
 } from '../../utils/validation';
 import AppHeader from '../../components/AppHeader/AppHeader';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ export const SignupPage = () => {
     <>
       <AppHeader />
       <SignupContainer>
-        <SignupHeader variant="h2">Skapa nytt konto</SignupHeader>
+        <PageHeader heading="Skapa nytt konto" />
 
         <TextFieldsContainer>
           <TextField

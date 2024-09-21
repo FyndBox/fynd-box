@@ -1,13 +1,8 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const LoginFormContainer = styled(Container)(({}) => ({
   height: '100vh',
-}));
-
-export const LoginHeader = styled(Typography)(({ theme }) => ({
-  padding: theme.spacing(3, 0),
-  alignSelf: 'flex-start',
 }));
 
 export const TextFieldsContainer = styled(Box)(({ theme }) => ({
