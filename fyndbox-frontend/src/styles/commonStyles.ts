@@ -1,5 +1,9 @@
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
+
+export const FullPageContainer = styled(Container)({
+  height: '100vh',
+});
 
 export const TextFieldsContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -7,5 +11,3 @@ export const TextFieldsContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
   width: '100%',
 }));
-
-export default TextFieldsContainer;

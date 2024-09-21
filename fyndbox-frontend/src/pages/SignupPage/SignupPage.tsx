@@ -6,7 +6,6 @@ import {
   Visibility,
   VisibilityOff,
 } from '@mui/icons-material';
-import { SignupContainer } from './SignupPage.styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
@@ -18,8 +17,11 @@ import {
 import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
-import TextFieldsContainer from '../../components/TextFieldsContainer/TextFieldsContainer';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
+import {
+  FullPageContainer,
+  TextFieldsContainer,
+} from '../../styles/commonStyles';
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -53,7 +55,7 @@ export const SignupPage = () => {
   return (
     <>
       <AppHeader />
-      <SignupContainer>
+      <FullPageContainer>
         <PageHeader heading="Skapa nytt konto" />
         <TextFieldsContainer>
           <CustomTextField
@@ -137,7 +139,7 @@ export const SignupPage = () => {
           showLoginButton={false}
           onRegisterClick={handleSignupClick}
         />
-      </SignupContainer>
+      </FullPageContainer>
     </>
   );
 };

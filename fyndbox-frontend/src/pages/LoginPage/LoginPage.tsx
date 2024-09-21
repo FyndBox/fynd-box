@@ -1,15 +1,17 @@
 import { FC, useState } from 'react';
 import { IconButton, Typography } from '@mui/material';
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
-import { LoginFormContainer } from './LoginPage.styles';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { isEmailValid, isPasswordValidForLogin } from '../../utils/validation';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
-import TextFieldsContainer from '../../components/TextFieldsContainer/TextFieldsContainer';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
+import {
+  FullPageContainer,
+  TextFieldsContainer,
+} from '../../styles/commonStyles';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ const LoginPage: FC = () => {
   return (
     <>
       <AppHeader />
-      <LoginFormContainer maxWidth="md">
+      <FullPageContainer>
         <PageHeader heading="Logga in" />
         <TextFieldsContainer>
           <CustomTextField
@@ -94,7 +96,7 @@ const LoginPage: FC = () => {
           onLoginClick={handleLoginClick}
           onRegisterClick={handleSignupClick}
         />
-      </LoginFormContainer>
+      </FullPageContainer>
     </>
   );
 };
