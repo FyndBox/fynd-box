@@ -6,13 +6,14 @@ import {
   Typography,
 } from '@mui/material';
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
-import { LoginFormContainer, TextFieldsContainer } from './LoginPage.styles';
+import { LoginFormContainer } from './LoginPage.styles';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { isEmailValid, isPasswordValidForLogin } from '../../utils/validation';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
+import TextFieldsContainer from '../../components/TextFieldsContainer/TextFieldsContainer';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
