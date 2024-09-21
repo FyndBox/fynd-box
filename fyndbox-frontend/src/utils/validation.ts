@@ -2,7 +2,7 @@ export const isNameValid = (name: string): boolean => {
   if (!name.trim() || name.length < 3 || name.length > 50) {
     return false;
   }
-  const regex = /^[A-Za-z\s]+$/;
+  const regex = /^[A-Za-z\s'-]+$/;
   return regex.test(name);
 };
 
