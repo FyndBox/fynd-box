@@ -11,8 +11,8 @@ const AppHeader: FC = () => {
   };
 
   return (
-    <AppHeaderContainer onClick={handleLogoClick}>
-      <img src={appLogo} alt="Home" height={100}/>
+    <AppHeaderContainer>
+      <img src={appLogo} alt="Home" height={100} onClick={handleLogoClick} />
     </AppHeaderContainer>
   );
 };
