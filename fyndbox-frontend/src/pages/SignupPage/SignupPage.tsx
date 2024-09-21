@@ -1,5 +1,4 @@
-import InputAdornment from '@mui/material/InputAdornment';
-import { IconButton, TextField, Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import {
   Email,
   Lock,
@@ -20,6 +19,7 @@ import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import TextFieldsContainer from '../../components/TextFieldsContainer/TextFieldsContainer';
+import CustomTextField from '../../components/CustomTextField/CustomTextField';
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -55,14 +55,10 @@ export const SignupPage = () => {
       <AppHeader />
       <SignupContainer>
         <PageHeader heading="Skapa nytt konto" />
-
         <TextFieldsContainer>
-          <TextField
-            fullWidth
-            margin="normal"
+          <CustomTextField
             label="Namn"
             placeholder="John Doe"
-            variant="standard"
             value={name}
             onChange={(e) => {
               setName(e.target.value);
@@ -81,50 +77,26 @@ export const SignupPage = () => {
                 ''
               )
             }
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircle />
-                  </InputAdornment>
-                ),
-              },
-            }}
+            startIcon={<AccountCircle />}
           />
-          <TextField
-            fullWidth
-            margin="normal"
-            type="email"
-            placeholder="exempel@domän.com"
+          <CustomTextField
             label="E-postadress"
-            variant="standard"
+            placeholder="exempel@domän.com"
+            type="email"
             value={email}
             onChange={(e) => {
-              setEmailError(false);
               setEmail(e.target.value);
+              setEmailError(false);
               if (error) setError(null);
             }}
             error={emailError}
             helperText={emailError ? '* Vänligen ange giltig e-postadress' : ''}
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Email />
-                  </InputAdornment>
-                ),
-              },
-            }}
+            startIcon={<Email />}
           />
-
-          <TextField
-            fullWidth
-            margin="normal"
+          <CustomTextField
             label="Lösenord"
-            placeholder=""
-            variant="standard"
-            value={password}
             type={showPassword ? 'text' : 'password'}
+            value={password}
             onChange={(e) => {
               setPassword(e.target.value);
               setPasswordError(false);
@@ -144,26 +116,16 @@ export const SignupPage = () => {
                 ''
               )
             }
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Lock />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={togglePasswordVisibility}
-                      aria-label="toggle password visibility"
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              },
-            }}
+            startIcon={<Lock />}
+            endIcon={
+              <IconButton
+                onClick={togglePasswordVisibility}
+                aria-label="toggle password visibility"
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            }
           />
         </TextFieldsContainer>
         {error && (

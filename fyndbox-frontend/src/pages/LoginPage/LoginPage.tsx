@@ -14,6 +14,7 @@ import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import TextFieldsContainer from '../../components/TextFieldsContainer/TextFieldsContainer';
+import CustomTextField from '../../components/CustomTextField/CustomTextField';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
@@ -52,12 +53,9 @@ const LoginPage: FC = () => {
       <LoginFormContainer maxWidth="md">
         <PageHeader heading="Logga in" />
         <TextFieldsContainer>
-          <TextField
-            fullWidth
+          <CustomTextField
             label="E-postadress"
             type="email"
-            variant="standard"
-            margin="normal"
             placeholder="exempel@domän.com"
             value={email}
             onChange={(e) => {
@@ -67,22 +65,10 @@ const LoginPage: FC = () => {
             }}
             error={emailError}
             helperText={emailError ? '* Vänligen ange giltig e-postadress' : ''}
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Email />
-                  </InputAdornment>
-                ),
-              },
-            }}
+            startIcon={<Email />}
           />
-
-          <TextField
-            fullWidth
+          <CustomTextField
             label="Lösenord"
-            variant="standard"
-            margin="normal"
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => {
@@ -92,26 +78,16 @@ const LoginPage: FC = () => {
             }}
             error={passwordError}
             helperText={passwordError ? '* Lösenord krävs' : ''}
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Lock />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={togglePasswordVisibility}
-                      aria-label="toggle password visibility"
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              },
-            }}
+            startIcon={<Lock />}
+            endIcon={
+              <IconButton
+                onClick={togglePasswordVisibility}
+                aria-label="toggle password visibility"
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            }
           />
         </TextFieldsContainer>
         {error && (
