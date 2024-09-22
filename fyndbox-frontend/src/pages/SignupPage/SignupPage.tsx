@@ -8,6 +8,7 @@ import {
 } from '@mui/icons-material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import {
   isEmailValid,
@@ -25,6 +26,7 @@ import {
 
 export const SignupPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { signup, error, setError } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -56,11 +58,11 @@ export const SignupPage = () => {
     <>
       <AppHeader />
       <FullPageContainer>
-        <PageHeader heading="Skapa nytt konto" />
+        <PageHeader heading={t('signup.title')} />
         <TextFieldsContainer>
           <CustomTextField
-            label="Namn"
-            placeholder="John Doe"
+            label={t('signup.name.label')}
+            placeholder={t('signup.name.placeholder')}
             value={name}
             onChange={(e) => {
               setName(e.target.value);
@@ -69,21 +71,22 @@ export const SignupPage = () => {
             }}
             error={nameError}
             helperText={
-              nameError ? (
-                <>
-                  * Vänligen ange ett giltigt namn: <br />
-                  - Namnet får bara innehålla bokstäver och mellanslag. <br />-
-                  Namnet måste vara 3-50 tecken långt.
-                </>
-              ) : (
-                ''
-              )
+              nameError
+                ? t('signup.name.errorMessage')
+                    .split('\n')
+                    .map((line, index) => (
+                      <span key={index}>
+                        {line}
+                        <br />
+                      </span>
+                    ))
+                : ''
             }
             startIcon={<AccountCircle />}
           />
           <CustomTextField
-            label="E-postadress"
-            placeholder="exempel@domän.com"
+            label={t('common.email.label')}
+            placeholder={t('common.email.placeholder')}
             type="email"
             value={email}
             onChange={(e) => {
@@ -92,11 +95,11 @@ export const SignupPage = () => {
               if (error) setError(null);
             }}
             error={emailError}
-            helperText={emailError ? '* Vänligen ange giltig e-postadress' : ''}
+            helperText={emailError ? t('common.email.errorMessage') : ''}
             startIcon={<Email />}
           />
           <CustomTextField
-            label="Lösenord"
+            label={t('common.password.label')}
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => {
@@ -106,17 +109,16 @@ export const SignupPage = () => {
             }}
             error={passwordError}
             helperText={
-              passwordError ? (
-                <>
-                  * Vänligen ange ett giltigt lösenord: <br />
-                  - Måste innehålla 8-20 tecken <br />
-                  - Måste innehålla minst en bokstav <br />
-                  - Måste innehålla minst en siffra <br />- Måste innehålla
-                  minst ett specialtecken (endast @$!%*#?& är tillåtna) .
-                </>
-              ) : (
-                ''
-              )
+              passwordError
+                ? t('common.password.signupErrorMessage')
+                    .split('\n')
+                    .map((line, index) => (
+                      <span key={index}>
+                        {line}
+                        <br />
+                      </span>
+                    ))
+                : ''
             }
             startIcon={<Lock />}
             endIcon={

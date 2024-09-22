@@ -10,7 +10,11 @@
     "signup": {
       "title": "Skapa nytt konto",
       "submit": "Bli medlem",
-      "name": "Namn"
+      "name": {
+        "label": "Namn",
+        "placeholder": "John Doe",
+        "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
+      }
     },
     "common":{
       "email": {
@@ -21,7 +25,8 @@
       "password": {
         "label": "Lösenord",
         "placeholder": "",
-        "errorMessage": "* Lösenord krävs"
+        "loginErrorMessage": "* Lösenord krävs",
+        "signupErrorMessage": "* Vänligen ange ett giltigt lösenord: \n - Måste innehålla 8-20 tecken \n - Måste innehålla minst en bokstav \n - Måste innehålla minst en siffra \n - Måste innehålla minst ett specialtecken (endast @$!%*#?& är tillåtna)"
       }
     }
 }
