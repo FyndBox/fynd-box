@@ -1,15 +1,19 @@
-{
+{   
+    "home": {
+      "title": "Welcome to FyndBox",
+      "description": "We offer an efficient and flexible solution to gain complete control over your inventory. With our web platform, you can easily organize and manage your inventory by adding boxes and specifying images and quantities for each item."
+    },
     "login": {
       "title": "Log in",
-      "email": "Email",
-      "password": "Password",
       "submit": "Submit"
     },
     "signup": {
       "title": "Sign up",
-      "email": "Email",
-      "password": "Password",
       "name": "Name"
+    },
+    "common":{
+      "email": "Email",
+      "password": "Password"
     }
 }
   

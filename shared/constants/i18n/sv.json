@@ -1,15 +1,19 @@
-{
+{   
+    "home": {
+      "title": "Välkommen till FyndBox",
+      "description": "Vi erbjuder en effektiv och smidig lösning för att få fullständig kontroll över ditt lager. Med vår webbplatform kan du enkelt organisera och hantera dina inventarier genom att lägga till lådor och ange bilder samt antal för varje objekt."
+    },
     "login": {
       "title": "Logga in",
-      "email": "E-postadress",
-      "password": "Lösenord",
       "submit": "Logga in"
     },
     "signup": {
       "title": "Bli medlem",
-      "email": "E-postadress",
-      "password": "Lösenord",
       "name": "Namn"
+    },
+    "common":{
+      "email": "E-postadress",
+      "password": "Lösenord"
     }
 }
   
