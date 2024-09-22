@@ -1,0 +1,15 @@
+{
+    "login": {
+      "title": "Logga in",
+      "email": "E-postadress",
+      "password": "Lösenord",
+      "submit": "Logga in"
+    },
+    "signup": {
+      "title": "Bli medlem",
+      "email": "E-postadress",
+      "password": "Lösenord",
+      "name": "Namn"
+    }
+}
+  

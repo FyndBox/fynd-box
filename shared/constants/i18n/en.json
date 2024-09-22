@@ -1,0 +1,15 @@
+{
+    "login": {
+      "title": "Log in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Submit"
+    },
+    "signup": {
+      "title": "Sign up",
+      "email": "Email",
+      "password": "Password",
+      "name": "Name"
+    }
+}
+  
