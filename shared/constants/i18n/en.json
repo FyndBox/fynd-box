@@ -5,15 +5,24 @@
     },
     "login": {
       "title": "Log in",
-      "submit": "Submit"
+      "submit": "Log in"
     },
     "signup": {
-      "title": "Sign up",
+      "title": "Create new account",
+      "submit": "Sign up",
       "name": "Name"
     },
     "common":{
-      "email": "Email",
-      "password": "Password"
+      "email": {
+        "label": "Email",
+        "placeholder": "example@domain.com",
+        "errorMessage": "* Please enter a valid email address"
+        },
+      "password": {
+        "label": "Password",
+        "placeholder": "",
+        "errorMessage": "* Password required"
+      }
     }
 }
   

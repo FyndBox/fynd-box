@@ -5,6 +5,7 @@ import {
   LoginButton,
   RegisterButton,
 } from './AuthButtonsGroup.styles';
+import { useTranslation } from 'react-i18next';
 
 interface AuthButtonsGroupProps {
   showLoginButton?: boolean;
@@ -19,16 +20,17 @@ const AuthButtonsGroup: FC<AuthButtonsGroupProps> = ({
   onLoginClick,
   onRegisterClick,
 }) => {
+  const { t } = useTranslation();
   return (
     <AuthButtonsWrapper>
       {showLoginButton && (
         <LoginButton fullWidth variant="contained" onClick={onLoginClick}>
-          Logga in
+          {t('login.submit')}
         </LoginButton>
       )}
       {showRegisterButton && (
         <RegisterButton fullWidth variant="outlined" onClick={onRegisterClick}>
-          Bli medlem
+          {t('signup.submit')}
         </RegisterButton>
       )}
     </AuthButtonsWrapper>

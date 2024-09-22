@@ -8,12 +8,21 @@
       "submit": "Logga in"
     },
     "signup": {
-      "title": "Bli medlem",
+      "title": "Skapa nytt konto",
+      "submit": "Bli medlem",
       "name": "Namn"
     },
     "common":{
-      "email": "E-postadress",
-      "password": "Lösenord"
+      "email": {
+        "label": "E-postadress",
+        "placeholder": "exempel@domän.com",
+        "errorMessage": "* Vänligen ange giltig e-postadress"
+        },
+      "password": {
+        "label": "Lösenord",
+        "placeholder": "",
+        "errorMessage": "* Lösenord krävs"
+      }
     }
 }
   
