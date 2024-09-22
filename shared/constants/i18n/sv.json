@@ -1,0 +1,33 @@
+{   
+    "home": {
+      "title": "Välkommen till FyndBox",
+      "description": "Vi erbjuder en effektiv och smidig lösning för att få fullständig kontroll över ditt lager. Med vår webbplatform kan du enkelt organisera och hantera dina inventarier genom att lägga till lådor och ange bilder samt antal för varje objekt."
+    },
+    "login": {
+      "title": "Logga in",
+      "submit": "Logga in"
+    },
+    "signup": {
+      "title": "Skapa nytt konto",
+      "submit": "Bli medlem",
+      "name": {
+        "label": "Namn",
+        "placeholder": "John Doe",
+        "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
+      }
+    },
+    "common":{
+      "email": {
+        "label": "E-postadress",
+        "placeholder": "exempel@domän.com",
+        "errorMessage": "* Vänligen ange giltig e-postadress"
+        },
+      "password": {
+        "label": "Lösenord",
+        "placeholder": "",
+        "loginErrorMessage": "* Lösenord krävs",
+        "signupErrorMessage": "* Vänligen ange ett giltigt lösenord: \n - Måste innehålla 8-20 tecken \n - Måste innehålla minst en bokstav \n - Måste innehålla minst en siffra \n - Måste innehålla minst ett specialtecken (endast @$!%*#?& är tillåtna)"
+      }
+    }
+}
+  

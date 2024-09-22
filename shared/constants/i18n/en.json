@@ -1,0 +1,33 @@
+{   
+    "home": {
+      "title": "Welcome to FyndBox",
+      "description": "We offer an efficient and flexible solution to gain complete control over your inventory. With our web platform, you can easily organize and manage your inventory by adding boxes and specifying images and quantities for each item."
+    },
+    "login": {
+      "title": "Log in",
+      "submit": "Log in"
+    },
+    "signup": {
+      "title": "Create new account",
+      "submit": "Become a Member",
+      "name": {
+        "label": "Name",
+        "placeholder": "John Doe",
+        "errorMessage": "* Please enter a valid name: \n - The name must contain only letters and spaces \n - The name must be 3-50 characters long"
+      }
+    },
+    "common":{
+      "email": {
+        "label": "Email",
+        "placeholder": "example@domain.com",
+        "errorMessage": "* Please enter a valid email address"
+        },
+      "password": {
+        "label": "Password",
+        "placeholder": "",
+        "loginErrorMessage": "* Password required",
+        "signupErrorMessage": "* Please enter a valid password: \n - Must contain 8-20 characters \n - Must contain at least one letter \n - Must contain at least one number \n - Must contain at least one special character (only @$!%*#?& are allowed)"
+      }
+    }
+}
+  

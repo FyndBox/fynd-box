@@ -12,9 +12,11 @@ import {
   FullPageContainer,
   TextFieldsContainer,
 } from '../../styles/commonStyles';
+import { useTranslation } from 'react-i18next';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { login, error, setError } = useAuth();
 
   const [email, setEmail] = useState('');
@@ -48,12 +50,12 @@ const LoginPage: FC = () => {
     <>
       <AppHeader />
       <FullPageContainer>
-        <PageHeader heading="Logga in" />
+        <PageHeader heading={t('login.title')} />
         <TextFieldsContainer>
           <CustomTextField
-            label="E-postadress"
+            label={t('common.email.label')}
             type="email"
-            placeholder="exempel@domän.com"
+            placeholder={t('common.email.placeholder')}
             value={email}
             onChange={(e) => {
               setEmailError(false);
@@ -61,11 +63,11 @@ const LoginPage: FC = () => {
               if (error) setError(null);
             }}
             error={emailError}
-            helperText={emailError ? '* Vänligen ange giltig e-postadress' : ''}
+            helperText={emailError ? t('common.email.errorMessage') : ''}
             startIcon={<Email />}
           />
           <CustomTextField
-            label="Lösenord"
+            label={t('common.password.label')}
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => {
@@ -74,7 +76,9 @@ const LoginPage: FC = () => {
               if (error) setError(null);
             }}
             error={passwordError}
-            helperText={passwordError ? '* Lösenord krävs' : ''}
+            helperText={
+              passwordError ? t('common.password.loginErrorMessage') : ''
+            }
             startIcon={<Lock />}
             endIcon={
               <IconButton
