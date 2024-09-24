@@ -23,15 +23,18 @@ export class AuthService {
     @Inject(REQUEST) private request: Request,
   ) {}
 
+  private getLang(): string {
+    return this.request.language || 'en'; // Default to 'en' if language is undefined
+  }
+
   async login(loginDto: LoginDto): Promise<{ access_token: string }> {
     const user = await this.userService.findByEmail(loginDto.email);
-    const lang = this.request.language || 'en';
 
     if (!user) {
       throw new UnauthorizedException(
         this.translationService.getTranslation(
           'api.auth.login.error.invalidCredentials',
-          lang,
+          this.getLang(),
         ),
       );
     }
@@ -44,7 +47,7 @@ export class AuthService {
       throw new UnauthorizedException(
         this.translationService.getTranslation(
           'api.auth.login.error.invalidCredentials',
-          lang,
+          this.getLang(),
         ),
       );
     }
@@ -63,7 +66,12 @@ export class AuthService {
       .catch(() => null);
 
     if (existingUser) {
-      throw new BadRequestException('Email is already registered');
+      throw new BadRequestException(
+        this.translationService.getTranslation(
+          'api.auth.signup.error.emailAlreadyRegistered',
+          this.getLang(),
+        ),
+      );
     }
 
     const newUser = await this.userService.create(createUserDto);
@@ -85,7 +93,12 @@ export class AuthService {
       user.password,
     );
     if (!isPasswordValid) {
-      throw new BadRequestException('Current password is incorrect');
+      throw new BadRequestException(
+        this.translationService.getTranslation(
+          'api.auth.password.error.incorrectPassword',
+          this.getLang(),
+        ),
+      );
     }
 
     const hashedPassword = await bcrypt.hash(updatePasswordDto.newPassword, 10);

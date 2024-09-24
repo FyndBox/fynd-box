@@ -7,7 +7,6 @@ import {
   UseGuards,
   HttpException,
   HttpStatus,
-  Headers,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
@@ -27,8 +26,9 @@ export class AuthController {
   @Post('login')
   async login(
     @Body() loginDto: LoginDto,
-    @Headers('accept-language') lang: string = 'en',
+    @Request() req: any,
   ): Promise<ApiResponse<{ access_token: string }>> {
+    const lang = req.language;
     try {
       const token = await this.authService.login(loginDto);
       return {
@@ -59,13 +59,18 @@ export class AuthController {
   @Post('signup')
   async signup(
     @Body() createUserDto: CreateUserDto,
+    @Request() req: any,
   ): Promise<ApiResponse<{ access_token: string }>> {
+    const lang = req.language;
     try {
       const token = await this.authService.signup(createUserDto);
       return {
         statusCode: HttpStatus.CREATED,
         success: true,
-        message: 'User registered successfully',
+        message: this.translationService.getTranslation(
+          'api.auth.signup.success',
+          lang,
+        ),
         data: token,
       };
     } catch (error) {
@@ -73,7 +78,12 @@ export class AuthController {
         {
           statusCode: HttpStatus.BAD_REQUEST,
           success: false,
-          message: error.message || 'Error registering user',
+          message:
+            error.message ||
+            this.translationService.getTranslation(
+              'api.auth.signup.error.registrationFailed',
+              lang,
+            ),
           error: error.message,
         },
         HttpStatus.BAD_REQUEST,
@@ -88,19 +98,26 @@ export class AuthController {
     @Body() updatePasswordDto: UpdatePasswordDto,
   ): Promise<ApiResponse<void>> {
     const userId = req.user.userId;
+    const lang = req.language;
     try {
       await this.authService.updatePassword(userId, updatePasswordDto);
       return {
         statusCode: HttpStatus.OK,
         success: true,
-        message: 'Password updated successfully',
+        message: this.translationService.getTranslation(
+          'api.auth.password.success',
+          lang,
+        ),
       };
     } catch (error) {
       throw new HttpException(
         {
           statusCode: HttpStatus.BAD_REQUEST,
           success: false,
-          message: 'Error updating password',
+          message: this.translationService.getTranslation(
+            'api.auth.password.error.updateFailed',
+            lang,
+          ),
           error: error.message,
         },
         HttpStatus.BAD_REQUEST,

@@ -4,5 +4,5 @@ export function extractPrimaryLanguage(acceptLanguage: string): string {
   }
   const languages = acceptLanguage.split(',');
 
-  return languages[0].split(';')[0].trim();
+  return languages[0].split(';')[0].split('-')[0].trim();
 }

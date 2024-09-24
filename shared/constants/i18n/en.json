@@ -52,7 +52,7 @@
         }
       }
     },
-    "user": {
+    "users": {
       "getAll": {
         "success": "Users retrieved successfully",
         "error": "Error retrieving users"

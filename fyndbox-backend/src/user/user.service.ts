@@ -18,18 +18,25 @@ export class UserService {
     @Inject(REQUEST) private request: Request,
   ) {}
 
+  private getLang(): string {
+    return this.request.language || 'en';
+  }
+
   async findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
 
   async findOne(id: number): Promise<User> {
     const user = await this.userRepository.findOneBy({ id });
-    const lang = this.request.headers['accept-language'] || 'en';
     if (!user) {
       throw new NotFoundException(
-        this.translationService.getTranslation('api.user.notFoundById', lang, {
-          id: id.toString(),
-        }),
+        this.translationService.getTranslation(
+          'api.user.notFoundById',
+          this.getLang(),
+          {
+            id: id.toString(),
+          },
+        ),
       );
     }
     return user;
@@ -37,12 +44,11 @@ export class UserService {
 
   async findByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOne({ where: { email } });
-    const lang = this.request.headers['accept-language'] || 'en';
     if (!user) {
       throw new NotFoundException(
         this.translationService.getTranslation(
           'api.user.notFoundByEmail',
-          lang,
+          this.getLang(),
           { email },
         ),
       );
@@ -71,7 +77,15 @@ export class UserService {
   async remove(id: number): Promise<void> {
     const user = await this.findOne(id);
     if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+      throw new NotFoundException(
+        this.translationService.getTranslation(
+          'api.user.notFoundById',
+          this.getLang(),
+          {
+            id: id.toString(),
+          },
+        ),
+      );
     }
     await this.userRepository.delete(id);
   }
