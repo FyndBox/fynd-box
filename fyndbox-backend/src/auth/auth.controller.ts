@@ -7,6 +7,7 @@ import {
   UseGuards,
   HttpException,
   HttpStatus,
+  Headers,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
@@ -14,21 +15,29 @@ import { LoginDto } from './dto/login.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { ApiResponse } from '@fyndbox/shared/types/api-response';
+import { TranslationService } from 'src/translation/translation.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly translationService: TranslationService,
+  ) {}
 
   @Post('login')
   async login(
     @Body() loginDto: LoginDto,
+    @Headers('accept-language') lang: string = 'en',
   ): Promise<ApiResponse<{ access_token: string }>> {
     try {
       const token = await this.authService.login(loginDto);
       return {
         statusCode: HttpStatus.OK,
         success: true,
-        message: 'Login successful',
+        message: this.translationService.getTranslation(
+          'api.auth.login.success',
+          lang,
+        ),
         data: token,
       };
     } catch (error) {
@@ -36,7 +45,10 @@ export class AuthController {
         {
           statusCode: HttpStatus.UNAUTHORIZED,
           success: false,
-          message: 'Invalid credentials',
+          message: this.translationService.getTranslation(
+            'api.auth.login.error.invalidCredentials',
+            lang,
+          ),
           error: error.message,
         },
         HttpStatus.UNAUTHORIZED,
