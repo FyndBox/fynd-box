@@ -32,50 +32,50 @@
   "api": {
     "auth": {
       "login": {
-        "success": "Login successful",
+        "success": "Inloggningen lyckades",
         "error": {
-          "invalidCredentials": "Invalid credentials"
+          "invalidCredentials": "Ogiltiga användaruppgifter"
         }
       },
       "signup": {
-        "success": "User registered successfully",
+        "success": "Användaren har registrerats",
         "error": {
-          "registrationFailed": "Error registering user",
-          "emailAlreadyRegistered": "Email is already registered"
+          "registrationFailed": "Fel vid registrering av användare",
+          "emailAlreadyRegistered": "Epost är redan registrerat"
         }
       },
       "password": {
-        "success": "Password updated successfully",
+        "success": "Lösenordet har uppdaterats",
         "error": {
-          "updateFailed": "Error updating password",
-          "incorrectPassword": "Current password is incorrect"
+          "updateFailed": "Fel vid uppdatering av lösenord",
+          "incorrectPassword": "Aktuellt lösenord är felaktigt"
         }
       }
     },
     "user": {
       "getAll": {
-        "success": "Users retrieved successfully",
-        "error": "Error retrieving users"
+        "success": "Användare har hämtats",
+        "error": "Det gick inte att hämta användare"
       },
       "me": {
-        "notFound": "User not found",
-        "success": "User retrieved successfully",
-        "error": "Error retrieving user"
+        "notFound": "Användare hittades inte",
+        "success": "Användare har hämtats",
+        "error": "Det gick inte att hämta användaren"
       },
       "create": {
-        "success": "User created successfully",
-        "error": "Error creating user"
+        "success": "Användaren skapades",
+        "error": "Det gick inte att skapa användare"
       },
       "update": {
-        "success": "User updated successfully",
-        "error": "Error updating user"
+        "success": "Användare har uppdaterats",
+        "error": "Fel vid uppdatering av användare"
       },
       "delete": {
-        "success": "User deleted successfully",
-        "error": "Error deleting user"
+        "success": "Användaren har raderats",
+        "error": "Det gick inte att ta bort användare"
       },
-      "notFoundById": "User with ID {{id}} not found",
-      "notFoundByEmail": "User with email {{email}} not found"
+      "notFoundById": "Användare med ID {{id}} hittades inte",
+      "notFoundByEmail": "Användare med Epost {{email}} hittades inte"
     }
   }
 }
