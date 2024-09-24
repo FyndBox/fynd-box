@@ -2,6 +2,7 @@ import {
   Injectable,
   UnauthorizedException,
   BadRequestException,
+  Inject,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -9,19 +10,30 @@ import { UserService } from '../user/user.service';
 import { LoginDto } from './dto/login.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
+import { TranslationService } from 'src/translation/translation.service';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
+    private translationService: TranslationService,
+    @Inject(REQUEST) private request: Request,
   ) {}
 
   async login(loginDto: LoginDto): Promise<{ access_token: string }> {
     const user = await this.userService.findByEmail(loginDto.email);
+    const lang = this.request.language || 'en';
 
     if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException(
+        this.translationService.getTranslation(
+          'api.auth.login.error.invalidCredentials',
+          lang,
+        ),
+      );
     }
 
     const isPasswordValid = await bcrypt.compare(
@@ -29,7 +41,12 @@ export class AuthService {
       user.password,
     );
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException(
+        this.translationService.getTranslation(
+          'api.auth.login.error.invalidCredentials',
+          lang,
+        ),
+      );
     }
 
     const payload = { email: user.email, sub: user.id }; // JWT payload

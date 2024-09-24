@@ -1,16 +1,21 @@
 import * as bcrypt from 'bcrypt';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { TranslationService } from 'src/translation/translation.service';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private translationService: TranslationService,
+    @Inject(REQUEST) private request: Request,
   ) {}
 
   async findAll(): Promise<User[]> {
@@ -19,16 +24,28 @@ export class UserService {
 
   async findOne(id: number): Promise<User> {
     const user = await this.userRepository.findOneBy({ id });
+    const lang = this.request.headers['accept-language'] || 'en';
     if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+      throw new NotFoundException(
+        this.translationService.getTranslation('api.user.notFoundById', lang, {
+          id: id.toString(),
+        }),
+      );
     }
     return user;
   }
 
   async findByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOne({ where: { email } });
+    const lang = this.request.headers['accept-language'] || 'en';
     if (!user) {
-      throw new NotFoundException(`User with email ${email} not found`);
+      throw new NotFoundException(
+        this.translationService.getTranslation(
+          'api.user.notFoundByEmail',
+          lang,
+          { email },
+        ),
+      );
     }
     return user;
   }
