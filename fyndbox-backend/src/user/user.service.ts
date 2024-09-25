@@ -1,22 +1,22 @@
 import * as bcrypt from 'bcrypt';
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { TranslationService } from 'src/translation/translation.service';
-import { REQUEST } from '@nestjs/core';
-import { Request } from 'express';
+import { BaseService } from 'src/common/base.service';
 
-@Injectable()
-export class UserService {
+@Injectable({ scope: Scope.REQUEST })
+export class UserService extends BaseService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
     private translationService: TranslationService,
-    @Inject(REQUEST) private request: Request,
-  ) {}
+  ) {
+    super();
+  }
 
   async findAll(): Promise<User[]> {
     return this.userRepository.find();
@@ -24,12 +24,15 @@ export class UserService {
 
   async findOne(id: number): Promise<User> {
     const user = await this.userRepository.findOneBy({ id });
-    const lang = this.request.headers['accept-language'] || 'en';
     if (!user) {
       throw new NotFoundException(
-        this.translationService.getTranslation('api.user.notFoundById', lang, {
-          id: id.toString(),
-        }),
+        this.translationService.getTranslation(
+          'api.users.notFoundById',
+          this.getLang(),
+          {
+            id: id.toString(),
+          },
+        ),
       );
     }
     return user;
@@ -37,12 +40,12 @@ export class UserService {
 
   async findByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOne({ where: { email } });
-    const lang = this.request.headers['accept-language'] || 'en';
+    console.log('get', this.getLang());
     if (!user) {
       throw new NotFoundException(
         this.translationService.getTranslation(
-          'api.user.notFoundByEmail',
-          lang,
+          'api.users.notFoundByEmail',
+          this.getLang(),
           { email },
         ),
       );
@@ -71,7 +74,15 @@ export class UserService {
   async remove(id: number): Promise<void> {
     const user = await this.findOne(id);
     if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+      throw new NotFoundException(
+        this.translationService.getTranslation(
+          'api.users.notFoundById',
+          this.getLang(),
+          {
+            id: id.toString(),
+          },
+        ),
+      );
     }
     await this.userRepository.delete(id);
   }

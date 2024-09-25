@@ -52,7 +52,7 @@
         }
       }
     },
-    "user": {
+    "users": {
       "getAll": {
         "success": "Användare har hämtats",
         "error": "Det gick inte att hämta användare"
