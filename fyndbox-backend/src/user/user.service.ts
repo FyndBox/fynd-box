@@ -40,7 +40,6 @@ export class UserService extends BaseService {
 
   async findByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOne({ where: { email } });
-    console.log('get', this.getLang());
     if (!user) {
       throw new NotFoundException(
         this.translationService.getTranslation(
