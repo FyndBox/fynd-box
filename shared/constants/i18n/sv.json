@@ -17,7 +17,10 @@
     }
   },
   "dashboard": {
-    "title": "Lagring"
+    "title": "Lagring",
+    "search": {
+      "placeholder": "Sök"
+    }
   },
   "common":{
     "email": {
