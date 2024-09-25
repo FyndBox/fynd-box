@@ -1,25 +1,21 @@
 import * as bcrypt from 'bcrypt';
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { TranslationService } from 'src/translation/translation.service';
-import { REQUEST } from '@nestjs/core';
-import { Request } from 'express';
+import { BaseService } from 'src/common/base.service';
 
-@Injectable()
-export class UserService {
+@Injectable({ scope: Scope.REQUEST })
+export class UserService extends BaseService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
     private translationService: TranslationService,
-    @Inject(REQUEST) private request: Request,
-  ) {}
-
-  private getLang(): string {
-    return this.request.language || 'en';
+  ) {
+    super();
   }
 
   async findAll(): Promise<User[]> {
@@ -31,7 +27,7 @@ export class UserService {
     if (!user) {
       throw new NotFoundException(
         this.translationService.getTranslation(
-          'api.user.notFoundById',
+          'api.users.notFoundById',
           this.getLang(),
           {
             id: id.toString(),
@@ -44,10 +40,11 @@ export class UserService {
 
   async findByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOne({ where: { email } });
+    console.log('get', this.getLang());
     if (!user) {
       throw new NotFoundException(
         this.translationService.getTranslation(
-          'api.user.notFoundByEmail',
+          'api.users.notFoundByEmail',
           this.getLang(),
           { email },
         ),
@@ -79,7 +76,7 @@ export class UserService {
     if (!user) {
       throw new NotFoundException(
         this.translationService.getTranslation(
-          'api.user.notFoundById',
+          'api.users.notFoundById',
           this.getLang(),
           {
             id: id.toString(),

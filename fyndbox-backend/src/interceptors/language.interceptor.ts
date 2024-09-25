@@ -15,6 +15,8 @@ export class LanguageInterceptor implements NestInterceptor {
 
     request.language = extractPrimaryLanguage(acceptLanguage);
 
+    console.log(request.language);
+
     return next.handle();
   }
 }

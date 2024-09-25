@@ -2,29 +2,25 @@ import {
   Injectable,
   UnauthorizedException,
   BadRequestException,
-  Inject,
+  Scope,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserService } from '../user/user.service';
+import { BaseService } from '../common/base.service';
 import { LoginDto } from './dto/login.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { TranslationService } from 'src/translation/translation.service';
-import { REQUEST } from '@nestjs/core';
-import { Request } from 'express';
 
-@Injectable()
-export class AuthService {
+@Injectable({ scope: Scope.REQUEST })
+export class AuthService extends BaseService {
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
     private translationService: TranslationService,
-    @Inject(REQUEST) private request: Request,
-  ) {}
-
-  private getLang(): string {
-    return this.request.language || 'en'; // Default to 'en' if language is undefined
+  ) {
+    super();
   }
 
   async login(loginDto: LoginDto): Promise<{ access_token: string }> {
