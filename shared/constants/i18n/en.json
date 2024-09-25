@@ -16,6 +16,9 @@
       "errorMessage": "* Please enter a valid name: \n - The name must contain only letters and spaces \n - The name must be 3-50 characters long"
     }
   },
+  "dashboard": {
+    "title": "Storage"
+  },
   "common":{
     "email": {
       "label": "Email",

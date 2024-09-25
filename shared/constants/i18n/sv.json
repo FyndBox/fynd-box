@@ -16,6 +16,9 @@
       "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
     }
   },
+  "dashboard": {
+    "title": "Lagring"
+  },
   "common":{
     "email": {
       "label": "E-postadress",

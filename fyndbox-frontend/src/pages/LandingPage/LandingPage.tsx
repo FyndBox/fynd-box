@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import { HomeContainer, HomeSubContainer } from './LandingPage.styles';
-import { useTranslation } from 'react-i18next';
 
 const LandingPage: FC = () => {
   const navigate = useNavigate();
