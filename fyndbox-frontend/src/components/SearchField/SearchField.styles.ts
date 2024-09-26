@@ -10,7 +10,7 @@ export const SearchFieldContainer = styled(Box)(({ theme }) => ({
 export const SearchTextField = styled(TextField)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.dark,
   borderRadius: '50px',
-  width: '400px',
+  width: '300px',
   paddingLeft: theme.spacing(1.5),
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
