@@ -1,14 +1,17 @@
 import { FC, useState } from 'react';
-import { FullPageContainer } from '../../styles/commonStyles';
+import { Box, IconButton } from '@mui/material';
+import {
+  ExpandLessRounded,
+  ExpandMoreRounded,
+  KeyboardArrowRightRounded,
+} from '@mui/icons-material';
+import { CustomIcon, FullPageContainer } from '../../styles/commonStyles';
 import TopBar from '../../components/TopBar/TopBar';
 import SearchField from '../../components/SearchField/SearchField';
-import EntityComponent from '../../components/EntityComponent/EntityComponent';
-import { Box, IconButton } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import EntityCard from '../../components/EntityCard/EntityCard';
+import { MainContainer, SubContainer } from './DashboardPage.styles';
 
 const DashboardPage: FC = () => {
-  // State to track which storage is expanded
   const [expandedStorageIndex, setExpandedStorageIndex] = useState<
     number | null
   >(null);
@@ -40,9 +43,20 @@ const DashboardPage: FC = () => {
     },
   ];
 
-  // Handle the toggle of the storage's expanded state
   const handleToggleExpand = (index: number) => {
-    setExpandedStorageIndex(expandedStorageIndex === index ? null : index); // Toggle expand state
+    setExpandedStorageIndex(expandedStorageIndex === index ? null : index);
+  };
+
+  const handleBoxOpen = (index: number) => {
+    console.log(index, 'Implement Box Page and navigate it');
+  };
+
+  const handleEditStorage = (index: number) => {
+    console.log('Edit Storage at index:', index);
+  };
+
+  const handleEditBox = (storageIndex: number, boxIndex: number) => {
+    console.log(`Edit Box at index ${boxIndex} in Storage ${storageIndex}`);
   };
 
   return (
@@ -50,38 +64,51 @@ const DashboardPage: FC = () => {
       <TopBar />
       <FullPageContainer>
         <SearchField />
-        <Box sx={{ padding: '1px' }}>
+        <MainContainer>
           {storages.map((storage, index) => (
             <Box key={index}>
-              <EntityComponent
+              <EntityCard
                 name={storage.name}
                 description={storage.description}
-                // Icon button to expand/collapse boxes
                 iconButton={
                   <IconButton onClick={() => handleToggleExpand(index)}>
                     {expandedStorageIndex === index ? (
-                      <ArrowDropUpIcon />
+                      <CustomIcon>
+                        <ExpandLessRounded />
+                      </CustomIcon>
                     ) : (
-                      <ArrowDropDownIcon />
+                      <CustomIcon>
+                        <ExpandMoreRounded />
+                      </CustomIcon>
                     )}
                   </IconButton>
                 }
+                onEditStorage={() => handleEditStorage(index)}
               />
-              {/* Conditionally render boxes when storage is expanded */}
               {expandedStorageIndex === index && (
-                <Box sx={{ marginLeft: '20px', marginTop: '1px' }}>
+                <SubContainer>
                   {storage.boxes?.map((box, boxIndex) => (
-                    <EntityComponent
+                    <EntityCard
                       key={boxIndex}
                       name={box.name}
                       description={box.description}
+                      iconButton={
+                        <IconButton onClick={() => handleBoxOpen(boxIndex)}>
+                          <CustomIcon>
+                            <KeyboardArrowRightRounded />
+                          </CustomIcon>
+                        </IconButton>
+                      }
+                      image=""
+                      isBoxCard={true}
+                      onEditBox={() => handleEditBox(index, boxIndex)}
                     />
                   ))}
-                </Box>
+                </SubContainer>
               )}
             </Box>
           ))}
-        </Box>
+        </MainContainer>
       </FullPageContainer>
     </>
   );
