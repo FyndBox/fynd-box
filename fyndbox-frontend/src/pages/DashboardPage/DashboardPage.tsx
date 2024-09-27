@@ -9,6 +9,7 @@ import TopBar from '../../components/TopBar/TopBar';
 import SearchField from '../../components/SearchField/SearchField';
 import EntityCard from '../../components/EntityCard/EntityCard';
 import AddEntityButton from '../../components/AddEntityButton/AddEntityButton';
+import DashboardFooter from '../../components/DashboardFooter/DashboardFooter';
 import { CustomIcon, FullPageContainer } from '../../styles/commonStyles';
 import { MainContainer, SubContainer } from './DashboardPage.styles';
 
@@ -70,6 +71,21 @@ const DashboardPage: FC = () => {
     // Implement logic to add a box here
   };
 
+  const handleFavoriteClick = () => {
+    console.log('Favorite button clicked');
+    // Iimplement and Navigate to favorites page
+  };
+
+  const handleScanClick = () => {
+    console.log('Scan button clicked');
+    // Implement and Navigate to scan page
+  };
+
+  const handleProfileClick = () => {
+    console.log('Profile button clicked');
+    // Implement and Navigate to profile
+  };
+
   return (
     <>
       <TopBar />
@@ -124,6 +140,11 @@ const DashboardPage: FC = () => {
           <AddEntityButton entityType="storage" onAdd={handleAddStorage} />
         </MainContainer>
       </FullPageContainer>
+      <DashboardFooter
+        onFavoriteClick={handleFavoriteClick}
+        onScanClick={handleScanClick}
+        onProfileClick={handleProfileClick}
+      />
     </>
   );
 };

@@ -25,6 +25,11 @@
       "addStorage": "Lägg till enhet",
       "addBox": "Lägg till låda",
       "addItem": "Lägg till artikel"
+    },
+    "footer": {
+      "favorite":"Favoriter",
+      "scan": "Scan",
+      "profile": "Profil"
     }
   },
   "common":{

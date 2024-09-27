@@ -25,6 +25,11 @@
       "addStorage": "Add unit",
       "addBox": "Add box",
       "addItem": "Add item"
+    },
+    "footer": {
+      "favorite":"Favorites",
+      "scan": "Scan",
+      "profile": "Profile"
     }
   },
   "common":{
