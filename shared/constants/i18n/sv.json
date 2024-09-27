@@ -1,33 +1,82 @@
 {   
-    "home": {
-      "title": "Välkommen till FyndBox",
-      "description": "Vi erbjuder en effektiv och smidig lösning för att få fullständig kontroll över ditt lager. Med vår webbplatform kan du enkelt organisera och hantera dina inventarier genom att lägga till lådor och ange bilder samt antal för varje objekt."
-    },
-    "login": {
-      "title": "Logga in",
-      "submit": "Logga in"
-    },
-    "signup": {
-      "title": "Skapa nytt konto",
-      "submit": "Bli medlem",
-      "name": {
-        "label": "Namn",
-        "placeholder": "John Doe",
-        "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
-      }
-    },
-    "common":{
-      "email": {
-        "label": "E-postadress",
-        "placeholder": "exempel@domän.com",
-        "errorMessage": "* Vänligen ange giltig e-postadress"
-        },
-      "password": {
-        "label": "Lösenord",
-        "placeholder": "",
-        "loginErrorMessage": "* Lösenord krävs",
-        "signupErrorMessage": "* Vänligen ange ett giltigt lösenord: \n - Måste innehålla 8-20 tecken \n - Måste innehålla minst en bokstav \n - Måste innehålla minst en siffra \n - Måste innehålla minst ett specialtecken (endast @$!%*#?& är tillåtna)"
-      }
+  "home": {
+    "title": "Välkommen till FyndBox",
+    "description": "Vi erbjuder en effektiv och smidig lösning för att få fullständig kontroll över ditt lager. Med vår webbplatform kan du enkelt organisera och hantera dina inventarier genom att lägga till lådor och ange bilder samt antal för varje objekt."
+  },
+  "login": {
+    "title": "Logga in",
+    "submit": "Logga in"
+  },
+  "signup": {
+    "title": "Skapa nytt konto",
+    "submit": "Bli medlem",
+    "name": {
+      "label": "Namn",
+      "placeholder": "John Doe",
+      "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
     }
+  },
+  "common":{
+    "email": {
+      "label": "E-postadress",
+      "placeholder": "exempel@domän.com",
+      "errorMessage": "* Vänligen ange giltig e-postadress"
+      },
+    "password": {
+      "label": "Lösenord",
+      "placeholder": "",
+      "loginErrorMessage": "* Lösenord krävs",
+      "signupErrorMessage": "* Vänligen ange ett giltigt lösenord: \n - Måste innehålla 8-20 tecken \n - Måste innehålla minst en bokstav \n - Måste innehålla minst en siffra \n - Måste innehålla minst ett specialtecken (endast @$!%*#?& är tillåtna)"
+    }
+  },
+  "api": {
+    "auth": {
+      "login": {
+        "success": "Inloggningen lyckades",
+        "error": {
+          "invalidCredentials": "Ogiltiga användaruppgifter"
+        }
+      },
+      "signup": {
+        "success": "Användaren har registrerats",
+        "error": {
+          "registrationFailed": "Fel vid registrering av användare",
+          "emailAlreadyRegistered": "Epost är redan registrerat"
+        }
+      },
+      "password": {
+        "success": "Lösenordet har uppdaterats",
+        "error": {
+          "updateFailed": "Fel vid uppdatering av lösenord",
+          "incorrectPassword": "Aktuellt lösenord är felaktigt"
+        }
+      }
+    },
+    "users": {
+      "getAll": {
+        "success": "Användare har hämtats",
+        "error": "Det gick inte att hämta användare"
+      },
+      "me": {
+        "notFound": "Användare hittades inte",
+        "success": "Användare har hämtats",
+        "error": "Det gick inte att hämta användaren"
+      },
+      "create": {
+        "success": "Användaren skapades",
+        "error": "Det gick inte att skapa användare"
+      },
+      "update": {
+        "success": "Användare har uppdaterats",
+        "error": "Fel vid uppdatering av användare"
+      },
+      "delete": {
+        "success": "Användaren har raderats",
+        "error": "Det gick inte att ta bort användare"
+      },
+      "notFoundById": "Användare med ID {{id}} hittades inte",
+      "notFoundByEmail": "Användare med Epost {{email}} hittades inte"
+    }
+  }
 }
   
