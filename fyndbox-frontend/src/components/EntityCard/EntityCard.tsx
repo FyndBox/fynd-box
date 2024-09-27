@@ -10,6 +10,7 @@ import { EntityType } from '../../types/entityTypes';
 interface EntityCardProps {
   name: string;
   description: string;
+  quantity?: number;
   iconButton?: ReactNode;
   entityType?: EntityType;
   image?: string;
@@ -19,6 +20,7 @@ interface EntityCardProps {
 const EntityCard: FC<EntityCardProps> = ({
   name,
   description,
+  quantity,
   iconButton,
   entityType = 'storage',
   image,
@@ -64,6 +66,12 @@ const EntityCard: FC<EntityCardProps> = ({
             <Typography variant="h6">{name}</Typography>
             <Typography variant="body1">{description}</Typography>
           </Box>
+
+          {entityType === 'item' && (
+            <Box flex={1}>
+              <Typography variant="h6">{quantity} st</Typography>
+            </Box>
+          )}
 
           <Box flex={1}>
             <Stack direction="row" spacing={1}>
