@@ -1,45 +1,42 @@
 import { FC } from 'react';
-import { Stack, Typography, Fab, Box } from '@mui/material';
+import { Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { useTranslation } from 'react-i18next';
+import {
+  AddEntityContainer,
+  FabContainer,
+  Label,
+} from './AddEntityButton.styles';
 
-const AddEntityButton: FC = () => {
+interface AddEntityButtonProps {
+  entity: string;
+}
+
+const AddEntityButton: FC<AddEntityButtonProps> = ({ entity }) => {
+  const { t } = useTranslation();
+
+  const getLabel = (entity: string): string => {
+    switch (entity) {
+      case 'storage':
+        return t('dashboard.entity.addStorage');
+      case 'box':
+        return t('dashboard.entity.addBox');
+      case 'item':
+        return t('dashboard.entity.addItem');
+      default:
+        return t('dashboard.entity.addStorage');
+    }
+  };
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        mt: 4,
-      }}
-    >
-      <Stack
-        direction="row"
-        textAlign={'center'}
-        alignItems="center"
-        spacing={2}
-        sx={{ marginTop: 4 }}
-      >
-        {/* Text for "Lägg till enhet" */}
-        <Typography variant="h6" sx={{ color: 'gray' }}>
-          Lägg till enhet
-        </Typography>
-
-        {/* Add Button */}
-        <Fab
-          color="primary"
-          aria-label="add"
-          sx={{
-            backgroundColor: 'black',
-            color: 'white',
-            '&:hover': {
-              backgroundColor: '#333', // Darken the hover color
-            },
-          }}
-        >
+    <AddEntityContainer>
+      <Stack direction="row" textAlign="center" alignItems="center" spacing={2}>
+        <Label variant="h6">{getLabel(entity)}</Label>
+        <FabContainer aria-label="add">
           <AddIcon />
-        </Fab>
+        </FabContainer>
       </Stack>
-    </Box>
+    </AddEntityContainer>
   );
 };
 

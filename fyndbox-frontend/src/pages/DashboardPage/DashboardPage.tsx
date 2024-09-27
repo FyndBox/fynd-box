@@ -105,11 +105,12 @@ const DashboardPage: FC = () => {
                       onEditBox={() => handleEditBox(index, boxIndex)}
                     />
                   ))}
+                  <AddEntityButton entity="box" />
                 </SubContainer>
               )}
             </Box>
           ))}
-          <AddEntityButton />
+          <AddEntityButton entity="storage" />
         </MainContainer>
       </FullPageContainer>
     </>

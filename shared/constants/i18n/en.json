@@ -20,6 +20,11 @@
     "title": "Storage",
     "search": {
       "placeholder": "Search"
+    },
+    "entity": {
+      "addStorage": "Add unit",
+      "addBox": "Add box",
+      "addItem": "Add item"
     }
   },
   "common":{

@@ -20,6 +20,11 @@
     "title": "Lagring",
     "search": {
       "placeholder": "Sök"
+    },
+    "entity": {
+      "addStorage": "Lägg till enhet",
+      "addBox": "Lägg till låda",
+      "addItem": "Lägg till artikel"
     }
   },
   "common":{
