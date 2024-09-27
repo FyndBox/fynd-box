@@ -1,32 +1,42 @@
+import { FC, ReactNode } from 'react';
 import { CardContent, Typography, IconButton, Stack, Box } from '@mui/material';
 import { Edit } from '@mui/icons-material';
-import { FC, ReactNode } from 'react';
-import { EntityCardContainer, ImageBox } from './EntityCard.styles';
 import StorageIconSvg from '../../assets/storage-icon.svg';
 import BoxIconSvg from '../../assets/box-icon.svg';
 import { CustomIcon } from '../../styles/commonStyles';
+import { EntityCardContainer, ImageBox } from './EntityCard.styles';
+import { EntityType } from '../../types/entityTypes';
 
 interface EntityCardProps {
   name: string;
   description: string;
   iconButton?: ReactNode;
-  isBoxCard?: boolean;
+  entityType?: EntityType;
   image?: string;
-  onEditStorage?: () => void;
-  onEditBox?: () => void;
+  onEdit?: () => void;
 }
 
 const EntityCard: FC<EntityCardProps> = ({
   name,
   description,
   iconButton,
-  isBoxCard = false,
+  entityType = 'storage',
   image,
-  onEditStorage,
-  onEditBox,
+  onEdit,
 }) => {
+  const getEntityIcon = (entityType: EntityType): string => {
+    switch (entityType) {
+      case 'box':
+        return BoxIconSvg;
+      case 'item':
+        return BoxIconSvg; // replace with item icon
+      default:
+        return StorageIconSvg;
+    }
+  };
+
   return (
-    <EntityCardContainer isBoxCard={isBoxCard}>
+    <EntityCardContainer isBoxCard={entityType === 'box'}>
       <CardContent>
         <Stack
           direction="row"
@@ -38,8 +48,14 @@ const EntityCard: FC<EntityCardProps> = ({
               <ImageBox src={image} alt={name} />
             ) : (
               <ImageBox
-                src={isBoxCard ? BoxIconSvg : StorageIconSvg}
-                alt={isBoxCard ? 'Box Icon' : 'Storage Icon'}
+                src={getEntityIcon(entityType)}
+                alt={
+                  entityType === 'box'
+                    ? 'Box Icon'
+                    : entityType === 'item'
+                      ? 'Item Icon'
+                      : 'Storage Icon'
+                }
               />
             )}
           </Box>
@@ -51,7 +67,7 @@ const EntityCard: FC<EntityCardProps> = ({
 
           <Box flex={1}>
             <Stack direction="row" spacing={1}>
-              <IconButton onClick={isBoxCard ? onEditBox : onEditStorage}>
+              <IconButton onClick={onEdit}>
                 <CustomIcon>
                   <Edit />
                 </CustomIcon>

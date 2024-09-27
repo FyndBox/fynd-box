@@ -5,11 +5,11 @@ import {
   ExpandMoreRounded,
   KeyboardArrowRightRounded,
 } from '@mui/icons-material';
-import { CustomIcon, FullPageContainer } from '../../styles/commonStyles';
 import TopBar from '../../components/TopBar/TopBar';
 import SearchField from '../../components/SearchField/SearchField';
 import EntityCard from '../../components/EntityCard/EntityCard';
 import AddEntityButton from '../../components/AddEntityButton/AddEntityButton';
+import { CustomIcon, FullPageContainer } from '../../styles/commonStyles';
 import { MainContainer, SubContainer } from './DashboardPage.styles';
 
 const DashboardPage: FC = () => {
@@ -60,6 +60,16 @@ const DashboardPage: FC = () => {
     console.log(`Edit Box at index ${boxIndex} in Storage ${storageIndex}`);
   };
 
+  const handleAddStorage = () => {
+    console.log('Add Storage action triggered');
+    // Implement logic to add a storage here
+  };
+
+  const handleAddBox = () => {
+    console.log('Add Box action triggered');
+    // Implement logic to add a box here
+  };
+
   return (
     <>
       <TopBar />
@@ -84,7 +94,8 @@ const DashboardPage: FC = () => {
                     )}
                   </IconButton>
                 }
-                onEditStorage={() => handleEditStorage(index)}
+                entityType="storage"
+                onEdit={() => handleEditStorage(index)}
               />
               {expandedStorageIndex === index && (
                 <SubContainer>
@@ -101,16 +112,16 @@ const DashboardPage: FC = () => {
                         </IconButton>
                       }
                       image=""
-                      isBoxCard={true}
-                      onEditBox={() => handleEditBox(index, boxIndex)}
+                      entityType="box"
+                      onEdit={() => handleEditBox(index, boxIndex)}
                     />
                   ))}
-                  <AddEntityButton entity="box" />
+                  <AddEntityButton entityType="box" onAdd={handleAddBox} />
                 </SubContainer>
               )}
             </Box>
           ))}
-          <AddEntityButton entity="storage" />
+          <AddEntityButton entityType="storage" onAdd={handleAddStorage} />
         </MainContainer>
       </FullPageContainer>
     </>

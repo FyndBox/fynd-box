@@ -7,18 +7,21 @@ import {
   FabContainer,
   Label,
 } from './AddEntityButton.styles';
+import { EntityType } from '../../types/entityTypes';
 
 interface AddEntityButtonProps {
-  entity: string;
+  entityType: EntityType;
+  onAdd?: () => void;
 }
 
-const AddEntityButton: FC<AddEntityButtonProps> = ({ entity }) => {
+const AddEntityButton: FC<AddEntityButtonProps> = ({
+  entityType = 'storage',
+  onAdd,
+}) => {
   const { t } = useTranslation();
 
-  const getLabel = (entity: string): string => {
-    switch (entity) {
-      case 'storage':
-        return t('dashboard.entity.addStorage');
+  const getLabel = (entityType: string): string => {
+    switch (entityType) {
       case 'box':
         return t('dashboard.entity.addBox');
       case 'item':
@@ -31,8 +34,8 @@ const AddEntityButton: FC<AddEntityButtonProps> = ({ entity }) => {
   return (
     <AddEntityContainer>
       <Stack direction="row" textAlign="center" alignItems="center" spacing={2}>
-        <Label variant="h6">{getLabel(entity)}</Label>
-        <FabContainer aria-label="add">
+        <Label variant="h6">{getLabel(entityType)}</Label>
+        <FabContainer aria-label="add" onClick={onAdd}>
           <AddIcon />
         </FabContainer>
       </Stack>
