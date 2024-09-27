@@ -9,6 +9,7 @@ import { CustomIcon, FullPageContainer } from '../../styles/commonStyles';
 import TopBar from '../../components/TopBar/TopBar';
 import SearchField from '../../components/SearchField/SearchField';
 import EntityCard from '../../components/EntityCard/EntityCard';
+import AddEntityButton from '../../components/AddEntityButton/AddEntityButton';
 import { MainContainer, SubContainer } from './DashboardPage.styles';
 
 const DashboardPage: FC = () => {
@@ -108,6 +109,7 @@ const DashboardPage: FC = () => {
               )}
             </Box>
           ))}
+          <AddEntityButton />
         </MainContainer>
       </FullPageContainer>
     </>
