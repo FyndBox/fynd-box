@@ -15,7 +15,7 @@
         "placeholder": "John Doe",
         "errorMessage": "* Please enter a valid name: \n - The name must contain only letters and spaces \n - The name must be 3-50 characters long"
       }
-    },
+    }, 
     "common":{
       "email": {
         "label": "Email",
