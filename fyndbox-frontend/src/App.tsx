@@ -6,6 +6,7 @@ import SignupPage from './pages/SignupPage/SignupPage';
 import AuthGuard from './components/AuthGuard';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 
+import EntityActionModal from './components/modal/EntityActionModal';
 
 const App: FC = () => {
   return (
@@ -14,19 +15,21 @@ const App: FC = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-
         
+        <Route path="/dashboard" element={<DashboardPage />}/>
+        <Route path="/modal" element={<EntityActionModal />}/>
 
-
-        {/* 
-        <Route
+        {/* <Route
           path="/dashboard"
           element={
             <AuthGuard>
               <DashboardPage />
             </AuthGuard>
           }
-        />
+        /> */}
+
+
+
         {/* 
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/login" />} />  */}

@@ -16,6 +16,10 @@ import {
   MainContainer,
   SubContainer,
 } from './DashboardPage.styles';
+import EntityActionModal from '../../components/modal/EntityActionModal';
+
+
+
 
 const DashboardPage: FC = () => {
   const [expandedStorageIndex, setExpandedStorageIndex] = useState<
@@ -142,6 +146,8 @@ const DashboardPage: FC = () => {
             </Box>
           ))}
           <AddEntityButton entityType="storage" onAdd={handleAddStorage} />
+          <EntityActionModal/>
+         
         </MainContainer>
       </DashboardContainer>
       <DashboardFooter
@@ -149,8 +155,12 @@ const DashboardPage: FC = () => {
         onScanClick={handleScanClick}
         onProfileClick={handleProfileClick}
       />
+
+
+
     </>
   );
 };
 
 export default DashboardPage;
+
