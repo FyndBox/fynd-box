@@ -16,15 +16,16 @@ import {
   MainContainer,
   SubContainer,
 } from './DashboardPage.styles';
-import EntityActionModal from '../../components/modal/EntityActionModal';
-
-
-
+import { EntityType } from '../../types/entityTypes';
 
 const DashboardPage: FC = () => {
   const [expandedStorageIndex, setExpandedStorageIndex] = useState<
     number | null
   >(null);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+  const [entityType, setEntityType] = useState<EntityType>('storage');
+  const [editingData, setEditingData] = useState<any | null>(null);
 
   const storages = [
     {
@@ -61,22 +62,24 @@ const DashboardPage: FC = () => {
     console.log(index, 'Implement Box Page and navigate it');
   };
 
-  const handleEditStorage = (index: number) => {
-    console.log('Edit Storage at index:', index);
+  // Add Method: Can be used for creating any type of entity
+  const handleAddEntity = (type: EntityType) => {
+    console.log(`Add the ${type}`);
+    setEntityType(type);
+    setModalMode('add');
+    setEditingData(null); // Reset form fields for adding a new entity
+    setModalOpen(true);
   };
-
-  const handleEditBox = (storageIndex: number, boxIndex: number) => {
-    console.log(`Edit Box at index ${boxIndex} in Storage ${storageIndex}`);
-  };
-
-  const handleAddStorage = () => {
-    console.log('Add Storage action triggered');
-    // Implement logic to add a storage here
-  };
-
-  const handleAddBox = () => {
-    console.log('Add Box action triggered');
-    // Implement logic to add a box here
+  // Edit Method: Can be used for editing any type of entity
+  const handleEditEntity = (
+    type: EntityType,
+    data: { name: string; description: string; image?: string },
+  ) => {
+    console.log(`Edit the ${type}`);
+    setEntityType(type);
+    setModalMode('edit');
+    setEditingData(data); // Pre-fill form fields with existing entity data
+    setModalOpen(true);
   };
 
   const handleFavoriteClick = () => {
@@ -119,7 +122,7 @@ const DashboardPage: FC = () => {
                   </IconButton>
                 }
                 entityType="storage"
-                onEdit={() => handleEditStorage(index)}
+                onEdit={() => handleEditEntity('storage', storage)}
               />
               {expandedStorageIndex === index && (
                 <SubContainer>
@@ -137,17 +140,21 @@ const DashboardPage: FC = () => {
                       }
                       image=""
                       entityType="box"
-                      onEdit={() => handleEditBox(index, boxIndex)}
+                      onEdit={() => handleEditEntity('box', box)}
                     />
                   ))}
-                  <AddEntityButton entityType="box" onAdd={handleAddBox} />
+                  <AddEntityButton
+                    entityType="box"
+                    onAdd={() => handleAddEntity('box')}
+                  />
                 </SubContainer>
               )}
             </Box>
           ))}
-          <AddEntityButton entityType="storage" onAdd={handleAddStorage} />
-          <EntityActionModal/>
-         
+          <AddEntityButton
+            entityType="storage"
+            onAdd={() => handleAddEntity('storage')}
+          />
         </MainContainer>
       </DashboardContainer>
       <DashboardFooter
@@ -155,9 +162,19 @@ const DashboardPage: FC = () => {
         onScanClick={handleScanClick}
         onProfileClick={handleProfileClick}
       />
-
-
-
+      {/* Add your modal component here
+      
+       <DynamicModal
+        open={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        entityType={entityType}
+        mode={modalMode}
+        initialData={editingData || undefined}
+        onSave={handleSave}
+        onDelete={modalMode === 'edit' ? handleDelete : undefined}
+      />
+      
+      */}
     </>
   );
 };
