@@ -77,6 +77,10 @@
       "notFoundById": "User with ID {{id}} not found",
       "notFoundByEmail": "User with email {{email}} not found"
     }
+  },
+
+  "ActionModal":{
+    "heading":"Redigera Logring"
   }
 }
   
