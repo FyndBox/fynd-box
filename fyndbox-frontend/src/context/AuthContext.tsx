@@ -30,6 +30,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   error: string | null;
   setError: (error: string | null) => void;
+  loading: boolean;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -39,18 +40,21 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedToken = getTokenFromLocalStorage();
     if (storedToken) {
       setToken(storedToken);
     }
+    setLoading(false);
   }, []);
 
   const isAuthenticated = !!token;
 
   const login = async (email: string, password: string): Promise<boolean> => {
     setError(null);
+    setLoading(true);
     try {
       const { access_token } = await loginApi(email, password);
       setToken(access_token);
@@ -61,11 +65,14 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         err instanceof Error ? err.message : 'An unknown error occurred',
       );
       return false;
+    } finally {
+      setLoading(false);
     }
   };
 
   const signup = async (name: string, email: string, password: string) => {
     setError(null);
+    setLoading(true);
     try {
       const { access_token } = await signupApi(name, email, password);
       setToken(access_token);
@@ -76,6 +83,8 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         err instanceof Error ? err.message : 'An unknown error occurred',
       );
       return false;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -86,7 +95,16 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ token, login, signup, logout, isAuthenticated, error, setError }}
+      value={{
+        token,
+        login,
+        signup,
+        logout,
+        isAuthenticated,
+        error,
+        setError,
+        loading,
+      }}
     >
       {children}
     </AuthContext.Provider>

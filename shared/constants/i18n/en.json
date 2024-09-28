@@ -16,6 +16,22 @@
       "errorMessage": "* Please enter a valid name: \n - The name must contain only letters and spaces \n - The name must be 3-50 characters long"
     }
   },
+  "dashboard": {
+    "title": "Storage",
+    "search": {
+      "placeholder": "Search"
+    },
+    "entity": {
+      "addStorage": "Add unit",
+      "addBox": "Add box",
+      "addItem": "Add item"
+    },
+    "footer": {
+      "favorite":"Favorites",
+      "scan": "Scan",
+      "profile": "Profile"
+    }
+  },
   "common":{
     "email": {
       "label": "Email",
