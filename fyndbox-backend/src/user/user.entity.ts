@@ -5,7 +5,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+
+import { Storage } from '../storage/storage.entity';
 
 @Entity()
 export class User {
@@ -24,6 +27,9 @@ export class User {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @OneToMany(() => Storage, (storage) => storage.user)
+  storages: Storage[];
 
   @CreateDateColumn()
   createdAt: Date;
