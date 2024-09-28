@@ -10,8 +10,12 @@ import SearchField from '../../components/SearchField/SearchField';
 import EntityCard from '../../components/EntityCard/EntityCard';
 import AddEntityButton from '../../components/AddEntityButton/AddEntityButton';
 import DashboardFooter from '../../components/DashboardFooter/DashboardFooter';
-import { CustomIcon, FullPageContainer } from '../../styles/commonStyles';
-import { MainContainer, SubContainer } from './DashboardPage.styles';
+import { CustomIcon } from '../../styles/commonStyles';
+import {
+  DashboardContainer,
+  MainContainer,
+  SubContainer,
+} from './DashboardPage.styles';
 
 const DashboardPage: FC = () => {
   const [expandedStorageIndex, setExpandedStorageIndex] = useState<
@@ -89,7 +93,7 @@ const DashboardPage: FC = () => {
   return (
     <>
       <TopBar />
-      <FullPageContainer>
+      <DashboardContainer>
         <SearchField />
         <MainContainer>
           {storages.map((storage, index) => (
@@ -139,7 +143,7 @@ const DashboardPage: FC = () => {
           ))}
           <AddEntityButton entityType="storage" onAdd={handleAddStorage} />
         </MainContainer>
-      </FullPageContainer>
+      </DashboardContainer>
       <DashboardFooter
         onFavoriteClick={handleFavoriteClick}
         onScanClick={handleScanClick}
