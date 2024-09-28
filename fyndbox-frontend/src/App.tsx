@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
+import AuthGuard from './components/AuthGuard';
+import DashboardPage from './pages/DashboardPage/DashboardPage';
 
 
 const App: FC = () => {
@@ -21,10 +23,11 @@ const App: FC = () => {
           path="/dashboard"
           element={
             <AuthGuard>
-              <Dashboard />
+              <DashboardPage />
             </AuthGuard>
           }
         />
+        {/* 
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/login" />} />  */}
       </Routes>

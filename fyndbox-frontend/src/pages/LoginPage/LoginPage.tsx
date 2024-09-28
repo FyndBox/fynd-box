@@ -33,7 +33,7 @@ const LoginPage: FC = () => {
       const success = await login(email, password);
 
       if (success) {
-        alert('done');
+        navigate('/dashboard');
       }
     }
   };

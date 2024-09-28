@@ -16,6 +16,22 @@
       "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
     }
   },
+  "dashboard": {
+    "title": "Lagring",
+    "search": {
+      "placeholder": "Sök"
+    },
+    "entity": {
+      "addStorage": "Lägg till enhet",
+      "addBox": "Lägg till låda",
+      "addItem": "Lägg till artikel"
+    },
+    "footer": {
+      "favorite":"Favoriter",
+      "scan": "Scan",
+      "profile": "Profil"
+    }
+  },
   "common":{
     "email": {
       "label": "E-postadress",
