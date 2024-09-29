@@ -92,6 +92,30 @@
       },
       "notFoundById": "User with ID {{id}} not found",
       "notFoundByEmail": "User with email {{email}} not found"
+    },
+    "storages": {
+      "getAll": {
+        "success": "Storages retrieved successfully",
+        "error": "Error retrieving storages"
+      },
+      "get": {
+        "notFound": "Storage not found",
+        "success": "Storage retrieved successfully",
+        "error": "Error retrieving storage"
+      },
+      "create": {
+        "success": "Storage created successfully",
+        "error": "Error creating storage"
+      },
+      "update": {
+        "success": "Storage updated successfully",
+        "error": "Error updating storage"
+      },
+      "delete": {
+        "success": "Storage deleted successfully",
+        "error": "Error deleting storage"
+      },
+      "notFoundById": "Storage with ID {{id}} not found"
     }
   }
 }

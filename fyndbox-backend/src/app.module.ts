@@ -5,6 +5,7 @@ import { DataSource } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { TranslationModule } from './translation/translation.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -64,6 +65,7 @@ import { TranslationModule } from './translation/translation.module';
     UserModule,
     AuthModule,
     TranslationModule,
+    StorageModule,
   ],
 })
 export class AppModule {}
