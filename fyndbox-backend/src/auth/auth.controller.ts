@@ -9,25 +9,35 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiResponse } from '../interfaces/api-response.interface';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { CreateUserDto } from '../user/dto/create-user.dto';
+import { ApiResponse } from '@fyndbox/shared/types/api-response';
+import { TranslationService } from 'src/translation/translation.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly translationService: TranslationService,
+  ) {}
 
   @Post('login')
   async login(
     @Body() loginDto: LoginDto,
+    @Request() req: any,
   ): Promise<ApiResponse<{ access_token: string }>> {
+    const lang = req.language;
     try {
       const token = await this.authService.login(loginDto);
       return {
         statusCode: HttpStatus.OK,
         success: true,
-        message: 'Login successful',
+        message: this.translationService.getTranslation(
+          'api.auth.login.success',
+          lang,
+        ),
         data: token,
       };
     } catch (error) {
@@ -35,7 +45,10 @@ export class AuthController {
         {
           statusCode: HttpStatus.UNAUTHORIZED,
           success: false,
-          message: 'Invalid credentials',
+          message: this.translationService.getTranslation(
+            'api.auth.login.error.invalidCredentials',
+            lang,
+          ),
           error: error.message,
         },
         HttpStatus.UNAUTHORIZED,
@@ -43,26 +56,68 @@ export class AuthController {
     }
   }
 
-  @Patch('password')
-  @UseGuards(AuthGuard('jwt')) // Protect this route with JWT
-  async updatePassword(
-    @Request() req,
-    @Body() updatePasswordDto: UpdatePasswordDto,
-  ): Promise<ApiResponse<void>> {
-    const userId = req.user.userId;
+  @Post('signup')
+  async signup(
+    @Body() createUserDto: CreateUserDto,
+    @Request() req: any,
+  ): Promise<ApiResponse<{ access_token: string }>> {
+    const lang = req.language;
     try {
-      await this.authService.updatePassword(userId, updatePasswordDto);
+      const token = await this.authService.signup(createUserDto);
       return {
-        statusCode: HttpStatus.OK,
+        statusCode: HttpStatus.CREATED,
         success: true,
-        message: 'Password updated successfully',
+        message: this.translationService.getTranslation(
+          'api.auth.signup.success',
+          lang,
+        ),
+        data: token,
       };
     } catch (error) {
       throw new HttpException(
         {
           statusCode: HttpStatus.BAD_REQUEST,
           success: false,
-          message: 'Error updating password',
+          message:
+            error.message ||
+            this.translationService.getTranslation(
+              'api.auth.signup.error.registrationFailed',
+              lang,
+            ),
+          error: error.message,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  @Patch('password')
+  @UseGuards(AuthGuard('jwt'))
+  async updatePassword(
+    @Request() req: any,
+    @Body() updatePasswordDto: UpdatePasswordDto,
+  ): Promise<ApiResponse<void>> {
+    const userId = req.user.userId;
+    const lang = req.language;
+    try {
+      await this.authService.updatePassword(userId, updatePasswordDto);
+      return {
+        statusCode: HttpStatus.OK,
+        success: true,
+        message: this.translationService.getTranslation(
+          'api.auth.password.success',
+          lang,
+        ),
+      };
+    } catch (error) {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.BAD_REQUEST,
+          success: false,
+          message: this.translationService.getTranslation(
+            'api.auth.password.error.updateFailed',
+            lang,
+          ),
           error: error.message,
         },
         HttpStatus.BAD_REQUEST,

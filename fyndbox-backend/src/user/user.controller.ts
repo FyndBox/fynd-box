@@ -4,30 +4,41 @@ import {
   Post,
   Put,
   Delete,
+  Request,
   Body,
-  Param,
   HttpException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { instanceToPlain } from 'class-transformer';
 import { UserService } from './user.service';
-import { ApiResponse } from '../interfaces/api-response.interface';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserResponseDto } from './dto/user-response.dto';
+import { ApiResponse } from '@fyndbox/shared/types/api-response';
+import { AuthGuard } from '@nestjs/passport';
+import { TranslationService } from 'src/translation/translation.service';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly translationService: TranslationService,
+  ) {}
 
   @Get()
-  async findAll(): Promise<ApiResponse<UserResponseDto[]>> {
+  @UseGuards(AuthGuard('jwt'))
+  async findAll(@Request() req: any): Promise<ApiResponse<UserResponseDto[]>> {
+    const lang = req.language;
     try {
       const users = await this.userService.findAll();
       return {
         statusCode: HttpStatus.OK,
         success: true,
-        message: 'Users retrieved successfully',
+        message: this.translationService.getTranslation(
+          'api.users.getAll.success',
+          lang,
+        ),
         data: instanceToPlain(users) as UserResponseDto[],
       };
     } catch (error) {
@@ -35,7 +46,10 @@ export class UserController {
         {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
           success: false,
-          message: 'Error retrieving users',
+          message: this.translationService.getTranslation(
+            'api.users.getAll.error',
+            lang,
+          ),
           error: error.message,
         },
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -43,23 +57,30 @@ export class UserController {
     }
   }
 
-  @Get(':id')
-  async findOne(
-    @Param('id') id: number,
-  ): Promise<ApiResponse<UserResponseDto>> {
+  @Get('me')
+  @UseGuards(AuthGuard('jwt'))
+  async findOne(@Request() req: any): Promise<ApiResponse<UserResponseDto>> {
+    const lang = req.language;
     try {
-      const user = await this.userService.findOne(id);
+      const userId = req.user.userId;
+      const user = await this.userService.findOne(userId);
       if (!user) {
         return {
           statusCode: HttpStatus.NOT_FOUND,
           success: false,
-          message: 'User not found',
+          message: this.translationService.getTranslation(
+            'api.users.me.notFound',
+            lang,
+          ),
         };
       }
       return {
         statusCode: HttpStatus.OK,
         success: true,
-        message: 'User retrieved successfully',
+        message: this.translationService.getTranslation(
+          'api.users.me.success',
+          lang,
+        ),
         data: instanceToPlain(user) as UserResponseDto,
       };
     } catch (error) {
@@ -67,7 +88,10 @@ export class UserController {
         {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
           success: false,
-          message: 'Error retrieving user',
+          message: this.translationService.getTranslation(
+            'api.users.me.error',
+            lang,
+          ),
           error: error.message,
         },
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -78,13 +102,18 @@ export class UserController {
   @Post()
   async create(
     @Body() createUserDto: CreateUserDto,
+    @Request() req: any,
   ): Promise<ApiResponse<UserResponseDto>> {
+    const lang = req.language;
     try {
       const newUser = await this.userService.create(createUserDto);
       return {
         statusCode: HttpStatus.CREATED,
         success: true,
-        message: 'User created successfully',
+        message: this.translationService.getTranslation(
+          'api.users.create.success',
+          lang,
+        ),
         data: instanceToPlain(newUser) as UserResponseDto,
       };
     } catch (error) {
@@ -92,7 +121,10 @@ export class UserController {
         {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
           success: false,
-          message: 'Error creating user',
+          message: this.translationService.getTranslation(
+            'api.users.create.error',
+            lang,
+          ),
           error: error.message,
         },
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -100,17 +132,23 @@ export class UserController {
     }
   }
 
-  @Put(':id')
+  @Put()
+  @UseGuards(AuthGuard('jwt'))
   async update(
-    @Param('id') id: number,
+    @Request() req: any,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<ApiResponse<UserResponseDto>> {
+    const lang = req.language;
     try {
-      const updatedUser = await this.userService.update(id, updateUserDto);
+      const userId = req.user.userId;
+      const updatedUser = await this.userService.update(userId, updateUserDto);
       return {
         statusCode: HttpStatus.OK,
         success: true,
-        message: 'User updated successfully',
+        message: this.translationService.getTranslation(
+          'api.users.update.success',
+          lang,
+        ),
         data: instanceToPlain(updatedUser) as UserResponseDto,
       };
     } catch (error) {
@@ -118,7 +156,10 @@ export class UserController {
         {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
           success: false,
-          message: 'Error updating user',
+          message: this.translationService.getTranslation(
+            'api.users.update.error',
+            lang,
+          ),
           error: error.message,
         },
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -126,21 +167,30 @@ export class UserController {
     }
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: number): Promise<ApiResponse<void>> {
+  @Delete()
+  @UseGuards(AuthGuard('jwt'))
+  async remove(@Request() req: any): Promise<ApiResponse<void>> {
+    const lang = req.language;
     try {
-      await this.userService.remove(id);
+      const userId = req.user.userId;
+      await this.userService.remove(userId);
       return {
         statusCode: HttpStatus.OK,
         success: true,
-        message: 'User deleted successfully',
+        message: this.translationService.getTranslation(
+          'api.users.delete.success',
+          lang,
+        ),
       };
     } catch (error) {
       throw new HttpException(
         {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
           success: false,
-          message: 'Error deleting user',
+          message: this.translationService.getTranslation(
+            'api.users.delete.error',
+            lang,
+          ),
           error: error.message,
         },
         HttpStatus.INTERNAL_SERVER_ERROR,

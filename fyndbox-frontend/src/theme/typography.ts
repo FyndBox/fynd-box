@@ -1,41 +1,47 @@
-import { TypographyOptions } from "@mui/material/styles/createTypography";
+import { TypographyOptions } from '@mui/material/styles/createTypography';
 
 const typography: TypographyOptions = {
-  fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+  fontFamily: "'Comfortaa', 'sans-serif'",
   h1: {
-    fontSize: "2.5rem",
-    fontWeight: 700,
-    lineHeight: 1.2,
-    letterSpacing: "-0.01562em",
+    fontWeight: 300,
+    fontSize: '3.125rem',
+    letterSpacing: '-0.015em',
   },
   h2: {
-    fontSize: "2rem",
-    fontWeight: 700,
-    lineHeight: 1.3,
-    letterSpacing: "-0.00833em",
+    fontWeight: 600,
+    fontSize: '2rem',
+    letterSpacing: '-0.015em',
+    lineHeight: '1.2',
   },
   h3: {
-    fontSize: "1.75rem",
+    fontSize: '1.75rem',
     fontWeight: 700,
     lineHeight: 1.4,
-    letterSpacing: "0em",
+    letterSpacing: '0em',
   },
   h4: {
-    fontSize: "1.5rem",
+    fontSize: '1.5rem',
     fontWeight: 600,
     lineHeight: 1.5,
-    letterSpacing: "0.00735em",
+    letterSpacing: '0.00735em',
   },
   body1: {
-    fontSize: "1rem",
-    fontWeight: 400,
-    lineHeight: 1.5,
-    letterSpacing: "0.00938em",
+    fontWeight: 300,
+    fontSize: '1rem',
+    letterSpacing: '-0.005em',
+    lineHeight: '1.5',
   },
   button: {
-    textTransform: "none",
-    fontWeight: 500,
-    fontSize: "1rem",
+    fontWeight: 400,
+    fontSize: '1rem',
+    textTransform: 'none',
+    letterSpacing: 'normal',
+  },
+  caption: {
+    fontWeight: 300,
+    fontSize: '0.8125rem',
+    letterSpacing: '-0.015em',
+    lineHeight: '1.2',
   },
 };
 

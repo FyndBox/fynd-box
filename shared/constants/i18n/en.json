@@ -1,0 +1,122 @@
+{   
+  "home": {
+    "title": "Welcome to FyndBox",
+    "description": "We offer an efficient and flexible solution to gain complete control over your inventory. With our web platform, you can easily organize and manage your inventory by adding boxes and specifying images and quantities for each item."
+  },
+  "login": {
+    "title": "Log in",
+    "submit": "Log in"
+  },
+  "signup": {
+    "title": "Create new account",
+    "submit": "Become a Member",
+    "name": {
+      "label": "Name",
+      "placeholder": "John Doe",
+      "errorMessage": "* Please enter a valid name: \n - The name must contain only letters and spaces \n - The name must be 3-50 characters long"
+    }
+  },
+  "dashboard": {
+    "title": "Storage",
+    "search": {
+      "placeholder": "Search"
+    },
+    "entity": {
+      "addStorage": "Add unit",
+      "addBox": "Add box",
+      "addItem": "Add item"
+    },
+    "footer": {
+      "favorite":"Favorites",
+      "scan": "Scan",
+      "profile": "Profile"
+    }
+  },
+  "common":{
+    "email": {
+      "label": "Email",
+      "placeholder": "example@domain.com",
+      "errorMessage": "* Please enter a valid email address"
+      },
+    "password": {
+      "label": "Password",
+      "placeholder": "",
+      "loginErrorMessage": "* Password required",
+      "signupErrorMessage": "* Please enter a valid password: \n - Must contain 8-20 characters \n - Must contain at least one letter \n - Must contain at least one number \n - Must contain at least one special character (only @$!%*#?& are allowed)"
+    }
+  },
+  "api": {
+    "auth": {
+      "login": {
+        "success": "Login successful",
+        "error": {
+          "invalidCredentials": "Invalid credentials"
+        }
+      },
+      "signup": {
+        "success": "User registered successfully",
+        "error": {
+          "registrationFailed": "Error registering user",
+          "emailAlreadyRegistered": "Email is already registered"
+        }
+      },
+      "password": {
+        "success": "Password updated successfully",
+        "error": {
+          "updateFailed": "Error updating password",
+          "incorrectPassword": "Current password is incorrect"
+        }
+      }
+    },
+    "users": {
+      "getAll": {
+        "success": "Users retrieved successfully",
+        "error": "Error retrieving users"
+      },
+      "me": {
+        "notFound": "User not found",
+        "success": "User retrieved successfully",
+        "error": "Error retrieving user"
+      },
+      "create": {
+        "success": "User created successfully",
+        "error": "Error creating user"
+      },
+      "update": {
+        "success": "User updated successfully",
+        "error": "Error updating user"
+      },
+      "delete": {
+        "success": "User deleted successfully",
+        "error": "Error deleting user"
+      },
+      "notFoundById": "User with ID {{id}} not found",
+      "notFoundByEmail": "User with email {{email}} not found"
+    },
+    "storages": {
+      "getAll": {
+        "success": "Storages retrieved successfully",
+        "error": "Error retrieving storages"
+      },
+      "get": {
+        "notFound": "Storage not found",
+        "success": "Storage retrieved successfully",
+        "error": "Error retrieving storage"
+      },
+      "create": {
+        "success": "Storage created successfully",
+        "error": "Error creating storage"
+      },
+      "update": {
+        "success": "Storage updated successfully",
+        "error": "Error updating storage"
+      },
+      "delete": {
+        "success": "Storage deleted successfully",
+        "error": "Error deleting storage"
+      },
+      "notFoundById": "Storage with ID {{id}} not found"
+    }
+  }
+}
+  

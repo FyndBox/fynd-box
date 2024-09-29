@@ -1,25 +1,37 @@
-import { Button, Box } from "@mui/material";
-import { FC } from "react";
-import { StyledContainer, StyledTypography } from "./LandingPageStyles";
+import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
+import { HomeContainer, HomeSubContainer } from './LandingPage.styles';
 
 const LandingPage: FC = () => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+
+  const handleSignupClick = () => {
+    navigate('/signup');
+  };
+
   return (
-    <StyledContainer maxWidth="md">
-      <Box textAlign="center">
-        <StyledTypography variant="h3" gutterBottom mb={8}>
-          Välkommen till FyndBox
-        </StyledTypography>
-        <StyledTypography variant="h6" gutterBottom mb={10}>
-          Vi erbjuder en effektiv och smidig lösning för att få fullständig
-          kontroll över ditt lager. Med vår webbplatform kan du enkelt
-          organisera och hantera dina inventarier genom att lägga till lådor och
-          ange bilder samt antal för varje objekt.
-        </StyledTypography>
-        <Button variant="contained" color="primary" href="#login">
-          Login
-        </Button>
-      </Box>
-    </StyledContainer>
+    <HomeContainer>
+      <HomeSubContainer>
+        <Typography variant="h1" mb={8}>
+          {t('home.title')}
+        </Typography>
+        <Typography variant="body1" mb={10}>
+          {t('home.description')}
+        </Typography>
+        <AuthButtonsGroup
+          onLoginClick={handleLoginClick}
+          onRegisterClick={handleSignupClick}
+        />
+      </HomeSubContainer>
+    </HomeContainer>
   );
 };
 

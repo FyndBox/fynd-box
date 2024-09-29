@@ -2,25 +2,37 @@ import {
   Injectable,
   UnauthorizedException,
   BadRequestException,
+  Scope,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserService } from '../user/user.service';
+import { BaseService } from '../common/base.service';
 import { LoginDto } from './dto/login.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { CreateUserDto } from '../user/dto/create-user.dto';
+import { TranslationService } from 'src/translation/translation.service';
 
-@Injectable()
-export class AuthService {
+@Injectable({ scope: Scope.REQUEST })
+export class AuthService extends BaseService {
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
-  ) {}
+    private translationService: TranslationService,
+  ) {
+    super();
+  }
 
   async login(loginDto: LoginDto): Promise<{ access_token: string }> {
     const user = await this.userService.findByEmail(loginDto.email);
 
     if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException(
+        this.translationService.getTranslation(
+          'api.auth.login.error.invalidCredentials',
+          this.getLang(),
+        ),
+      );
     }
 
     const isPasswordValid = await bcrypt.compare(
@@ -28,13 +40,42 @@ export class AuthService {
       user.password,
     );
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException(
+        this.translationService.getTranslation(
+          'api.auth.login.error.invalidCredentials',
+          this.getLang(),
+        ),
+      );
     }
 
     const payload = { email: user.email, sub: user.id }; // JWT payload
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  async signup(
+    createUserDto: CreateUserDto,
+  ): Promise<{ access_token: string }> {
+    const existingUser = await this.userService
+      .findByEmail(createUserDto.email)
+      .catch(() => null);
+
+    if (existingUser) {
+      throw new BadRequestException(
+        this.translationService.getTranslation(
+          'api.auth.signup.error.emailAlreadyRegistered',
+          this.getLang(),
+        ),
+      );
+    }
+
+    const newUser = await this.userService.create(createUserDto);
+
+    const payload = { email: newUser.email, sub: newUser.id };
+    const access_token = this.jwtService.sign(payload);
+
+    return { access_token };
   }
 
   async updatePassword(
@@ -48,7 +89,12 @@ export class AuthService {
       user.password,
     );
     if (!isPasswordValid) {
-      throw new BadRequestException('Current password is incorrect');
+      throw new BadRequestException(
+        this.translationService.getTranslation(
+          'api.auth.password.error.incorrectPassword',
+          this.getLang(),
+        ),
+      );
     }
 
     const hashedPassword = await bcrypt.hash(updatePasswordDto.newPassword, 10);
