@@ -9,11 +9,26 @@ import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      async useFactory(configService: ConfigService) {
+      useFactory: async (configService: ConfigService) => {
+        const isProduction =
+          configService.get<string>('NODE_ENV') === 'production';
+
+        // Check if DATABASE_URL exists (for Heroku)
+        if (isProduction && configService.get<string>('DATABASE_URL')) {
+          return {
+            type: 'postgres',
+            url: configService.get<string>('DATABASE_URL'),
+            autoLoadEntities: true,
+            synchronize: false, // Disable synchronize in production
+          };
+        }
+
         const dbName = configService.get<string>('DB_NAME');
         const dbHost = configService.get<string>('DB_HOST');
         const dbPort = configService.get<number>('DB_PORT');

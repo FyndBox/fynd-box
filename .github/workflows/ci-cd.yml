@@ -7,11 +7,11 @@ on:
 
 env:
   NODE_VERSION: 18.20.0
-  PNMP_VERSION: 9.9.0
+  PNPM_VERSION: 9.9.0
 
 jobs:
-  # Install dependencies and build both frontend and backend
-  build:
+  # Build and Deploy Frontend
+  frontend-build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,38 +22,97 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: ${{env.NODE_VERSION}}
+          node-version: ${{ env.NODE_VERSION }}
 
       # Step 3: Install PNPM
       - name: Install PNPM
         run: |
-          npm install -g pnpm@${{env.PNMP_VERSION}}
+          npm install -g pnpm@${{ env.PNPM_VERSION }}
           echo "PNPM version: $(pnpm --version)"
 
-      # Step 4: Install dependencies in monorepo root
-      - name: Install dependencies (root workspace)
+      # Step 4: Install dependencies in frontend
+      - name: Install dependencies (frontend workspace)
         run: |
-          pnpm install
+          pnpm --filter fyndbox-frontend install
 
-      # Step 5: Checking Lint for the frontend and backend
-      - name: Lint the Project
+      # Step 5: Lint the frontend
+      - name: Lint Frontend
         run: |
-          pnpm run lint
+          pnpm --filter fyndbox-frontend lint
 
-      # Step 6: Build the frontend and backend
-      - name: Build the Project
+      # Step 6: Build the frontend
+      - name: Build Frontend
         run: |
-          pnpm run build
+          pnpm --filter fyndbox-frontend build
 
-  # Deploy step to production
-  deploy:
+      # Step 7: Deploy frontend to One.com
+      - name: Deploy to One.com
+        run: |
+          lftp -u "${{ secrets.ONE_COM_USERNAME }},${{ secrets.ONE_COM_PASSWORD }}" ftp://ftp.fyndbox.com -e "mirror -R ./fyndbox-frontend/dist /; bye"
+
+  # Build Backend
+  backend-build:
     runs-on: ubuntu-latest
-    needs: build
 
     steps:
+      # Step 1: Checkout the code
       - uses: actions/checkout@v2
 
-      - name: Deploy to Production
+      # Step 2: Install Node.js (v18)
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # Step 3: Install PNPM
+      - name: Install PNPM
         run: |
-          echo "Deploying the application to the server"
-          # Add your deployment script or commands here (e.g., rsync, FTP, SSH)
+          npm install -g pnpm@${{ env.PNPM_VERSION }}
+          echo "PNPM version: $(pnpm --version)"
+
+      # Step 4: Install dependencies in backend
+      - name: Install dependencies (backend workspace)
+        run: |
+          pnpm --filter fyndbox-backend install
+
+      # Step 5: Lint the backend
+      - name: Lint Backend
+        run: |
+          pnpm --filter fyndbox-backend lint
+
+      # Step 6: Build the backend
+      - name: Build Backend
+        run: |
+          pnpm --filter fyndbox-backend build
+
+  # Deploy Backend to Heroku
+  backend-deploy:
+    runs-on: ubuntu-latest
+    needs: backend-build
+
+    steps:
+      # Step 1: Checkout the code
+      - uses: actions/checkout@v2
+
+      # Step 2: Install Heroku CLI
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      # Step 3: Authenticate with Heroku API
+      - name: Authenticate with Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          echo "machine api.heroku.com" > ~/.netrc
+          echo "  login ${{ secrets.HEROKU_EMAIL }}" >> ~/.netrc
+          echo "  password ${{ secrets.HEROKU_API_KEY }}" >> ~/.netrc
+          echo "machine git.heroku.com" >> ~/.netrc
+          echo "  login ${{ secrets.HEROKU_EMAIL }}" >> ~/.netrc
+          echo "  password ${{ secrets.HEROKU_API_KEY }}" >> ~/.netrc
+
+      # Step 4: Deploy backend to Heroku
+      - name: Deploy to Heroku
+        run: |
+          git remote add heroku https://git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+          git push heroku main
