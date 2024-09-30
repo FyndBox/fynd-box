@@ -69,7 +69,7 @@ jobs:
       # Step 9: Deploy frontend to One.com
       - name: Deploy to One.com
         run: |
-          lftp -u "${{ secrets.ONE_COM_USERNAME }},${{ secrets.ONE_COM_PASSWORD }}" sftp://ssh.fyndbox.com -e "mirror -R ./fyndbox-frontend/dist /; bye"
+          lftp -u "${{ secrets.ONE_COM_USERNAME }},${{ secrets.ONE_COM_PASSWORD }}" sftp://ssh.fyndbox.com -e "mirror -R ./fyndbox-frontend/dist .; bye"
 
   # Build Backend
   backend-build:
