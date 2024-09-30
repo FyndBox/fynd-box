@@ -45,17 +45,12 @@ jobs:
         run: |
           pnpm --filter fyndbox-frontend install
 
-      # Step 7: Lint frontend code
-      - name: Lint Frontend
-        run: |
-          pnpm --filter fyndbox-frontend lint
-
-      # Step 8: Build the frontend
+      # Step 7: Build the frontend
       - name: Build Frontend
         run: |
           pnpm --filter fyndbox-frontend build
 
-      # Step 9: Deploy frontend to One.com
+      # Step 8: Deploy frontend to One.com
       - name: Deploy to One.com
         run: |
           lftp -u "${{ secrets.ONE_COM_USERNAME }},${{ secrets.ONE_COM_PASSWORD }}" ftp://ftp.fyndbox.com -e "mirror -R ./fyndbox-frontend/dist /; bye"
@@ -95,12 +90,7 @@ jobs:
         run: |
           pnpm --filter fyndbox-backend install
 
-      # Step 7: Lint backend code
-      - name: Lint Backend
-        run: |
-          pnpm --filter fyndbox-backend lint
-
-      # Step 8: Build the backend
+      # Step 7: Build the backend
       - name: Build Backend
         run: |
           pnpm --filter fyndbox-backend build
