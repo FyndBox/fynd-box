@@ -19,30 +19,31 @@ import { StorageModule } from './storage/storage.module';
         const isProduction =
           configService.get<string>('NODE_ENV') === 'production';
 
-        // Check if DATABASE_URL exists (for Heroku)
         if (isProduction && configService.get<string>('DATABASE_URL')) {
+          // Production configuration with DATABASE_URL (Heroku)
           return {
             type: 'postgres',
             url: configService.get<string>('DATABASE_URL'),
             autoLoadEntities: true,
-            synchronize: false, // Disable synchronize in production
+            synchronize: false, // Disable synchronize in production for safety
           };
         }
 
+        // Development environment
         const dbName = configService.get<string>('DB_NAME');
         const dbHost = configService.get<string>('DB_HOST');
         const dbPort = configService.get<number>('DB_PORT');
         const dbUser = configService.get<string>('DB_USERNAME');
         const dbPassword = configService.get<string>('DB_PASSWORD');
 
-        // Create a temporary DataSource to connect to the 'postgres' database
+        // Create a temporary DataSource to connect to the default 'postgres' database
         const tempDataSource = new DataSource({
           type: 'postgres',
           host: dbHost,
           port: dbPort,
           username: dbUser,
           password: dbPassword,
-          database: 'postgres', // Connect to default database
+          database: 'postgres', // Default database for managing new databases
         });
 
         await tempDataSource.initialize();
@@ -57,18 +58,22 @@ import { StorageModule } from './storage/storage.module';
           // Database does not exist, create it
           await tempDataSource.query(`CREATE DATABASE "${dbName}"`);
           console.log(`Database ${dbName} created successfully.`);
-        } else {
-          return {
-            type: 'postgres',
-            host: configService.get<string>('DB_HOST'),
-            port: configService.get<number>('DB_PORT'),
-            username: configService.get<string>('DB_USERNAME'),
-            password: configService.get<string>('DB_PASSWORD'),
-            database: configService.get<string>('DB_NAME'),
-            autoLoadEntities: true,
-            synchronize: true, // Enable synchronize in development
-          };
         }
+
+        // Close the temporary connection
+        await tempDataSource.destroy();
+
+        // Return development configuration
+        return {
+          type: 'postgres',
+          host: dbHost,
+          port: dbPort,
+          username: dbUser,
+          password: dbPassword,
+          database: dbName,
+          autoLoadEntities: true,
+          synchronize: true, // Enable synchronize in development
+        };
       },
     }),
     UserModule,

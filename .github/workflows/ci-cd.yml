@@ -30,22 +30,32 @@ jobs:
           npm install -g pnpm@${{ env.PNPM_VERSION }}
           echo "PNPM version: $(pnpm --version)"
 
-      # Step 4: Install dependencies in frontend
-      - name: Install dependencies (frontend workspace)
+      # Step 4: Install root dependencies (shared across frontend and backend)
+      - name: Install root dependencies
+        run: |
+          pnpm install
+
+      # Step 5: Build the shared package
+      - name: Build shared package
+        run: |
+          pnpm --filter @fyndbox/shared build
+
+      # Step 6: Install frontend dependencies (this will also pick up the shared package)
+      - name: Install frontend dependencies
         run: |
           pnpm --filter fyndbox-frontend install
 
-      # Step 5: Lint the frontend
+      # Step 7: Lint frontend code
       - name: Lint Frontend
         run: |
           pnpm --filter fyndbox-frontend lint
 
-      # Step 6: Build the frontend
+      # Step 8: Build the frontend
       - name: Build Frontend
         run: |
           pnpm --filter fyndbox-frontend build
 
-      # Step 7: Deploy frontend to One.com
+      # Step 9: Deploy frontend to One.com
       - name: Deploy to One.com
         run: |
           lftp -u "${{ secrets.ONE_COM_USERNAME }},${{ secrets.ONE_COM_PASSWORD }}" ftp://ftp.fyndbox.com -e "mirror -R ./fyndbox-frontend/dist /; bye"
@@ -70,17 +80,27 @@ jobs:
           npm install -g pnpm@${{ env.PNPM_VERSION }}
           echo "PNPM version: $(pnpm --version)"
 
-      # Step 4: Install dependencies in backend
-      - name: Install dependencies (backend workspace)
+      # Step 4: Install root dependencies (shared across frontend and backend)
+      - name: Install root dependencies
+        run: |
+          pnpm install
+
+      # Step 5: Build the shared package (shared dependencies)
+      - name: Build shared package
+        run: |
+          pnpm --filter @fyndbox/shared build
+
+      # Step 6: Install backend dependencies (this will also pick up the shared package)
+      - name: Install backend dependencies
         run: |
           pnpm --filter fyndbox-backend install
 
-      # Step 5: Lint the backend
+      # Step 7: Lint backend code
       - name: Lint Backend
         run: |
           pnpm --filter fyndbox-backend lint
 
-      # Step 6: Build the backend
+      # Step 8: Build the backend
       - name: Build Backend
         run: |
           pnpm --filter fyndbox-backend build
