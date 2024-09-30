@@ -52,7 +52,13 @@ jobs:
         run: |
           pnpm --filter fyndbox-frontend build
 
-      # Step 8: Deploy frontend to One.com
+     # Step 8: Install `lftp`
+      - name: Install lftp
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lftp
+          
+      # Step 9: Deploy frontend to One.com
       - name: Deploy to One.com
         run: |
           lftp -u "${{ secrets.ONE_COM_USERNAME }},${{ secrets.ONE_COM_PASSWORD }}" ftp://ftp.fyndbox.com -e "mirror -R ./fyndbox-frontend/dist /; bye"
