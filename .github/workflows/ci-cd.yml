@@ -17,6 +17,8 @@ jobs:
     steps:
       # Step 1: Checkout the code
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       # Step 2: Install Node.js (v18)
       - name: Install Node.js
@@ -62,6 +64,8 @@ jobs:
     steps:
       # Step 1: Checkout the code
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       # Step 2: Install Node.js (v18)
       - name: Install Node.js
@@ -103,6 +107,8 @@ jobs:
     steps:
       # Step 1: Checkout the code
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       # Step 2: Install Heroku CLI
       - name: Install Heroku CLI
