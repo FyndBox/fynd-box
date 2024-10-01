@@ -1,1 +1,1 @@
-web: cd fyndbox-backend && npm run start:prod
+web: cd fyndbox-backend && pnpm --filter fyndbox-backend install && pnpm run start:prod
