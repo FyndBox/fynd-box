@@ -17,6 +17,7 @@ interface AddEntityButtonProps {
 const AddEntityButton: FC<AddEntityButtonProps> = ({
   entityType = 'storage',
   onAdd,
+  
 }) => {
   const { t } = useTranslation();
 

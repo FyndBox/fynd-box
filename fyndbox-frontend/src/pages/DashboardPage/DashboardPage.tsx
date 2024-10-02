@@ -17,6 +17,7 @@ import {
   SubContainer,
 } from './DashboardPage.styles';
 import { EntityType } from '../../types/entityTypes';
+import EntityActionModal from '../../components/modal/EntityActionModal';
 
 const DashboardPage: FC = () => {
   const [expandedStorageIndex, setExpandedStorageIndex] = useState<
@@ -69,6 +70,7 @@ const DashboardPage: FC = () => {
     setModalMode('add');
     setEditingData(null); // Reset form fields for adding a new entity
     setModalOpen(true);
+
   };
   // Edit Method: Can be used for editing any type of entity
   const handleEditEntity = (
@@ -151,10 +153,7 @@ const DashboardPage: FC = () => {
               )}
             </Box>
           ))}
-          <AddEntityButton
-            entityType="storage"
-            onAdd={() => handleAddEntity('storage')}
-          />
+          <AddEntityButton entityType="storage" onAdd={() => handleAddEntity('storage')} />
         </MainContainer>
       </DashboardContainer>
       <DashboardFooter
@@ -162,19 +161,15 @@ const DashboardPage: FC = () => {
         onScanClick={handleScanClick}
         onProfileClick={handleProfileClick}
       />
-      {/* Add your modal component here
-      
-       <DynamicModal
+      <EntityActionModal
         open={isModalOpen}
         onClose={() => setModalOpen(false)}
         entityType={entityType}
         mode={modalMode}
         initialData={editingData || undefined}
-        onSave={handleSave}
-        onDelete={modalMode === 'edit' ? handleDelete : undefined}
+        // onSave={handleSave}
+        // onDelete={modalMode === 'edit' ? handleDelete : undefined}
       />
-      
-      */}
     </>
   );
 };

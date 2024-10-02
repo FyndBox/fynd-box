@@ -17,6 +17,7 @@ interface EntityCardProps {
   onEdit?: () => void;
 }
 
+
 const EntityCard: FC<EntityCardProps> = ({
   name,
   description,

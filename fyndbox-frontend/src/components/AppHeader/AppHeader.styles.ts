@@ -7,3 +7,4 @@ export const AppHeaderContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1, 0),
   cursor: 'pointer',
 }));
+ 

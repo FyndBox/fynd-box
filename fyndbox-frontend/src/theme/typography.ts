@@ -10,8 +10,8 @@ const typography: TypographyOptions = {
   h2: {
     fontWeight: 600,
     fontSize: '2rem',
-    letterSpacing: '-0.015em',
-    lineHeight: '1.2',
+    letterSpacing: '-0.015em', 
+    lineHeight: '1.2', 
   },
   h3: {
     fontSize: '1.75rem',
