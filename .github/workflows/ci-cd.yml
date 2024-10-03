@@ -40,7 +40,7 @@ jobs:
       # Create the .env.production file during the GitHub Actions run
       - name: Create .env.production
         run: |
-          echo "VITE_API_URL=https://fyndbox-cddc55cc8183.herokuapp.com" > apps/fyndbox-frontend/.env.production
+          echo "VITE_API_URL=https://fyndbox-cddc55cc8183.herokuapp.com" > fyndbox-frontend/.env.production
 
       # Step 5: Build the shared package
       - name: Build shared package
