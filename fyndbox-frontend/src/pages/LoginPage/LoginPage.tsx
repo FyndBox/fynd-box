@@ -29,6 +29,8 @@ const LoginPage: FC = () => {
     setEmailError(!isEmailValid(email));
     setPasswordError(!isPasswordValidForLogin(password));
 
+    console.log('Current Mode:', import.meta.env.MODE);
+    console.log('API URL:', import.meta.env.VITE_API_URL);
     if (isEmailValid(email) && isPasswordValidForLogin(password)) {
       const success = await login(email, password);
 

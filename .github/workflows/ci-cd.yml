@@ -42,6 +42,10 @@ jobs:
         run: |
           echo "VITE_API_URL=https://fyndbox-cddc55cc8183.herokuapp.com" > fyndbox-frontend/.env.production
 
+      - name: Check .env.production file
+        run: |
+          cat fyndbox-frontend/.env.production
+
       # Step 5: Build the shared package
       - name: Build shared package
         run: |
