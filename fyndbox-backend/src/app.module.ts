@@ -25,7 +25,7 @@ import { StorageModule } from './storage/storage.module';
             type: 'postgres',
             url: configService.get<string>('DATABASE_URL'),
             autoLoadEntities: true,
-            synchronize: false, // Disable synchronize in production for safety
+            synchronize: true, // Disable synchronize in production for safety
             ssl: {
               rejectUnauthorized: false, // Ensure SSL is used
             },
