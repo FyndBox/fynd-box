@@ -6,7 +6,9 @@ const publicRoutes = ['/auth/login', '/auth/signup'];
 
 const apiClient = axios.create({
   baseURL:
-    import.meta.env.MODE === 'production' ? process.env.VITE_API_URL : '/api',
+    import.meta.env.MODE === 'production'
+      ? import.meta.env.VITE_API_URL
+      : '/api',
   headers: {
     'Content-Type': 'application/json',
   },
