@@ -135,7 +135,7 @@ export const SignupPage = () => {
         {error && (
           <Typography variant="caption" color="error">
             {error}
-          </Typography> 
+          </Typography>
         )}
         <AuthButtonsGroup
           showLoginButton={false}

@@ -64,15 +64,12 @@ const DashboardPage: FC = () => {
   };
 
   // Add Method: Can be used for creating any type of entity
-  const handleAddEntity = (
-    type: EntityType
-  ) => {
+  const handleAddEntity = (type: EntityType) => {
     console.log(`Add the ${type}`);
     setEntityType(type);
     setModalMode('add');
- 
-    setModalOpen(true);
 
+    setModalOpen(true);
   };
   // Edit Method: Can be used for editing any type of entity
   const handleEditEntity = (
@@ -102,18 +99,22 @@ const DashboardPage: FC = () => {
   };
 
   // save function
-  const handleSave = (data: { name: string; description: string; image?: string }) => {
+  const handleSave = (data: {
+    name: string;
+    description: string;
+    image?: string;
+  }) => {
     if (modalMode === 'add') {
-       console.log('Saving new entity:', data);
+      console.log('Saving new entity:', data);
     } else if (modalMode === 'edit') {
-        console.log('Updating existing entity:', data);
+      console.log('Updating existing entity:', data);
     }
     setModalOpen(false); // Close the modal after saving
   };
-  
+
   const handleDelete = (data: { name: string; description: string }) => {
     console.log('Deleting entity:', data);
-    setModalOpen(false);  // Close modal after deletion
+    setModalOpen(false); // Close modal after deletion
   };
 
   return (
@@ -170,9 +171,10 @@ const DashboardPage: FC = () => {
               )}
             </Box>
           ))}
-          <AddEntityButton 
-            entityType="storage"  
-            onAdd={() => handleAddEntity('storage')}  />
+          <AddEntityButton
+            entityType="storage"
+            onAdd={() => handleAddEntity('storage')}
+          />
         </MainContainer>
       </DashboardContainer>
       <DashboardFooter
@@ -194,4 +196,3 @@ const DashboardPage: FC = () => {
 };
 
 export default DashboardPage;
-

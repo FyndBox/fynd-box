@@ -19,8 +19,7 @@ const theme = createTheme({
       main: '#f44336',
       dark: '#ba000d',
     },
-    
   },
-  typography, 
+  typography,
 });
 export default theme;

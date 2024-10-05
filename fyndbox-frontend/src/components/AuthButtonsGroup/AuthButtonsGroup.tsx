@@ -21,7 +21,6 @@ const AuthButtonsGroup: FC<AuthButtonsGroupProps> = ({
   onRegisterClick,
 }) => {
   const { t } = useTranslation();
-  // const { t } = "react-i18next": "^15.0.2";
   return (
     <AuthButtonsWrapper>
       {showLoginButton && (

@@ -21,5 +21,3 @@ export const ImageBox = styled('img')(({ theme }) => ({
   marginRight: theme.spacing(2),
   objectFit: 'cover',
 }));
-
-
