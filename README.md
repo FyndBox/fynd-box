@@ -51,6 +51,10 @@ Before setting up the project, ensure that you have the following installed:
      ```bash
      pnpm -v
      ```
+4. **postgres**:
+   - Download and install the [postgres](https://www.postgresql.org/download/).
+   
+     
 
 ## Project Structure
 
