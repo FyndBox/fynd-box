@@ -8,7 +8,9 @@ async function bootstrap() {
   const isProduction = process.env.NODE_ENV === 'production';
 
   app.enableCors({
-    origin: isProduction ? 'https://fyndbox.com' : 'http://localhost:5173',
+    origin: isProduction
+      ? ['https://fyndbox.com', 'https://www.fyndbox.com']
+      : 'http://localhost:5173',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true, // Enable credentials (if needed, e.g., for cookies or tokens)
   });
