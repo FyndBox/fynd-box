@@ -100,7 +100,16 @@
       "label": "Namn",
       "placeholder": "John Doe",
       "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
-    }
+     },
+    "description": {
+      "label": "Beskrivning",
+      "placeholder": "Beskrivning"
+    },
+    "add":"Spara",
+    "delete":"Radera",
+    "cancel":"Avbryt",
+    "edit": "Redigera"
+
   }
 }
   

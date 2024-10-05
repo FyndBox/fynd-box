@@ -1,4 +1,7 @@
 import { Box, Button, styled } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export const StyledModalBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
@@ -25,37 +28,57 @@ export const ModalImageBox = styled('img')({
 });
 
 
-// button
+// Modal Entity buttons
 export const ModalBaseButton = styled(Button)(({ theme }) => ({
   borderRadius: '5px',
-  padding: theme.spacing(1.25, 2),
   textTransform: 'none',
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(2),
+  gap: theme.spacing(1),
+  FontSize:'30px !important',
 }));
 
 export const StyledModalAddButton = styled(ModalBaseButton)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
   color: theme.palette.primary.contrastText,
   flexDirection:'row',
+  
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },
 }));
 
 export const StyledModalDeleteButton = styled(ModalBaseButton)(({ theme }) => ({
-  backgroundColor:'#f44336',
+  backgroundColor:theme.palette.error.main,
   flexDirection:'row',
+  
   '&:hover': {
-    backgroundColor:'#ba000d',
+    backgroundColor:theme.palette.error.dark,
   },
 }));
 
-// export const CheckIcon = styled(ModalBaseButton)(({ theme }) => ({
-//   color: theme.palette.secondary.contrastText,
-// }));
+
+
+// Styled component for CheckIcon
+export const StyledCheckIcon = styled(CheckIcon)(({ theme }) => ({
+  color: theme.palette.secondary.contrastText,
+  fontSize: '30px !important',  
+  fontWeight: 900,
+  '& .MuiButton-startIcon': {
+    marginRight: '4px', 
+  },
+}));
+
+// Styled component for DeleteIcon
+export const StyledDeleteIcon = styled(DeleteIcon)(({ theme }) => ({
+  color: theme.palette.secondary.contrastText,
+  fontSize: '30px !important', 
+  fontWeight: 900,
+  '& .MuiButton-startIcon': {
+    marginRight: '4px', 
+  },
+}));
 
 
 

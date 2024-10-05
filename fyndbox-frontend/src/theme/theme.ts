@@ -14,12 +14,12 @@ const theme = createTheme({
       dark: '#CFD8DC',
       contrastText: '#000000',
     },
-    // tertiary: {
-    //   light: '#ff7961',
-    //   main: '#f44336',
-    //   dark: '#ba000d',
-    //   contrastText: '#000000',
-    // },
+    error: {
+      light: '#ff7961',
+      main: '#f44336',
+      dark: '#ba000d',
+    },
+    
   },
   typography, 
 });

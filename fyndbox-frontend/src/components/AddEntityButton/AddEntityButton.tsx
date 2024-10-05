@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC} from 'react';
 import { Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { useTranslation } from 'react-i18next';
@@ -13,11 +13,10 @@ interface AddEntityButtonProps {
   entityType: EntityType;
   onAdd?: () => void;
 }
-
+ 
 const AddEntityButton: FC<AddEntityButtonProps> = ({
   entityType = 'storage',
-  onAdd,
-  
+  onAdd
 }) => {
   const { t } = useTranslation();
 

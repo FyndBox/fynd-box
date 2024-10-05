@@ -64,11 +64,13 @@ const DashboardPage: FC = () => {
   };
 
   // Add Method: Can be used for creating any type of entity
-  const handleAddEntity = (type: EntityType) => {
+  const handleAddEntity = (
+    type: EntityType
+  ) => {
     console.log(`Add the ${type}`);
     setEntityType(type);
     setModalMode('add');
-    setEditingData(null); // Reset form fields for adding a new entity
+ 
     setModalOpen(true);
 
   };
@@ -97,6 +99,21 @@ const DashboardPage: FC = () => {
   const handleProfileClick = () => {
     console.log('Profile button clicked');
     // Implement and Navigate to profile
+  };
+
+  // save function
+  const handleSave = (data: { name: string; description: string; image?: string }) => {
+    if (modalMode === 'add') {
+       console.log('Saving new entity:', data);
+    } else if (modalMode === 'edit') {
+        console.log('Updating existing entity:', data);
+    }
+    setModalOpen(false); // Close the modal after saving
+  };
+  
+  const handleDelete = (data: { name: string; description: string }) => {
+    console.log('Deleting entity:', data);
+    setModalOpen(false);  // Close modal after deletion
   };
 
   return (
@@ -153,7 +170,9 @@ const DashboardPage: FC = () => {
               )}
             </Box>
           ))}
-          <AddEntityButton entityType="storage" onAdd={() => handleAddEntity('storage')} />
+          <AddEntityButton 
+            entityType="storage"  
+            onAdd={() => handleAddEntity('storage')}  />
         </MainContainer>
       </DashboardContainer>
       <DashboardFooter
@@ -167,8 +186,8 @@ const DashboardPage: FC = () => {
         entityType={entityType}
         mode={modalMode}
         initialData={editingData || undefined}
-        // onSave={handleSave}
-        // onDelete={modalMode === 'edit' ? handleDelete : undefined}
+        onSave={handleSave}
+        // onDelete={modalMode === 'edit' ? handleDelete : undefined}  // Ensure handleDelete is passed
       />
     </>
   );

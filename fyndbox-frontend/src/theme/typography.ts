@@ -43,6 +43,8 @@ const typography: TypographyOptions = {
     letterSpacing: '-0.015em',
     lineHeight: '1.2',
   },
+  
+
 };
 
 export default typography;
