@@ -48,15 +48,15 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
         >
             <StyledModalBox>
              <Typography 
-             variant="body1"
-             sx={{ textAlign: 'left', cursor: 'pointer', color: 'secondary.contrastText' }}  
-             onClick={() => { onClose(); }}
+                variant="body1"
+                sx={{ textAlign: 'left', cursor: 'pointer', color: 'secondary.contrastText' }}  
+                onClick={() => { onClose(); }}
             >
              {t('modal.cancel')}
-         </Typography>
+            </Typography>
                 <Typography variant="h3"
                     sx={{ lineHeight: "3.5", fontWieght:"bold" }}  
-                 >
+                >
                     {t('modal.heading')}
                 </Typography>
                 

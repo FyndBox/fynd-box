@@ -62,7 +62,7 @@ export const StyledModalDeleteButton = styled(ModalBaseButton)(({ theme }) => ({
 
 // Styled component for CheckIcon
 export const StyledCheckIcon = styled(CheckIcon)(({ theme }) => ({
-  color: theme.palette.secondary.contrastText,
+  color: theme.palette.primary.contrastText,
   fontSize: '30px !important',  
   fontWeight: 900,
   '& .MuiButton-startIcon': {
@@ -72,7 +72,7 @@ export const StyledCheckIcon = styled(CheckIcon)(({ theme }) => ({
 
 // Styled component for DeleteIcon
 export const StyledDeleteIcon = styled(DeleteIcon)(({ theme }) => ({
-  color: theme.palette.secondary.contrastText,
+  color: theme.palette.primary.contrastText,
   fontSize: '30px !important', 
   fontWeight: 900,
   '& .MuiButton-startIcon': {
