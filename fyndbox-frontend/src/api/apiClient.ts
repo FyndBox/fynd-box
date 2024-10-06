@@ -5,7 +5,10 @@ const getToken = () => localStorage.getItem('token');
 const publicRoutes = ['/auth/login', '/auth/signup'];
 
 const apiClient = axios.create({
-  baseURL: '/api',
+  baseURL:
+    import.meta.env.MODE === 'production'
+      ? import.meta.env.VITE_API_URL
+      : '/api',
   headers: {
     'Content-Type': 'application/json',
   },
