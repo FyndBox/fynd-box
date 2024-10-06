@@ -1,4 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
+import * as path from 'path';
 
 @Injectable()
 export class TranslationService implements OnModuleInit {
@@ -13,6 +14,27 @@ export class TranslationService implements OnModuleInit {
 
     languages.forEach((lang) => {
       try {
+        const translationsPath = path.join(
+          __dirname, // Adjust this based on how your dist folder is structured
+          '..',
+          '..',
+          'node_modules',
+          '@fyndbox',
+          'shared',
+          'constants',
+          'i18n',
+          `${lang}.json`,
+        );
+
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const translations = require(translationsPath);
+        this.translations[lang] = translations;
+      } catch (error) {
+        console.error(
+          `Failed to load translations for language ${lang}: ${error}`,
+        );
+      }
+      /*   try {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const translations = require(
           `@fyndbox/Shared/constants/i18n/${lang}.json`,
@@ -22,7 +44,7 @@ export class TranslationService implements OnModuleInit {
         console.error(
           `Failed to load translations for language ${lang}: ${error}`,
         );
-      }
+      } */
     });
   }
 
