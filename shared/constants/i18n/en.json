@@ -53,7 +53,7 @@
           "invalidCredentials": "Invalid credentials"
         }
       },
-      "signup": {
+      "signup": { 
         "success": "User registered successfully",
         "error": {
           "registrationFailed": "Error registering user",
@@ -120,22 +120,32 @@
   },
 
   "modal": {
-    "heading": "Edit Storage",
+    "add": "Add {{type}}",
+    "edit": "Edit {{type}}",
+    "image":{
+      "label": "Image"
+    },
     "name": {
       "label": "Name",
-      "placeholder": "John Doe",
-      "errorMessage": "* Please enter a valid name: \n - The name must contain only letters and spaces \n - The name must be 3-50 characters long"
+      "placeholder": "Enter Name",
+      "errorMessage": "* Please enter a name: \n - The name must be 3-50 characters long"
     },
     "description": {
       "label": "Description",
       "placeholder": "Description"
     },
-    "add": "Save",
+
     "delete": "Delete",
     "cancel": "Cancel",
-    "edit": "Edit"
+    "save":"Save",
+    
+  },
 
+  "types": {
+      "storage": "Storage",
+      "box": "Box",
+      "item": "Item"
   }
-
 }
-  
+
+

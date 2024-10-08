@@ -15,4 +15,6 @@ export const TextFieldsContainer = styled(Box)(({ theme }) => ({
 
 export const CustomIcon = styled(SvgIcon)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
+  fontSize: '30px !important',
+  
 }));

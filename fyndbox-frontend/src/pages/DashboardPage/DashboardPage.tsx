@@ -23,11 +23,12 @@ const DashboardPage: FC = () => {
   const [expandedStorageIndex, setExpandedStorageIndex] = useState<
     number | null
   >(null);
-  const [, setModalOpen] = useState(false);
-  const [, setModalMode] = useState<'add' | 'edit'>('add');
-  const [, setEntityType] = useState<EntityType>('storage');
-  const [, setEditingData] = useState<any | null>(null);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+    const [entityType, setEntityType] = useState<EntityType>('storage');
+    const [editingData, setEditingData] = useState<any | null>(null);
 
+    
   const storages = [
     {
       name: 'Garage',
@@ -68,7 +69,6 @@ const DashboardPage: FC = () => {
     console.log(`Add the ${type}`);
     setEntityType(type);
     setModalMode('add');
-
     setModalOpen(true);
   };
   // Edit Method: Can be used for editing any type of entity
@@ -112,10 +112,11 @@ const DashboardPage: FC = () => {
     setModalOpen(false); // Close the modal after saving
   };
 
-  const handleDelete = (data: { name: string; description: string }) => {
-    console.log('Deleting entity:', data);
-    setModalOpen(false); // Close modal after deletion
-  };
+  // const handleDelete = (data: { name: string; description: string }) => {
+  //   console.log('Deleting entity:', data);
+  //   setModalOpen(false); // Close modal after deletion
+  // };
+
 
   return (
     <>
@@ -196,3 +197,5 @@ const DashboardPage: FC = () => {
 };
 
 export default DashboardPage;
+
+

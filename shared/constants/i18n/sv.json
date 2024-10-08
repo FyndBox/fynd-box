@@ -104,7 +104,7 @@
         "error": "Error retrieving storage"
       },
       "create": {
-        "success": "Storage created successfully",
+        "success": "Storage created successfully", 
         "error": "Error creating storage"
       },
       "update": {
@@ -118,22 +118,36 @@
       "notFoundById": "Storage with ID {{id}} not found"
     }
   },
+  
   "modal": {
-    "heading": "Redigera Lagring",
+    "add": "Add {{type}}",
+    "edit": "Edit {{type}}",
+ 
     "name": {
-      "label": "Namn",
-      "placeholder": "John Doe",
-      "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
-     },
-    "description": {
-      "label": "Beskrivning",
-      "placeholder": "Beskrivning"
+      "label": "Name",
+      "placeholder": "Enter Name",
+      "errorMessage": "* Please enter a name: \n - The name must be 3-50 characters long"
     },
-    "add":"Spara",
-    "delete":"Radera",
-    "cancel":"Avbryt",
-    "edit": "Redigera"
+    "description": {
+      "label": "Description",
+      "placeholder": "Description"
+    },
 
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save":"Save",
+    
+  },
+
+  "types": {
+      "storage": "Storage",
+      "box": "Box",
+      "item": "Item"
   }
 }
+
+
+
+
+
   

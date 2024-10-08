@@ -2,29 +2,32 @@ import { FC } from 'react';
 import { EntityType } from '../../types/entityTypes';
 import {
   StyledModalBox,
-  StyledModalAddButton,
-  StyledModalDeleteButton,
-  ModalImageBox,
-  UpdateImageBox,
-  ModalBaseButton,
-  StyledCheckIcon,
-  StyledDeleteIcon,
+  SaveButton,
+  DeleteButton,
+  // ImageUploader,
+  BaseButtonStyle,
+  CancelButton,
 } from './EntityActionModal.styles';
 import { useTranslation } from 'react-i18next';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
-import { TextFieldsContainer } from '../../styles/commonStyles';
+import { TextFieldsContainer, CustomIcon } from '../../styles/commonStyles';
 import { Modal } from '@mui/material';
 import imageSrc from '../../assets/AddImage.png';
 import { Typography } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ModalHeading from './ModalHeading';
+import ImageUploader from './ImageUploader';
 
 interface EntityActionModalProps {
   open: boolean;
   onClose: () => void;
-  onSave: (data: { name: string; description: string; image?: string }) => void; // Ensure this prop is expected
-  onDelete?: () => void; // Optional delete function
-  entityType: string;
+  onSave: (data: { name: string; description: string; image?: string }) => void; 
+  onDelete?: () => void; 
+  entityType: EntityType;
   mode: 'add' | 'edit';
-  initialData?: { name: string; description: string };
+  initialData?: { name: string; description: string; image?: string  };
+
 }
 
 const EntityActionModal: FC<EntityActionModalProps> = ({
@@ -32,31 +35,24 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
   onClose,
   onSave,
   onDelete,
-  entityType,
   mode,
+  entityType,
   initialData,
+
 }) => {
   const { t } = useTranslation();
 
   return (
     <Modal open={open} onClose={onClose}>
       <StyledModalBox>
-        <Typography
-          variant="body1"
-          sx={{
-            textAlign: 'left',
-            cursor: 'pointer',
-            color: 'secondary.contrastText',
-          }}
-          onClick={() => {
-            onClose();
-          }}
+        <CancelButton
+          variant="text"
+          onClick={onClose}
         >
           {t('modal.cancel')}
-        </Typography>
-        <Typography variant="h3" sx={{ lineHeight: '3.5', fontWieght: 'bold' }}>
-          {t('modal.heading')}
-        </Typography>
+        </CancelButton>
+
+        <ModalHeading mode={mode} type={entityType} />
 
         <TextFieldsContainer>
           {/* name */}
@@ -71,18 +67,25 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
           />
         </TextFieldsContainer>
 
-        <UpdateImageBox>
-          <Typography variant="h4">Bild</Typography>
-          {/* Image Example */}
-          <ModalImageBox src={imageSrc} alt={t('modal.imageAltText')} />
-        </UpdateImageBox>
+        <ImageUploader
+          label={t('modal.image.label')} // This will be 'Bild' or any other dynamic label
+          initialImage={initialData?.image}
+          onImageUpload={(uploadedImage) => {
+            console.log('Image uploaded:', uploadedImage);
+          
+          }}
+        />
 
         {/* buttons */}
-        <ModalBaseButton>
-          <StyledModalAddButton
+        <BaseButtonStyle>
+          <SaveButton
             variant="contained"
             fullWidth
-            startIcon={<StyledCheckIcon />}
+            startIcon={
+              <CustomIcon>
+                <CheckIcon />
+              </CustomIcon>
+            }
             onClick={() => {
               const data = {
                 name: 'Collected Name', // Replace with actual form data
@@ -91,13 +94,17 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
               onSave(data); // Trigger save with form data
             }}
           >
-            {mode === 'add' ? 'Add' : 'Edit'}
-          </StyledModalAddButton>
+             {t('modal.save')}
+          </SaveButton>
 
-          <StyledModalDeleteButton
+          <DeleteButton
             variant="contained"
             fullWidth
-            startIcon={<StyledDeleteIcon />}
+            startIcon={
+              <CustomIcon>
+                <DeleteIcon />
+              </CustomIcon>
+            }
             onClick={() => {
               if (onDelete) {
                 const data = {
@@ -111,8 +118,8 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
             }}
           >
             {t('modal.delete')}
-          </StyledModalDeleteButton>
-        </ModalBaseButton>
+          </DeleteButton>
+        </BaseButtonStyle>
       </StyledModalBox>
     </Modal>
   );

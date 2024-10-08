@@ -15,11 +15,12 @@ const theme = createTheme({
       contrastText: '#000000',
     },
     error: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
+      dark: '#7a3c3c',
+      main:'#AF5757',
+      light:'#bf7878',
     },
   },
   typography,
 });
 export default theme;
+
