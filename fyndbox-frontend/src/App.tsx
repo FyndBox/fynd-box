@@ -5,12 +5,12 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import AuthGuard from './components/AuthGuard';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
-import LanguageSelector from './components/LanguageSelector/LanguageSelector';
+import AppHeader from './components/AppHeader/AppHeader';
 
 const App: FC = () => {
   return (
     <BrowserRouter>
-      <LanguageSelector />
+      <AppHeader />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />

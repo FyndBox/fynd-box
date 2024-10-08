@@ -1,7 +1,9 @@
 import { FC } from 'react';
+import { Toolbar, Box, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import appLogo from '../../assets/FyndBox.png';
-import { AppHeaderContainer } from './AppHeader.styles';
+import { AppbarContainer, AppHeaderContainer } from './AppHeader.styles';
 
 const AppHeader: FC = () => {
   const navigate = useNavigate();
@@ -11,9 +13,24 @@ const AppHeader: FC = () => {
   };
 
   return (
-    <AppHeaderContainer>
-      <img src={appLogo} alt="Home" height={100} onClick={handleLogoClick} />
-    </AppHeaderContainer>
+    <AppbarContainer position="sticky">
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Box display="flex" alignItems="center">
+          <IconButton edge="start" color="inherit">
+            <AppHeaderContainer>
+              <img
+                src={appLogo}
+                alt="Home"
+                height={70}
+                onClick={handleLogoClick}
+              />
+            </AppHeaderContainer>
+          </IconButton>
+        </Box>
+
+        <LanguageSelector />
+      </Toolbar>
+    </AppbarContainer>
   );
 };
 

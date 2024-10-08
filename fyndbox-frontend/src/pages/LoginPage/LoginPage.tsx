@@ -4,7 +4,6 @@ import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { isEmailValid, isPasswordValidForLogin } from '../../utils/validation';
-import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
@@ -48,7 +47,6 @@ const LoginPage: FC = () => {
 
   return (
     <>
-      <AppHeader />
       <FullPageContainer>
         <PageHeader heading={t('login.title')} />
         <TextFieldsContainer>

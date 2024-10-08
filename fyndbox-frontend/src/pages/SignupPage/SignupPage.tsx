@@ -15,7 +15,6 @@ import {
   isNameValid,
   isPasswordValid,
 } from '../../utils/validation';
-import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
@@ -56,7 +55,6 @@ export const SignupPage = () => {
 
   return (
     <>
-      <AppHeader />
       <FullPageContainer>
         <PageHeader heading={t('signup.title')} />
         <TextFieldsContainer>
