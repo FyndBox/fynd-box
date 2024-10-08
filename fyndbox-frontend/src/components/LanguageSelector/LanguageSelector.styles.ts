@@ -11,7 +11,7 @@ export const LanguageSelect = styled(Select)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   minWidth: 140,
-  borderColor: theme.palette.common.white,
+  backgroundColor: 'transparent',
   '& .MuiSelect-select': {
     display: 'flex',
     alignItems: 'center',
@@ -22,5 +22,8 @@ export const LanguageSelect = styled(Select)(({ theme }) => ({
   },
   '&:hover .MuiOutlinedInput-notchedOutline': {
     borderColor: theme.palette.common.white,
+  },
+  '& .MuiSvgIcon-root': {
+    color: theme.palette.common.white,
   },
 }));
