@@ -1,126 +1,110 @@
-import { FC } from 'react';
-import { EntityType } from '../../types/entityTypes';
-import {
-  StyledModalBox,
-  SaveButton,
-  DeleteButton,
-  // ImageUploader,
-  BaseButtonStyle,
-  CancelButton,
-} from './EntityActionModal.styles';
+import { FC, useState } from 'react';
+import { Modal, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
-import { TextFieldsContainer, CustomIcon } from '../../styles/commonStyles';
-import { Modal } from '@mui/material';
-import imageSrc from '../../assets/AddImage.png';
-import { Typography } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
-import DeleteIcon from '@mui/icons-material/Delete';
 import ModalHeading from './ModalHeading';
 import ImageUploader from './ImageUploader';
+import { EntityType } from '../../types/entityTypes';
+import { ModalBox, CancelButton } from './EntityActionModal.styles';
+import { TextFieldsContainer } from '../../styles/commonStyles';
+import ActionButtonsGroup from '../ActionButtonsGroup/ActionButtonsGroup';
 
 interface EntityActionModalProps {
   open: boolean;
-  onClose: () => void;
-  onSave: (data: { name: string; description: string; image?: string }) => void; 
-  onDelete?: () => void; 
   entityType: EntityType;
   mode: 'add' | 'edit';
-  initialData?: { name: string; description: string; image?: string  };
-
+  initialData?: { name: string; description: string; image?: string };
+  onClose: () => void;
+  onSave: (data: { name: string; description: string; image?: string }) => void;
+  onDelete?: () => void;
 }
 
 const EntityActionModal: FC<EntityActionModalProps> = ({
   open,
-  onClose,
-  onSave,
-  onDelete,
   mode,
   entityType,
   initialData,
-
+  onClose,
+  onSave,
+  onDelete,
 }) => {
   const { t } = useTranslation();
+  const [name, setName] = useState(initialData?.name || '');
+  const [description, setDescription] = useState(
+    initialData?.description || '',
+  );
+  const [image, setImage] = useState(initialData?.image || '');
+  const [nameError, setNameError] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSave = () => {
+    onSave({ name, description, image });
+  };
 
   return (
     <Modal open={open} onClose={onClose}>
-      <StyledModalBox>
-        <CancelButton
-          variant="text"
-          onClick={onClose}
-        >
+      <ModalBox>
+        <CancelButton variant="text" onClick={onClose}>
           {t('modal.cancel')}
         </CancelButton>
 
         <ModalHeading mode={mode} type={entityType} />
 
         <TextFieldsContainer>
-          {/* name */}
           <CustomTextField
             label={t('modal.name.label')}
             placeholder={t('modal.name.placeholder')}
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              setNameError(false);
+              if (error) setError(null);
+            }}
+            error={nameError}
+            helperText={
+              nameError
+                ? t('modal.name.errorMessage')
+                    .split('\n')
+                    .map((line, index) => (
+                      <span key={index}>
+                        {line}
+                        <br />
+                      </span>
+                    ))
+                : ''
+            }
           />
-          {/* description */}
           <CustomTextField
             label={t('modal.description.label')}
             placeholder={t('modal.description.placeholder')}
+            value={description}
+            multiline
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
           />
         </TextFieldsContainer>
 
         <ImageUploader
-          label={t('modal.image.label')} // This will be 'Bild' or any other dynamic label
-          initialImage={initialData?.image}
+          label={t('modal.image.label')}
+          initialImage={image}
           onImageUpload={(uploadedImage) => {
             console.log('Image uploaded:', uploadedImage);
-          
+            setImage(uploadedImage);
           }}
         />
 
-        {/* buttons */}
-        <BaseButtonStyle>
-          <SaveButton
-            variant="contained"
-            fullWidth
-            startIcon={
-              <CustomIcon>
-                <CheckIcon />
-              </CustomIcon>
-            }
-            onClick={() => {
-              const data = {
-                name: 'Collected Name', // Replace with actual form data
-                description: 'Collected Description', // Replace with actual form data
-              };
-              onSave(data); // Trigger save with form data
-            }}
-          >
-             {t('modal.save')}
-          </SaveButton>
-
-          <DeleteButton
-            variant="contained"
-            fullWidth
-            startIcon={
-              <CustomIcon>
-                <DeleteIcon />
-              </CustomIcon>
-            }
-            onClick={() => {
-              if (onDelete) {
-                const data = {
-                  name: 'Collected Name', // Replace with actual form data
-                  description: 'Collected Description', // Replace with actual form data
-                };
-                onDelete(); // Trigger delete with form data
-              } else {
-                console.error('Delete function not provided');
-              }
-            }}
-          >
-            {t('modal.delete')}
-          </DeleteButton>
-        </BaseButtonStyle>
-      </StyledModalBox>
+        <ActionButtonsGroup
+          showDeleteButton={mode === 'edit'}
+          onSaveClick={handleSave}
+          onDeleteClick={onDelete}
+        />
+        {error && (
+          <Typography variant="caption" color="error">
+            {error}
+          </Typography>
+        )}
+      </ModalBox>
     </Modal>
   );
 };

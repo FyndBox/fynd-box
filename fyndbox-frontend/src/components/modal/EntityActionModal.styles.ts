@@ -1,7 +1,6 @@
 import { Box, Button, styled } from '@mui/material';
 
-
-export const StyledModalBox = styled(Box)(({ theme }) => ({
+export const ModalBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
   position: 'absolute',
   top: '50%',
@@ -10,7 +9,7 @@ export const StyledModalBox = styled(Box)(({ theme }) => ({
   width: '80%',
   height: 'auto',
   borderRadius: '16px',
-  padding: '15px', 
+  padding: '15px',
   textAlign: 'center',
 }));
 
@@ -20,7 +19,6 @@ export const CancelButton = styled(Button)(({ theme }) => ({
   cursor: 'pointer',
   color: theme.palette.secondary.contrastText,
 }));
-
 
 // Image Boxes
 export const ImageUploader = styled(Box)(({ theme }) => ({
@@ -33,44 +31,4 @@ export const ModalImageBox = styled('img')({
   objectFit: 'cover',
 });
 
-// Action Button Group
-export const ActionButtonGroup = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  alignItems: 'center',
-  textAlign: 'center',
-  padding: theme.spacing(6, 0),
-}));
 
-export const BaseButtonStyle = styled(Button)(({ theme }) => ({
-  borderRadius: '5px',
-  textTransform: 'none',
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  fontSize: '30px !important', 
-  alignItems: 'center',
-  textAlign: 'center',
-  padding: theme.spacing(1.25, 2),
-
-}));
-
-export const SaveButton = styled(BaseButtonStyle)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.primary.contrastText,
-  flexDirection: 'row', 
-  '&:hover': {
-    backgroundColor: theme.palette.primary.dark,
-  },
-}));
-
-export const DeleteButton = styled(BaseButtonStyle)(({ theme }) => ({
-  backgroundColor: theme.palette.error.main,
-  color: theme.palette.error.contrastText, 
-  flexDirection: 'row',
-  '&:hover': {
-    backgroundColor: theme.palette.error.dark,
-  },
-}));

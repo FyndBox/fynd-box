@@ -23,12 +23,11 @@ const DashboardPage: FC = () => {
   const [expandedStorageIndex, setExpandedStorageIndex] = useState<
     number | null
   >(null);
-    const [isModalOpen, setModalOpen] = useState(false);
-    const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
-    const [entityType, setEntityType] = useState<EntityType>('storage');
-    const [editingData, setEditingData] = useState<any | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+  const [entityType, setEntityType] = useState<EntityType>('storage');
+  const [editingData, setEditingData] = useState<any | null>(null);
 
-    
   const storages = [
     {
       name: 'Garage',
@@ -64,14 +63,13 @@ const DashboardPage: FC = () => {
     console.log(index, 'Implement Box Page and navigate it');
   };
 
-  // Add Method: Can be used for creating any type of entity
   const handleAddEntity = (type: EntityType) => {
     console.log(`Add the ${type}`);
     setEntityType(type);
     setModalMode('add');
     setModalOpen(true);
   };
-  // Edit Method: Can be used for editing any type of entity
+
   const handleEditEntity = (
     type: EntityType,
     data: { name: string; description: string; image?: string },
@@ -79,7 +77,7 @@ const DashboardPage: FC = () => {
     console.log(`Edit the ${type}`);
     setEntityType(type);
     setModalMode('edit');
-    setEditingData(data); // Pre-fill form fields with existing entity data
+    setEditingData(data);
     setModalOpen(true);
   };
 
@@ -109,14 +107,13 @@ const DashboardPage: FC = () => {
     } else if (modalMode === 'edit') {
       console.log('Updating existing entity:', data);
     }
-    setModalOpen(false); // Close the modal after saving
+    setModalOpen(false);
   };
 
-  // const handleDelete = (data: { name: string; description: string }) => {
-  //   console.log('Deleting entity:', data);
-  //   setModalOpen(false); // Close modal after deletion
-  // };
-
+  const handleDelete = () => {
+    console.log('Deleteing');
+    setModalOpen(false);
+  };
 
   return (
     <>
@@ -190,12 +187,10 @@ const DashboardPage: FC = () => {
         mode={modalMode}
         initialData={editingData || undefined}
         onSave={handleSave}
-        // onDelete={modalMode === 'edit' ? handleDelete : undefined}  // Ensure handleDelete is passed
+        onDelete={handleDelete}
       />
     </>
   );
 };
 
 export default DashboardPage;
-
-
