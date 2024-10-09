@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { IconButton } from '@mui/material';
 import appLogo from '../../assets/FyndBox.png';
-import { AppHeaderContainer } from './AppHeader.styles';
+import { AppHeaderBox, AppHeaderContainer } from './AppHeader.styles';
 
 const AppHeader: FC = () => {
   const navigate = useNavigate();
@@ -12,7 +13,11 @@ const AppHeader: FC = () => {
 
   return (
     <AppHeaderContainer>
-      <img src={appLogo} alt="Home" height={100} onClick={handleLogoClick} />
+      <AppHeaderBox>
+        <IconButton onClick={handleLogoClick}>
+          <img src={appLogo} alt="Home" height={70} />
+        </IconButton>
+      </AppHeaderBox>
     </AppHeaderContainer>
   );
 };

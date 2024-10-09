@@ -4,6 +4,7 @@ import { Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import { HomeContainer, HomeSubContainer } from './LandingPage.styles';
+import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
 const LandingPage: FC = () => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const LandingPage: FC = () => {
           onLoginClick={handleLoginClick}
           onRegisterClick={handleSignupClick}
         />
+        <LanguageSelector />
       </HomeSubContainer>
     </HomeContainer>
   );

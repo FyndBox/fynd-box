@@ -15,7 +15,6 @@ import {
   isNameValid,
   isPasswordValid,
 } from '../../utils/validation';
-import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
@@ -23,6 +22,8 @@ import {
   FullPageContainer,
   TextFieldsContainer,
 } from '../../styles/commonStyles';
+import AppHeader from '../../components/AppHeader/AppHeader';
+import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -141,6 +142,7 @@ export const SignupPage = () => {
           showLoginButton={false}
           onRegisterClick={handleSignupClick}
         />
+        <LanguageSelector />
       </FullPageContainer>
     </>
   );

@@ -4,7 +4,6 @@ import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { isEmailValid, isPasswordValidForLogin } from '../../utils/validation';
-import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
@@ -13,6 +12,8 @@ import {
   TextFieldsContainer,
 } from '../../styles/commonStyles';
 import { useTranslation } from 'react-i18next';
+import AppHeader from '../../components/AppHeader/AppHeader';
+import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
@@ -100,6 +101,7 @@ const LoginPage: FC = () => {
           onLoginClick={handleLoginClick}
           onRegisterClick={handleSignupClick}
         />
+        <LanguageSelector />
       </FullPageContainer>
     </>
   );

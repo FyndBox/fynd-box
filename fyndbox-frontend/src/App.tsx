@@ -4,28 +4,23 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
+import AuthGuard from './components/AuthGuard';
 
 const App: FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-
-        {/* <Route
+        <Route
           path="/dashboard"
           element={
             <AuthGuard>
               <DashboardPage />
             </AuthGuard>
           }
-        /> */}
-
-        {/* 
+        />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<Navigate to="/login" />} />  */}
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/" element={<LandingPage />} />
       </Routes>
     </BrowserRouter>
   );

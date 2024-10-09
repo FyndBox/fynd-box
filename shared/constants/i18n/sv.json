@@ -39,7 +39,7 @@
     "cancel": "Cancel",
     "save":"Save",
     "image":{
-      "label": "Image"
+      "label": "Bild"
     },
     "name": {
       "label": "Name",
@@ -67,6 +67,10 @@
       "placeholder": "",
       "loginErrorMessage": "* Lösenord krävs",
       "signupErrorMessage": "* Vänligen ange ett giltigt lösenord: \n - Måste innehålla 8-20 tecken \n - Måste innehålla minst en bokstav \n - Måste innehålla minst en siffra \n - Måste innehålla minst ett specialtecken (endast @$!%*#?& är tillåtna)"
+    }, 
+    "language":{
+      "option1": "Svenska",
+      "option2": "English"
     }
   },
   "api": {
