@@ -1,21 +1,5 @@
-import { Box, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
-
-export const AuthButtonsWrapper = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  alignItems: 'center',
-  textAlign: 'center',
-  padding: theme.spacing(6, 0),
-}));
-
-export const BaseButton = styled(Button)(({ theme }) => ({
-  borderRadius: '28px',
-  padding: theme.spacing(1.25, 2),
-  textTransform: 'none',
-  width: '20rem',
-}));
+import { BaseButton } from '../../styles/commonStyles';
 
 export const LoginButton = styled(BaseButton)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,

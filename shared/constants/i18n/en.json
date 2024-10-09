@@ -6,7 +6,7 @@
   "login": {
     "title": "Log in",
     "submit": "Log in"
-  },
+  }, 
   "signup": {
     "title": "Create new account",
     "submit": "Become a Member",
@@ -32,6 +32,30 @@
       "profile": "Profile"
     }
   },
+  "modal": {
+    "add": "Add {{type}}",
+    "edit": "Edit {{type}}",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save":"Save",
+    "image":{
+      "label": "Image"
+    },
+    "name": {
+      "label": "Name",
+      "placeholder": "Enter Name",
+      "errorMessage": "* Please enter a valid name for {{type}}: \n - The name must be 3-50 characters long"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Description"
+    }
+  },
+  "types": {
+      "storage": "Storage",
+      "box": "Box",
+      "item": "Item"
+  },
   "common":{
     "email": {
       "label": "Email",
@@ -53,7 +77,7 @@
           "invalidCredentials": "Invalid credentials"
         }
       },
-      "signup": {
+      "signup": { 
         "success": "User registered successfully",
         "error": {
           "registrationFailed": "Error registering user",
@@ -119,4 +143,5 @@
     }
   }
 }
-  
+
+

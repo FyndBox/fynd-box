@@ -17,15 +17,16 @@ import {
   SubContainer,
 } from './DashboardPage.styles';
 import { EntityType } from '../../types/entityTypes';
+import EntityActionModal from '../../components/modal/EntityActionModal';
 
 const DashboardPage: FC = () => {
   const [expandedStorageIndex, setExpandedStorageIndex] = useState<
     number | null
   >(null);
-  const [, setModalOpen] = useState(false);
-  const [, setModalMode] = useState<'add' | 'edit'>('add');
-  const [, setEntityType] = useState<EntityType>('storage');
-  const [, setEditingData] = useState<any | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+  const [entityType, setEntityType] = useState<EntityType>('storage');
+  const [editingData, setEditingData] = useState<any | null>(null);
 
   const storages = [
     {
@@ -62,15 +63,13 @@ const DashboardPage: FC = () => {
     console.log(index, 'Implement Box Page and navigate it');
   };
 
-  // Add Method: Can be used for creating any type of entity
   const handleAddEntity = (type: EntityType) => {
     console.log(`Add the ${type}`);
     setEntityType(type);
     setModalMode('add');
-    setEditingData(null); // Reset form fields for adding a new entity
     setModalOpen(true);
   };
-  // Edit Method: Can be used for editing any type of entity
+
   const handleEditEntity = (
     type: EntityType,
     data: { name: string; description: string; image?: string },
@@ -78,7 +77,7 @@ const DashboardPage: FC = () => {
     console.log(`Edit the ${type}`);
     setEntityType(type);
     setModalMode('edit');
-    setEditingData(data); // Pre-fill form fields with existing entity data
+    setEditingData(data);
     setModalOpen(true);
   };
 
@@ -95,6 +94,25 @@ const DashboardPage: FC = () => {
   const handleProfileClick = () => {
     console.log('Profile button clicked');
     // Implement and Navigate to profile
+  };
+
+  // save function
+  const handleSave = (data: {
+    name: string;
+    description: string;
+    image?: string;
+  }) => {
+    if (modalMode === 'add') {
+      console.log('Saving new entity:', data);
+    } else if (modalMode === 'edit') {
+      console.log('Updating existing entity:', data);
+    }
+    setModalOpen(false);
+  };
+
+  const handleDelete = () => {
+    console.log('Deleteing');
+    setModalOpen(false);
   };
 
   return (
@@ -162,19 +180,15 @@ const DashboardPage: FC = () => {
         onScanClick={handleScanClick}
         onProfileClick={handleProfileClick}
       />
-      {/* Add your modal component here
-      
-       <DynamicModal
+      <EntityActionModal
         open={isModalOpen}
         onClose={() => setModalOpen(false)}
         entityType={entityType}
         mode={modalMode}
         initialData={editingData || undefined}
         onSave={handleSave}
-        onDelete={modalMode === 'edit' ? handleDelete : undefined}
+        onDelete={handleDelete}
       />
-      
-      */}
     </>
   );
 };
