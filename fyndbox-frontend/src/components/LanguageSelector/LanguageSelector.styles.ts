@@ -1,29 +1,36 @@
-import { Select, styled } from '@mui/material';
+import { Box, styled, Typography } from '@mui/material';
 
-export const FlagIcon = styled('img')({
-  width: '1.5rem',
-  height: '1.5rem',
-  borderRadius: '0.25rem',
-  marginRight: '1rem',
-});
+interface LanguageOptionProps {
+  isActive: boolean;
+}
 
-export const LanguageSelect = styled(Select)(({ theme }) => ({
+export const LanguageSelectorWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  minWidth: 140,
-  backgroundColor: 'transparent',
-  '& .MuiSelect-select': {
-    display: 'flex',
-    alignItems: 'center',
-    color: theme.palette.common.white,
-  },
-  '& .MuiOutlinedInput-notchedOutline': {
-    borderColor: theme.palette.common.white,
-  },
-  '&:hover .MuiOutlinedInput-notchedOutline': {
-    borderColor: theme.palette.common.white,
-  },
-  '& .MuiSvgIcon-root': {
-    color: theme.palette.common.white,
-  },
+  padding: theme.spacing(8),
+}));
+
+export const FlagIcon = styled('img')(({ theme }) => ({
+  width: '1.5rem',
+  height: '1.5rem',
+  borderRadius: '50%',
+  marginRight: theme.spacing(1),
+}));
+
+export const LanguageOption = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isActive',
+})<LanguageOptionProps>(
+  ({ theme, isActive }: { theme: any; isActive?: boolean }) => ({
+    cursor: 'pointer',
+    marginLeft: theme.spacing(1),
+    color: isActive ? theme.palette.primary.main : 'inherit',
+    '&:hover': {
+      color: theme.palette.primary.dark,
+    },
+  }),
+);
+
+export const Divider = styled('span')(({ theme }) => ({
+  margin: theme.spacing(0, 1),
+  color: theme.palette.grey[400],
 }));

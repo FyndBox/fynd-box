@@ -13,6 +13,7 @@ import {
 } from '../../styles/commonStyles';
 import { useTranslation } from 'react-i18next';
 import AppHeader from '../../components/AppHeader/AppHeader';
+import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
@@ -100,6 +101,7 @@ const LoginPage: FC = () => {
           onLoginClick={handleLoginClick}
           onRegisterClick={handleSignupClick}
         />
+        <LanguageSelector />
       </FullPageContainer>
     </>
   );

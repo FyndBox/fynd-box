@@ -1,37 +1,50 @@
 import { FC } from 'react';
-import { MenuItem, Box } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useLanguage } from '../../context/LanguageContext';
 import swedishFlag from '../../assets/flags/sweden.png';
 import ukFlag from '../../assets/flags/uk.png';
-import { FlagIcon, LanguageSelect } from './LanguageSelector.styles';
+import {
+  Divider,
+  FlagIcon,
+  LanguageOption,
+  LanguageSelectorWrapper,
+} from './LanguageSelector.styles';
+import { useTranslation } from 'react-i18next';
 
 const LanguageSelector: FC = () => {
   const { language, switchLanguage } = useLanguage();
+  const { t } = useTranslation();
 
-  const handleLanguageChange = (e: any) => {
-    const newLanguage = e.target.value;
+  const handleLanguageChange = (newLanguage: string) => {
     switchLanguage(newLanguage);
   };
 
   return (
-    <Box>
-      <LanguageSelect
-        id="language-select"
-        value={language}
-        onChange={handleLanguageChange}
-        size="small"
-        variant="outlined"
+    <LanguageSelectorWrapper>
+      <FlagIcon
+        src={language === 'sv' ? swedishFlag : ukFlag}
+        alt={language === 'sv' ? 'Swedish' : 'English'}
+      />
+      <Typography variant="body1">
+        {language === 'sv' ? 'Sweden' : 'English'}
+      </Typography>
+      <Divider>|</Divider>
+      <LanguageOption
+        variant="body1"
+        onClick={() => handleLanguageChange('sv')}
+        isActive={language === 'sv'}
       >
-        <MenuItem value="en">
-          <FlagIcon src={ukFlag} alt="English" />
-          English
-        </MenuItem>
-        <MenuItem value="sv">
-          <FlagIcon src={swedishFlag} alt="Swedish" />
-          Swedish
-        </MenuItem>
-      </LanguageSelect>
-    </Box>
+        {t('common.language.option1')}
+      </LanguageOption>
+
+      <LanguageOption
+        variant="body1"
+        onClick={() => handleLanguageChange('en')}
+        isActive={language === 'en'}
+      >
+        {t('common.language.option2')}
+      </LanguageOption>
+    </LanguageSelectorWrapper>
   );
 };
 

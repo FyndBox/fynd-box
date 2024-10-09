@@ -67,6 +67,10 @@
       "placeholder": "",
       "loginErrorMessage": "* Password required",
       "signupErrorMessage": "* Please enter a valid password: \n - Must contain 8-20 characters \n - Must contain at least one letter \n - Must contain at least one number \n - Must contain at least one special character (only @$!%*#?& are allowed)"
+    },
+    "language":{
+      "option1": "Svenska",
+      "option2": "English"
     }
   },
   "api": {

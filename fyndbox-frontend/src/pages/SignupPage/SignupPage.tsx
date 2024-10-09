@@ -23,6 +23,7 @@ import {
   TextFieldsContainer,
 } from '../../styles/commonStyles';
 import AppHeader from '../../components/AppHeader/AppHeader';
+import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -141,6 +142,7 @@ export const SignupPage = () => {
           showLoginButton={false}
           onRegisterClick={handleSignupClick}
         />
+        <LanguageSelector />
       </FullPageContainer>
     </>
   );
