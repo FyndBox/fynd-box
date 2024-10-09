@@ -4,7 +4,7 @@ import { translations } from '@fyndbox/shared';
 
 i18n.use(initReactI18next).init({
   resources: translations,
-  lng: 'en', // default language
+  lng: localStorage.getItem('appLanguage') || 'en', // default language
   fallbackLng: 'en',
   interpolation: {
     escapeValue: false,

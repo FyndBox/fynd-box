@@ -6,7 +6,7 @@
   "login": {
     "title": "Log in",
     "submit": "Log in"
-  },
+  }, 
   "signup": {
     "title": "Create new account",
     "submit": "Become a Member",
@@ -32,6 +32,30 @@
       "profile": "Profile"
     }
   },
+  "modal": {
+    "add": "Add {{type}}",
+    "edit": "Edit {{type}}",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save":"Save",
+    "image":{
+      "label": "Image"
+    },
+    "name": {
+      "label": "Name",
+      "placeholder": "Enter Name",
+      "errorMessage": "* Please enter a valid name for {{type}}: \n - The name must be 3-50 characters long"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Description"
+    }
+  },
+  "types": {
+      "storage": "Storage",
+      "box": "Box",
+      "item": "Item"
+  },
   "common":{
     "email": {
       "label": "Email",
@@ -43,6 +67,10 @@
       "placeholder": "",
       "loginErrorMessage": "* Password required",
       "signupErrorMessage": "* Please enter a valid password: \n - Must contain 8-20 characters \n - Must contain at least one letter \n - Must contain at least one number \n - Must contain at least one special character (only @$!%*#?& are allowed)"
+    },
+    "language":{
+      "option1": "Svenska",
+      "option2": "English"
     }
   },
   "api": {
@@ -53,7 +81,7 @@
           "invalidCredentials": "Invalid credentials"
         }
       },
-      "signup": {
+      "signup": { 
         "success": "User registered successfully",
         "error": {
           "registrationFailed": "Error registering user",
@@ -119,4 +147,5 @@
     }
   }
 }
-  
+
+

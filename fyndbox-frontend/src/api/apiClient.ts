@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const getToken = () => localStorage.getItem('token');
+const getLanguage = () => localStorage.getItem('appLanguage');
 
 const publicRoutes = ['/auth/login', '/auth/signup'];
 
@@ -17,9 +18,15 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     const isPublicRoute = publicRoutes.includes(config.url || '');
+    const language = getLanguage();
+
+    if (config.headers) {
+      config.headers['Accept-Language'] = language;
+    }
 
     if (!isPublicRoute) {
       const token = getToken();
+
       if (token && config.headers) {
         config.headers.Authorization = `Bearer ${token}`;
       }

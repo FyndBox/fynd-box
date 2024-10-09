@@ -8,6 +8,7 @@ import { AuthProvider } from './context/AuthContext';
 import App from './App';
 import theme from './theme/theme';
 import i18n from './config/i18n';
+import { LanguageProvider } from './context/LanguageContext';
 
 const queryClient = new QueryClient();
 
@@ -20,9 +21,11 @@ root.render(
       <I18nextProvider i18n={i18n}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <AuthProvider>
-            <App />
-          </AuthProvider>
+          <LanguageProvider>
+            <AuthProvider>
+              <App />
+            </AuthProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </I18nextProvider>
     </QueryClientProvider>
