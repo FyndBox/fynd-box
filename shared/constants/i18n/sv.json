@@ -32,6 +32,30 @@
       "profile": "Profil"
     }
   },
+  "modal": {
+    "add": "Add {{type}}",
+    "edit": "Edit {{type}}",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save":"Save",
+    "image":{
+      "label": "Image"
+    },
+    "name": {
+      "label": "Name",
+      "placeholder": "Enter Name",
+      "errorMessage": "* Please enter a valid name for {{type}}: \n - The name must be 3-50 characters long"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Description"
+    }
+  },
+  "types": {
+      "storage": "Storage",
+      "box": "Box",
+      "item": "Item"
+  },
   "common":{
     "email": {
       "label": "E-postadress",
@@ -104,7 +128,7 @@
         "error": "Error retrieving storage"
       },
       "create": {
-        "success": "Storage created successfully",
+        "success": "Storage created successfully", 
         "error": "Error creating storage"
       },
       "update": {
@@ -119,4 +143,9 @@
     }
   }
 }
+
+
+
+
+
   

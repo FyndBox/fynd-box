@@ -1,11 +1,7 @@
 import { FC } from 'react';
-
-import {
-  AuthButtonsWrapper,
-  LoginButton,
-  RegisterButton,
-} from './AuthButtonsGroup.styles';
 import { useTranslation } from 'react-i18next';
+import { LoginButton, RegisterButton } from './AuthButtonsGroup.styles';
+import { ButtonsGroupWrapper } from '../../styles/commonStyles';
 
 interface AuthButtonsGroupProps {
   showLoginButton?: boolean;
@@ -22,7 +18,7 @@ const AuthButtonsGroup: FC<AuthButtonsGroupProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <AuthButtonsWrapper>
+    <ButtonsGroupWrapper>
       {showLoginButton && (
         <LoginButton fullWidth variant="contained" onClick={onLoginClick}>
           {t('login.submit')}
@@ -33,7 +29,7 @@ const AuthButtonsGroup: FC<AuthButtonsGroupProps> = ({
           {t('signup.submit')}
         </RegisterButton>
       )}
-    </AuthButtonsWrapper>
+    </ButtonsGroupWrapper>
   );
 };
 
