@@ -12,6 +12,7 @@ import {
   TextFieldsContainer,
 } from '../../styles/commonStyles';
 import { useTranslation } from 'react-i18next';
+import AppHeader from '../../components/AppHeader/AppHeader';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ const LoginPage: FC = () => {
 
   return (
     <>
+      <AppHeader />
       <FullPageContainer>
         <PageHeader heading={t('login.title')} />
         <TextFieldsContainer>

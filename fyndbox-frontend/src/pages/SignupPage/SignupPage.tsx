@@ -22,6 +22,7 @@ import {
   FullPageContainer,
   TextFieldsContainer,
 } from '../../styles/commonStyles';
+import AppHeader from '../../components/AppHeader/AppHeader';
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -55,6 +56,7 @@ export const SignupPage = () => {
 
   return (
     <>
+      <AppHeader />
       <FullPageContainer>
         <PageHeader heading={t('signup.title')} />
         <TextFieldsContainer>

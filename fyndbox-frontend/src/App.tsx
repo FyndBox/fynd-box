@@ -4,12 +4,10 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
-import AppHeader from './components/AppHeader/AppHeader';
 
 const App: FC = () => {
   return (
     <BrowserRouter>
-      <AppHeader />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />

@@ -1,13 +1,13 @@
-import { AppBar, Box, styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
+
+export const AppHeaderBox = styled(Box)(() => ({
+  height: '100%',
+}));
 
 export const AppHeaderContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   padding: theme.spacing(1, 0),
   cursor: 'pointer',
-}));
-
-export const AppbarContainer = styled(AppBar)(({ theme }) => ({
-  height: '60px',
-  paddingRight: theme.spacing(0.25),
-  color: 'default',
 }));
