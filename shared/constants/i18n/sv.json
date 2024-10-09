@@ -128,7 +128,7 @@
     "name": {
       "label": "Name",
       "placeholder": "Enter Name",
-      "errorMessage": "* Please enter a name: \n - The name must be 3-50 characters long"
+      "errorMessage": "* Please enter a valid name for {{type}}: \n - The name must be 3-50 characters long"
     },
     "description": {
       "label": "Description",

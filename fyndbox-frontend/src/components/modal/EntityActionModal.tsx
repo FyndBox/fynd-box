@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Modal, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
@@ -8,6 +8,7 @@ import { EntityType } from '../../types/entityTypes';
 import { ModalBox, CancelButton } from './EntityActionModal.styles';
 import { TextFieldsContainer } from '../../styles/commonStyles';
 import ActionButtonsGroup from '../ActionButtonsGroup/ActionButtonsGroup';
+import { Close } from '@mui/icons-material';
 
 interface EntityActionModalProps {
   open: boolean;
@@ -37,15 +38,28 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
   const [nameError, setNameError] = useState(false);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    if (open) {
+      setNameError(false);
+      setName(initialData?.name || '');
+      setDescription(initialData?.description || '');
+      setImage(initialData?.image || '');
+    }
+  }, [open, initialData]);
+
   const handleSave = () => {
-    onSave({ name, description, image });
+    if (!name) {
+      setNameError(true);
+    } else {
+      onSave({ name, description, image });
+    }
   };
 
   return (
     <Modal open={open} onClose={onClose}>
       <ModalBox>
-        <CancelButton variant="text" onClick={onClose}>
-          {t('modal.cancel')}
+        <CancelButton onClick={onClose}>
+          <Close />
         </CancelButton>
 
         <ModalHeading mode={mode} type={entityType} />
@@ -63,7 +77,9 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
             error={nameError}
             helperText={
               nameError
-                ? t('modal.name.errorMessage')
+                ? t('modal.name.errorMessage', {
+                    type: t(`types.${entityType}`),
+                  })
                     .split('\n')
                     .map((line, index) => (
                       <span key={index}>
