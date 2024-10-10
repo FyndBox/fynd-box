@@ -30,22 +30,30 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
   onDelete,
 }) => {
   const { t } = useTranslation();
-  const [name, setName] = useState(initialData?.name || '');
+  const [name, setName] = useState(initialData?.name ?? '');
   const [description, setDescription] = useState(
-    initialData?.description || '',
+    initialData?.description ?? '',
   );
-  const [image, setImage] = useState(initialData?.image || '');
+  const [image, setImage] = useState(initialData?.image ?? '');
   const [nameError, setNameError] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (open) {
-      setNameError(false);
-      setName(initialData?.name || '');
-      setDescription(initialData?.description || '');
-      setImage(initialData?.image || '');
+    if (open && mode === 'add') {
+      resetFormData();
+    } else if (open && mode === 'edit' && initialData) {
+      setName(initialData.name);
+      setDescription(initialData.description ?? '');
+      setImage(initialData.image ?? '');
     }
-  }, [open, initialData]);
+  }, [open, mode, initialData]);
+
+  const resetFormData = () => {
+    setName('');
+    setNameError(false);
+    setDescription('');
+    setImage('');
+  };
 
   const handleSave = () => {
     if (!name) {
@@ -105,8 +113,7 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
           label={t('modal.image.label')}
           initialImage={image}
           onImageUpload={(uploadedImage) => {
-            console.log('Image uploaded:', uploadedImage);
-            setImage(uploadedImage);
+            setImage(uploadedImage ?? '');
           }}
         />
 

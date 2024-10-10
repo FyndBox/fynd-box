@@ -19,19 +19,22 @@ export class UserService extends BaseService {
   }
 
   async findAll(): Promise<User[]> {
-    return this.userRepository.find();
+    return this.userRepository.find({
+      relations: ['storages'],
+    });
   }
 
   async findOne(id: number): Promise<User> {
-    const user = await this.userRepository.findOneBy({ id });
+    const user = await this.userRepository.findOne({
+      where: { id },
+      relations: ['storages'],
+    });
     if (!user) {
       throw new NotFoundException(
         this.translationService.getTranslation(
           'api.users.notFoundById',
           this.getLang(),
-          {
-            id: id.toString(),
-          },
+          { id: id.toString() },
         ),
       );
     }
@@ -39,7 +42,10 @@ export class UserService extends BaseService {
   }
 
   async findByEmail(email: string): Promise<User> {
-    const user = await this.userRepository.findOne({ where: { email } });
+    const user = await this.userRepository.findOne({
+      where: { email },
+      relations: ['storages'],
+    });
     if (!user) {
       throw new NotFoundException(
         this.translationService.getTranslation(

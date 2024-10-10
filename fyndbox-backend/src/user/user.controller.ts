@@ -9,6 +9,7 @@ import {
   HttpException,
   HttpStatus,
   UseGuards,
+  NotFoundException,
 } from '@nestjs/common';
 import { instanceToPlain } from 'class-transformer';
 import { UserService } from './user.service';
@@ -64,16 +65,6 @@ export class UserController {
     try {
       const userId = req.user.userId;
       const user = await this.userService.findOne(userId);
-      if (!user) {
-        return {
-          statusCode: HttpStatus.NOT_FOUND,
-          success: false,
-          message: this.translationService.getTranslation(
-            'api.users.me.notFound',
-            lang,
-          ),
-        };
-      }
       return {
         statusCode: HttpStatus.OK,
         success: true,
@@ -84,6 +75,17 @@ export class UserController {
         data: instanceToPlain(user) as UserResponseDto,
       };
     } catch (error) {
+      if (error instanceof NotFoundException) {
+        return {
+          statusCode: HttpStatus.NOT_FOUND,
+          success: false,
+          message: this.translationService.getTranslation(
+            'api.users.me.notFound',
+            lang,
+          ),
+          error: error.message,
+        };
+      }
       throw new HttpException(
         {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -152,6 +154,17 @@ export class UserController {
         data: instanceToPlain(updatedUser) as UserResponseDto,
       };
     } catch (error) {
+      if (error instanceof NotFoundException) {
+        return {
+          statusCode: HttpStatus.NOT_FOUND,
+          success: false,
+          message: this.translationService.getTranslation(
+            'api.users.me.notFound',
+            lang,
+          ),
+          error: error.message,
+        };
+      }
       throw new HttpException(
         {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -183,6 +196,17 @@ export class UserController {
         ),
       };
     } catch (error) {
+      if (error instanceof NotFoundException) {
+        return {
+          statusCode: HttpStatus.NOT_FOUND,
+          success: false,
+          message: this.translationService.getTranslation(
+            'api.users.me.notFound',
+            lang,
+          ),
+          error: error.message,
+        };
+      }
       throw new HttpException(
         {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,

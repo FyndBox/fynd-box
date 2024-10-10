@@ -1,7 +1,9 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
+import { Clear } from '@mui/icons-material';
 import imageFallback from '../../assets/AddImage.png'; // Use your fallback image here
 import {
+  ClearButton,
   ImageBox,
   ImageLabel,
   ImageUploaderContainer,
@@ -9,7 +11,7 @@ import {
 
 interface ImageUploaderProps {
   initialImage?: string;
-  onImageUpload: (image: string) => void;
+  onImageUpload: (image: string | undefined) => void;
   label?: string;
 }
 
@@ -18,9 +20,11 @@ const ImageUploader: FC<ImageUploaderProps> = ({
   onImageUpload,
   label = 'Image',
 }) => {
-  const [image, setImage] = useState<string | undefined>(
-    initialImage || undefined,
-  );
+  const [image, setImage] = useState<string | undefined>(initialImage ?? '');
+
+  useEffect(() => {
+    setImage(initialImage ?? '');
+  }, [initialImage]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -35,13 +39,18 @@ const ImageUploader: FC<ImageUploaderProps> = ({
     }
   };
 
+  const handleClearImage = () => {
+    setImage('');
+    onImageUpload('');
+  };
+
   return (
     <ImageUploaderContainer
       display="flex"
       flexDirection="column"
       alignItems="center"
     >
-      <ImageLabel variant="h6">{label}</ImageLabel>
+      <ImageLabel variant="body1">{label}</ImageLabel>
       <Box component="label">
         <ImageBox src={image || imageFallback} alt="Uploaded image" />
         <input
@@ -51,6 +60,11 @@ const ImageUploader: FC<ImageUploaderProps> = ({
           onChange={handleImageChange}
         />
       </Box>
+      {image && (
+        <ClearButton size="small" onClick={handleClearImage}>
+          <Clear />
+        </ClearButton>
+      )}
     </ImageUploaderContainer>
   );
 };
