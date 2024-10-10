@@ -9,7 +9,7 @@ export const getStorages = async (): Promise<Storage[]> => {
 };
 
 // Get storage by ID
-export const getStorageById = async (storageId: string): Promise<Storage> => {
+export const getStorageById = async (storageId: number): Promise<Storage> => {
   return handleApiCall(
     apiClient.get<ApiResponse<Storage>>(`/storages/${storageId}`),
   );
@@ -26,7 +26,7 @@ export const createStorage = async (
 
 // Update a storage by ID
 export const updateStorage = async (
-  storageId: string,
+  storageId: number,
   storageData: Partial<Storage>,
 ): Promise<Storage> => {
   return handleApiCall(
@@ -35,7 +35,7 @@ export const updateStorage = async (
 };
 
 // Delete a storage by ID
-export const deleteStorage = async (storageId: string): Promise<void> => {
+export const deleteStorage = async (storageId: number): Promise<void> => {
   return handleApiCall(
     apiClient.delete<ApiResponse<void>>(`/storages/${storageId}`),
   );

@@ -9,7 +9,7 @@ import {
 import { Storage } from '../types/storage';
 
 interface UpdateStorageData {
-  id: string;
+  id: number;
   storage: Partial<Storage>;
 }
 
@@ -20,7 +20,7 @@ export const useStorages = () => {
   });
 };
 
-export const useStorage = (id: string) => {
+export const useStorage = (id: number) => {
   return useQuery<Storage, Error>({
     queryKey: ['storage', id],
     queryFn: () => getStorageById(id),
@@ -30,50 +30,42 @@ export const useStorage = (id: string) => {
 export const useCreateStorage = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<Storage, Error, Partial<Storage>>(
-    // @ts-ignore
-    (newStorage: Partial<Storage>) => createStorage(newStorage),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['storages'] });
-      },
-      onError: (error: Error) => {
-        console.error('Error creating storage', error);
-      },
+  return useMutation<Storage, Error, Partial<Storage>>({
+    mutationFn: (newStorage: Partial<Storage>) => createStorage(newStorage),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['storages'] });
     },
-  );
+    onError: (error: Error) => {
+      console.error('Error creating storage', error);
+    },
+  });
 };
 
 export const useUpdateStorage = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<Storage, Error, UpdateStorageData>(
-    // @ts-ignore
-    ({ id, storage }) => updateStorage(id, storage),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['storages'] });
-      },
-      onError: (error: Error) => {
-        console.error('Error updating storage', error);
-      },
+  return useMutation<Storage, Error, UpdateStorageData>({
+    mutationFn: ({ id, storage }: UpdateStorageData) =>
+      updateStorage(id, storage),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['storages'] });
     },
-  );
+    onError: (error: Error) => {
+      console.error('Error updating storage', error);
+    },
+  });
 };
 
 export const useDeleteStorage = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<void, Error, number>(
-    // @ts-ignore
-    (id: number) => deleteStorage(id),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['storages'] });
-      },
-      onError: (error: Error) => {
-        console.error('Error deleting storage', error);
-      },
+  return useMutation<void, Error, number>({
+    mutationFn: (id: number) => deleteStorage(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['storages'] });
     },
-  );
+    onError: (error: Error) => {
+      console.error('Error deleting storage', error);
+    },
+  });
 };
