@@ -38,14 +38,23 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
   const [nameError, setNameError] = useState(false);
   const [error, setError] = useState(null);
 
+  // Clear form data when the modal is closed or opened in 'add' mode
   useEffect(() => {
-    if (open) {
-      setNameError(false);
-      setName(initialData?.name || '');
-      setDescription(initialData?.description || '');
-      setImage(initialData?.image || '');
+    if (open && mode === 'add') {
+      resetFormData();
+    } else if (open && mode === 'edit' && initialData) {
+      // Populate the form if the mode is 'edit'
+      setName(initialData.name);
+      setDescription(initialData.description ?? '');
+      setImage(initialData.image ?? '');
     }
-  }, [open, initialData]);
+  }, [open, mode, initialData]);
+
+  const resetFormData = () => {
+    setName('');
+    setDescription('');
+    setImage('');
+  };
 
   const handleSave = () => {
     if (!name) {
