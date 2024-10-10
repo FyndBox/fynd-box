@@ -66,9 +66,9 @@ const DashboardPage: FC = () => {
   // };
 
   const handleAddEntity = (type: EntityType) => {
-    console.log(`Add the ${type}`);
     setEntityType(type);
     setModalMode('add');
+    setEditingData(null);
     setModalOpen(true);
   };
 
@@ -76,7 +76,6 @@ const DashboardPage: FC = () => {
     type: EntityType,
     data: { id: number; name: string; description?: string; image?: string },
   ) => {
-    console.log(`Edit the ${type}`);
     setEntityType(type);
     setModalMode('edit');
     setEditingData(data);
@@ -142,6 +141,7 @@ const DashboardPage: FC = () => {
               <EntityCard
                 name={storage.name}
                 description={storage.description ?? ''}
+                image={storage.image ?? ''}
                 iconButton={
                   <IconButton onClick={() => handleToggleExpand(index)}>
                     {expandedStorageIndex === index ? (
@@ -197,6 +197,7 @@ const DashboardPage: FC = () => {
         onProfileClick={handleProfileClick}
       />
       <EntityActionModal
+        key={modalMode}
         open={isModalOpen}
         onClose={() => setModalOpen(false)}
         entityType={entityType}

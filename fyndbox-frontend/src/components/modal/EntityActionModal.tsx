@@ -30,20 +30,18 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
   onDelete,
 }) => {
   const { t } = useTranslation();
-  const [name, setName] = useState(initialData?.name || '');
+  const [name, setName] = useState(initialData?.name ?? '');
   const [description, setDescription] = useState(
-    initialData?.description || '',
+    initialData?.description ?? '',
   );
-  const [image, setImage] = useState(initialData?.image || undefined);
+  const [image, setImage] = useState(initialData?.image ?? '');
   const [nameError, setNameError] = useState(false);
   const [error, setError] = useState(null);
 
-  // Clear form data when the modal is closed or opened in 'add' mode
   useEffect(() => {
     if (open && mode === 'add') {
       resetFormData();
     } else if (open && mode === 'edit' && initialData) {
-      // Populate the form if the mode is 'edit'
       setName(initialData.name);
       setDescription(initialData.description ?? '');
       setImage(initialData.image ?? '');
@@ -52,6 +50,7 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
 
   const resetFormData = () => {
     setName('');
+    setNameError(false);
     setDescription('');
     setImage('');
   };
@@ -114,7 +113,7 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
           label={t('modal.image.label')}
           initialImage={image}
           onImageUpload={(uploadedImage) => {
-            setImage(uploadedImage);
+            setImage(uploadedImage ?? '');
           }}
         />
 

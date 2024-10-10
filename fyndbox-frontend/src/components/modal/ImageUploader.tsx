@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { Clear } from '@mui/icons-material';
 import imageFallback from '../../assets/AddImage.png'; // Use your fallback image here
@@ -20,9 +20,11 @@ const ImageUploader: FC<ImageUploaderProps> = ({
   onImageUpload,
   label = 'Image',
 }) => {
-  const [image, setImage] = useState<string | undefined>(
-    initialImage || undefined,
-  );
+  const [image, setImage] = useState<string | undefined>(initialImage ?? '');
+
+  useEffect(() => {
+    setImage(initialImage ?? '');
+  }, [initialImage]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -38,8 +40,8 @@ const ImageUploader: FC<ImageUploaderProps> = ({
   };
 
   const handleClearImage = () => {
-    setImage(undefined);
-    onImageUpload(undefined);
+    setImage('');
+    onImageUpload('');
   };
 
   return (
