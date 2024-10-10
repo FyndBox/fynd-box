@@ -1,23 +1,21 @@
 import { FC, useState } from 'react';
 import { Box, IconButton } from '@mui/material';
-import {
-  ExpandLessRounded,
-  ExpandMoreRounded,
-  KeyboardArrowRightRounded,
-} from '@mui/icons-material';
+import { ExpandLessRounded, ExpandMoreRounded } from '@mui/icons-material';
 import TopBar from '../../components/TopBar/TopBar';
 import SearchField from '../../components/SearchField/SearchField';
 import EntityCard from '../../components/EntityCard/EntityCard';
 import AddEntityButton from '../../components/AddEntityButton/AddEntityButton';
 import DashboardFooter from '../../components/DashboardFooter/DashboardFooter';
 import { CustomIcon } from '../../styles/commonStyles';
-import {
-  DashboardContainer,
-  MainContainer,
-  SubContainer,
-} from './DashboardPage.styles';
+import { DashboardContainer, MainContainer } from './DashboardPage.styles';
 import { EntityType } from '../../types/entityTypes';
 import EntityActionModal from '../../components/modal/EntityActionModal';
+import {
+  useCreateStorage,
+  useDeleteStorage,
+  useStorages,
+  useUpdateStorage,
+} from '../../hooks/useStorage';
 
 const DashboardPage: FC = () => {
   const [expandedStorageIndex, setExpandedStorageIndex] = useState<
@@ -27,8 +25,12 @@ const DashboardPage: FC = () => {
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
   const [entityType, setEntityType] = useState<EntityType>('storage');
   const [editingData, setEditingData] = useState<any | null>(null);
+  const { data: storages, isLoading, error } = useStorages();
+  const { mutate: createStorage } = useCreateStorage();
+  const { mutate: updateStorage } = useUpdateStorage();
+  const { mutate: deleteStorage } = useDeleteStorage();
 
-  const storages = [
+  /*   const storages = [
     {
       name: 'Garage',
       description: 'Mine Garage',
@@ -54,27 +56,26 @@ const DashboardPage: FC = () => {
       ],
     },
   ];
-
+ */
   const handleToggleExpand = (index: number) => {
     setExpandedStorageIndex(expandedStorageIndex === index ? null : index);
   };
 
-  const handleBoxOpen = (index: number) => {
-    console.log(index, 'Implement Box Page and navigate it');
-  };
+  // const handleBoxOpen = (index: number) => {
+  //   console.log(index, 'Implement Box Page and navigate it');
+  // };
 
   const handleAddEntity = (type: EntityType) => {
-    console.log(`Add the ${type}`);
     setEntityType(type);
     setModalMode('add');
+    setEditingData(null);
     setModalOpen(true);
   };
 
   const handleEditEntity = (
     type: EntityType,
-    data: { name: string; description: string; image?: string },
+    data: { id: number; name: string; description?: string; image?: string },
   ) => {
-    console.log(`Edit the ${type}`);
     setEntityType(type);
     setModalMode('edit');
     setEditingData(data);
@@ -99,19 +100,31 @@ const DashboardPage: FC = () => {
   // save function
   const handleSave = (data: {
     name: string;
-    description: string;
+    description?: string;
     image?: string;
   }) => {
     if (modalMode === 'add') {
-      console.log('Saving new entity:', data);
-    } else if (modalMode === 'edit') {
-      console.log('Updating existing entity:', data);
+      if (entityType === 'storage') {
+        createStorage(data);
+      } else if (entityType === 'box') {
+        // Implement box creation logic
+      }
+    } else if (modalMode === 'edit' && editingData?.id) {
+      if (entityType === 'storage') {
+        updateStorage({ id: editingData.id, storage: data });
+      } else if (entityType === 'box') {
+        // Implement box update logic
+      }
     }
     setModalOpen(false);
   };
 
   const handleDelete = () => {
-    console.log('Deleteing');
+    if (entityType === 'storage') {
+      deleteStorage(editingData.id);
+    } else if (entityType === 'box') {
+      // Implement box delete logic
+    }
     setModalOpen(false);
   };
 
@@ -121,11 +134,14 @@ const DashboardPage: FC = () => {
       <DashboardContainer>
         <SearchField />
         <MainContainer>
-          {storages.map((storage, index) => (
+          {isLoading && <p>Loading...</p>}
+          {error && <p>Error loading storages</p>}
+          {storages?.map((storage, index) => (
             <Box key={index}>
               <EntityCard
                 name={storage.name}
-                description={storage.description}
+                description={storage.description ?? ''}
+                image={storage.image ?? ''}
                 iconButton={
                   <IconButton onClick={() => handleToggleExpand(index)}>
                     {expandedStorageIndex === index ? (
@@ -142,7 +158,7 @@ const DashboardPage: FC = () => {
                 entityType="storage"
                 onEdit={() => handleEditEntity('storage', storage)}
               />
-              {expandedStorageIndex === index && (
+              {/* {expandedStorageIndex === index && (
                 <SubContainer>
                   {storage.boxes?.map((box, boxIndex) => (
                     <EntityCard
@@ -166,7 +182,7 @@ const DashboardPage: FC = () => {
                     onAdd={() => handleAddEntity('box')}
                   />
                 </SubContainer>
-              )}
+              )} */}
             </Box>
           ))}
           <AddEntityButton
@@ -181,6 +197,7 @@ const DashboardPage: FC = () => {
         onProfileClick={handleProfileClick}
       />
       <EntityActionModal
+        key={modalMode}
         open={isModalOpen}
         onClose={() => setModalOpen(false)}
         entityType={entityType}

@@ -13,7 +13,6 @@ export const ModalBox = styled(Box)(({ theme }) => ({
   textAlign: 'center',
 }));
 
-// Cancel Button
 export const CancelButton = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
   display: 'flex',
@@ -28,7 +27,6 @@ export const CancelButton = styled(IconButton)(({ theme }) => ({
   right: theme.spacing(1.25),
 }));
 
-// Image Boxes
 export const ImageUploaderContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2),
 }));
@@ -43,4 +41,10 @@ export const ImageBox = styled('img')(({ theme }) => ({
   height: 120,
   marginRight: theme.spacing(2),
   objectFit: 'cover',
+}));
+
+export const ClearButton = styled(IconButton)(({ theme }) => ({
+  position: 'relative',
+  padding: theme.spacing(0.1),
+  color: theme.palette.error.main,
 }));

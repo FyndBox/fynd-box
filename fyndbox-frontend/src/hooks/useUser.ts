@@ -28,33 +28,27 @@ export const useUser = () => {
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<User, Error, UpdateUserData>(
-    // @ts-ignore
-    (data: UpdateUserData) => updateUser(data.user),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['users'] });
-      },
-      onError: (error: Error) => {
-        console.error('Error updating user', error);
-      },
+  return useMutation<User, Error, UpdateUserData>({
+    mutationFn: (data: UpdateUserData) => updateUser(data.user),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
     },
-  );
+    onError: (error: Error) => {
+      console.error('Error updating user', error);
+    },
+  });
 };
 
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<void, Error>(
-    // @ts-ignore
-    () => deleteUser(),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['users'] });
-      },
-      onError: (error: Error) => {
-        console.error('Error deleting user', error);
-      },
+  return useMutation<void, Error>({
+    mutationFn: () => deleteUser(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
     },
-  );
+    onError: (error: Error) => {
+      console.error('Error deleting user', error);
+    },
+  });
 };
