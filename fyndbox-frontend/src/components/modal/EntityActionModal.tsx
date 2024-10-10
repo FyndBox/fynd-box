@@ -34,7 +34,7 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
   const [description, setDescription] = useState(
     initialData?.description || '',
   );
-  const [image, setImage] = useState(initialData?.image || '');
+  const [image, setImage] = useState(initialData?.image || undefined);
   const [nameError, setNameError] = useState(false);
   const [error, setError] = useState(null);
 
@@ -114,7 +114,6 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
           label={t('modal.image.label')}
           initialImage={image}
           onImageUpload={(uploadedImage) => {
-            console.log('Image uploaded:', uploadedImage);
             setImage(uploadedImage);
           }}
         />
