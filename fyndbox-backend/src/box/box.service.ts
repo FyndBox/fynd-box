@@ -2,19 +2,18 @@ import { Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Box } from './box.entity';
-import { Storage } from '../storage/storage.entity';
 import { CreateBoxDto } from './dto/create-box.dto';
 import { UpdateBoxDto } from './dto/update-box.dto';
 import { TranslationService } from 'src/translation/translation.service';
 import { BaseService } from 'src/common/base.service';
+import { StorageService } from 'src/storage/storage.service';
 
 @Injectable({ scope: Scope.REQUEST })
 export class BoxService extends BaseService {
   constructor(
     @InjectRepository(Box)
     private readonly boxRepository: Repository<Box>,
-    @InjectRepository(Storage)
-    private readonly storageRepository: Repository<Storage>,
+    private readonly storageService: StorageService,
     private readonly translationService: TranslationService,
   ) {
     super();
@@ -42,10 +41,12 @@ export class BoxService extends BaseService {
     return box;
   }
 
-  async create(createBoxDto: CreateBoxDto, storageId: string): Promise<Box> {
-    const storage = await this.storageRepository.findOne({
-      where: { id: storageId },
-    });
+  async create(
+    createBoxDto: CreateBoxDto,
+    storageId: string,
+    userId: string,
+  ): Promise<Box> {
+    const storage = await this.storageService.findOne(storageId, userId);
     if (!storage) {
       throw new NotFoundException(
         this.translationService.getTranslation(

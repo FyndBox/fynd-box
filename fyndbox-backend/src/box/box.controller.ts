@@ -119,6 +119,7 @@ export class BoxController {
       const newBox = await this.boxService.create(
         createBoxDto,
         createBoxDto.storageId,
+        req.user.userId,
       );
       return {
         statusCode: HttpStatus.CREATED,
