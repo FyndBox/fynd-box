@@ -18,11 +18,11 @@ export class StorageService extends BaseService {
     super();
   }
 
-  async findAll(userId: number): Promise<Storage[]> {
+  async findAll(userId: string): Promise<Storage[]> {
     return this.storageRepository.find({ where: { userId } });
   }
 
-  async findOne(id: number, userId: number): Promise<Storage> {
+  async findOne(id: string, userId: string): Promise<Storage> {
     const storage = await this.storageRepository.findOne({
       where: { id, userId },
     });
@@ -40,7 +40,7 @@ export class StorageService extends BaseService {
 
   async create(
     createStorageDto: CreateStorageDto,
-    userId: number,
+    userId: string,
   ): Promise<Storage> {
     const storage = this.storageRepository.create({
       ...createStorageDto,
@@ -50,16 +50,16 @@ export class StorageService extends BaseService {
   }
 
   async update(
-    id: number,
+    id: string,
     updateStorageDto: UpdateStorageDto,
-    userId: number,
+    userId: string,
   ): Promise<Storage> {
     const storage = await this.findOne(id, userId);
     Object.assign(storage, updateStorageDto);
     return this.storageRepository.save(storage);
   }
 
-  async remove(id: number, userId: number): Promise<void> {
+  async remove(id: string, userId: string): Promise<void> {
     const storage = await this.findOne(id, userId);
     if (!storage) {
       throw new NotFoundException(

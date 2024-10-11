@@ -10,6 +10,7 @@ import {
   HttpStatus,
   UseGuards,
   Param,
+  NotFoundException,
 } from '@nestjs/common';
 import { instanceToPlain } from 'class-transformer';
 import { AuthGuard } from '@nestjs/passport';
@@ -62,22 +63,12 @@ export class StorageController {
 
   @Get(':id')
   async findOne(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Request() req: any,
   ): Promise<ApiResponse<StorageResponseDto>> {
     const lang = req.language;
     try {
       const storage = await this.storageService.findOne(id, req.user.userId);
-      if (!storage) {
-        return {
-          statusCode: HttpStatus.NOT_FOUND,
-          success: false,
-          message: this.translationService.getTranslation(
-            'api.storages.get.notFound',
-            lang,
-          ),
-        };
-      }
       return {
         statusCode: HttpStatus.OK,
         success: true,
@@ -88,6 +79,16 @@ export class StorageController {
         data: instanceToPlain(storage) as StorageResponseDto,
       };
     } catch (error) {
+      if (error instanceof NotFoundException) {
+        return {
+          statusCode: HttpStatus.NOT_FOUND,
+          success: false,
+          message: this.translationService.getTranslation(
+            'api.storages.get.notFound',
+            lang,
+          ),
+        };
+      }
       throw new HttpException(
         {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -141,7 +142,7 @@ export class StorageController {
 
   @Put(':id')
   async update(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Request() req: any,
     @Body() updateStorageDto: UpdateStorageDto,
   ): Promise<ApiResponse<StorageResponseDto>> {
@@ -162,6 +163,16 @@ export class StorageController {
         data: instanceToPlain(updatedStorage) as StorageResponseDto,
       };
     } catch (error) {
+      if (error instanceof NotFoundException) {
+        return {
+          statusCode: HttpStatus.NOT_FOUND,
+          success: false,
+          message: this.translationService.getTranslation(
+            'api.storages.get.notFound',
+            lang,
+          ),
+        };
+      }
       throw new HttpException(
         {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -179,7 +190,7 @@ export class StorageController {
 
   @Delete(':id')
   async remove(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Request() req: any,
   ): Promise<ApiResponse<void>> {
     const lang = req.language;
@@ -194,6 +205,16 @@ export class StorageController {
         ),
       };
     } catch (error) {
+      if (error instanceof NotFoundException) {
+        return {
+          statusCode: HttpStatus.NOT_FOUND,
+          success: false,
+          message: this.translationService.getTranslation(
+            'api.storages.get.notFound',
+            lang,
+          ),
+        };
+      }
       throw new HttpException(
         {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
