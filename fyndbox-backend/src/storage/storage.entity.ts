@@ -33,7 +33,7 @@ export class Storage {
   @JoinColumn({ name: 'userId' }) // Explicitly set the foreign key column name
   user: User;
 
-  @Column()
+  @Column({ type: 'uuid' })
   userId: string; // Explicit foreign key column to store the userId for efficient querying
 
   @OneToMany(() => Box, (box) => box.storage)
