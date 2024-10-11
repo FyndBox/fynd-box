@@ -31,6 +31,9 @@ export class User {
   @OneToMany(() => Storage, (storage) => storage.user)
   storages: Storage[];
 
+  @Column({ nullable: true })
+  image: string;
+
   @CreateDateColumn()
   createdAt: Date;
 
