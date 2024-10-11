@@ -91,6 +91,7 @@ export class BoxController {
             'api.boxes.get.notFound',
             lang,
           ),
+          error: error.message,
         };
       }
       throw new HttpException(
@@ -134,9 +135,10 @@ export class BoxController {
           statusCode: HttpStatus.NOT_FOUND,
           success: false,
           message: this.translationService.getTranslation(
-            'api.boxes.create.storageNotFound', // Make sure to add a translation for this case
+            'api.storages.get.notFound',
             lang,
           ),
+          error: error.message,
         };
       }
       throw new HttpException(
@@ -163,7 +165,12 @@ export class BoxController {
     const lang = req.language;
     try {
       if (!updateBoxDto.storageId) {
-        throw new BadRequestException('Storage ID is required for the update');
+        throw new BadRequestException(
+          this.translationService.getTranslation(
+            'api.boxes.storageIDRequired',
+            lang,
+          ),
+        );
       }
       const updatedBox = await this.boxService.update(
         id,
@@ -188,6 +195,7 @@ export class BoxController {
             'api.boxes.get.notFound',
             lang,
           ),
+          error: error.message,
         };
       }
       throw new HttpException(
@@ -231,6 +239,7 @@ export class BoxController {
             'api.boxes.get.notFound',
             lang,
           ),
+          error: error.message,
         };
       }
       throw new HttpException(

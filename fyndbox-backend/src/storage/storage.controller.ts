@@ -87,6 +87,7 @@ export class StorageController {
             'api.storages.get.notFound',
             lang,
           ),
+          error: error.message,
         };
       }
       throw new HttpException(
@@ -171,6 +172,7 @@ export class StorageController {
             'api.storages.get.notFound',
             lang,
           ),
+          error: error.message,
         };
       }
       throw new HttpException(
@@ -213,6 +215,7 @@ export class StorageController {
             'api.storages.get.notFound',
             lang,
           ),
+          error: error.message,
         };
       }
       throw new HttpException(
