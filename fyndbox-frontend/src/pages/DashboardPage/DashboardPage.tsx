@@ -1,13 +1,21 @@
 import { FC, useState } from 'react';
 import { Box, IconButton } from '@mui/material';
-import { ExpandLessRounded, ExpandMoreRounded } from '@mui/icons-material';
+import {
+  ExpandLessRounded,
+  ExpandMoreRounded,
+  KeyboardArrowRightRounded,
+} from '@mui/icons-material';
 import TopBar from '../../components/TopBar/TopBar';
 import SearchField from '../../components/SearchField/SearchField';
 import EntityCard from '../../components/EntityCard/EntityCard';
 import AddEntityButton from '../../components/AddEntityButton/AddEntityButton';
 import DashboardFooter from '../../components/DashboardFooter/DashboardFooter';
 import { CustomIcon } from '../../styles/commonStyles';
-import { DashboardContainer, MainContainer } from './DashboardPage.styles';
+import {
+  DashboardContainer,
+  MainContainer,
+  SubContainer,
+} from './DashboardPage.styles';
 import { EntityType } from '../../types/entityTypes';
 import EntityActionModal from '../../components/modal/EntityActionModal';
 import {
@@ -61,9 +69,9 @@ const DashboardPage: FC = () => {
     setExpandedStorageIndex(expandedStorageIndex === index ? null : index);
   };
 
-  // const handleBoxOpen = (index: number) => {
-  //   console.log(index, 'Implement Box Page and navigate it');
-  // };
+  const handleBoxOpen = (boxId: string) => {
+    console.log(boxId, 'Implement Box Page and navigate it');
+  };
 
   const handleAddEntity = (type: EntityType) => {
     setEntityType(type);
@@ -74,7 +82,7 @@ const DashboardPage: FC = () => {
 
   const handleEditEntity = (
     type: EntityType,
-    data: { id: number; name: string; description?: string; image?: string },
+    data: { id: string; name: string; description?: string; image?: string },
   ) => {
     setEntityType(type);
     setModalMode('edit');
@@ -158,7 +166,7 @@ const DashboardPage: FC = () => {
                 entityType="storage"
                 onEdit={() => handleEditEntity('storage', storage)}
               />
-              {/* {expandedStorageIndex === index && (
+              {expandedStorageIndex === index && (
                 <SubContainer>
                   {storage.boxes?.map((box, boxIndex) => (
                     <EntityCard
@@ -166,7 +174,7 @@ const DashboardPage: FC = () => {
                       name={box.name}
                       description={box.description}
                       iconButton={
-                        <IconButton onClick={() => handleBoxOpen(boxIndex)}>
+                        <IconButton onClick={() => handleBoxOpen(box.id)}>
                           <CustomIcon>
                             <KeyboardArrowRightRounded />
                           </CustomIcon>
@@ -182,7 +190,7 @@ const DashboardPage: FC = () => {
                     onAdd={() => handleAddEntity('box')}
                   />
                 </SubContainer>
-              )} */}
+              )}
             </Box>
           ))}
           <AddEntityButton

@@ -79,7 +79,7 @@ export class AuthService extends BaseService {
   }
 
   async updatePassword(
-    userId: number,
+    userId: string,
     updatePasswordDto: UpdatePasswordDto,
   ): Promise<void> {
     const user = await this.userService.findOne(userId);
