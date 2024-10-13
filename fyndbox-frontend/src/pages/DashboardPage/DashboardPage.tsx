@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import {
   ExpandLessRounded,
   ExpandMoreRounded,
@@ -127,8 +127,12 @@ const DashboardPage: FC = () => {
       <DashboardContainer>
         <SearchField />
         <MainContainer>
-          {isLoading && <p>Loading...</p>}
-          {error && <p>Error loading storages</p>}
+          {isLoading && <Typography variant="body1">Loading...</Typography>}
+          {error && (
+            <Typography variant="body1" color="error">
+              Error loading storages
+            </Typography>
+          )}
           {storages?.map((storage, index) => (
             <Box key={index}>
               <EntityCard
@@ -153,23 +157,29 @@ const DashboardPage: FC = () => {
               />
               {expandedStorageIndex === index && (
                 <SubContainer>
-                  {storage.boxes?.map((box, boxIndex) => (
-                    <EntityCard
-                      key={boxIndex}
-                      name={box.name}
-                      description={box.description}
-                      iconButton={
-                        <IconButton onClick={() => handleBoxOpen(box.id)}>
-                          <CustomIcon>
-                            <KeyboardArrowRightRounded />
-                          </CustomIcon>
-                        </IconButton>
-                      }
-                      image=""
-                      entityType="box"
-                      onEdit={() => handleEditEntity('box', box)}
-                    />
-                  ))}
+                  {storage.boxes && storage.boxes?.length > 0 ? (
+                    storage.boxes?.map((box, boxIndex) => (
+                      <EntityCard
+                        key={boxIndex}
+                        name={box.name}
+                        description={box.description}
+                        iconButton={
+                          <IconButton onClick={() => handleBoxOpen(box.id)}>
+                            <CustomIcon>
+                              <KeyboardArrowRightRounded />
+                            </CustomIcon>
+                          </IconButton>
+                        }
+                        image=""
+                        entityType="box"
+                        onEdit={() => handleEditEntity('box', box)}
+                      />
+                    ))
+                  ) : (
+                    <Typography variant="h6" textAlign="center">
+                      No Boxes found for this storage.
+                    </Typography>
+                  )}
                   <AddEntityButton
                     entityType="box"
                     onAdd={() => handleAddEntity('box')}
