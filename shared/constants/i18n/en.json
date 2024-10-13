@@ -71,6 +71,9 @@
     "language":{
       "option1": "Svenska",
       "option2": "English"
+    },
+    "notifications": {
+      "noBoxForStorage" : "No Boxes found for this storage"
     }
   },
   "api": {
@@ -144,6 +147,31 @@
         "error": "Error deleting storage"
       },
       "notFoundById": "Storage with ID {{id}} not found"
+    },
+    "boxes": {
+      "getAll": {
+        "success": "Boxes retrieved successfully",
+        "error": "Error retrieving boxes"
+      },
+      "get": {
+        "notFound": "Box not found",
+        "success": "Box retrieved successfully",
+        "error": "Error retrieving box"
+      },
+      "create": {
+        "success": "Box created successfully",
+        "error": "Error creating box"
+      },
+      "update": {
+        "success": "Box updated successfully",
+        "error": "Error updating box"
+      },
+      "delete": {
+        "success": "Box deleted successfully",
+        "error": "Error deleting box"
+      },
+      "notFoundById": "Box with ID {{id}} not found",
+      "storageIDRequired": "Storage ID is required for the update"
     }
   }
 }

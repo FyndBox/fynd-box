@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { TranslationModule } from './translation/translation.module';
 import { StorageModule } from './storage/storage.module';
+import { BoxModule } from './box/box.module';
 
 @Module({
   imports: [
@@ -83,6 +84,7 @@ import { StorageModule } from './storage/storage.module';
     AuthModule,
     TranslationModule,
     StorageModule,
+    BoxModule,
   ],
 })
 export class AppModule {}

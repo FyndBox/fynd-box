@@ -1,3 +1,4 @@
+import { Box } from '../box/box.entity';
 import { User } from '../user/user.entity';
 import {
   Entity,
@@ -7,12 +8,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
 export class Storage {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ nullable: false })
   name: string;
@@ -31,8 +33,11 @@ export class Storage {
   @JoinColumn({ name: 'userId' }) // Explicitly set the foreign key column name
   user: User;
 
-  @Column()
-  userId: number; // Explicit foreign key column to store the userId for efficient querying
+  @Column({ type: 'uuid' })
+  userId: string; // Explicit foreign key column to store the userId for efficient querying
+
+  @OneToMany(() => Box, (box) => box.storage)
+  boxes: Box[]; // A storage can have multiple boxes
 
   @CreateDateColumn()
   createdAt: Date;

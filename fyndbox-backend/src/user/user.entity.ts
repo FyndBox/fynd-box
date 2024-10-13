@@ -12,8 +12,8 @@ import { Storage } from '../storage/storage.entity';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ nullable: false })
   name: string;
@@ -30,6 +30,9 @@ export class User {
 
   @OneToMany(() => Storage, (storage) => storage.user)
   storages: Storage[];
+
+  @Column({ nullable: true })
+  image: string;
 
   @CreateDateColumn()
   createdAt: Date;
