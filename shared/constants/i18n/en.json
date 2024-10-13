@@ -71,6 +71,9 @@
     "language":{
       "option1": "Svenska",
       "option2": "English"
+    },
+    "notifications": {
+      "noBoxForStorage" : "No Boxes found for this storage"
     }
   },
   "api": {

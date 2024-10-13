@@ -25,8 +25,10 @@ import {
   useUpdateStorage,
 } from '../../hooks/useStorage';
 import { useCreateBox, useDeleteBox, useUpdateBox } from '../../hooks/useBox';
+import { useTranslation } from 'react-i18next';
 
 const DashboardPage: FC = () => {
+  const { t } = useTranslation();
   const [expandedStorageIndex, setExpandedStorageIndex] = useState<
     number | null
   >(null);
@@ -177,7 +179,7 @@ const DashboardPage: FC = () => {
                     ))
                   ) : (
                     <Typography variant="h6" textAlign="center">
-                      No Boxes found for this storage.
+                      {t('notification.noBoxForStorage')}
                     </Typography>
                   )}
                   <AddEntityButton
