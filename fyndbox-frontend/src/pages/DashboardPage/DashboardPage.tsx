@@ -69,9 +69,9 @@ const DashboardPage: FC = () => {
     setExpandedStorageIndex(expandedStorageIndex === index ? null : index);
   };
 
-  // const handleBoxOpen = (index: number) => {
-  //   console.log(index, 'Implement Box Page and navigate it');
-  // };
+  const handleBoxOpen = (boxId: string) => {
+    console.log(boxId, 'Implement Box Page and navigate it');
+  };
 
   const handleAddEntity = (type: EntityType) => {
     setEntityType(type);
@@ -82,7 +82,7 @@ const DashboardPage: FC = () => {
 
   const handleEditEntity = (
     type: EntityType,
-    data: { id: number; name: string; description?: string; image?: string },
+    data: { id: string; name: string; description?: string; image?: string },
   ) => {
     setEntityType(type);
     setModalMode('edit');
@@ -174,7 +174,7 @@ const DashboardPage: FC = () => {
                       name={box.name}
                       description={box.description}
                       iconButton={
-                        <IconButton onClick={() => handleBoxOpen(boxIndex)}>
+                        <IconButton onClick={() => handleBoxOpen(box.id)}>
                           <CustomIcon>
                             <KeyboardArrowRightRounded />
                           </CustomIcon>

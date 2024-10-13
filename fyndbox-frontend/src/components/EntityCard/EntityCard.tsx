@@ -9,7 +9,7 @@ import { EntityType } from '../../types/entityTypes';
 
 interface EntityCardProps {
   name: string;
-  description: string;
+  description?: string;
   quantity?: number;
   iconButton?: ReactNode;
   entityType?: EntityType;

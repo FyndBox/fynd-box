@@ -2,7 +2,7 @@ import { Box } from './box';
 
 export interface Storage {
   boxes: Box[];
-  id: number;
+  id: string;
   name: string;
   description?: string;
   image?: string;
