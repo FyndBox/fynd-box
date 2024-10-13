@@ -20,5 +20,5 @@
     "typeRoots": ["./node_modules/@types", "./types/"]
   },
   "exclude": ["node_modules", "dist"],
-  "include": ["src/**/*", "types/express.d.ts"] 
+  "include": ["src/**/*", "types/express.d.ts", "ormconfig.ts"] 
 }
