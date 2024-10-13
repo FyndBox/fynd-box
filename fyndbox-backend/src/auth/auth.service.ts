@@ -12,6 +12,8 @@ import { LoginDto } from './dto/login.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { TranslationService } from 'src/translation/translation.service';
+import { StorageService } from 'src/storage/storage.service';
+import { BoxService } from 'src/box/box.service';
 
 @Injectable({ scope: Scope.REQUEST })
 export class AuthService extends BaseService {
@@ -19,6 +21,8 @@ export class AuthService extends BaseService {
     private userService: UserService,
     private jwtService: JwtService,
     private translationService: TranslationService,
+    private storageService: StorageService,
+    private boxService: BoxService,
   ) {
     super();
   }
@@ -71,6 +75,25 @@ export class AuthService extends BaseService {
     }
 
     const newUser = await this.userService.create(createUserDto);
+
+    // Automatically create a storage for the new user
+    const defaultStorage = await this.storageService.create(
+      {
+        name: 'Garage',
+        description: 'Min Garage',
+      },
+      newUser.id,
+    );
+
+    // Automatically create a box within the created storage
+    await this.boxService.create(
+      {
+        name: 'Låda 1',
+        description: 'This is default box',
+      },
+      defaultStorage.id,
+      newUser.id,
+    );
 
     const payload = { email: newUser.email, sub: newUser.id };
     const access_token = this.jwtService.sign(payload);

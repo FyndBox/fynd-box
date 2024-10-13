@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import {
   ExpandLessRounded,
   ExpandMoreRounded,
@@ -24,8 +24,11 @@ import {
   useStorages,
   useUpdateStorage,
 } from '../../hooks/useStorage';
+import { useCreateBox, useDeleteBox, useUpdateBox } from '../../hooks/useBox';
+import { useTranslation } from 'react-i18next';
 
 const DashboardPage: FC = () => {
+  const { t } = useTranslation();
   const [expandedStorageIndex, setExpandedStorageIndex] = useState<
     number | null
   >(null);
@@ -37,34 +40,10 @@ const DashboardPage: FC = () => {
   const { mutate: createStorage } = useCreateStorage();
   const { mutate: updateStorage } = useUpdateStorage();
   const { mutate: deleteStorage } = useDeleteStorage();
+  const { mutate: createBox } = useCreateBox();
+  const { mutate: updateBox } = useUpdateBox();
+  const { mutate: deleteBox } = useDeleteBox();
 
-  /*   const storages = [
-    {
-      name: 'Garage',
-      description: 'Mine Garage',
-      boxes: [
-        {
-          name: 'Box1',
-          description: 'My Box 1',
-        },
-        {
-          name: 'Box2',
-          description: 'My Box 2',
-        },
-      ],
-    },
-    {
-      name: 'Garage2',
-      description: 'Mine Garage2',
-      boxes: [
-        {
-          name: 'Box1',
-          description: 'Garage 2 Box 1',
-        },
-      ],
-    },
-  ];
- */
   const handleToggleExpand = (index: number) => {
     setExpandedStorageIndex(expandedStorageIndex === index ? null : index);
   };
@@ -105,7 +84,6 @@ const DashboardPage: FC = () => {
     // Implement and Navigate to profile
   };
 
-  // save function
   const handleSave = (data: {
     name: string;
     description?: string;
@@ -114,14 +92,20 @@ const DashboardPage: FC = () => {
     if (modalMode === 'add') {
       if (entityType === 'storage') {
         createStorage(data);
-      } else if (entityType === 'box') {
-        // Implement box creation logic
+      } else if (entityType === 'box' && expandedStorageIndex !== null) {
+        const storageId = storages?.[expandedStorageIndex].id; // Get the current storageId
+        if (storageId) {
+          createBox({ storageId, boxData: data });
+        }
       }
     } else if (modalMode === 'edit' && editingData?.id) {
       if (entityType === 'storage') {
         updateStorage({ id: editingData.id, storage: data });
-      } else if (entityType === 'box') {
-        // Implement box update logic
+      } else if (entityType === 'box' && expandedStorageIndex !== null) {
+        const storageId = storages?.[expandedStorageIndex].id;
+        if (storageId) {
+          updateBox({ boxId: editingData.id, storageId, boxData: data });
+        }
       }
     }
     setModalOpen(false);
@@ -130,8 +114,11 @@ const DashboardPage: FC = () => {
   const handleDelete = () => {
     if (entityType === 'storage') {
       deleteStorage(editingData.id);
-    } else if (entityType === 'box') {
-      // Implement box delete logic
+    } else if (entityType === 'box' && expandedStorageIndex !== null) {
+      const storageId = storages?.[expandedStorageIndex].id;
+      if (storageId) {
+        deleteBox({ boxId: editingData.id, storageId });
+      }
     }
     setModalOpen(false);
   };
@@ -142,8 +129,12 @@ const DashboardPage: FC = () => {
       <DashboardContainer>
         <SearchField />
         <MainContainer>
-          {isLoading && <p>Loading...</p>}
-          {error && <p>Error loading storages</p>}
+          {isLoading && <Typography variant="body1">Loading...</Typography>}
+          {error && (
+            <Typography variant="body1" color="error">
+              Error loading storages
+            </Typography>
+          )}
           {storages?.map((storage, index) => (
             <Box key={index}>
               <EntityCard
@@ -168,23 +159,29 @@ const DashboardPage: FC = () => {
               />
               {expandedStorageIndex === index && (
                 <SubContainer>
-                  {storage.boxes?.map((box, boxIndex) => (
-                    <EntityCard
-                      key={boxIndex}
-                      name={box.name}
-                      description={box.description}
-                      iconButton={
-                        <IconButton onClick={() => handleBoxOpen(box.id)}>
-                          <CustomIcon>
-                            <KeyboardArrowRightRounded />
-                          </CustomIcon>
-                        </IconButton>
-                      }
-                      image=""
-                      entityType="box"
-                      onEdit={() => handleEditEntity('box', box)}
-                    />
-                  ))}
+                  {storage.boxes && storage.boxes?.length > 0 ? (
+                    storage.boxes?.map((box, boxIndex) => (
+                      <EntityCard
+                        key={boxIndex}
+                        name={box.name}
+                        description={box.description}
+                        iconButton={
+                          <IconButton onClick={() => handleBoxOpen(box.id)}>
+                            <CustomIcon>
+                              <KeyboardArrowRightRounded />
+                            </CustomIcon>
+                          </IconButton>
+                        }
+                        image=""
+                        entityType="box"
+                        onEdit={() => handleEditEntity('box', box)}
+                      />
+                    ))
+                  ) : (
+                    <Typography variant="h6" textAlign="center">
+                      {t('notification.noBoxForStorage')}
+                    </Typography>
+                  )}
                   <AddEntityButton
                     entityType="box"
                     onAdd={() => handleAddEntity('box')}

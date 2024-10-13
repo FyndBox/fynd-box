@@ -109,8 +109,9 @@ export class BoxController {
     }
   }
 
-  @Post()
+  @Post(':storageId')
   async create(
+    @Param('storageId') storageId: string,
     @Body() createBoxDto: CreateBoxDto,
     @Request() req: any,
   ): Promise<ApiResponse<BoxResponseDto>> {
@@ -118,7 +119,7 @@ export class BoxController {
     try {
       const newBox = await this.boxService.create(
         createBoxDto,
-        createBoxDto.storageId,
+        storageId,
         req.user.userId,
       );
       return {
@@ -157,15 +158,16 @@ export class BoxController {
     }
   }
 
-  @Put(':id')
+  @Put(':storageId/:id')
   async update(
     @Param('id') id: string,
+    @Param('storageId') storageId: string,
     @Body() updateBoxDto: UpdateBoxDto,
     @Request() req: any,
   ): Promise<ApiResponse<BoxResponseDto>> {
     const lang = req.language;
     try {
-      if (!updateBoxDto.storageId) {
+      if (!storageId) {
         throw new BadRequestException(
           this.translationService.getTranslation(
             'api.boxes.storageIDRequired',
@@ -176,7 +178,7 @@ export class BoxController {
       const updatedBox = await this.boxService.update(
         id,
         updateBoxDto,
-        updateBoxDto.storageId ?? '',
+        storageId,
       );
       return {
         statusCode: HttpStatus.OK,
@@ -214,7 +216,7 @@ export class BoxController {
     }
   }
 
-  @Delete(':id/:storageId')
+  @Delete(':storageId/:id')
   async remove(
     @Param('id') id: string,
     @Param('storageId') storageId: string,
