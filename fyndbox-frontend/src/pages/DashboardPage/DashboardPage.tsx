@@ -24,6 +24,7 @@ import {
   useStorages,
   useUpdateStorage,
 } from '../../hooks/useStorage';
+import { useCreateBox, useDeleteBox, useUpdateBox } from '../../hooks/useBox';
 
 const DashboardPage: FC = () => {
   const [expandedStorageIndex, setExpandedStorageIndex] = useState<
@@ -37,34 +38,10 @@ const DashboardPage: FC = () => {
   const { mutate: createStorage } = useCreateStorage();
   const { mutate: updateStorage } = useUpdateStorage();
   const { mutate: deleteStorage } = useDeleteStorage();
+  const { mutate: createBox } = useCreateBox();
+  const { mutate: updateBox } = useUpdateBox();
+  const { mutate: deleteBox } = useDeleteBox();
 
-  /*   const storages = [
-    {
-      name: 'Garage',
-      description: 'Mine Garage',
-      boxes: [
-        {
-          name: 'Box1',
-          description: 'My Box 1',
-        },
-        {
-          name: 'Box2',
-          description: 'My Box 2',
-        },
-      ],
-    },
-    {
-      name: 'Garage2',
-      description: 'Mine Garage2',
-      boxes: [
-        {
-          name: 'Box1',
-          description: 'Garage 2 Box 1',
-        },
-      ],
-    },
-  ];
- */
   const handleToggleExpand = (index: number) => {
     setExpandedStorageIndex(expandedStorageIndex === index ? null : index);
   };
@@ -105,7 +82,6 @@ const DashboardPage: FC = () => {
     // Implement and Navigate to profile
   };
 
-  // save function
   const handleSave = (data: {
     name: string;
     description?: string;
@@ -114,14 +90,20 @@ const DashboardPage: FC = () => {
     if (modalMode === 'add') {
       if (entityType === 'storage') {
         createStorage(data);
-      } else if (entityType === 'box') {
-        // Implement box creation logic
+      } else if (entityType === 'box' && expandedStorageIndex !== null) {
+        const storageId = storages?.[expandedStorageIndex].id; // Get the current storageId
+        if (storageId) {
+          createBox({ storageId, boxData: data });
+        }
       }
     } else if (modalMode === 'edit' && editingData?.id) {
       if (entityType === 'storage') {
         updateStorage({ id: editingData.id, storage: data });
-      } else if (entityType === 'box') {
-        // Implement box update logic
+      } else if (entityType === 'box' && expandedStorageIndex !== null) {
+        const storageId = storages?.[expandedStorageIndex].id;
+        if (storageId) {
+          updateBox({ boxId: editingData.id, storageId, boxData: data });
+        }
       }
     }
     setModalOpen(false);
@@ -130,8 +112,11 @@ const DashboardPage: FC = () => {
   const handleDelete = () => {
     if (entityType === 'storage') {
       deleteStorage(editingData.id);
-    } else if (entityType === 'box') {
-      // Implement box delete logic
+    } else if (entityType === 'box' && expandedStorageIndex !== null) {
+      const storageId = storages?.[expandedStorageIndex].id;
+      if (storageId) {
+        deleteBox({ boxId: editingData.id, storageId });
+      }
     }
     setModalOpen(false);
   };

@@ -4,7 +4,6 @@ import {
   IsString,
   IsBoolean,
   Length,
-  IsUUID,
 } from 'class-validator';
 
 export class CreateBoxDto {
@@ -25,8 +24,4 @@ export class CreateBoxDto {
   @IsBoolean()
   @IsOptional()
   readonly isFavorite?: boolean;
-
-  @IsNotEmpty()
-  @IsUUID()
-  readonly storageId: string;
 }
