@@ -20,7 +20,7 @@ export const useStorages = () => {
   });
 };
 
-export const useStorage = (id: number) => {
+export const useStorage = (id: string) => {
   return useQuery<Storage, Error>({
     queryKey: ['storage', id],
     queryFn: () => getStorageById(id),

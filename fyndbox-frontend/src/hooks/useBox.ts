@@ -51,7 +51,8 @@ export const useUpdateBox = () => {
   >({
     mutationFn: ({ boxId, storageId, boxData }) =>
       updateBox(boxId, storageId, boxData),
-    onSuccess: (_data, { storageId }) => {
+    onSuccess: (_data, { storageId, boxId }) => {
+      queryClient.invalidateQueries({ queryKey: ['box', storageId, boxId] });
       queryClient.invalidateQueries({ queryKey: ['boxes', storageId] });
       queryClient.invalidateQueries({ queryKey: ['storages'] });
     },

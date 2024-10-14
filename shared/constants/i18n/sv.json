@@ -32,6 +32,12 @@
       "profile": "Profil"
     }
   },
+  "box": {
+    "printQRcode": "Skriv ut QRkod",
+    "addFavorite": " Lägg till i favorit",
+    "removeFavorite": "Ta bort från favorit",
+    "noItemsFound": "Den här låda har ingen artikel. klicka på + för att lägga till din första artikel."
+  },
   "modal": {
     "add": "Add {{type}}",
     "edit": "Edit {{type}}",
@@ -74,7 +80,8 @@
     },
     "notifications": {
       "noBoxForStorage" : "No Boxes found for this storage"
-    }
+    },
+    "loading": "Loading ..."
   },
   "api": {
     "auth": {

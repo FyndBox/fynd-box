@@ -32,6 +32,12 @@
       "profile": "Profile"
     }
   },
+  "box": {
+    "printQRcode": "Print QR Code",
+    "addFavorite": "Add to favorite",
+    "removeFavorite": "Remove from favorite",
+    "noItemsFound": "This box has no item. click + to add your first article."
+  },
   "modal": {
     "add": "Add {{type}}",
     "edit": "Edit {{type}}",
@@ -74,7 +80,8 @@
     },
     "notifications": {
       "noBoxForStorage" : "No Boxes found for this storage"
-    }
+    },
+    "loading": "Loading ..."
   },
   "api": {
     "auth": {
