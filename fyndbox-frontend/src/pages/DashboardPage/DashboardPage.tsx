@@ -26,9 +26,11 @@ import {
 } from '../../hooks/useStorage';
 import { useCreateBox, useDeleteBox, useUpdateBox } from '../../hooks/useBox';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const DashboardPage: FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [expandedStorageIndex, setExpandedStorageIndex] = useState<
     number | null
   >(null);
@@ -48,8 +50,9 @@ const DashboardPage: FC = () => {
     setExpandedStorageIndex(expandedStorageIndex === index ? null : index);
   };
 
-  const handleBoxOpen = (boxId: string) => {
+  const handleBoxOpen = (storageId: string, boxId: string) => {
     console.log(boxId, 'Implement Box Page and navigate it');
+    navigate(`/box/${storageId}/${boxId}`);
   };
 
   const handleAddEntity = (type: EntityType) => {
@@ -166,7 +169,9 @@ const DashboardPage: FC = () => {
                         name={box.name}
                         description={box.description}
                         iconButton={
-                          <IconButton onClick={() => handleBoxOpen(box.id)}>
+                          <IconButton
+                            onClick={() => handleBoxOpen(storage.id, box.id)}
+                          >
                             <CustomIcon>
                               <KeyboardArrowRightRounded />
                             </CustomIcon>

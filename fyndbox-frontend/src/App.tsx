@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import AuthGuard from './components/AuthGuard';
+import BoxPage from './pages/BoxPage/BoxPage';
 
 const App: FC = () => {
   return (
@@ -15,6 +16,14 @@ const App: FC = () => {
           element={
             <AuthGuard>
               <DashboardPage />
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/box/:storageId/:boxId"
+          element={
+            <AuthGuard>
+              <BoxPage />
             </AuthGuard>
           }
         />
