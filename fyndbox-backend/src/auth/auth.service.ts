@@ -76,7 +76,6 @@ export class AuthService extends BaseService {
 
     const newUser = await this.userService.create(createUserDto);
 
-    // Automatically create a storage for the new user
     const defaultStorage = await this.storageService.create(
       {
         name: 'Garage',
