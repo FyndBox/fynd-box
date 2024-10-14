@@ -179,7 +179,7 @@ const DashboardPage: FC = () => {
                     ))
                   ) : (
                     <Typography variant="h6" textAlign="center">
-                      {t('notification.noBoxForStorage')}
+                      {t('notifications.noBoxForStorage')}
                     </Typography>
                   )}
                   <AddEntityButton
