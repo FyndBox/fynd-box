@@ -16,6 +16,10 @@
       "errorMessage": "* Please enter a valid name: \n - The name must contain only letters and spaces \n - The name must be 3-50 characters long"
     }
   },
+  "userguide": {
+    "title": "This is how it works",
+    "description": "Findbox offers a simple solution to gain control over your storage."
+  },
   "dashboard": {
     "title": "Storage",
     "search": {
