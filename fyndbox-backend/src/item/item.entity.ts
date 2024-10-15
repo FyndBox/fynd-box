@@ -6,13 +6,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   JoinColumn,
-  OneToMany,
 } from 'typeorm';
-import { Storage } from '../storage/storage.entity';
-import { Item } from 'src/item/item.entity';
+import { Box } from 'src/box/box.entity';
 
 @Entity()
-export class Box {
+export class Item {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -25,23 +23,19 @@ export class Box {
   @Column({ nullable: true })
   image: string; // Stores the image as a URL or path
 
-  @Column({ default: false })
-  isFavorite: boolean;
+  @Column({ type: 'int', nullable: true, default: 1 }) // Quantity field, optional, defaults to 1
+  quantity?: number;
 
   // Foreign key relation to the Storage entity
-  @ManyToOne(() => Storage, (storage) => storage.boxes, {
+  @ManyToOne(() => Box, (box) => box.items, {
     onDelete: 'CASCADE',
     eager: true,
   })
-  @JoinColumn({ name: 'storageId' }) // Explicitly set the foreign key column name
-  storage: Storage;
+  @JoinColumn({ name: 'boxId' }) // Explicitly set the foreign key column name
+  box: Box;
 
   @Column({ type: 'uuid' })
-  storageId: string; // Explicit foreign key column to store the storageId
-
-  // One-to-many relation with the Item entity
-  @OneToMany(() => Item, (item) => item.box)
-  items: Item[]; // A box can have multiple items
+  boxId: string; // Explicit foreign key column to store the storageId
 
   @CreateDateColumn()
   createdAt: Date;

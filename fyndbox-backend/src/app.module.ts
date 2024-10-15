@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { TranslationModule } from './translation/translation.module';
 import { StorageModule } from './storage/storage.module';
 import { BoxModule } from './box/box.module';
+import { ItemModule } from './item/item.module';
 
 @Module({
   imports: [
@@ -85,6 +86,7 @@ import { BoxModule } from './box/box.module';
     TranslationModule,
     StorageModule,
     BoxModule,
+    ItemModule,
   ],
 })
 export class AppModule {}
