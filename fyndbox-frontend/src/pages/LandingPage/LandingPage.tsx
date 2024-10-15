@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import { HomeContainer, HomeSubContainer } from './LandingPage.styles';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
+import appLogo from '../../assets/FyndBox.png';
 
 const LandingPage: FC = () => {
   const navigate = useNavigate();
@@ -21,9 +22,10 @@ const LandingPage: FC = () => {
   return (
     <HomeContainer>
       <HomeSubContainer>
-        <Typography variant="h1" mb={8}>
+        <Typography variant="h1" mt={10}>
           {t('home.title')}
         </Typography>
+        <img src={appLogo} height={170} />
         <Typography variant="body1" mb={10}>
           {t('home.description')}
         </Typography>

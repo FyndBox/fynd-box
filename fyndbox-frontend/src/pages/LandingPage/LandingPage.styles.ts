@@ -1,9 +1,8 @@
 import { Box, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import bkImage from '../../assets/banner.jpg';
 
 export const HomeContainer = styled(Container)(({ theme }) => ({
-  backgroundImage: `url(${bkImage})`,
+  backgroundColor: `rgba(21, 113, 69, 0.5)`,
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   height: '100vh',
