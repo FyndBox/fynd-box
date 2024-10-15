@@ -179,6 +179,31 @@
       },
       "notFoundById": "Box with ID {{id}} not found",
       "storageIDRequired": "Storage ID is required for the update"
+    },
+    "items": {
+      "getAll": {
+        "success": "Items retrieved successfully",
+        "error": "Error retrieving items"
+      },
+      "get": {
+        "notFound": "Item not found",
+        "success": "Item retrieved successfully",
+        "error": "Error retrieving item"
+      },
+      "create": {
+        "success": "Item created successfully",
+        "error": "Error creating item"
+      },
+      "update": {
+        "success": "Item updated successfully",
+        "error": "Error updating item"
+      },
+      "delete": {
+        "success": "Item deleted successfully",
+        "error": "Error deleting item"
+      },
+      "notFoundById": "Item with ID {{id}} not found",
+      "boxIDRequired": "Box ID is required for the update"
     }
   }
 }
