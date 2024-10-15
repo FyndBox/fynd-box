@@ -126,7 +126,6 @@ const BoxPage: FC = () => {
         )}
 
         <Typography variant="body2" p={3} sx={{ textAlign: 'center' }}>
-          {' '}
           {t('box.noItemsFound')}
         </Typography>
         {/* Add Item Button */}
