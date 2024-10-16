@@ -51,8 +51,15 @@ export const ClearButton = styled(IconButton)(({ theme }) => ({
 
 export const QuantityContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
+  justifyContent: 'space-between',
   alignItems: 'center',
+  width: '100%',
   marginTop: theme.spacing(2),
+}));
+
+export const QuantityLabel = styled(Typography)(({ theme }) => ({
+  marginRight: theme.spacing(2),
+  flex: 1,
 }));
 
 export const ButtonContainer = styled(Box)(({ theme }) => ({
@@ -60,10 +67,7 @@ export const ButtonContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   border: '1px solid #000000',
   borderRadius: theme.spacing(1),
-}));
-
-export const QuantityLabel = styled(Typography)(({ theme }) => ({
-  marginRight: theme.spacing(2),
+  marginLeft: 'auto',
 }));
 
 export const QuantityCounter = styled(Typography)(({ theme }) => ({
@@ -72,24 +76,13 @@ export const QuantityCounter = styled(Typography)(({ theme }) => ({
   textAlign: 'center',
 }));
 
-export const DecrementButton = styled(Button)(({ theme }) => ({
+export const StepperButton = styled(Button)(({ theme }) => ({
   minWidth: '60px',
   backgroundColor: theme.palette.primary.main,
   color: theme.palette.common.white,
+  fontSize: theme.spacing(3),
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },
-  borderTopLeftRadius: theme.shape.borderRadius,
-  borderBottomLeftRadius: theme.shape.borderRadius,
-}));
-
-export const IncrementButton = styled(Button)(({ theme }) => ({
-  minWidth: '60px',
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.common.white,
-  '&:hover': {
-    backgroundColor: theme.palette.primary.dark,
-  },
-  borderTopRightRadius: theme.shape.borderRadius,
-  borderBottomRightRadius: theme.shape.borderRadius,
+  borderRadius: 0,
 }));

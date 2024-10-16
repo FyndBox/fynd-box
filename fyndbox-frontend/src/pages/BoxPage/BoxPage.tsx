@@ -208,6 +208,7 @@ const BoxPage: FC = () => {
                 name={item.name}
                 description={item.description ?? ''}
                 image={item.image ?? ''}
+                quantity={item.quantity ?? 1}
                 entityType="item"
                 onEdit={() => handleEditEntity('item', item)}
               />

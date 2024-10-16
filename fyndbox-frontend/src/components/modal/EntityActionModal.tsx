@@ -8,12 +8,11 @@ import { EntityType } from '../../types/entityTypes';
 import {
   ModalBox,
   CancelButton,
-  DecrementButton,
-  IncrementButton,
   QuantityContainer,
   ButtonContainer,
   QuantityCounter,
   QuantityLabel,
+  StepperButton,
 } from './EntityActionModal.styles';
 import { TextFieldsContainer } from '../../styles/commonStyles';
 import ActionButtonsGroup from '../ActionButtonsGroup/ActionButtonsGroup';
@@ -146,9 +145,9 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
               {t('modal.quantity.label')}
             </QuantityLabel>
             <ButtonContainer>
-              <DecrementButton onClick={handleDecrease}>-</DecrementButton>
+              <StepperButton onClick={handleDecrease}>-</StepperButton>
               <QuantityCounter variant="body1">{quantity}</QuantityCounter>
-              <IncrementButton onClick={handleIncrease}>+</IncrementButton>
+              <StepperButton onClick={handleIncrease}>+</StepperButton>
             </ButtonContainer>
           </QuantityContainer>
         )}
