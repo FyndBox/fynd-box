@@ -25,7 +25,7 @@ export const createItem = async (
   itemData: Partial<Item>,
 ): Promise<Item> => {
   return handleApiCall(
-    apiClient.post<ApiResponse<Item>>(`/items/${boxId}${storageId}`, itemData),
+    apiClient.post<ApiResponse<Item>>(`/items/${boxId}/${storageId}`, itemData),
   );
 };
 

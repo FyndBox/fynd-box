@@ -38,6 +38,7 @@ export const useCreateItem = () => {
     onSuccess: (_data, { storageId, boxId }) => {
       queryClient.invalidateQueries({ queryKey: ['boxes', storageId] });
       queryClient.invalidateQueries({ queryKey: ['items', boxId] });
+      queryClient.invalidateQueries({ queryKey: ['box', storageId, boxId] });
     },
     onError: (error: Error) => {
       console.error('Error creating item', error);
