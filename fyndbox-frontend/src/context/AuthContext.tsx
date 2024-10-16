@@ -1,4 +1,11 @@
-import { createContext, useState, ReactNode, FC, useEffect } from 'react';
+import {
+  createContext,
+  useState,
+  ReactNode,
+  FC,
+  useEffect,
+  useRef,
+} from 'react';
 import { login as loginApi, signup as signupApi } from '../api/authService';
 
 const getTokenFromLocalStorage = (): string | null => {
@@ -41,14 +48,34 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const logoutTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const storedToken = getTokenFromLocalStorage();
     if (storedToken) {
       setToken(storedToken);
+      startLogoutTimer();
     }
     setLoading(false);
+
+    return () => {
+      clearLogoutTimer();
+    };
   }, []);
+
+  const startLogoutTimer = () => {
+    clearLogoutTimer();
+    logoutTimerRef.current = setTimeout(() => {
+      logout();
+    }, 3600000); // 1 hour in milliseconds
+  };
+
+  const clearLogoutTimer = () => {
+    if (logoutTimerRef.current) {
+      clearTimeout(logoutTimerRef.current);
+      logoutTimerRef.current = null;
+    }
+  };
 
   const isAuthenticated = !!token;
 
@@ -59,6 +86,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       const { access_token } = await loginApi(email, password);
       setToken(access_token);
       setTokenInLocalStorage(access_token);
+      startLogoutTimer();
       return true;
     } catch (err) {
       setError(
@@ -77,6 +105,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       const { access_token } = await signupApi(name, email, password);
       setToken(access_token);
       setTokenInLocalStorage(access_token);
+      startLogoutTimer();
       return true;
     } catch (err) {
       setError(
@@ -91,6 +120,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const logout = () => {
     setToken(null);
     setTokenInLocalStorage(null);
+    clearLogoutTimer();
   };
 
   return (
