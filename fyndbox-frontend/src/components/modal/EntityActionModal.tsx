@@ -5,7 +5,16 @@ import CustomTextField from '../../components/CustomTextField/CustomTextField';
 import ModalHeading from './ModalHeading';
 import ImageUploader from './ImageUploader';
 import { EntityType } from '../../types/entityTypes';
-import { ModalBox, CancelButton } from './EntityActionModal.styles';
+import {
+  ModalBox,
+  CancelButton,
+  DecrementButton,
+  IncrementButton,
+  QuantityContainer,
+  ButtonContainer,
+  QuantityCounter,
+  QuantityLabel,
+} from './EntityActionModal.styles';
 import { TextFieldsContainer } from '../../styles/commonStyles';
 import ActionButtonsGroup from '../ActionButtonsGroup/ActionButtonsGroup';
 import { Close } from '@mui/icons-material';
@@ -14,9 +23,19 @@ interface EntityActionModalProps {
   open: boolean;
   entityType: EntityType;
   mode: 'add' | 'edit';
-  initialData?: { name: string; description: string; image?: string };
+  initialData?: {
+    name: string;
+    description: string;
+    image?: string;
+    quantity?: number;
+  };
   onClose: () => void;
-  onSave: (data: { name: string; description: string; image?: string }) => void;
+  onSave: (data: {
+    name: string;
+    description: string;
+    image?: string;
+    quantity?: number;
+  }) => void;
   onDelete?: () => void;
 }
 
@@ -35,6 +54,7 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
     initialData?.description ?? '',
   );
   const [image, setImage] = useState(initialData?.image ?? '');
+  const [quantity, setQuantity] = useState(initialData?.quantity ?? 1);
   const [nameError, setNameError] = useState(false);
   const [error, setError] = useState(null);
 
@@ -45,6 +65,7 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
       setName(initialData.name);
       setDescription(initialData.description ?? '');
       setImage(initialData.image ?? '');
+      setQuantity(initialData.quantity ?? 1);
     }
   }, [open, mode, initialData]);
 
@@ -53,14 +74,23 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
     setNameError(false);
     setDescription('');
     setImage('');
+    setQuantity(1);
   };
 
   const handleSave = () => {
     if (!name) {
       setNameError(true);
     } else {
-      onSave({ name, description, image });
+      onSave({ name, description, image, quantity });
     }
+  };
+
+  const handleIncrease = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+
+  const handleDecrease = () => {
+    setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1)); // Minimum quantity is 1
   };
 
   return (
@@ -108,6 +138,20 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
             }}
           />
         </TextFieldsContainer>
+
+        {/* Quantity Counter */}
+        {entityType === 'item' && (
+          <QuantityContainer>
+            <QuantityLabel variant="body1">
+              {t('modal.quantity.label')}
+            </QuantityLabel>
+            <ButtonContainer>
+              <DecrementButton onClick={handleDecrease}>-</DecrementButton>
+              <QuantityCounter variant="body1">{quantity}</QuantityCounter>
+              <IncrementButton onClick={handleIncrease}>+</IncrementButton>
+            </ButtonContainer>
+          </QuantityContainer>
+        )}
 
         <ImageUploader
           label={t('modal.image.label')}
