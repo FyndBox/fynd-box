@@ -55,6 +55,9 @@
     "description": {
       "label": "Description",
       "placeholder": "Description"
+    },
+    "quantity": {
+      "label": "Antal Artiklar"
     }
   },
   "types": {
