@@ -55,6 +55,9 @@
     "description": {
       "label": "Description",
       "placeholder": "Description"
+    },
+    "quantity": {
+      "label": "Antal Artiklar"
     }
   },
   "types": {
@@ -204,6 +207,13 @@
       },
       "notFoundById": "Item with ID {{id}} not found",
       "boxIDRequired": "Box ID is required for the update"
+    },
+    "images":{
+      "upload": {
+        "success": "Image uploaded successfully",
+        "error": "Image upload failed",
+        "noFileProvided": "No file uploaded"
+      }
     }
   }
 }
