@@ -1,14 +1,16 @@
-import { FC } from 'react';
+import { FC,useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Typography } from '@mui/material';
+import { Typography, MobileStepper, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 import SliderCard from '../../components/SliderCard/SliderCard';
 import { FullPageContainer } from '../../styles/commonStyles';
+import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 
 const UserGuidePage: FC = () => {
     const navigate = useNavigate();
+    const [activeStep, setActiveStep] = useState(0);
 
     const { t } = useTranslation();
 
@@ -29,6 +31,14 @@ const UserGuidePage: FC = () => {
             step: 3
         }
     ]
+
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
     
     const handleSignupClick = () => {
         navigate('/signup');
@@ -42,7 +52,29 @@ const UserGuidePage: FC = () => {
             <Typography variant="body1" mb={4} ml={1}>
                 {t('userguide.description')}
             </Typography>
-            {guideSteps.map((guideStep, index) => <SliderCard key={index} title={guideStep.title} description={guideStep.description} step={guideStep.step} />)}
+            <SliderCard 
+                title={guideSteps[activeStep].title} 
+                description={guideSteps[activeStep].description} 
+                step={guideSteps[activeStep].step} 
+            />
+            <MobileStepper
+                variant="dots"
+                steps={guideSteps.length}
+                position="static"
+                activeStep={activeStep}
+                nextButton={
+                    <Button size="small" onClick={handleNext} disabled={activeStep === guideSteps.length - 1}>
+                        Next
+                        <KeyboardArrowRight />
+                    </Button>
+                }
+                backButton={
+                    <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                        <KeyboardArrowLeft />
+                        Back
+                    </Button>
+                }
+            />
             <AuthButtonsGroup
                 showLoginButton={false}
                 onRegisterClick={handleSignupClick}
