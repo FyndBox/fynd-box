@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
-import { HomeContainer, HomeSubContainer } from './LandingPage.styles';
+import { GuideLink, HomeContainer, HomeSubContainer } from './LandingPage.styles';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 import appLogo from '../../assets/FyndBox.png';
 
@@ -17,10 +17,6 @@ const LandingPage: FC = () => {
 
   const handleSignupClick = () => {
     navigate('/signup');
-  };
-
-  const handleUserGuideClick = () => {
-    navigate('/userguide');
   };
 
   return (
@@ -38,19 +34,12 @@ const LandingPage: FC = () => {
           onRegisterClick={handleSignupClick}
         />
         <Box>
-          <Link
-            to="/userguide"
-            style={{
-              paddingTop: '24px',
-              marginBottom: '-35px',
-              display: 'inline-block',
-              cursor: 'pointer',
-              textDecoration: 'none',
-              color: 'blue'
-            }}
-          >
-            Hur fungerar det?
-          </Link>
+          <GuideLink
+            href="/user-guide"
+            underline='always'
+        >
+            {t('home.guideLink')}
+          </GuideLink>
         </Box>
         <LanguageSelector />
       </HomeSubContainer>

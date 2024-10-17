@@ -9,8 +9,14 @@ export const SliderCardContainer = styled(Container)(({ theme }) => ({
   role: 'presentation',
 }));
 
-export const SliderCardCSubContainer = styled(Box)(({ theme }) => ({
+export const StepCounter = styled(Box)(({ theme }) => ({
   display: 'flex',
-  flexDirection: 'column',
-  padding: theme.spacing(5, 0.5),
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '50%' ,
+  width: '50px',
+  height: '50px',
+  color: theme.palette.primary.main,
+  backgroundColor: theme.palette.primary.light,
+  margin: theme.spacing(2)
 }));

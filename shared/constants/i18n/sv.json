@@ -1,7 +1,8 @@
 {   
   "home": {
     "title": "Välkommen till FyndBox",
-    "description": "Vi erbjuder en effektiv och smidig lösning för att få fullständig kontroll över ditt lager. Med vår webbplatform kan du enkelt organisera och hantera dina inventarier genom att lägga till lådor och ange bilder samt antal för varje objekt."
+    "description": "Vi erbjuder en effektiv och smidig lösning för att få fullständig kontroll över ditt lager. Med vår webbplatform kan du enkelt organisera och hantera dina inventarier genom att lägga till lådor och ange bilder samt antal för varje objekt.",
+    "guideLink": "Hur fungerar det?"
   },
   "login": {
     "title": "Logga in",
