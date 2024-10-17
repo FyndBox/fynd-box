@@ -56,6 +56,7 @@ const ImageUploader: FC<ImageUploaderProps> = ({
         <input
           type="file"
           hidden
+          capture="environment"
           accept="image/*"
           onChange={handleImageChange}
         />
