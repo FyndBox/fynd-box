@@ -9,7 +9,7 @@ export const getStorages = async (): Promise<Storage[]> => {
 };
 
 // Get storage by ID
-export const getStorageById = async (storageId: number): Promise<Storage> => {
+export const getStorageById = async (storageId: string): Promise<Storage> => {
   return handleApiCall(
     apiClient.get<ApiResponse<Storage>>(`/storages/${storageId}`),
   );

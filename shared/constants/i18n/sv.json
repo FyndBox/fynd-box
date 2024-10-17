@@ -32,6 +32,12 @@
       "profile": "Profil"
     }
   },
+  "box": {
+    "printQRcode": "Skriv ut QRkod",
+    "addFavorite": " Lägg till i favorit",
+    "removeFavorite": "Ta bort från favorit",
+    "noItemsFound": "Den här låda har ingen artikel. klicka på + för att lägga till din första artikel."
+  },
   "modal": {
     "add": "Add {{type}}",
     "edit": "Edit {{type}}",
@@ -49,6 +55,9 @@
     "description": {
       "label": "Description",
       "placeholder": "Description"
+    },
+    "quantity": {
+      "label": "Antal Artiklar"
     }
   },
   "types": {
@@ -74,7 +83,8 @@
     },
     "notifications": {
       "noBoxForStorage" : "No Boxes found for this storage"
-    }
+    },
+    "loading": "Loading ..."
   },
   "api": {
     "auth": {
@@ -172,6 +182,38 @@
       },
       "notFoundById": "Box with ID {{id}} not found",
       "storageIDRequired": "Storage ID is required for the update"
+    },
+    "items": {
+      "getAll": {
+        "success": "Items retrieved successfully",
+        "error": "Error retrieving items"
+      },
+      "get": {
+        "notFound": "Item not found",
+        "success": "Item retrieved successfully",
+        "error": "Error retrieving item"
+      },
+      "create": {
+        "success": "Item created successfully",
+        "error": "Error creating item"
+      },
+      "update": {
+        "success": "Item updated successfully",
+        "error": "Error updating item"
+      },
+      "delete": {
+        "success": "Item deleted successfully",
+        "error": "Error deleting item"
+      },
+      "notFoundById": "Item with ID {{id}} not found",
+      "boxIDRequired": "Box ID is required for the update"
+    },
+    "images":{
+      "upload": {
+        "success": "Image uploaded successfully",
+        "error": "Image upload failed",
+        "noFileProvided": "No file uploaded"
+      }
     }
   }
 }

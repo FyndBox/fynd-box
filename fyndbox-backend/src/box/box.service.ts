@@ -22,12 +22,14 @@ export class BoxService extends BaseService {
   async findAll(storageId: string): Promise<Box[]> {
     return this.boxRepository.find({
       where: { storageId },
+      relations: ['items'],
     });
   }
 
   async findOne(id: string, storageId: string): Promise<Box> {
     const box = await this.boxRepository.findOne({
       where: { id, storageId },
+      relations: ['items'],
     });
     if (!box) {
       throw new NotFoundException(

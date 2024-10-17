@@ -1,4 +1,4 @@
-import { Box, IconButton, styled, Typography } from '@mui/material';
+import { Box, Button, IconButton, styled, Typography } from '@mui/material';
 
 export const ModalBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
@@ -47,4 +47,42 @@ export const ClearButton = styled(IconButton)(({ theme }) => ({
   position: 'relative',
   padding: theme.spacing(0.1),
   color: theme.palette.error.main,
+}));
+
+export const QuantityContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  width: '100%',
+  marginTop: theme.spacing(2),
+}));
+
+export const QuantityLabel = styled(Typography)(({ theme }) => ({
+  marginRight: theme.spacing(2),
+  flex: 1,
+}));
+
+export const ButtonContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  border: '1px solid #000000',
+  borderRadius: theme.spacing(1),
+  marginLeft: 'auto',
+}));
+
+export const QuantityCounter = styled(Typography)(({ theme }) => ({
+  margin: theme.spacing(0, 2),
+  minWidth: '20px',
+  textAlign: 'center',
+}));
+
+export const StepperButton = styled(Button)(({ theme }) => ({
+  minWidth: '60px',
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.common.white,
+  fontSize: theme.spacing(3),
+  '&:hover': {
+    backgroundColor: theme.palette.primary.dark,
+  },
+  borderRadius: 0,
 }));
