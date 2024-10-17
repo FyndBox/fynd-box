@@ -10,6 +10,7 @@ import { TextFieldsContainer } from '../../styles/commonStyles';
 import ActionButtonsGroup from '../ActionButtonsGroup/ActionButtonsGroup';
 import { Close } from '@mui/icons-material';
 
+
 interface EntityActionModalProps {
   open: boolean;
   entityType: EntityType;
