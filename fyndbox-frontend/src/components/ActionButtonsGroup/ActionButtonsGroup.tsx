@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, Delete } from '@mui/icons-material';
 import { ButtonsGroupWrapper, CustomIcon } from '../../styles/commonStyles';
 import { DeleteButton, SaveButton } from './ActionButtonsGroup.styles';
+import DeleteConfirmationDialog from '../../components/DeleteConfirmationDialog/DeleteConfirmationDialog';
 
 interface ActionButtonsGroupProps {
   showDeleteButton?: boolean;
@@ -16,36 +17,63 @@ const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
   onDeleteClick,
 }) => {
   const { t } = useTranslation();
-  return (
-    <ButtonsGroupWrapper>
-      <SaveButton
-        variant="contained"
-        fullWidth
-        startIcon={
-          <CustomIcon>
-            <Check />
-          </CustomIcon>
-        }
-        onClick={() => onSaveClick && onSaveClick()}
-      >
-        {t('modal.save')}
-      </SaveButton>
+  const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-      {showDeleteButton && (
-        <DeleteButton
+  const handleOpenDeleteDialog = () => {
+    setDeleteDialogOpen(true);
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setDeleteDialogOpen(false);
+  };
+
+  const handleConfirmDelete = () => {
+    if (onDeleteClick) {
+      onDeleteClick();
+    }
+    handleCloseDeleteDialog();
+  };
+
+  return (
+    <>
+      <ButtonsGroupWrapper>
+        <SaveButton
           variant="contained"
           fullWidth
           startIcon={
             <CustomIcon>
-              <Delete />
+              <Check />
             </CustomIcon>
           }
-          onClick={onDeleteClick}
+          onClick={() => onSaveClick && onSaveClick()}
         >
-          {t('modal.delete')}
-        </DeleteButton>
-      )}
-    </ButtonsGroupWrapper>
+          {t('modal.save')}
+        </SaveButton>
+
+        {showDeleteButton && (
+          <DeleteButton
+            variant="contained"
+            fullWidth
+            startIcon={
+              <CustomIcon>
+                <Delete />
+              </CustomIcon>
+            }
+            onClick={handleOpenDeleteDialog}
+          >
+            {t('modal.delete')}
+          </DeleteButton>
+        )}
+      </ButtonsGroupWrapper>
+
+      {/* Delete Confirmation Dialog */}
+      <DeleteConfirmationDialog
+        isOpen={isDeleteDialogOpen}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCloseDeleteDialog}
+        entityName={t('modal.entity')} // Pass the entity name here if needed, or customize it
+      />
+    </>
   );
 };
 

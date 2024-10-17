@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Clear } from '@mui/icons-material';
 import imageFallback from '../../assets/AddImage.png'; // Use your fallback image here
 import {
@@ -8,6 +8,7 @@ import {
   ImageLabel,
   ImageUploaderContainer,
 } from './EntityActionModal.styles';
+import { useUploadImage } from '../../hooks/useImage';
 
 interface ImageUploaderProps {
   initialImage?: string;
@@ -21,6 +22,7 @@ const ImageUploader: FC<ImageUploaderProps> = ({
   label = 'Image',
 }) => {
   const [image, setImage] = useState<string | undefined>(initialImage ?? '');
+  const { mutate: uploadImage, error } = useUploadImage();
 
   useEffect(() => {
     setImage(initialImage ?? '');
@@ -29,13 +31,15 @@ const ImageUploader: FC<ImageUploaderProps> = ({
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setImage(base64String);
-        onImageUpload(base64String); // Return the image to parent component
-      };
-      reader.readAsDataURL(file);
+      uploadImage(file, {
+        onSuccess: (uploadedImageUrl) => {
+          setImage(uploadedImageUrl.imageUrl);
+          onImageUpload(uploadedImageUrl.imageUrl);
+        },
+        onError: (err) => {
+          console.error('Error uploading image:', err);
+        },
+      });
     }
   };
 
@@ -60,6 +64,11 @@ const ImageUploader: FC<ImageUploaderProps> = ({
           onChange={handleImageChange}
         />
       </Box>
+      {error && (
+        <Typography variant="body2" color="error">
+          Error uploading image
+        </Typography>
+      )}
       {image && (
         <ClearButton size="small" onClick={handleClearImage}>
           <Clear />

@@ -16,7 +16,7 @@ export const AppDataSource = new DataSource({
   entities: [User, Storage, Box],
   migrations: ['src/migrations/*.ts'],
   synchronize: false, // Disable synchronize when using migrations
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  // ssl: {
+  //   rejectUnauthorized: false,
+  // },
 });
