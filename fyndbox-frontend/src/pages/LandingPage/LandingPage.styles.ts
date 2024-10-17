@@ -2,7 +2,7 @@ import { Box, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const HomeContainer = styled(Container)(({ theme }) => ({
-  backgroundColor: `rgba(21, 113, 69, 0.5)`,
+  backgroundColor: theme.palette.primary.light,
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   height: '100vh',

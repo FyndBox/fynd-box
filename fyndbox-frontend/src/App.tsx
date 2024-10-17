@@ -30,7 +30,7 @@ const App: FC = () => {
         />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/userguide" element={<UserGuidePage />} />
+        <Route path="/user-guide" element={<UserGuidePage />} />
         <Route path="/" element={<LandingPage />} />
       </Routes>
     </BrowserRouter>

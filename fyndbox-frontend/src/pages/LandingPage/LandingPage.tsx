@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
+import { Box, Typography, Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import { HomeContainer, HomeSubContainer } from './LandingPage.styles';
@@ -38,7 +37,7 @@ const LandingPage: FC = () => {
           onLoginClick={handleLoginClick}
           onRegisterClick={handleSignupClick}
         />
-        <div>
+        <Box>
           <Link
             to="/userguide"
             style={{
@@ -52,7 +51,7 @@ const LandingPage: FC = () => {
           >
             Hur fungerar det?
           </Link>
-        </div>
+        </Box>
         <LanguageSelector />
       </HomeSubContainer>
     </HomeContainer>
