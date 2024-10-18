@@ -19,7 +19,24 @@
   },
   "userguide": {
     "title": "This is how it works",
-    "description": "Findbox offers a simple solution to gain control over your storage."
+    "description": "Findbox offers a simple solution to gain control over your storage.",
+    "back": "Go back",
+    "guideSteps": {
+      "stepOne": {
+        "title": "Create Account",
+        "description": "Start by creating an account. It is free and entails obligations, but enables access to Fyndbox when you want and how much you want."
+      },
+      "stepTwo": {
+        "title": "Create Account",
+        "description": "Start by creating an account. It is free and entails obligations, but enables access to Fyndbox when you want and how much you want."
+      },
+      "stepThree": {
+        "title": "Create Account",
+        "description": "Start by creating an account. It is free and entails obligations, but enables access to Fyndbox when you want and how much you want."
+      },
+      "next": "Next",
+      "back": "Back"
+    }
   },
   "dashboard": {
     "title": "Storage",

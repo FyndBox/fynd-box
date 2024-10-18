@@ -19,7 +19,24 @@
   },
   "userguide": {
     "title": "Så här fungerar det",
-    "description": "Fyndbox erbjuder enkelt lösning för att få kontroll över ditt förvaring."
+    "description": "Fyndbox erbjuder enkelt lösning för att få kontroll över ditt förvaring.",
+    "back": "Gå tillbaka",
+    "guideSteps": {
+      "stepOne": {
+        "title": "Skapa Konto",
+        "description": "Börja med att skapa konto. Det är gratis och innebär föpliktelser men möjliggör tillgång till Fyndbox när du vill och hur mycket du vill."
+      },
+      "stepTwo": {
+        "title": "Skapa Konto",
+        "description": "Börja med att skapa konto. Det är gratis och innebär föpliktelser men möjliggör tillgång till Fyndbox när du vill och hur mycket du vill."
+      },
+      "stepThree": {
+        "title": "Skapa Konto",
+        "description": "Börja med att skapa konto. Det är gratis och innebär föpliktelser men möjliggör tillgång till Fyndbox när du vill och hur mycket du vill."
+      },
+      "next": "Nästa",
+      "back": "Tillbaka"
+    }
   },
   "dashboard": {
     "title": "Lagring",
