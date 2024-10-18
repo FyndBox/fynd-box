@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Typography, MobileStepper, Button, Box } from '@mui/material';
+import { Typography, MobileStepper, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
