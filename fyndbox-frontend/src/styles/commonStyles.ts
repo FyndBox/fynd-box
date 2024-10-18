@@ -31,4 +31,5 @@ export const ButtonsGroupWrapper = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
   alignItems: 'center',
   textAlign: 'center',
+  padding: theme.spacing(6, 0),
 }));

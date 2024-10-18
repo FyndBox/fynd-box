@@ -6,6 +6,7 @@ import {
   useEffect,
   useRef,
 } from 'react';
+import { jwtDecode } from 'jwt-decode';
 import { login as loginApi, signup as signupApi } from '../api/authService';
 
 const getTokenFromLocalStorage = (): string | null => {
@@ -52,9 +53,11 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     const storedToken = getTokenFromLocalStorage();
-    if (storedToken) {
+    if (storedToken && !isTokenExpired(storedToken)) {
       setToken(storedToken);
       startLogoutTimer();
+    } else {
+      logout();
     }
     setLoading(false);
 
@@ -75,6 +78,12 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       clearTimeout(logoutTimerRef.current);
       logoutTimerRef.current = null;
     }
+  };
+
+  const isTokenExpired = (token: string) => {
+    const decodedToken = jwtDecode(token);
+    const currentTime = Date.now() / 1000; // Convert to seconds
+    return decodedToken.exp! < currentTime;
   };
 
   const isAuthenticated = !!token;

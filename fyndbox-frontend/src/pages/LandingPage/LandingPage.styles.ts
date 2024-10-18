@@ -3,12 +3,11 @@ import { styled } from '@mui/material/styles';
 
 export const HomeContainer = styled(Container)(({ theme }) => ({
   backgroundColor: theme.palette.primary.light,
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  height: '100vh',
-  backgroundPosition: 'center',
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
   color: theme.palette.primary.contrastText,
-  role: 'presentation',
+  padding: theme.spacing(0),
 }));
 
 export const HomeSubContainer = styled(Box)(({ theme }) => ({
@@ -17,14 +16,11 @@ export const HomeSubContainer = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'center',
-  padding: theme.spacing(8, 6),
-  height: '100vh',
+  padding: theme.spacing(0, 2),
 }));
 
-
 export const GuideLink = styled(Link)(({ theme }) => ({
-  paddingTop: theme.spacing(3),
   display: 'inline-block',
   cursor: 'pointer',
-  color: theme.palette.secondary.contrastText
+  color: theme.palette.secondary.contrastText,
 }));
