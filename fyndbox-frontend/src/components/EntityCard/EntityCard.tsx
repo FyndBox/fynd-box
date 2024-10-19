@@ -62,7 +62,7 @@ const EntityCard: FC<EntityCardProps> = ({
             )}
           </Box>
 
-          <Box flex={2}>
+          <Box flex={3}>
             <Typography variant="h6">{name}</Typography>
             <Typography variant="body1">{description}</Typography>
           </Box>
