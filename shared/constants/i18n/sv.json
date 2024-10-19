@@ -17,7 +17,7 @@
       "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
     }
   },
-  "userguide": {
+  "userGuide": {
     "title": "Så här fungerar det",
     "description": "Fyndbox erbjuder enkelt lösning för att få kontroll över ditt förvaring.",
     "back": "Gå tillbaka",
