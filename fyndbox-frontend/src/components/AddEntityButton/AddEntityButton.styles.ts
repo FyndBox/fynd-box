@@ -8,6 +8,7 @@ export const AddEntityContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const FabContainer = styled(Fab)(({ theme }) => ({
+  zIndex: 0,
   backgroundColor: theme.palette.secondary.contrastText,
   color: theme.palette.secondary.main,
   '&:hover': {
