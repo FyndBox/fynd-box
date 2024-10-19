@@ -7,7 +7,7 @@ import LanguageSelector from '../../components/LanguageSelector/LanguageSelector
 import SliderCard from '../../components/SliderCard/SliderCard';
 import { FullPageContainer } from '../../styles/commonStyles';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
-import { StyledArrowBack, StyledButton } from './UserGuide.styles';
+import { StyledArrowBack, GoBackButton } from './UserGuide.styles';
 
 const UserGuidePage: FC = () => {
   const navigate = useNavigate();
@@ -18,17 +18,17 @@ const UserGuidePage: FC = () => {
   const guideSteps = [
     {
       title: t('userGuide.guideSteps.stepOne.title'),
-      description: t('userguide.guideSteps.stepOne.description'),
+      description: t('userGuide.guideSteps.stepOne.description'),
       step: 1,
     },
     {
       title: t('userGuide.guideSteps.stepTwo.title'),
-      description: t('userguide.guideSteps.stepTwo.description'),
+      description: t('userGuide.guideSteps.stepTwo.description'),
       step: 2,
     },
     {
       title: t('userGuide.guideSteps.stepThree.title'),
-      description: t('userguide.guideSteps.stepThree.description'),
+      description: t('userGuide.guideSteps.stepThree.description'),
       step: 3,
     },
   ];
@@ -51,16 +51,14 @@ const UserGuidePage: FC = () => {
 
   return (
     <FullPageContainer>
-      <StyledButton onClick={handleBackClick}>
+      <GoBackButton onClick={handleBackClick}>
         <StyledArrowBack />
-        <Typography variant="h6" ml={1.25} component="span" color="#000000">
+        <Typography variant="h6" component="span" pl={1}>
           {t('userGuide.back')}
         </Typography>
-      </StyledButton>
-      <Typography variant="h1" mb={2} ml={1}>
-        {t('userGuide.title')}
-      </Typography>
-      <Typography variant="body1" mb={4} ml={1}>
+      </GoBackButton>
+      <Typography variant="h2">{t('userGuide.title')}</Typography>
+      <Typography variant="body1" py={2}>
         {t('userGuide.description')}
       </Typography>
       <SliderCard

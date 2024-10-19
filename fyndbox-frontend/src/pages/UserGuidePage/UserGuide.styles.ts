@@ -1,22 +1,20 @@
-import { Button} from '@mui/material';
+import { Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import {  ArrowBack } from '@mui/icons-material';
+import { ArrowBack } from '@mui/icons-material';
 
-export const StyledButton = styled(Button)(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: theme.spacing(2),
-    marginLeft: theme.spacing(-0.5),
-    marginTop: theme.spacing(5),
-    marginBottom: theme.spacing(5)
-  }));
+export const GoBackButton = styled(Button)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  textAlign: 'left',
+  padding: theme.spacing(2, 0),
+}));
 
-  export const StyledArrowBack = styled(ArrowBack)(({ theme }) => ({
-    color: theme.palette.common.white,
-    borderRadius: '50%' ,
-    width: '60px',
-    height: '60px',
-    backgroundColor: theme.palette.primary.main,
-    fontSize: 'small'
-  }));
+export const StyledArrowBack = styled(ArrowBack)(({ theme }) => ({
+  color: theme.palette.common.white,
+  backgroundColor: theme.palette.primary.main,
+  fontSize: 'small',
+  borderRadius: '50%',
+  width: '40px',
+  height: '40px',
+}));
