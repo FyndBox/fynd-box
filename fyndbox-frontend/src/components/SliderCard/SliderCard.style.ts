@@ -6,9 +6,9 @@ export const StepCounter = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '50%',
-  width: '50px',
-  height: '50px',
-  color: theme.palette.primary.main,
+  width: '60px',
+  height: '60px',
+  color: theme.palette.primary.dark,
   backgroundColor: theme.palette.primary.light,
   margin: theme.spacing(1),
 }));

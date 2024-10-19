@@ -1,8 +1,10 @@
 import { Box, Container, styled } from '@mui/material';
 
 export const DashboardContainer = styled(Container)(({ theme }) => ({
-  height: '100vh',
-  padding: theme.spacing(1, 0),
+  padding: theme.spacing(0, 0),
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
 }));
 
 export const MainContainer = styled(Box)(({ theme }) => ({

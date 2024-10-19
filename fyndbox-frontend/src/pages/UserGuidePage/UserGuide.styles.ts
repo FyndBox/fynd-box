@@ -11,10 +11,10 @@ export const GoBackButton = styled(Button)(({ theme }) => ({
 }));
 
 export const StyledArrowBack = styled(ArrowBack)(({ theme }) => ({
-  color: theme.palette.common.white,
-  backgroundColor: theme.palette.primary.main,
   fontSize: 'small',
   borderRadius: '50%',
-  width: '40px',
-  height: '40px',
+  color: theme.palette.common.white,
+  backgroundColor: theme.palette.primary.main,
+  width: '30px',
+  height: '30px',
 }));

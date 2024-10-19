@@ -128,8 +128,8 @@ const DashboardPage: FC = () => {
 
   return (
     <>
-      <TopBar />
       <DashboardContainer>
+        <TopBar />
         <SearchField />
         <MainContainer>
           {isLoading && <Typography variant="body1">Loading...</Typography>}

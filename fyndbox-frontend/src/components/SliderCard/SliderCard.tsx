@@ -12,10 +12,10 @@ const SliderCard: FC<SliderCardProps> = ({ title, description, step }) => {
   return (
     <CardContainer>
       <StepCounter>{step}</StepCounter>
-      <Typography variant="h6" mt={1} p={1}>
+      <Typography variant="h6" p={1}>
         {title}
       </Typography>
-      <Typography variant="body2" mb={1} p={1}>
+      <Typography variant="body2" pb={2} px={1}>
         {description}
       </Typography>
     </CardContainer>
