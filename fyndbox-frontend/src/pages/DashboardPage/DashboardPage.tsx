@@ -127,80 +127,78 @@ const DashboardPage: FC = () => {
   };
 
   return (
-    <>
+    <DashboardContainer>
       <TopBar />
-      <DashboardContainer>
-        <SearchField />
-        <MainContainer>
-          {isLoading && <Typography variant="body1">Loading...</Typography>}
-          {error && (
-            <Typography variant="body1" color="error">
-              Error loading storages
-            </Typography>
-          )}
-          {storages?.map((storage, index) => (
-            <Box key={index}>
-              <EntityCard
-                name={storage.name}
-                description={storage.description ?? ''}
-                image={storage.image ?? ''}
-                iconButton={
-                  <IconButton onClick={() => handleToggleExpand(index)}>
-                    {expandedStorageIndex === index ? (
-                      <CustomIcon>
-                        <ExpandLessRounded />
-                      </CustomIcon>
-                    ) : (
-                      <CustomIcon>
-                        <ExpandMoreRounded />
-                      </CustomIcon>
-                    )}
-                  </IconButton>
-                }
-                entityType="storage"
-                onEdit={() => handleEditEntity('storage', storage)}
-              />
-              {expandedStorageIndex === index && (
-                <SubContainer>
-                  {storage.boxes && storage.boxes?.length > 0 ? (
-                    storage.boxes?.map((box, boxIndex) => (
-                      <EntityCard
-                        key={boxIndex}
-                        name={box.name}
-                        description={box.description}
-                        iconButton={
-                          <IconButton
-                            onClick={() => handleBoxOpen(storage.id, box.id)}
-                          >
-                            <CustomIcon>
-                              <KeyboardArrowRightRounded />
-                            </CustomIcon>
-                          </IconButton>
-                        }
-                        image={box.image ?? ''}
-                        entityType="box"
-                        onEdit={() => handleEditEntity('box', box)}
-                      />
-                    ))
+      <SearchField />
+      <MainContainer>
+        {isLoading && <Typography variant="body1">Loading...</Typography>}
+        {error && (
+          <Typography variant="body1" color="error">
+            Error loading storages
+          </Typography>
+        )}
+        {storages?.map((storage, index) => (
+          <Box key={index}>
+            <EntityCard
+              name={storage.name}
+              description={storage.description ?? ''}
+              image={storage.image ?? ''}
+              iconButton={
+                <IconButton onClick={() => handleToggleExpand(index)}>
+                  {expandedStorageIndex === index ? (
+                    <CustomIcon>
+                      <ExpandLessRounded />
+                    </CustomIcon>
                   ) : (
-                    <Typography variant="h6" textAlign="center">
-                      {t('common.notifications.noBoxForStorage')}
-                    </Typography>
+                    <CustomIcon>
+                      <ExpandMoreRounded />
+                    </CustomIcon>
                   )}
-                  <AddEntityButton
-                    entityType="box"
-                    onAdd={() => handleAddEntity('box')}
-                  />
-                </SubContainer>
-              )}
-            </Box>
-          ))}
-          <AddEntityButton
-            entityType="storage"
-            onAdd={() => handleAddEntity('storage')}
-          />
-        </MainContainer>
-      </DashboardContainer>
+                </IconButton>
+              }
+              entityType="storage"
+              onEdit={() => handleEditEntity('storage', storage)}
+            />
+            {expandedStorageIndex === index && (
+              <SubContainer>
+                {storage.boxes && storage.boxes?.length > 0 ? (
+                  storage.boxes?.map((box, boxIndex) => (
+                    <EntityCard
+                      key={boxIndex}
+                      name={box.name}
+                      description={box.description}
+                      iconButton={
+                        <IconButton
+                          onClick={() => handleBoxOpen(storage.id, box.id)}
+                        >
+                          <CustomIcon>
+                            <KeyboardArrowRightRounded />
+                          </CustomIcon>
+                        </IconButton>
+                      }
+                      image=""
+                      entityType="box"
+                      onEdit={() => handleEditEntity('box', box)}
+                    />
+                  ))
+                ) : (
+                  <Typography variant="h6" textAlign="center">
+                    {t('common.notifications.noBoxForStorage')}
+                  </Typography>
+                )}
+                <AddEntityButton
+                  entityType="box"
+                  onAdd={() => handleAddEntity('box')}
+                />
+              </SubContainer>
+            )}
+          </Box>
+        ))}
+        <AddEntityButton
+          entityType="storage"
+          onAdd={() => handleAddEntity('storage')}
+        />
+      </MainContainer>
       <DashboardFooter
         onFavoriteClick={handleFavoriteClick}
         onScanClick={handleScanClick}
@@ -216,7 +214,7 @@ const DashboardPage: FC = () => {
         onSave={handleSave}
         onDelete={handleDelete}
       />
-    </>
+    </DashboardContainer>
   );
 };
 

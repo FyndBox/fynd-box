@@ -7,7 +7,9 @@ interface LanguageOptionProps {
 export const LanguageSelectorWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  padding: theme.spacing(8),
+  padding: theme.spacing(6, 0),
+  justifyContent: 'center',
+  textAlign: 'center',
 }));
 
 export const FlagIcon = styled('img')(({ theme }) => ({

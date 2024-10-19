@@ -1,15 +1,13 @@
-import { Box, Container } from '@mui/material';
+import { Box, Container, Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import bkImage from '../../assets/banner.jpg';
 
 export const HomeContainer = styled(Container)(({ theme }) => ({
-  backgroundImage: `url(${bkImage})`,
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  height: '100vh',
-  backgroundPosition: 'center',
+  backgroundColor: theme.palette.primary.light,
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
   color: theme.palette.primary.contrastText,
-  role: 'presentation',
+  padding: theme.spacing(0),
 }));
 
 export const HomeSubContainer = styled(Box)(({ theme }) => ({
@@ -18,6 +16,11 @@ export const HomeSubContainer = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'center',
-  padding: theme.spacing(8, 6),
-  height: '100vh',
+  padding: theme.spacing(0, 2),
+}));
+
+export const GuideLink = styled(Link)(({ theme }) => ({
+  display: 'inline-block',
+  cursor: 'pointer',
+  color: theme.palette.secondary.contrastText,
 }));
