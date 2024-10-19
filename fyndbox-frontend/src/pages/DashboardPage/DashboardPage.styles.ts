@@ -12,5 +12,5 @@ export const MainContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const SubContainer = styled(Box)(({ theme }) => ({
-  marginLeft: theme.spacing(1.2),
+  //marginLeft: theme.spacing(1.2),
 }));
