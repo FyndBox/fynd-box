@@ -58,15 +58,13 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
   const [error, setError] = useState<string | null>(null); // Type assertion for error
 
   useEffect(() => {
-    if (open) {
-      if (mode === 'add') {
-        resetFormData();
-      } else if (mode === 'edit' && initialData) {
-        setName(initialData.name);
-        setDescription(initialData.description ?? '');
-        setImage(initialData.image ?? '');
-        setQuantity(initialData.quantity ?? 1);
-      }
+    if (open && mode === 'add') {
+      resetFormData();
+    } else if (open && mode === 'edit' && initialData) {
+      setName(initialData.name);
+      setDescription(initialData.description ?? '');
+      setImage(initialData.image ?? '');
+      setQuantity(initialData.quantity ?? 1);
     }
   }, [open, mode, initialData]);
 

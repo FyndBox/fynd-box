@@ -16,4 +16,3 @@ export const DeleteButton = styled(BaseButton)(({ theme }) => ({
     backgroundColor: theme.palette.error.dark,
   },
 }));
-
