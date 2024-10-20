@@ -73,7 +73,7 @@ const EntityCard: FC<EntityCardProps> = ({
             <Box flex={1}>
               <Typography variant="h6">
                 {quantity! > 1
-                  ? t('modal.quantity.pieces', { count: quantity })
+                  ? t('modal.quantity.piece_plural', { count: quantity })
                   : t('modal.quantity.piece', { count: quantity })}
               </Typography>
             </Box>

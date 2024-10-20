@@ -81,7 +81,7 @@
     "quantity": {
       "label": "Number of Articles",
       "piece": "{{count}} pc",
-      "pieces": "{{count}} pcs"
+      "piece_plural": "{{count}} pcs"
     },
     "deleteTitle": "Delete {{type}} ?",
     "deleteConfirmation": "Are you sure you want to delete {{type}}? This action cannot be undone"

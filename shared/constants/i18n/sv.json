@@ -81,7 +81,7 @@
     "quantity": {
       "label": "Antal Artiklar",
       "piece": "{{count}} st",
-      "pieces": "{{count}} st"
+      "piece_plural": "{{count}} st"
     },
     "deleteTitle": "Ta bort {{type}} ?",
     "deleteConfirmation": "Är du säker på att du vill ta bort {{type}}? Denna åtgärd kan inte ångras"
