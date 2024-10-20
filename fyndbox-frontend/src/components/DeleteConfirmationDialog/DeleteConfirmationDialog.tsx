@@ -23,7 +23,12 @@ const DeleteConfirmationDialog: FC<DeleteConfirmationDialogProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <Dialog open={isOpen} onClose={onCancel}>
+    <Dialog
+      open={isOpen}
+      onClose={onCancel}
+      disableEnforceFocus
+      disableRestoreFocus
+    >
       <DialogTitle>
         {t('modal.deleteTitle', { type: t(`types.${entityType}`) })}
       </DialogTitle>
