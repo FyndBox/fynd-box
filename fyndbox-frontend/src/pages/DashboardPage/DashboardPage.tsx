@@ -28,7 +28,6 @@ import { useCreateBox, useDeleteBox, useUpdateBox } from '../../hooks/useBox';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-
 const DashboardPage: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -52,7 +51,6 @@ const DashboardPage: FC = () => {
   };
 
   const handleBoxOpen = (storageId: string, boxId: string) => {
-    console.log(boxId, 'Implement Box Page and navigate it');
     navigate(`/box/${storageId}/${boxId}`);
   };
 
@@ -217,7 +215,6 @@ const DashboardPage: FC = () => {
         onSave={handleSave}
         onDelete={handleDelete}
       />
-
     </>
   );
 };

@@ -49,7 +49,9 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const [name, setName] = useState(initialData?.name ?? '');
-  const [description, setDescription] = useState(initialData?.description ?? '');
+  const [description, setDescription] = useState(
+    initialData?.description ?? '',
+  );
   const [image, setImage] = useState(initialData?.image ?? '');
   const [quantity, setQuantity] = useState(initialData?.quantity ?? 1);
   const [nameError, setNameError] = useState(false);
@@ -76,17 +78,11 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
     setQuantity(1);
   };
 
-  const handleSave = async () => {
+  const handleSave = () => {
     if (!name) {
       setNameError(true);
-      return; // Early return if name is not valid
-    }
-
-    try {
-      await onSave({ name, description, image, quantity });
-      setError(null); // Clear any previous error
-    } catch (err) {
-      setError(t('modal.save.error')); // Handle save error
+    } else {
+      onSave({ name, description, image, quantity });
     }
   };
 
@@ -168,17 +164,9 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
 
         <ActionButtonsGroup
           showDeleteButton={mode === 'edit'}
-          onSaveClick={handleSave}
-          onDeleteClick={async () => {
-            try {
-              if (onDelete) {
-                await onDelete();
-              }
-            } catch (err) {
-              setError(t('modal.delete.error')); // Handle delete error
-            }
-          }}
           entityType={entityType}
+          onSaveClick={handleSave}
+          onDeleteClick={onDelete}
         />
         {error && (
           <Typography variant="caption" color="error">

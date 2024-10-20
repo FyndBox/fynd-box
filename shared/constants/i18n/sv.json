@@ -39,9 +39,9 @@
     "noItemsFound": "Den här låda har ingen artikel. klicka på + för att lägga till din första artikel."
   },
   "modal": {
-    "add": "Add {{type}}",
+    "add": "Lägg till {{type}}",
     "edit": "Edit {{type}}",
-    "delete": "Delete",
+    "delete": "Ta bort",
     "cancel": "Cancel",
     "save":"Save",
     "image":{
@@ -58,7 +58,9 @@
     },
     "quantity": {
       "label": "Antal Artiklar"
-    }
+    },
+    "deleteTitle": "Ta bort {{type}} ?",
+    "deleteConfirmation": "Är du säker på att du vill ta bort {{type}}? Denna åtgärd kan inte ångras"
   },
   "types": {
       "storage": "Storage",

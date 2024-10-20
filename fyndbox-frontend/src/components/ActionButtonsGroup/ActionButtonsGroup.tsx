@@ -8,20 +8,20 @@ import { EntityType } from '../../types/entityTypes';
 
 interface ActionButtonsGroupProps {
   showDeleteButton?: boolean;
+  entityType: EntityType;
   onSaveClick?: (data?: any) => void;
   onDeleteClick?: () => void;
-  entityType: EntityType;
 }
 
 const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
   showDeleteButton = false,
+  entityType,
   onSaveClick,
   onDeleteClick,
-  entityType,
 }) => {
   const { t } = useTranslation();
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  
+
   const handleOpenDeleteDialog = () => {
     setDeleteDialogOpen(true);
   };
@@ -31,7 +31,6 @@ const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
   };
 
   const handleConfirmDelete = () => {
-    console.log(`Deleting ${entityType}`);
     if (onDeleteClick) {
       onDeleteClick();
     }
@@ -44,7 +43,11 @@ const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
         <SaveButton
           variant="contained"
           fullWidth
-          startIcon={<CustomIcon><Check /></CustomIcon>}
+          startIcon={
+            <CustomIcon>
+              <Check />
+            </CustomIcon>
+          }
           onClick={() => onSaveClick && onSaveClick()}
         >
           {t('modal.save')}
@@ -54,7 +57,11 @@ const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
           <DeleteButton
             variant="contained"
             fullWidth
-            startIcon={<CustomIcon><Delete /></CustomIcon>}
+            startIcon={
+              <CustomIcon>
+                <Delete />
+              </CustomIcon>
+            }
             onClick={handleOpenDeleteDialog}
           >
             {t('modal.delete')}
@@ -66,7 +73,6 @@ const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
         isOpen={isDeleteDialogOpen}
         onConfirm={handleConfirmDelete}
         onCancel={handleCloseDeleteDialog}
-        entityName={entityType ? t(`types.${entityType}`) : t('modal.entity')}
         entityType={entityType}
       />
     </>
