@@ -4,21 +4,24 @@ import { Check, Delete } from '@mui/icons-material';
 import { ButtonsGroupWrapper, CustomIcon } from '../../styles/commonStyles';
 import { DeleteButton, SaveButton } from './ActionButtonsGroup.styles';
 import DeleteConfirmationDialog from '../../components/DeleteConfirmationDialog/DeleteConfirmationDialog';
+import { EntityType } from '../../types/entityTypes';
 
 interface ActionButtonsGroupProps {
   showDeleteButton?: boolean;
   onSaveClick?: (data?: any) => void;
   onDeleteClick?: () => void;
+  entityType: EntityType;
 }
 
 const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
   showDeleteButton = false,
   onSaveClick,
   onDeleteClick,
+  entityType,
 }) => {
   const { t } = useTranslation();
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
-
+  
   const handleOpenDeleteDialog = () => {
     setDeleteDialogOpen(true);
   };
@@ -28,6 +31,7 @@ const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
   };
 
   const handleConfirmDelete = () => {
+    console.log(`Deleting ${entityType}`);
     if (onDeleteClick) {
       onDeleteClick();
     }
@@ -40,11 +44,7 @@ const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
         <SaveButton
           variant="contained"
           fullWidth
-          startIcon={
-            <CustomIcon>
-              <Check />
-            </CustomIcon>
-          }
+          startIcon={<CustomIcon><Check /></CustomIcon>}
           onClick={() => onSaveClick && onSaveClick()}
         >
           {t('modal.save')}
@@ -54,11 +54,7 @@ const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
           <DeleteButton
             variant="contained"
             fullWidth
-            startIcon={
-              <CustomIcon>
-                <Delete />
-              </CustomIcon>
-            }
+            startIcon={<CustomIcon><Delete /></CustomIcon>}
             onClick={handleOpenDeleteDialog}
           >
             {t('modal.delete')}
@@ -66,12 +62,12 @@ const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
         )}
       </ButtonsGroupWrapper>
 
-      {/* Delete Confirmation Dialog */}
       <DeleteConfirmationDialog
         isOpen={isDeleteDialogOpen}
         onConfirm={handleConfirmDelete}
         onCancel={handleCloseDeleteDialog}
-        entityName={t('modal.entity')} // Pass the entity name here if needed, or customize it
+        entityName={entityType ? t(`types.${entityType}`) : t('modal.entity')}
+        entityType={entityType}
       />
     </>
   );

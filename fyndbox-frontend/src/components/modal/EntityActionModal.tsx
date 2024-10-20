@@ -49,22 +49,22 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const [name, setName] = useState(initialData?.name ?? '');
-  const [description, setDescription] = useState(
-    initialData?.description ?? '',
-  );
+  const [description, setDescription] = useState(initialData?.description ?? '');
   const [image, setImage] = useState(initialData?.image ?? '');
   const [quantity, setQuantity] = useState(initialData?.quantity ?? 1);
   const [nameError, setNameError] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null); // Type assertion for error
 
   useEffect(() => {
-    if (open && mode === 'add') {
-      resetFormData();
-    } else if (open && mode === 'edit' && initialData) {
-      setName(initialData.name);
-      setDescription(initialData.description ?? '');
-      setImage(initialData.image ?? '');
-      setQuantity(initialData.quantity ?? 1);
+    if (open) {
+      if (mode === 'add') {
+        resetFormData();
+      } else if (mode === 'edit' && initialData) {
+        setName(initialData.name);
+        setDescription(initialData.description ?? '');
+        setImage(initialData.image ?? '');
+        setQuantity(initialData.quantity ?? 1);
+      }
     }
   }, [open, mode, initialData]);
 
@@ -76,11 +76,17 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
     setQuantity(1);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!name) {
       setNameError(true);
-    } else {
-      onSave({ name, description, image, quantity });
+      return; // Early return if name is not valid
+    }
+
+    try {
+      await onSave({ name, description, image, quantity });
+      setError(null); // Clear any previous error
+    } catch (err) {
+      setError(t('modal.save.error')); // Handle save error
     }
   };
 
@@ -93,7 +99,7 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={onClose} aria-labelledby="entity-modal-title">
       <ModalBox>
         <CancelButton onClick={onClose}>
           <Close />
@@ -163,7 +169,16 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
         <ActionButtonsGroup
           showDeleteButton={mode === 'edit'}
           onSaveClick={handleSave}
-          onDeleteClick={onDelete}
+          onDeleteClick={async () => {
+            try {
+              if (onDelete) {
+                await onDelete();
+              }
+            } catch (err) {
+              setError(t('modal.delete.error')); // Handle delete error
+            }
+          }}
+          entityType={entityType}
         />
         {error && (
           <Typography variant="caption" color="error">
