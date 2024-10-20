@@ -55,7 +55,7 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
   const [image, setImage] = useState(initialData?.image ?? '');
   const [quantity, setQuantity] = useState(initialData?.quantity ?? 1);
   const [nameError, setNameError] = useState(false);
-  const [error, setError] = useState<string | null>(null); // Type assertion for error
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (open && mode === 'add') {
@@ -93,7 +93,7 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
   };
 
   return (
-    <Modal open={open} onClose={onClose} aria-labelledby="entity-modal-title">
+    <Modal open={open} onClose={onClose}>
       <ModalBox>
         <CancelButton onClick={onClose}>
           <Close />
