@@ -175,7 +175,7 @@ const DashboardPage: FC = () => {
                           </CustomIcon>
                         </IconButton>
                       }
-                      image=""
+                      image={box.image ?? ''}
                       entityType="box"
                       onEdit={() => handleEditEntity('box', box)}
                     />

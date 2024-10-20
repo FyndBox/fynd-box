@@ -6,6 +6,7 @@ import BoxIconSvg from '../../assets/box-icon.svg';
 import { CustomIcon } from '../../styles/commonStyles';
 import { EntityCardContainer, ImageBox } from './EntityCard.styles';
 import { EntityType } from '../../types/entityTypes';
+import { useTranslation } from 'react-i18next';
 
 interface EntityCardProps {
   name: string;
@@ -26,6 +27,7 @@ const EntityCard: FC<EntityCardProps> = ({
   image,
   onEdit,
 }) => {
+  const { t } = useTranslation();
   const getEntityIcon = (entityType: EntityType): string => {
     switch (entityType) {
       case 'box':
@@ -69,7 +71,11 @@ const EntityCard: FC<EntityCardProps> = ({
 
           {entityType === 'item' && (
             <Box flex={1}>
-              <Typography variant="h6">{quantity} st</Typography>
+              <Typography variant="h6">
+                {quantity! > 1
+                  ? t('modal.quantity.pieces', { count: quantity })
+                  : t('modal.quantity.piece', { count: quantity })}
+              </Typography>
             </Box>
           )}
 
