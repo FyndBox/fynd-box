@@ -3,7 +3,7 @@ import typography from './typography';
 const theme = createTheme({
   palette: {
     primary: {
-      light: '#438d6a',
+      light: '#15714580',
       main: '#157145',
       dark: '#0e4f30',
       contrastText: '#ffffff',
@@ -16,11 +16,10 @@ const theme = createTheme({
     },
     error: {
       dark: '#7a3c3c',
-      main:'#AF5757',
-      light:'#bf7878',
+      main: '#AF5757',
+      light: '#bf7878',
     },
   },
   typography,
 });
 export default theme;
-

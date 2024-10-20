@@ -1,10 +1,15 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
-import { HomeContainer, HomeSubContainer } from './LandingPage.styles';
+import {
+  GuideLink,
+  HomeContainer,
+  HomeSubContainer,
+} from './LandingPage.styles';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
+import appLogo from '../../assets/FyndBox.png';
 
 const LandingPage: FC = () => {
   const navigate = useNavigate();
@@ -21,16 +26,22 @@ const LandingPage: FC = () => {
   return (
     <HomeContainer>
       <HomeSubContainer>
-        <Typography variant="h1" mb={8}>
+        <Typography variant="h1" pt={8}>
           {t('home.title')}
         </Typography>
-        <Typography variant="body1" mb={10}>
+        <img src={appLogo} height={150} />
+        <Typography variant="body1" pt={1}>
           {t('home.description')}
         </Typography>
         <AuthButtonsGroup
           onLoginClick={handleLoginClick}
           onRegisterClick={handleSignupClick}
         />
+        <Box>
+          <GuideLink href="/user-guide" underline="always">
+            {t('home.guideLink')}
+          </GuideLink>
+        </Box>
         <LanguageSelector />
       </HomeSubContainer>
     </HomeContainer>
