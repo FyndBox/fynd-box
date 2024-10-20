@@ -1,9 +1,11 @@
-import { Box, Container, styled } from '@mui/material';
+import { Box, Container, IconButton, styled } from '@mui/material';
 import { BaseButton } from '../../styles/commonStyles';
 
 export const BoxContainer = styled(Container)(({ theme }) => ({
-  height: '100vh',
-  padding: theme.spacing(1, 0),
+  padding: theme.spacing(0, 0),
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
 }));
 
 export const PrintQRButton = styled(BaseButton)(({ theme }) => ({
@@ -16,5 +18,13 @@ export const PrintQRButton = styled(BaseButton)(({ theme }) => ({
 
 export const ButtonContainer = styled(Box)(({ theme }) => ({
   textAlign: 'center',
-  marginTop: theme.spacing(6),
+  padding: theme.spacing(10, 0),
+}));
+
+export const BackButton = styled(IconButton)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  textAlign: 'left',
+  padding: theme.spacing(2),
 }));

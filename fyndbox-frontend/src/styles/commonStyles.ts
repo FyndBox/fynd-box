@@ -3,7 +3,9 @@ import { styled } from '@mui/material/styles';
 import { SvgIcon } from '@mui/material';
 
 export const FullPageContainer = styled(Container)({
-  height: '100vh',
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
 });
 
 export const TextFieldsContainer = styled(Box)(({ theme }) => ({

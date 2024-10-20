@@ -1,7 +1,8 @@
 {   
   "home": {
     "title": "Welcome to FyndBox",
-    "description": "We offer an efficient and flexible solution to gain complete control over your inventory. With our web platform, you can easily organize and manage your inventory by adding boxes and specifying images and quantities for each item."
+    "description": "We offer an efficient and flexible solution to gain complete control over your inventory. With our web platform, you can easily organize and manage your inventory by adding boxes and specifying images and quantities for each item.",
+    "guideLink": "How it works?"
   },
   "login": {
     "title": "Log in",
@@ -14,6 +15,27 @@
       "label": "Name",
       "placeholder": "John Doe",
       "errorMessage": "* Please enter a valid name: \n - The name must contain only letters and spaces \n - The name must be 3-50 characters long"
+    }
+  },
+  "userGuide": {
+    "title": "This is how it works",
+    "description": "Findbox offers a simple solution to gain control over your storage.",
+    "back": "Go back",
+    "guideSteps": {
+      "stepOne": {
+        "title": "Create Account",
+        "description": "Start by creating an account. It is free and entails obligations, but enables access to Fyndbox when you want and how much you want."
+      },
+      "stepTwo": {
+        "title": "Create Account",
+        "description": "Start by creating an account. It is free and entails obligations, but enables access to Fyndbox when you want and how much you want."
+      },
+      "stepThree": {
+        "title": "Create Account",
+        "description": "Start by creating an account. It is free and entails obligations, but enables access to Fyndbox when you want and how much you want."
+      },
+      "next": "Next",
+      "back": "Back"
     }
   },
   "dashboard": {

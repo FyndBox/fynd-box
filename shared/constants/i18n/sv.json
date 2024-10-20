@@ -1,7 +1,8 @@
 {   
   "home": {
     "title": "Välkommen till FyndBox",
-    "description": "Vi erbjuder en effektiv och smidig lösning för att få fullständig kontroll över ditt lager. Med vår webbplatform kan du enkelt organisera och hantera dina inventarier genom att lägga till lådor och ange bilder samt antal för varje objekt."
+    "description": "Vi erbjuder en effektiv och smidig lösning för att få fullständig kontroll över ditt lager. Med vår webbplatform kan du enkelt organisera och hantera dina inventarier genom att lägga till lådor och ange bilder samt antal för varje objekt.",
+    "guideLink": "Hur fungerar det?"
   },
   "login": {
     "title": "Logga in",
@@ -14,6 +15,27 @@
       "label": "Namn",
       "placeholder": "John Doe",
       "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
+    }
+  },
+  "userGuide": {
+    "title": "Så här fungerar det",
+    "description": "Fyndbox erbjuder enkelt lösning för att få kontroll över ditt förvaring.",
+    "back": "Gå tillbaka",
+    "guideSteps": {
+      "stepOne": {
+        "title": "Skapa Konto",
+        "description": "Börja med att skapa konto. Det är gratis och innebär föpliktelser men möjliggör tillgång till Fyndbox när du vill och hur mycket du vill."
+      },
+      "stepTwo": {
+        "title": "Skapa Konto",
+        "description": "Börja med att skapa konto. Det är gratis och innebär föpliktelser men möjliggör tillgång till Fyndbox när du vill och hur mycket du vill."
+      },
+      "stepThree": {
+        "title": "Skapa Konto",
+        "description": "Börja med att skapa konto. Det är gratis och innebär föpliktelser men möjliggör tillgång till Fyndbox när du vill och hur mycket du vill."
+      },
+      "next": "Nästa",
+      "back": "Tillbaka"
     }
   },
   "dashboard": {

@@ -2,18 +2,17 @@ import { FC, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowBackIos } from '@mui/icons-material';
-import {
-  Typography,
-  IconButton,
-  CircularProgress,
-  Divider,
-  Box,
-} from '@mui/material';
+import { Typography, CircularProgress, Divider, Box } from '@mui/material';
 import { useStorage } from '../../hooks/useStorage';
 import { useBox, useUpdateBox } from '../../hooks/useBox';
 import SearchField from '../../components/SearchField/SearchField';
 import BoxDetails from '../../components/BoxDetails/BoxDetails';
-import { BoxContainer, ButtonContainer, PrintQRButton } from './BoxPage.styles';
+import {
+  BackButton,
+  BoxContainer,
+  ButtonContainer,
+  PrintQRButton,
+} from './BoxPage.styles';
 import AddEntityButton from '../../components/AddEntityButton/AddEntityButton';
 import DashboardFooter from '../../components/DashboardFooter/DashboardFooter';
 import {
@@ -177,66 +176,64 @@ const BoxPage: FC = () => {
   };
 
   return (
-    <>
-      <BoxContainer>
-        <IconButton onClick={() => navigate('/dashboard')}>
-          <ArrowBackIos />
-          <Typography variant="h6">{storage?.name}</Typography>
-        </IconButton>
-        <Divider />
-        <SearchField />
+    <BoxContainer>
+      <BackButton onClick={() => navigate('/dashboard')}>
+        <ArrowBackIos />
+        <Typography variant="h6">{storage?.name}</Typography>
+      </BackButton>
+      <Divider />
+      <SearchField />
 
-        {/* BoxDetails component */}
-        {box && (
-          <BoxDetails
-            name={box.name}
-            description={box.description}
-            image={box.image}
-            isFavorite={box.isFavorite}
-            onToggleFavorite={handleToggleFavorite}
-          />
-        )}
-
-        {items && items.length === 0 ? (
-          <Typography variant="body2" p={3} sx={{ textAlign: 'center' }}>
-            {t('box.noItemsFound')}
-          </Typography>
-        ) : (
-          items?.map((item, index) => (
-            <Box key={index}>
-              <EntityCard
-                name={item.name}
-                description={item.description ?? ''}
-                image={item.image ?? ''}
-                quantity={item.quantity ?? 1}
-                entityType="item"
-                onEdit={() => handleEditEntity('item', item)}
-              />
-            </Box>
-          ))
-        )}
-        {/* Add Item Button */}
-        <AddEntityButton
-          entityType="item"
-          onAdd={() => handleAddEntity('item')}
+      {/* BoxDetails component */}
+      {box && (
+        <BoxDetails
+          name={box.name}
+          description={box.description}
+          image={box.image}
+          isFavorite={box.isFavorite}
+          onToggleFavorite={handleToggleFavorite}
         />
+      )}
 
-        {/* QR Code Button */}
-        <ButtonContainer>
-          <PrintQRButton
-            fullWidth
-            variant="contained"
-            onClick={handlePrintQRCode}
-          >
-            {t('box.printQRcode')}
-          </PrintQRButton>
-        </ButtonContainer>
-        <DashboardFooter
-          onFavoriteClick={handleFavoriteClick}
-          onScanClick={handleScanClick}
-          onProfileClick={handleProfileClick}
-        />
-      </BoxContainer>
+      {items && items.length === 0 ? (
+        <Typography variant="body2" p={3} sx={{ textAlign: 'center' }}>
+          {t('box.noItemsFound')}
+        </Typography>
+      ) : (
+        items?.map((item, index) => (
+          <Box key={index}>
+            <EntityCard
+              name={item.name}
+              description={item.description ?? ''}
+              image={item.image ?? ''}
+              quantity={item.quantity ?? 1}
+              entityType="item"
+              onEdit={() => handleEditEntity('item', item)}
+            />
+          </Box>
+        ))
+      )}
+      {/* Add Item Button */}
+      <AddEntityButton
+        entityType="item"
+        onAdd={() => handleAddEntity('item')}
+      />
+
+      {/* QR Code Button */}
+      <ButtonContainer>
+        <PrintQRButton
+          fullWidth
+          variant="contained"
+          onClick={handlePrintQRCode}
+        >
+          {t('box.printQRcode')}
+        </PrintQRButton>
+      </ButtonContainer>
+      <DashboardFooter
+        onFavoriteClick={handleFavoriteClick}
+        onScanClick={handleScanClick}
+        onProfileClick={handleProfileClick}
+      />
       <EntityActionModal
         key={modalMode}
         open={isModalOpen}
@@ -247,7 +244,7 @@ const BoxPage: FC = () => {
         onSave={handleSave}
         onDelete={handleDelete}
       />
-    </>
+    </BoxContainer>
   );
 };
 
