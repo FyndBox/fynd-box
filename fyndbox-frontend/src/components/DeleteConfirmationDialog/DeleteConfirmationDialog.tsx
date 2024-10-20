@@ -1,40 +1,43 @@
-import React from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography } from '@mui/material';
+import { FC } from 'react';
+import { Dialog, DialogContent, DialogTitle, Typography } from '@mui/material';
+import {
+  ActionButtonsContainer,
+  CancelButton,
+  DeleteButton,
+} from './DeleteConfirmationDialog.styles';
+import { EntityType } from '../../types/entityTypes';
+import { useTranslation } from 'react-i18next';
 
 interface DeleteConfirmationDialogProps {
   isOpen: boolean;
+  entityType: EntityType;
   onConfirm: () => void;
   onCancel: () => void;
-  entityName?: string; // Optional, in case no name is provided
 }
 
-const DeleteConfirmationDialog: React.FC<DeleteConfirmationDialogProps> = ({ 
-  isOpen, 
-  onConfirm, 
-  onCancel, 
-  entityName 
+const DeleteConfirmationDialog: FC<DeleteConfirmationDialogProps> = ({
+  isOpen,
+  entityType,
+  onConfirm,
+  onCancel,
 }) => {
+  const { t } = useTranslation();
   return (
-    <Dialog
-      open={isOpen}
-      onClose={onCancel}
-      aria-labelledby="delete-dialog-title"
-      aria-describedby="delete-dialog-description"
-    >
-      <DialogTitle id="delete-dialog-title">Confirm Deletion</DialogTitle>
-      <DialogContent>
-        <Typography>
-          Are you sure you want to delete {entityName ? `"${entityName}"` : 'this item'}? This action cannot be undone.
+    <Dialog open={isOpen} onClose={onCancel}>
+      <DialogTitle>
+        {t('modal.deleteTitle', { type: t(`types.${entityType}`) })}
+      </DialogTitle>
+      <DialogContent dividers>
+        <Typography variant="body1">
+          {t('modal.deleteConfirmation', { type: t(`types.${entityType}`) })}
         </Typography>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onCancel} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={onConfirm} color="secondary" autoFocus>
-          Delete
-        </Button>
-      </DialogActions>
+      <ActionButtonsContainer>
+        <CancelButton variant="outlined" onClick={onCancel}>
+          {t('modal.cancel')}
+        </CancelButton>
+        <DeleteButton onClick={onConfirm}> {t('modal.delete')}</DeleteButton>
+      </ActionButtonsContainer>
     </Dialog>
   );
 };

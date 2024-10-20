@@ -51,7 +51,6 @@ const DashboardPage: FC = () => {
   };
 
   const handleBoxOpen = (storageId: string, boxId: string) => {
-    console.log(boxId, 'Implement Box Page and navigate it');
     navigate(`/box/${storageId}/${boxId}`);
   };
 

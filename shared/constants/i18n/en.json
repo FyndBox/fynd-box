@@ -80,7 +80,9 @@
     },
     "quantity": {
       "label": "Number of Articles"
-    }
+    },
+    "deleteTitle": "Delete {{type}} ?",
+    "deleteConfirmation": "Are you sure you want to delete {{type}}? This action cannot be undone"
   },
   "types": {
       "storage": "Storage",

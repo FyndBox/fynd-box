@@ -4,15 +4,18 @@ import { Check, Delete } from '@mui/icons-material';
 import { ButtonsGroupWrapper, CustomIcon } from '../../styles/commonStyles';
 import { DeleteButton, SaveButton } from './ActionButtonsGroup.styles';
 import DeleteConfirmationDialog from '../../components/DeleteConfirmationDialog/DeleteConfirmationDialog';
+import { EntityType } from '../../types/entityTypes';
 
 interface ActionButtonsGroupProps {
   showDeleteButton?: boolean;
+  entityType: EntityType;
   onSaveClick?: (data?: any) => void;
   onDeleteClick?: () => void;
 }
 
 const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
   showDeleteButton = false,
+  entityType,
   onSaveClick,
   onDeleteClick,
 }) => {
@@ -66,12 +69,11 @@ const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
         )}
       </ButtonsGroupWrapper>
 
-      {/* Delete Confirmation Dialog */}
       <DeleteConfirmationDialog
         isOpen={isDeleteDialogOpen}
         onConfirm={handleConfirmDelete}
         onCancel={handleCloseDeleteDialog}
-        entityName={t('modal.entity')} // Pass the entity name here if needed, or customize it
+        entityType={entityType}
       />
     </>
   );

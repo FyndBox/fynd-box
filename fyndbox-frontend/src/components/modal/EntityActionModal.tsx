@@ -55,7 +55,7 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
   const [image, setImage] = useState(initialData?.image ?? '');
   const [quantity, setQuantity] = useState(initialData?.quantity ?? 1);
   const [nameError, setNameError] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (open && mode === 'add') {
@@ -162,6 +162,7 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
 
         <ActionButtonsGroup
           showDeleteButton={mode === 'edit'}
+          entityType={entityType}
           onSaveClick={handleSave}
           onDeleteClick={onDelete}
         />
