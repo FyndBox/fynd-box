@@ -1,5 +1,7 @@
 import { FC, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
+import QRCode from 'react-qr-code';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowBackIos } from '@mui/icons-material';
 import { Typography, CircularProgress, Divider, Box } from '@mui/material';
@@ -65,7 +67,9 @@ const BoxPage: FC = () => {
   const { mutate: createItem } = useCreateItem();
   const { mutate: updateItem } = useUpdateItem();
   const { mutate: deleteItem } = useDeleteItem();
+  const location = useLocation();
 
+  const currentUrl = `${window.location.origin}${location.pathname}`;
   if (!storageId || !boxId) {
     return <div>Error: Storage ID or Box ID is missing.</div>;
   }
@@ -157,7 +161,46 @@ const BoxPage: FC = () => {
   };
 
   const handlePrintQRCode = () => {
-    console.log('Print QR COde');
+    const newWindow = window.open('', '_blank');
+    if (!newWindow) {
+      console.error('Unable to open a new window for QR code.');
+      return;
+    }
+
+    // Write basic HTML structure for the new window
+    newWindow.document.write(`
+      <html>
+        <head>
+          <title>Print QR Code</title>
+          <style>
+            body {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              margin: 0;
+            }
+          </style>
+        </head>
+        <body>
+          <div id="qrcode"></div>
+        </body>
+      </html>
+    `);
+
+    newWindow.document.close();
+
+    setTimeout(() => {
+      const qrCodeContainer = newWindow.document.getElementById('qrcode');
+      if (qrCodeContainer) {
+        const root = createRoot(qrCodeContainer);
+        root.render(<QRCode value={currentUrl} size={256} />);
+        setTimeout(() => {
+          newWindow.print(); // Trigger the print
+          newWindow.close(); // Close the new window after printing
+        }, 500);
+      }
+    }, 300);
   };
 
   const handleFavoriteClick = () => {
