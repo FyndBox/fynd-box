@@ -79,13 +79,10 @@ const DashboardPage: FC = () => {
   };
 
   const handleScanClick = () => {
-    console.log('Scan button clicked');
     setShowQRScanner(true);
-    // Implement and Navigate to scan page
   };
 
   const handleScanSuccess = (data: string) => {
-    console.log('Scanned QR Code:', data);
     setShowQRScanner(false);
     navigate(data); // Navigate to the scanned URL
   };
@@ -206,6 +203,12 @@ const DashboardPage: FC = () => {
             )}
           </Box>
         ))}
+        {showQRScanner && (
+          <QRScanner
+            onScanSuccess={handleScanSuccess}
+            onCancel={handleCancelScan}
+          />
+        )}
         <AddEntityButton
           entityType="storage"
           onAdd={() => handleAddEntity('storage')}
@@ -226,12 +229,6 @@ const DashboardPage: FC = () => {
         onSave={handleSave}
         onDelete={handleDelete}
       />
-      {showQRScanner && (
-        <QRScanner
-          onScanSuccess={handleScanSuccess}
-          onCancel={handleCancelScan}
-        />
-      )}
     </DashboardContainer>
   );
 };

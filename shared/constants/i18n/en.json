@@ -54,6 +54,9 @@
       "profile": "Profile"
     }
   },
+  "qrCode":{
+    "title":"Scan the QR Code"
+  },
   "box": {
     "printQRcode": "Print QR Code",
     "addFavorite": "Add to favorite",

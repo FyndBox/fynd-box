@@ -1,6 +1,12 @@
-import { FC, useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { FC, useEffect, useState } from 'react';
+import { Typography } from '@mui/material';
 import QrReader from 'react-qr-reader';
+import { useTranslation } from 'react-i18next';
+import {
+  ButtonContainer,
+  QrContainer,
+  QrReaderContainer,
+} from './QRScanner.styles';
 
 interface QRScannerProps {
   onScanSuccess: (data: string) => void;
@@ -9,6 +15,20 @@ interface QRScannerProps {
 
 const QRScanner: FC<QRScannerProps> = ({ onScanSuccess, onCancel }) => {
   const [scanError, setScanError] = useState<string | null>(null);
+  const { t } = useTranslation();
+
+  // Cleanup function to stop the camera stream when the component unmounts
+  useEffect(() => {
+    return () => {
+      const videoElement = document.querySelector('video');
+      if (videoElement) {
+        const stream = videoElement.srcObject as MediaStream;
+        if (stream) {
+          stream.getTracks().forEach((track) => track.stop());
+        }
+      }
+    };
+  }, []);
 
   const handleScan = (data: string | null) => {
     if (data) {
@@ -23,28 +43,28 @@ const QRScanner: FC<QRScannerProps> = ({ onScanSuccess, onCancel }) => {
   };
 
   return (
-    <Box textAlign="center">
-      <Typography variant="h6">Scan the QR Code</Typography>
-      <QrReader
-        onError={handleError}
-        onScan={handleScan}
-        delay={300}
-        style={{ width: '100%' }}
-      />
+    <QrContainer>
+      <Typography variant="h6" mb={2}>
+        {t('qrCode.title')}
+      </Typography>
+      <QrReaderContainer>
+        <QrReader
+          onError={handleError}
+          onScan={handleScan}
+          delay={500}
+          facingMode="environment"
+          style={{ width: '100%' }}
+        />
+      </QrReaderContainer>
       {scanError && (
         <Typography variant="body2" color="error" mt={2}>
           {scanError}
         </Typography>
       )}
-      <Button
-        onClick={onCancel}
-        variant="contained"
-        color="secondary"
-        sx={{ mt: 2 }}
-      >
-        Cancel
-      </Button>
-    </Box>
+      <ButtonContainer onClick={onCancel} variant="contained">
+        {t('modal.cancel')}
+      </ButtonContainer>
+    </QrContainer>
   );
 };
 

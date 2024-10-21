@@ -4,11 +4,11 @@ import {
   styled,
 } from '@mui/material';
 
-export const FooterContainer = styled(BottomNavigation)(() => ({
+export const FooterContainer = styled(BottomNavigation)(({ theme }) => ({
   position: 'fixed',
   bottom: 0,
   width: '100%',
-  backgroundColor: 'white',
+  backgroundColor: theme.palette.common.white,
   boxShadow: '0px -1px 6px rgba(0, 0, 0, 0.1)',
 }));
 

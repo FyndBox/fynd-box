@@ -54,6 +54,9 @@
       "profile": "Profil"
     }
   },
+  "qrCode":{
+    "title":"Scan the QR Code"
+  },
   "box": {
     "printQRcode": "Skriv ut QRkod",
     "addFavorite": " Lägg till i favorit",
