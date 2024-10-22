@@ -11,6 +11,7 @@ export const StepCounter = styled(Box)(({ theme }) => ({
   color: theme.palette.primary.dark,
   backgroundColor: theme.palette.primary.light,
   margin: theme.spacing(1),
+  fontSize: '24px'
 }));
 
 export const CardContainer = styled(Card)(({ theme }) => ({

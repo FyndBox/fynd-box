@@ -31,6 +31,11 @@ const UserGuidePage: FC = () => {
       description: t('userGuide.guideSteps.stepThree.description'),
       step: 3,
     },
+    {
+      title: t('userGuide.guideSteps.stepFour.title'),
+      description: t('userGuide.guideSteps.stepFour.description'),
+      step: 4,
+    },
   ];
 
   const handleNext = () => {
