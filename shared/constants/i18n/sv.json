@@ -24,15 +24,19 @@
     "guideSteps": {
       "stepOne": {
         "title": "Skapa Konto",
-        "description": "Börja med att skapa konto. Det är gratis och innebär föpliktelser men möjliggör tillgång till Fyndbox när du vill och hur mycket du vill."
+        "description": "Börja med att skapa ett konto. Det är enkelt, och du får direkt tillgång till alla funktioner i appen."
       },
       "stepTwo": {
-        "title": "Skapa Konto",
-        "description": "Börja med att skapa konto. Det är gratis och innebär föpliktelser men möjliggör tillgång till Fyndbox när du vill och hur mycket du vill."
+        "title": "Lägg till en enhet",
+        "description": "Lägg till en plats där dina saker ska organiseras, som exempelvis vinden, förrådet, källaren eller garaget. Detta hjälper dig att hålla ordning på var dina lådor finns."
       },
       "stepThree": {
-        "title": "Skapa Konto",
-        "description": "Börja med att skapa konto. Det är gratis och innebär föpliktelser men möjliggör tillgång till Fyndbox när du vill och hur mycket du vill."
+        "title": "Skapa en låda",
+        "description": "Skapa en låda för att börja organisera dina saker. Varje låda kan representera en specifik kategori eller område för enklare hantering."
+      },
+      "stepFour": {
+        "title": "Lägg till artiklar i lådan",
+        "description": "Lägg till de artiklar du vill förvara i lådan. På så sätt får du full koll på vad som finns i varje låda och var den är placerad."
       },
       "next": "Nästa",
       "back": "Tillbaka"
@@ -68,18 +72,18 @@
     "edit": "Edit {{type}}",
     "delete": "Ta bort",
     "cancel": "Cancel",
-    "save":"Save",
+    "save":"Spara",
     "image":{
       "label": "Bild"
     },
     "name": {
-      "label": "Name",
-      "placeholder": "Enter Name",
-      "errorMessage": "* Please enter a valid name for {{type}}: \n - The name must be 3-50 characters long"
+      "label": "Namn",
+      "placeholder": "Ange namn",
+      "errorMessage": "* Ange ett giltigt namn för {{type}}: \n - Namnet måste vara 3-50 tecken långt"
     },
     "description": {
-      "label": "Description",
-      "placeholder": "Description"
+      "label": "Beskrivning",
+      "placeholder": "Beskrivning"
     },
     "quantity": {
       "label": "Antal Artiklar",
@@ -90,9 +94,9 @@
     "deleteConfirmation": "Är du säker på att du vill ta bort {{type}}? Denna åtgärd kan inte ångras"
   },
   "types": {
-      "storage": "Storage",
-      "box": "Box",
-      "item": "Item"
+      "storage": "Lagring",
+      "box": "Låda",
+      "item": "Artikel"
   },
   "common":{
     "email": {
@@ -111,7 +115,7 @@
       "option2": "English"
     },
     "notifications": {
-      "noBoxForStorage" : "No Boxes found for this storage"
+      "noBoxForStorage" : "Inga lådor hittades för denna lagring"
     },
     "loading": "Loading ..."
   },
@@ -165,83 +169,83 @@
     },
     "storages": {
       "getAll": {
-        "success": "Storages retrieved successfully",
-        "error": "Error retrieving storages"
+        "success": "Lagringar har hämtats",
+        "error": "Det gick inte att hämta lagring"
       },
       "get": {
-        "notFound": "Storage not found",
-        "success": "Storage retrieved successfully",
-        "error": "Error retrieving storage"
+        "notFound": "Lagring hittades inte",
+        "success": "Lagringsutrymmet har hämtats",
+        "error": "Det gick inte att hämta lagringsutrymme"
       },
       "create": {
-        "success": "Storage created successfully", 
-        "error": "Error creating storage"
+        "success": "Lagring har skapats", 
+        "error": "Det gick inte att skapa lagring"
       },
       "update": {
-        "success": "Storage updated successfully",
-        "error": "Error updating storage"
+        "success": "Lagring har uppdaterats",
+        "error": "Fel vid uppdatering av lagring"
       },
       "delete": {
-        "success": "Storage deleted successfully",
-        "error": "Error deleting storage"
+        "success": "Lagring har raderats",
+        "error": "Fel vid borttagning av lagring"
       },
-      "notFoundById": "Storage with ID {{id}} not found"
+      "notFoundById": "Lagring med ID {{id}} hittades inte"
     },
     "boxes": {
       "getAll": {
-        "success": "Boxes retrieved successfully",
-        "error": "Error retrieving boxes"
+        "success": "Lådor har hämtats",
+        "error": "Det gick inte att hämta lådor"
       },
       "get": {
-        "notFound": "Box not found",
-        "success": "Box retrieved successfully",
-        "error": "Error retrieving box"
+        "notFound": "Lådan hittades inte",
+        "success": "Lådan har hämtats",
+        "error": "Det gick inte att hämta lådan"
       },
       "create": {
-        "success": "Box created successfully",
-        "error": "Error creating box"
+        "success": "Lådan skapad",
+        "error": "Fel vid skapande av lådan"
       },
       "update": {
-        "success": "Box updated successfully",
-        "error": "Error updating box"
+        "success": "Lådan uppdaterad",
+        "error": "Fel vid uppdatering av lådan"
       },
       "delete": {
-        "success": "Box deleted successfully",
-        "error": "Error deleting box"
+        "success": "Lådan raderad",
+        "error": "Fel vid radering av lådan"
       },
-      "notFoundById": "Box with ID {{id}} not found",
-      "storageIDRequired": "Storage ID is required for the update"
+      "notFoundById": "Lådan med ID {{id}} hittades inte",
+      "storageIDRequired": "Lagring ID krävs för uppdateringen"
     },
     "items": {
       "getAll": {
-        "success": "Items retrieved successfully",
-        "error": "Error retrieving items"
+        "success": "Artikel har hämtats",
+        "error": "Det gick inte att hämta artikel"
       },
       "get": {
-        "notFound": "Item not found",
-        "success": "Item retrieved successfully",
-        "error": "Error retrieving item"
+        "notFound": "Artikel hittar inte",
+        "success": "Artikeln har hämtats",
+        "error": "Det gick inte att hämta artikeln"
       },
       "create": {
-        "success": "Item created successfully",
-        "error": "Error creating item"
+        "success": "Artikel har skapats",
+        "error": "Det gick inte att skapa artikel"
       },
       "update": {
-        "success": "Item updated successfully",
-        "error": "Error updating item"
+        "success": "Artikeln har uppdaterats",
+        "error": "Fel vid uppdatering av artikeln"
       },
       "delete": {
-        "success": "Item deleted successfully",
-        "error": "Error deleting item"
+        "success": "Artikeln har raderats",
+        "error": "Det gick inte att ta bort artikeln"
       },
-      "notFoundById": "Item with ID {{id}} not found",
-      "boxIDRequired": "Box ID is required for the update"
+      "notFoundById": "Artikel med ID {{id}} hittades inte",
+      "boxIDRequired": "Låda ID krävs för uppdateringen"
     },
     "images":{
       "upload": {
-        "success": "Image uploaded successfully",
-        "error": "Image upload failed",
-        "noFileProvided": "No file uploaded"
+        "success": "Bilden har laddats upp",
+        "error": "Det gick inte att ladda upp bilden",
+        "noFileProvided": "Ingen fil laddad upp"
       }
     }
   }
