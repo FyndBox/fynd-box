@@ -1,42 +1,20 @@
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Typography, MobileStepper, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { Typography, MobileStepper, Button } from '@mui/material';
+import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 import SliderCard from '../../components/SliderCard/SliderCard';
 import { FullPageContainer } from '../../styles/commonStyles';
-import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import { StyledArrowBack, GoBackButton } from './UserGuide.styles';
+import { guideSteps } from '../../data/guideSteps';
 
 const UserGuidePage: FC = () => {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
 
   const { t } = useTranslation();
-
-  const guideSteps = [
-    {
-      title: t('userGuide.guideSteps.stepOne.title'),
-      description: t('userGuide.guideSteps.stepOne.description'),
-      step: 1,
-    },
-    {
-      title: t('userGuide.guideSteps.stepTwo.title'),
-      description: t('userGuide.guideSteps.stepTwo.description'),
-      step: 2,
-    },
-    {
-      title: t('userGuide.guideSteps.stepThree.title'),
-      description: t('userGuide.guideSteps.stepThree.description'),
-      step: 3,
-    },
-    {
-      title: t('userGuide.guideSteps.stepFour.title'),
-      description: t('userGuide.guideSteps.stepFour.description'),
-      step: 4,
-    },
-  ];
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -67,8 +45,8 @@ const UserGuidePage: FC = () => {
         {t('userGuide.description')}
       </Typography>
       <SliderCard
-        title={guideSteps[activeStep].title}
-        description={guideSteps[activeStep].description}
+        title={t(guideSteps[activeStep].title)}
+        description={t(guideSteps[activeStep].description)}
         step={guideSteps[activeStep].step}
       />
       <MobileStepper

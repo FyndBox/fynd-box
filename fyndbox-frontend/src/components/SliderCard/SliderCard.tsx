@@ -11,7 +11,9 @@ interface SliderCardProps {
 const SliderCard: FC<SliderCardProps> = ({ title, description, step }) => {
   return (
     <CardContainer>
-      <StepCounter>{step}</StepCounter>
+      <StepCounter>
+        <Typography variant="h6">{step}</Typography>
+      </StepCounter>
       <Typography variant="h6" p={1}>
         {title}
       </Typography>
