@@ -84,6 +84,7 @@ const DashboardPage: FC = () => {
 
   const handleScanSuccess = (data: string) => {
     setShowQRScanner(false);
+    console.log('Data:', data);
     navigate(data); // Navigate to the scanned URL
   };
 

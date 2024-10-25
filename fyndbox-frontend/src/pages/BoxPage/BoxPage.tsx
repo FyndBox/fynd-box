@@ -26,6 +26,7 @@ import {
 import EntityCard from '../../components/EntityCard/EntityCard';
 import { EntityType } from '../../types/entityTypes';
 import EntityActionModal from '../../components/modal/EntityActionModal';
+import QRScanner from '../../components/QRScanner/QRScanner';
 
 const BoxPage: FC = () => {
   const { t } = useTranslation();
@@ -38,6 +39,7 @@ const BoxPage: FC = () => {
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
   const [entityType, setEntityType] = useState<EntityType>('item');
   const [editingData, setEditingData] = useState<any | null>(null);
+  const [showQRScanner, setShowQRScanner] = useState(false);
 
   // Fetch storage details using storageId
   const {
@@ -68,6 +70,16 @@ const BoxPage: FC = () => {
   const { mutate: updateItem } = useUpdateItem();
   const { mutate: deleteItem } = useDeleteItem();
   const location = useLocation();
+
+  const handleScanSuccess = (data: string) => {
+    setShowQRScanner(false);
+    console.log('Data:', data);
+    navigate(data); // Navigate to the scanned URL
+  };
+
+  const handleCancelScan = () => {
+    setShowQRScanner(false); // Hide QR Scanner on cancel
+  };
 
   const currentUrl = `${window.location.origin}${location.pathname}`;
   if (!storageId || !boxId) {
@@ -210,6 +222,7 @@ const BoxPage: FC = () => {
 
   const handleScanClick = () => {
     console.log('Scan button clicked');
+    setShowQRScanner(true);
     // Implement and Navigate to scan page
   };
 
@@ -255,6 +268,12 @@ const BoxPage: FC = () => {
             />
           </Box>
         ))
+      )}
+      {showQRScanner && (
+        <QRScanner
+          onScanSuccess={handleScanSuccess}
+          onCancel={handleCancelScan}
+        />
       )}
       {/* Add Item Button */}
       <AddEntityButton

@@ -15,31 +15,37 @@ interface QRScannerProps {
 
 const QRScanner: FC<QRScannerProps> = ({ onScanSuccess, onCancel }) => {
   const [scanError, setScanError] = useState<string | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
   const { t } = useTranslation();
 
-  // Cleanup function to stop the camera stream when the component unmounts
   useEffect(() => {
     return () => {
+      // Stop the camera stream when the component is unmounted
       const videoElement = document.querySelector('video');
-      if (videoElement) {
+      if (videoElement && videoElement.srcObject) {
         const stream = videoElement.srcObject as MediaStream;
-        if (stream) {
-          stream.getTracks().forEach((track) => track.stop());
-        }
+        stream.getTracks().forEach((track) => track.stop());
       }
     };
   }, []);
+
+  const handleError = (error: any) => {
+    console.error('QR Scan Error:', error);
+    setScanError('Unable to scan QR code. Please try again.');
+
+    // Retry mechanism if an error occurs
+    if (retryCount < 3) {
+      setRetryCount(retryCount + 1);
+    } else {
+      setScanError('Failed to scan QR code after several attempts.');
+    }
+  };
 
   const handleScan = (data: string | null) => {
     if (data) {
       onScanSuccess(data);
       setScanError(null);
     }
-  };
-
-  const handleError = (error: any) => {
-    setScanError('Unable to scan QR code. Please try again.');
-    console.error('QR Scan Error:', error);
   };
 
   return (
@@ -54,6 +60,7 @@ const QRScanner: FC<QRScannerProps> = ({ onScanSuccess, onCancel }) => {
           delay={500}
           facingMode="environment"
           style={{ width: '100%' }}
+          legacyMode={false}
         />
       </QrReaderContainer>
       {scanError && (

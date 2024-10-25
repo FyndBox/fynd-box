@@ -59,7 +59,8 @@
     }
   },
   "qrCode":{
-    "title":"Scan the QR Code"
+    "title":"Scan the QR Code",
+    "error": "Unable to scan QR code. Please try again."
   },
   "box": {
     "printQRcode": "Print QR Code",
