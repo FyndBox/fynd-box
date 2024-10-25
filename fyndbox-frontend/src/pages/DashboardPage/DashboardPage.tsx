@@ -84,8 +84,11 @@ const DashboardPage: FC = () => {
 
   const handleScanSuccess = (data: string) => {
     setShowQRScanner(false);
-    console.log('Data:', data);
-    navigate(data); // Navigate to the scanned URL
+    const url = new URL(data);
+    const path = url.pathname;
+
+    // Navigate to the extracted path
+    navigate(path, { replace: true });
   };
 
   const handleCancelScan = () => {

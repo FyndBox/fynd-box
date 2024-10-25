@@ -69,19 +69,20 @@ const BoxPage: FC = () => {
   const { mutate: createItem } = useCreateItem();
   const { mutate: updateItem } = useUpdateItem();
   const { mutate: deleteItem } = useDeleteItem();
-  const location = useLocation();
 
   const handleScanSuccess = (data: string) => {
     setShowQRScanner(false);
-    console.log('Data:', data);
-    navigate(data); // Navigate to the scanned URL
+    const url = new URL(data);
+    const path = url.pathname;
+
+    // Navigate to the extracted path
+    navigate(path, { replace: true });
   };
 
   const handleCancelScan = () => {
     setShowQRScanner(false); // Hide QR Scanner on cancel
   };
 
-  const currentUrl = `${window.location.origin}${location.pathname}`;
   if (!storageId || !boxId) {
     return <div>Error: Storage ID or Box ID is missing.</div>;
   }
@@ -173,9 +174,9 @@ const BoxPage: FC = () => {
   };
 
   const handlePrintQRCode = () => {
+    const currentUrl = `${window.location.origin}/box/${storageId}/${boxId}`;
     const newWindow = window.open('', '_blank');
     if (!newWindow) {
-      console.error('Unable to open a new window for QR code.');
       return;
     }
 
@@ -221,9 +222,7 @@ const BoxPage: FC = () => {
   };
 
   const handleScanClick = () => {
-    console.log('Scan button clicked');
     setShowQRScanner(true);
-    // Implement and Navigate to scan page
   };
 
   const handleProfileClick = () => {

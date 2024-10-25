@@ -60,7 +60,8 @@
   },
   "qrCode":{
     "title":"Scan the QR Code",
-    "error": "Unable to scan QR code. Please try again."
+    "error": "Unable to scan QR code. Please try again.",
+    "attemptError": "Failed to scan QR code after several attempts."
   },
   "box": {
     "printQRcode": "Skriv ut QRkod",

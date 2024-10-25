@@ -20,7 +20,6 @@ const QRScanner: FC<QRScannerProps> = ({ onScanSuccess, onCancel }) => {
 
   useEffect(() => {
     return () => {
-      // Stop the camera stream when the component is unmounted
       const videoElement = document.querySelector('video');
       if (videoElement && videoElement.srcObject) {
         const stream = videoElement.srcObject as MediaStream;
@@ -31,13 +30,12 @@ const QRScanner: FC<QRScannerProps> = ({ onScanSuccess, onCancel }) => {
 
   const handleError = (error: any) => {
     console.error('QR Scan Error:', error);
-    setScanError('Unable to scan QR code. Please try again.');
+    setScanError(t('qrCode.error'));
 
-    // Retry mechanism if an error occurs
     if (retryCount < 3) {
       setRetryCount(retryCount + 1);
     } else {
-      setScanError('Failed to scan QR code after several attempts.');
+      setScanError(t('qrCode.attemptError'));
     }
   };
 
