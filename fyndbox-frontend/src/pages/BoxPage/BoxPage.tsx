@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import QRCode from 'react-qr-code';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowBackIos } from '@mui/icons-material';
 import { Typography, CircularProgress, Divider, Box } from '@mui/material';
