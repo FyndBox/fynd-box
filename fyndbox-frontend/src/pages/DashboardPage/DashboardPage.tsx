@@ -27,6 +27,7 @@ import {
 import { useCreateBox, useDeleteBox, useUpdateBox } from '../../hooks/useBox';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import QRScanner from '../../components/QRScanner/QRScanner';
 
 const DashboardPage: FC = () => {
   const { t } = useTranslation();
@@ -38,6 +39,7 @@ const DashboardPage: FC = () => {
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
   const [entityType, setEntityType] = useState<EntityType>('storage');
   const [editingData, setEditingData] = useState<any | null>(null);
+  const [showQRScanner, setShowQRScanner] = useState(false);
   const { data: storages, isLoading, error } = useStorages();
   const { mutate: createStorage } = useCreateStorage();
   const { mutate: updateStorage } = useUpdateStorage();
@@ -77,8 +79,21 @@ const DashboardPage: FC = () => {
   };
 
   const handleScanClick = () => {
-    console.log('Scan button clicked');
-    // Implement and Navigate to scan page
+    setShowQRScanner(true);
+  };
+
+  const handleScanSuccess = (data: string) => {
+    setTimeout(() => {
+      setShowQRScanner(false);
+      const url = new URL(data);
+      const path = url.pathname;
+
+      navigate(path, { replace: true });
+    }, 500);
+  };
+
+  const handleCancelScan = () => {
+    setShowQRScanner(false); // Hide QR Scanner on cancel
   };
 
   const handleProfileClick = () => {
@@ -193,6 +208,12 @@ const DashboardPage: FC = () => {
             )}
           </Box>
         ))}
+        {showQRScanner && (
+          <QRScanner
+            onScanSuccess={handleScanSuccess}
+            onCancel={handleCancelScan}
+          />
+        )}
         <AddEntityButton
           entityType="storage"
           onAdd={() => handleAddEntity('storage')}

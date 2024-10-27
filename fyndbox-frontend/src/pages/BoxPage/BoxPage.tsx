@@ -1,4 +1,6 @@
 import { FC, useState } from 'react';
+import { createRoot } from 'react-dom/client';
+import QRCode from 'react-qr-code';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowBackIos } from '@mui/icons-material';
@@ -24,6 +26,7 @@ import {
 import EntityCard from '../../components/EntityCard/EntityCard';
 import { EntityType } from '../../types/entityTypes';
 import EntityActionModal from '../../components/modal/EntityActionModal';
+import QRScanner from '../../components/QRScanner/QRScanner';
 
 const BoxPage: FC = () => {
   const { t } = useTranslation();
@@ -36,6 +39,7 @@ const BoxPage: FC = () => {
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
   const [entityType, setEntityType] = useState<EntityType>('item');
   const [editingData, setEditingData] = useState<any | null>(null);
+  const [showQRScanner, setShowQRScanner] = useState(false);
 
   // Fetch storage details using storageId
   const {
@@ -65,6 +69,20 @@ const BoxPage: FC = () => {
   const { mutate: createItem } = useCreateItem();
   const { mutate: updateItem } = useUpdateItem();
   const { mutate: deleteItem } = useDeleteItem();
+
+  const handleScanSuccess = (data: string) => {
+    setTimeout(() => {
+      setShowQRScanner(false);
+      const url = new URL(data);
+      const path = url.pathname;
+
+      navigate(path, { replace: true });
+    }, 500);
+  };
+
+  const handleCancelScan = () => {
+    setShowQRScanner(false); // Hide QR Scanner on cancel
+  };
 
   if (!storageId || !boxId) {
     return <div>Error: Storage ID or Box ID is missing.</div>;
@@ -157,7 +175,46 @@ const BoxPage: FC = () => {
   };
 
   const handlePrintQRCode = () => {
-    console.log('Print QR COde');
+    const currentUrl = `${window.location.origin}/box/${storageId}/${boxId}`;
+    const newWindow = window.open('', '_blank');
+    if (!newWindow) {
+      return;
+    }
+
+    // Write basic HTML structure for the new window
+    newWindow.document.write(`
+      <html>
+        <head>
+          <title>Print QR Code</title>
+          <style>
+            body {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              margin: 0;
+            }
+          </style>
+        </head>
+        <body>
+          <div id="qrcode"></div>
+        </body>
+      </html>
+    `);
+
+    newWindow.document.close();
+
+    setTimeout(() => {
+      const qrCodeContainer = newWindow.document.getElementById('qrcode');
+      if (qrCodeContainer) {
+        const root = createRoot(qrCodeContainer);
+        root.render(<QRCode value={currentUrl} size={256} />);
+        setTimeout(() => {
+          newWindow.print(); // Trigger the print
+          newWindow.close(); // Close the new window after printing
+        }, 500);
+      }
+    }, 300);
   };
 
   const handleFavoriteClick = () => {
@@ -166,8 +223,7 @@ const BoxPage: FC = () => {
   };
 
   const handleScanClick = () => {
-    console.log('Scan button clicked');
-    // Implement and Navigate to scan page
+    setShowQRScanner(true);
   };
 
   const handleProfileClick = () => {
@@ -212,6 +268,12 @@ const BoxPage: FC = () => {
             />
           </Box>
         ))
+      )}
+      {showQRScanner && (
+        <QRScanner
+          onScanSuccess={handleScanSuccess}
+          onCancel={handleCancelScan}
+        />
       )}
       {/* Add Item Button */}
       <AddEntityButton
