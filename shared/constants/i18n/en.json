@@ -62,7 +62,8 @@
     "title":"Scan the QR Code",
     "error": "Unable to scan QR code. Please try again.",
     "attemptError": "Failed to scan QR code after several attempts.",
-    "noQrCodeFound": "No QR Code found. Please try again."
+    "noQrCodeFound": "No QR Code found. Please try again.",
+    "noCameraFound": "No camera found."
   },
   "box": {
     "printQRcode": "Print QR Code",

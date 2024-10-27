@@ -8,12 +8,12 @@ export const QrContainer = styled(Box)(({}) => ({
   textAlign: 'center',
 }));
 
-export const QrReaderContainer = styled(Box)(({}) => ({
+export const QrReaderContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
   width: '80%',
   maxWidth: '400px',
   aspectRatio: '1',
-  border: '2px solid red',
+  border: `2px solid ${theme.palette.grey[300]}`,
   overflow: 'hidden',
 }));
 

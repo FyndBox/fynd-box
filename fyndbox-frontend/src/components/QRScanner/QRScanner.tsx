@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
+import { BrowserQRCodeReader, VideoInputDevice } from '@zxing/browser';
 import { Typography } from '@mui/material';
-import QrReader from 'react-qr-reader';
 import { useTranslation } from 'react-i18next';
 import {
   ButtonContainer,
@@ -15,98 +15,68 @@ interface QRScannerProps {
 
 const QRScanner: FC<QRScannerProps> = ({ onScanSuccess, onCancel }) => {
   const [scanError, setScanError] = useState<string | null>(null);
+  const [controls, setControls] = useState<any>(null);
   const { t } = useTranslation();
-  const [scanning, setScanning] = useState(true);
-  const [scanTimeout, setScanTimeout] = useState<NodeJS.Timeout | null>(null);
-  const [, setStopAttempts] = useState(0);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const codeReader = useRef(new BrowserQRCodeReader());
 
-  // Function to stop the camera stream
-  const stopCamera = async () => {
-    const videoElement = document.querySelector('video');
-    if (videoElement) {
-      const mediaStream = videoElement.srcObject as MediaStream;
-      if (mediaStream) {
-        mediaStream.getTracks().forEach((track) => {
-          if (track.readyState === 'live') {
-            track.stop();
-          }
-        });
-        videoElement.srcObject = null;
-      }
-    }
-
-    await releaseCameraResources();
-  };
-
-  const releaseCameraResources = async () => {
-    try {
-      const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-      });
-      mediaStream.getTracks().forEach((track) => track.stop());
-    } catch (error) {
-      console.error('Error releasing camera resources:', error);
-    }
-  };
-
-  const attemptStopCamera = async (retryCount = 3) => {
-    for (let attempt = 0; attempt < retryCount; attempt++) {
-      await stopCamera();
-      const videoElement = document.querySelector('video');
-      if (!videoElement || !videoElement.srcObject) {
-        break;
-      }
-      setStopAttempts(attempt + 1);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+  const stopCamera = () => {
+    if (controls) {
+      setTimeout(() => controls.stop(), 2000);
     }
   };
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setScanning(false);
-      setScanError(t('qrCode.noQrCodeFound'));
+    const startScanning = async () => {
+      try {
+        const videoInputDevices: VideoInputDevice[] =
+          await BrowserQRCodeReader.listVideoInputDevices();
 
-      const closeTimeout = setTimeout(() => {
-        handleCancelScan();
-      }, 5000);
+        if (videoInputDevices.length === 0) {
+          setScanError(t('qrCode.noCameraFound'));
+          return;
+        }
+        const selectedDeviceId = videoInputDevices[0].deviceId;
+        // Initialize scanning
+        const controlsInstance = await codeReader.current.decodeFromVideoDevice(
+          selectedDeviceId,
+          videoRef.current!,
+          (result, error) => {
+            if (result) {
+              stopCamera();
+              onScanSuccess(result.getText());
+            } else if (error && error.name !== 'NotFoundException2') {
+              console.error('QR Scan Error:', error);
+              setScanError(t('qrCode.error'));
+            }
+          },
+        );
 
-      setScanTimeout(closeTimeout);
-    }, 10000);
+        setControls(controlsInstance);
 
-    setScanTimeout(timeout);
-
-    // Cleanup function on unmount or if timeout is cleared
-    return () => {
-      if (scanTimeout) {
-        clearTimeout(scanTimeout);
+        setTimeout(() => {
+          setScanError(t('qrCode.noQrCodeFound'));
+          setTimeout(() => {
+            controlsInstance.stop();
+            onCancel();
+          }, 3000);
+        }, 10000);
+      } catch (error) {
+        console.error('Error initializing QR scanner:', error);
+        setScanError(t('qrCode.initializationError'));
       }
-      attemptStopCamera();
     };
-  }, []);
 
-  const handleError = (error: any) => {
-    console.error('QR Scan Error:', error);
-    setScanError(t('qrCode.error'));
-  };
+    startScanning();
 
-  const handleScan = (data: string | null) => {
-    if (data && scanning) {
-      setScanning(false);
-      attemptStopCamera().then(() => {
-        onScanSuccess(data);
-      });
-      setScanError(null);
-      if (scanTimeout) {
-        clearTimeout(scanTimeout);
-      }
-    }
-  };
+    return () => {
+      stopCamera();
+    };
+  }, [onScanSuccess, t]);
 
-  const handleCancelScan = () => {
-    setScanning(false);
-    attemptStopCamera().then(() => {
-      onCancel();
-    });
+  const handleCancel = () => {
+    stopCamera();
+    onCancel();
   };
 
   return (
@@ -115,21 +85,14 @@ const QRScanner: FC<QRScannerProps> = ({ onScanSuccess, onCancel }) => {
         {t('qrCode.title')}
       </Typography>
       <QrReaderContainer>
-        <QrReader
-          onError={handleError}
-          onScan={handleScan}
-          delay={500}
-          facingMode="environment"
-          style={{ width: '100%' }}
-          legacyMode={false}
-        />
+        <video ref={videoRef} />
       </QrReaderContainer>
       {scanError && (
         <Typography variant="body2" color="error" mt={2}>
           {scanError}
         </Typography>
       )}
-      <ButtonContainer onClick={handleCancelScan} variant="contained">
+      <ButtonContainer onClick={handleCancel} variant="contained">
         {t('modal.cancel')}
       </ButtonContainer>
     </QrContainer>

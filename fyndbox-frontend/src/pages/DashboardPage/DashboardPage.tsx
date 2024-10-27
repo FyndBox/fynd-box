@@ -28,7 +28,6 @@ import { useCreateBox, useDeleteBox, useUpdateBox } from '../../hooks/useBox';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import QRScanner from '../../components/QRScanner/QRScanner';
-import QRScannerV2 from '../../components/QRScanner/QRScannerV2';
 
 const DashboardPage: FC = () => {
   const { t } = useTranslation();
@@ -210,16 +209,11 @@ const DashboardPage: FC = () => {
           </Box>
         ))}
         {showQRScanner && (
-          <QRScannerV2
+          <QRScanner
             onScanSuccess={handleScanSuccess}
             onCancel={handleCancelScan}
           />
         )}
-        {/* <QRScannerV2
-          onScanSuccess={handleScanSuccess}
-          onError={() => console.log(error)}
-          onCancel={handleCancelScan}
-        /> */}
         <AddEntityButton
           entityType="storage"
           onAdd={() => handleAddEntity('storage')}

@@ -71,12 +71,13 @@ const BoxPage: FC = () => {
   const { mutate: deleteItem } = useDeleteItem();
 
   const handleScanSuccess = (data: string) => {
-    setShowQRScanner(false);
-    const url = new URL(data);
-    const path = url.pathname;
+    setTimeout(() => {
+      setShowQRScanner(false);
+      const url = new URL(data);
+      const path = url.pathname;
 
-    // Navigate to the extracted path
-    navigate(path, { replace: true });
+      navigate(path, { replace: true });
+    }, 500);
   };
 
   const handleCancelScan = () => {
