@@ -65,6 +65,25 @@
     "noQrCodeFound": "No QR Code found. Please try again.",
     "noCameraFound": "No camera found."
   },
+  "sidebar":{
+    "title": "Välkommen {{user}}",
+    "logout": "Logga ut",
+    "deactivate": "Inaktivera konto",
+    "menuItems": [
+      {
+        "text": "Kontoinställningar",
+        "icon": "account_circle"
+      },
+      {
+        "text": "Inloggning och säkerhet",
+        "icon": "lock"
+      },
+      {
+        "text": "Om företaget",
+        "icon": "info"
+      }
+    ]
+  },
   "box": {
     "printQRcode": "Skriv ut QRkod",
     "addFavorite": " Lägg till i favorit",

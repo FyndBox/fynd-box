@@ -65,6 +65,25 @@
     "noQrCodeFound": "No QR Code found. Please try again.",
     "noCameraFound": "No camera found."
   },
+  "sidebar":{
+    "title": "Welcome {{user}}",
+    "logout": "Logout",
+    "deactivate": "Deactivate account",
+    "menuItems": [
+      {
+        "text": "Account Settings",
+        "icon": "account_circle"
+      },
+      {
+        "text": "Login and Security",
+        "icon": "lock"
+      },
+      {
+        "text": "About the Company",
+        "icon": "info"
+      }
+    ]
+  },
   "box": {
     "printQRcode": "Print QR Code",
     "addFavorite": "Add to favorite",
