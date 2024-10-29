@@ -72,15 +72,18 @@
     "menuItems": [
       {
         "text": "Account Settings",
-        "icon": "account_circle"
+        "icon": "account_circle",
+        "section": "account"
       },
       {
         "text": "Login and Security",
-        "icon": "lock"
+        "icon": "lock",
+        "section": "security"
       },
       {
         "text": "About the Company",
-        "icon": "info"
+        "icon": "info",
+        "section": "about"
       }
     ]
   },

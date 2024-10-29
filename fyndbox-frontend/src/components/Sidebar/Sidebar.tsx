@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Box, Divider, Drawer, Typography } from '@mui/material';
 import { AccountCircle, Lock, Info, ChevronRight } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import {
   AvatarContainer,
@@ -22,6 +23,8 @@ const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
   onClose,
 }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const { logout } = useAuth();
   const { data: user } = useUser();
 
@@ -32,7 +35,13 @@ const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
 
   const handleDeactivate = () => {};
 
-  const getUserInitials = (name: string) => {
+  const handleNavigation = (section: string) => {
+    navigate(`/settings?section=${section}`);
+    onClose();
+  };
+
+  const getUserInitials = (name: string | undefined) => {
+    if (!name) return '';
     const [firstName, lastName] = name.split(' ');
     return `${firstName?.charAt(0) || ''}${lastName?.charAt(0) || ''}`.toUpperCase();
   };
@@ -51,6 +60,7 @@ const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
   const menuItems = t('sidebar.menuItems', { returnObjects: true }) as Array<{
     text: string;
     icon: string;
+    section: string;
   }>;
 
   return (
@@ -72,7 +82,7 @@ const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
             <LinkElement key={index}>
               <LinkButton
                 fullWidth
-                onClick={() => console.log(`${item.text} clicked`)}
+                onClick={() => handleNavigation(item.section)}
               >
                 <IconButtonContainer>
                   {iconMap[item.icon]}

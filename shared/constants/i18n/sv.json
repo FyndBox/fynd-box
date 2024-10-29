@@ -72,15 +72,18 @@
     "menuItems": [
       {
         "text": "Kontoinställningar",
-        "icon": "account_circle"
+        "icon": "account_circle",
+        "section": "account"
       },
       {
         "text": "Inloggning och säkerhet",
-        "icon": "lock"
+        "icon": "lock",
+        "section": "security"
       },
       {
         "text": "Om företaget",
-        "icon": "info"
+        "icon": "info",
+        "section": "about"
       }
     ]
   },
