@@ -55,7 +55,7 @@
     "footer": {
       "favorite":"Favorites",
       "scan": "Scan",
-      "profile": "Profile"
+      "settings": "Settings"
     }
   },
   "qrCode":{
@@ -64,6 +64,28 @@
     "attemptError": "Failed to scan QR code after several attempts.",
     "noQrCodeFound": "No QR Code found. Please try again.",
     "noCameraFound": "No camera found."
+  },
+  "sidebar":{
+    "title": "Welcome {{user}}",
+    "logout": "Logout",
+    "deactivate": "Deactivate account",
+    "menuItems": [
+      {
+        "text": "Account Settings",
+        "icon": "account_circle",
+        "section": "account"
+      },
+      {
+        "text": "Login and Security",
+        "icon": "lock",
+        "section": "security"
+      },
+      {
+        "text": "About the Company",
+        "icon": "info",
+        "section": "about"
+      }
+    ]
   },
   "box": {
     "printQRcode": "Print QR Code",

@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { Clear } from '@mui/icons-material';
 import imageFallback from '../../assets/AddImage.png'; // Use your fallback image here
 import {
@@ -22,7 +22,7 @@ const ImageUploader: FC<ImageUploaderProps> = ({
   label = 'Image',
 }) => {
   const [image, setImage] = useState<string | undefined>(initialImage ?? '');
-  const { mutate: uploadImage, error } = useUploadImage();
+  const { mutate: uploadImage, error, isPending } = useUploadImage();
 
   useEffect(() => {
     setImage(initialImage ?? '');
@@ -63,7 +63,9 @@ const ImageUploader: FC<ImageUploaderProps> = ({
           accept="image/*"
           onChange={handleImageChange}
         />
+        {isPending && <CircularProgress size={24} />}
       </Box>
+
       {error && (
         <Typography variant="body2" color="error">
           Error uploading image

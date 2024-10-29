@@ -55,7 +55,7 @@
     "footer": {
       "favorite":"Favoriter",
       "scan": "Scan",
-      "profile": "Profil"
+      "settings": "Inställningar"
     }
   },
   "qrCode":{
@@ -64,6 +64,28 @@
     "attemptError": "Failed to scan QR code after several attempts.",
     "noQrCodeFound": "No QR Code found. Please try again.",
     "noCameraFound": "No camera found."
+  },
+  "sidebar":{
+    "title": "Välkommen {{user}}",
+    "logout": "Logga ut",
+    "deactivate": "Inaktivera konto",
+    "menuItems": [
+      {
+        "text": "Kontoinställningar",
+        "icon": "account_circle",
+        "section": "account"
+      },
+      {
+        "text": "Inloggning och säkerhet",
+        "icon": "lock",
+        "section": "security"
+      },
+      {
+        "text": "Om företaget",
+        "icon": "info",
+        "section": "about"
+      }
+    ]
   },
   "box": {
     "printQRcode": "Skriv ut QRkod",

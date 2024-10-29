@@ -1,9 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { FooterActionButton, FooterContainer } from './DashboardFooter.styles';
+import { Settings, Favorite, QrCodeScanner } from '@mui/icons-material';
 
 interface DashboardFooterProps {
   onFavoriteClick: () => void;
@@ -21,17 +19,17 @@ const DashboardFooter: FC<DashboardFooterProps> = ({
     <FooterContainer showLabels>
       <FooterActionButton
         label={t('dashboard.footer.favorite')}
-        icon={<FavoriteIcon />}
+        icon={<Favorite />}
         onClick={onFavoriteClick}
       />
       <FooterActionButton
         label={t('dashboard.footer.scan')}
-        icon={<QrCodeScannerIcon />}
+        icon={<QrCodeScanner />}
         onClick={onScanClick}
       />
       <FooterActionButton
-        label={t('dashboard.footer.profile')}
-        icon={<AccountCircleIcon />}
+        label={t('dashboard.footer.settings')}
+        icon={<Settings />}
         onClick={onProfileClick}
       />
     </FooterContainer>

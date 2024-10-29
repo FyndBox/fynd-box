@@ -28,6 +28,7 @@ import { useCreateBox, useDeleteBox, useUpdateBox } from '../../hooks/useBox';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import QRScanner from '../../components/QRScanner/QRScanner';
+import Sidebar from '../../components/Sidebar/Sidebar';
 
 const DashboardPage: FC = () => {
   const { t } = useTranslation();
@@ -36,6 +37,7 @@ const DashboardPage: FC = () => {
     number | null
   >(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
   const [entityType, setEntityType] = useState<EntityType>('storage');
   const [editingData, setEditingData] = useState<any | null>(null);
@@ -99,6 +101,11 @@ const DashboardPage: FC = () => {
   const handleProfileClick = () => {
     console.log('Profile button clicked');
     // Implement and Navigate to profile
+    setSidebarOpen(true);
+  };
+
+  const handleCloseSidebar = () => {
+    setSidebarOpen(false);
   };
 
   const handleSave = (data: {
@@ -234,6 +241,8 @@ const DashboardPage: FC = () => {
         onSave={handleSave}
         onDelete={handleDelete}
       />
+      {/* Sidebar component */}
+      <Sidebar open={isSidebarOpen} onClose={handleCloseSidebar} />
     </DashboardContainer>
   );
 };
