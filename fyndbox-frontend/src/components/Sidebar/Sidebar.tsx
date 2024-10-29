@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import { Drawer, Typography } from '@mui/material';
+import { Box, Divider, Drawer, Typography } from '@mui/material';
 import { AccountCircle, Lock, Info, ChevronRight } from '@mui/icons-material';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import {
+  AvatarContainer,
   DeactivateButton,
   IconButtonContainer,
   LinkButton,
@@ -13,12 +14,33 @@ import {
 } from './Sidebar.styles';
 import { ButtonsGroupWrapper } from '../../styles/commonStyles';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../hooks/useAuth';
+import { useUser } from '../../hooks/useUser';
 
 const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
   open,
   onClose,
 }) => {
   const { t } = useTranslation();
+  const { logout } = useAuth();
+  const { data: user } = useUser();
+
+  const handleLogout = () => {
+    logout();
+    onClose();
+  };
+
+  const handleDeactivate = () => {};
+
+  const getUserInitials = (name: string) => {
+    const [firstName, lastName] = name.split(' ');
+    return `${firstName?.charAt(0) || ''}${lastName?.charAt(0) || ''}`.toUpperCase();
+  };
+
+  const getDisplayName = (name: string) => {
+    const [firstName, lastName] = name.split(' ');
+    return lastName ? lastName : firstName;
+  };
 
   const iconMap: { [key: string]: JSX.Element } = {
     account_circle: <AccountCircle />,
@@ -33,10 +55,18 @@ const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
 
   return (
     <Drawer anchor="left" open={open} onClose={onClose}>
-      <SidebarContainer>
-        <Typography variant="h5">
-          {t('sidebar.title', { user: 'User' })}
+      <Box display="flex" alignItems="center" p={2}>
+        <AvatarContainer src={user?.image || ''} alt={user?.name}>
+          {!user?.image && getUserInitials(user?.name!)}
+        </AvatarContainer>
+        <Typography variant="h4">
+          {t('sidebar.title', {
+            user: user && getDisplayName(user.name),
+          })}
         </Typography>
+      </Box>
+      <Divider orientation="horizontal" />
+      <SidebarContainer>
         <SidebarElementContainer>
           {menuItems.map((item, index) => (
             <LinkElement key={index}>
@@ -56,10 +86,14 @@ const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
           ))}
         </SidebarElementContainer>
         <ButtonsGroupWrapper>
-          <DeactivateButton variant="contained" fullWidth>
+          <DeactivateButton
+            variant="contained"
+            onClick={handleDeactivate}
+            fullWidth
+          >
             {t('sidebar.deactivate')}
           </DeactivateButton>
-          <LogoutButton variant="outlined" fullWidth>
+          <LogoutButton variant="outlined" onClick={handleLogout} fullWidth>
             {t('sidebar.logout')}
           </LogoutButton>
         </ButtonsGroupWrapper>
