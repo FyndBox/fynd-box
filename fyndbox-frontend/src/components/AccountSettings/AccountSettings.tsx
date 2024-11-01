@@ -1,21 +1,25 @@
 import { FC, useState } from 'react';
 import {
   Box,
-  Typography,
-  TextField,
   Button,
   Avatar,
   IconButton,
   CircularProgress,
 } from '@mui/material';
-import { PhotoCamera } from '@mui/icons-material';
+import { AccountCircle, Check, Email, PhotoCamera } from '@mui/icons-material';
 import { useUser } from '../../hooks/useUser';
 import { useUploadImage } from '../../hooks/useImage';
+import { CustomIcon, TextFieldsContainer } from '../../styles/commonStyles';
+import CustomTextField from '../CustomTextField/CustomTextField';
+import { useTranslation } from 'react-i18next';
+import { SaveButton } from '../ActionButtonsGroup/ActionButtonsGroup.styles';
 
 const AccountSettings: FC = () => {
-  const { data: user } = useUser();
+  const { t } = useTranslation();
+  const { data: user, error, isLoading } = useUser();
   const [name, setName] = useState(user?.name || '');
   const [email] = useState(user?.email || ''); // Email is readonly, so we don't need a setState for it
+  const [nameError, setNameError] = useState(false);
   const [profileImage, setProfileImage] = useState<string | null>(
     user?.image || null,
   );
@@ -44,10 +48,6 @@ const AccountSettings: FC = () => {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" p={3}>
-      <Typography variant="h4" mb={2}>
-        Account Settings
-      </Typography>
-
       <Box position="relative" mb={3}>
         <Avatar
           src={profileImage || ''}
@@ -76,35 +76,55 @@ const AccountSettings: FC = () => {
         </IconButton>
       </Box>
 
-      <TextField
-        label="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        fullWidth
-        margin="normal"
-        variant="outlined"
-      />
-      <TextField
-        label="Email"
-        value={email}
-        fullWidth
-        margin="normal"
-        variant="outlined"
-        InputProps={{
-          readOnly: true,
-        }}
-        disabled
-      />
+      <TextFieldsContainer>
+        <CustomTextField
+          label="Name"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+            setNameError(false);
+            // if (error) setError(null);
+          }}
+          error={nameError}
+          helperText={
+            nameError
+              ? t('signup.name.errorMessage')
+                  .split('\n')
+                  .map((line, index) => (
+                    <span key={index}>
+                      {line}
+                      <br />
+                    </span>
+                  ))
+              : ''
+          }
+          startIcon={<AccountCircle />}
+        />
+        <CustomTextField
+          label={t('common.email.label')}
+          placeholder={t('common.email.placeholder')}
+          type="email"
+          value={email}
+          startIcon={<Email />}
+          readOnly
+          disabled
+        />
+      </TextFieldsContainer>
 
-      <Button
+      <SaveButton
         variant="contained"
-        color="primary"
-        onClick={handleSave}
-        fullWidth
         sx={{ mt: 3 }}
+        fullWidth
+        startIcon={
+          <CustomIcon>
+            <Check />
+          </CustomIcon>
+        }
+        onClick={() => handleSave()}
       >
-        Save
-      </Button>
+        {t('modal.save')}
+      </SaveButton>
     </Box>
   );
 };
