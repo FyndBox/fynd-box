@@ -35,11 +35,14 @@ export const signup = async (
 export const updatePassword = async (
   currentPassword: string,
   newPassword: string
-): Promise<void> => {
+): Promise<AuthResponse> => {
   return handleApiCall(
-    apiClient.patch<ApiResponse<void>>("/auth/password", {
+    apiClient.patch<ApiResponse<AuthResponse>>("/auth/password", {
       currentPassword,
       newPassword,
     })
   );
 };
+
+
+
