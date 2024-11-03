@@ -3,8 +3,14 @@ import { Box, Typography, TextField, Button } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import AccountSettings from '../../components/AccountSettings/AccountSettings';
-import { GoBackButton, StyledArrowBack } from '../../styles/commonStyles';
+import {
+  FullPageContainer,
+  GoBackButton,
+  StyledArrowBack,
+} from '../../styles/commonStyles';
 import { useTranslation } from 'react-i18next';
+import PageHeader from '../../components/PageHeader/PageHeader';
+import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
 const SettingsPage: FC = () => {
   const location = useLocation();
@@ -66,18 +72,17 @@ const SettingsPage: FC = () => {
   };
 
   return (
-    <Box p={3}>
+    <FullPageContainer>
       <GoBackButton onClick={handleBackClick}>
         <StyledArrowBack />
         <Typography variant="h6" component="span" pl={1}>
           {t('userGuide.back')}
         </Typography>
       </GoBackButton>
-      <Typography variant="h4" mb={2}>
-        Account Settings
-      </Typography>
+      <PageHeader heading={getHeading()} />
       {renderContent()}
-    </Box>
+      <LanguageSelector />
+    </FullPageContainer>
   );
 };
 

@@ -1,17 +1,11 @@
 import { FC, useState } from 'react';
-import {
-  Box,
-  Button,
-  Avatar,
-  IconButton,
-  CircularProgress,
-} from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Box, Avatar, IconButton, CircularProgress } from '@mui/material';
 import { AccountCircle, Check, Email, PhotoCamera } from '@mui/icons-material';
 import { useUser } from '../../hooks/useUser';
 import { useUploadImage } from '../../hooks/useImage';
 import { CustomIcon, TextFieldsContainer } from '../../styles/commonStyles';
 import CustomTextField from '../CustomTextField/CustomTextField';
-import { useTranslation } from 'react-i18next';
 import { SaveButton } from '../ActionButtonsGroup/ActionButtonsGroup.styles';
 
 const AccountSettings: FC = () => {
@@ -47,7 +41,7 @@ const AccountSettings: FC = () => {
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" p={3}>
+    <Box display="flex" flexDirection="column" alignItems="center">
       <Box position="relative" mb={3}>
         <Avatar
           src={profileImage || ''}
@@ -56,7 +50,6 @@ const AccountSettings: FC = () => {
         />
         <IconButton
           color="primary"
-          aria-label="upload picture"
           component="label"
           sx={{
             position: 'absolute',
