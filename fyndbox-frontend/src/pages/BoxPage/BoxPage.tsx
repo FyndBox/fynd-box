@@ -178,18 +178,39 @@ const BoxPage: FC = () => {
       return;
     }
 
-    // Write basic HTML structure for the new window
     newWindow.document.write(`
       <html>
         <head>
           <title>Print QR Code</title>
           <style>
-            body {
+            * {
+              box-sizing: border-box;
+            }
+            html, body {
+              margin: 0;
+              padding: 0;
+              width: 100%;
+              height: 100%;
               display: flex;
               justify-content: center;
               align-items: center;
-              height: 100vh;
-              margin: 0;
+            }
+            #qrcode {
+              width: 256px;
+              height: 256px;
+            }
+            @media print {
+              @page {
+                margin: 0;
+              }
+              html, body {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+              }
             }
           </style>
         </head>
@@ -206,9 +227,10 @@ const BoxPage: FC = () => {
       if (qrCodeContainer) {
         const root = createRoot(qrCodeContainer);
         root.render(<QRCode value={currentUrl} size={256} />);
+
         setTimeout(() => {
-          newWindow.print(); // Trigger the print
-          newWindow.close(); // Close the new window after printing
+          newWindow.print();
+          newWindow.close();
         }, 500);
       }
     }, 300);
