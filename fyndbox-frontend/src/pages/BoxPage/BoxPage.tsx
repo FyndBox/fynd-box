@@ -7,7 +7,6 @@ import { ArrowBackIos } from '@mui/icons-material';
 import { Typography, CircularProgress, Divider, Box } from '@mui/material';
 import { useStorage } from '../../hooks/useStorage';
 import { useBox, useUpdateBox } from '../../hooks/useBox';
-import SearchField from '../../components/SearchField/SearchField';
 import BoxDetails from '../../components/BoxDetails/BoxDetails';
 import {
   BackButton,
