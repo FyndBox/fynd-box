@@ -126,7 +126,8 @@ const DashboardPage: FC = () => {
   return (
     <DashboardContainer>
       <TopBar />
-      <SearchField />
+      {/* Hide the Search Field For now */}
+      {/* <SearchField /> */}
       <MainContainer>
         {isLoading && <Typography variant="body1">Loading...</Typography>}
         {error && (
