@@ -6,13 +6,13 @@ import { Settings, Favorite, QrCodeScanner } from '@mui/icons-material';
 interface DashboardFooterProps {
   onFavoriteClick: () => void;
   onScanClick: () => void;
-  onProfileClick: () => void;
+  onSettingsClick: () => void;
 }
 
 const DashboardFooter: FC<DashboardFooterProps> = ({
   onFavoriteClick,
   onScanClick,
-  onProfileClick,
+  onSettingsClick,
 }) => {
   const { t } = useTranslation();
   return (
@@ -30,7 +30,7 @@ const DashboardFooter: FC<DashboardFooterProps> = ({
       <FooterActionButton
         label={t('dashboard.footer.settings')}
         icon={<Settings />}
-        onClick={onProfileClick}
+        onClick={onSettingsClick}
       />
     </FooterContainer>
   );

@@ -36,7 +36,18 @@ const QRScanner: FC<QRScannerProps> = ({ onScanSuccess, onCancel }) => {
           setScanError(t('qrCode.noCameraFound'));
           return;
         }
-        const selectedDeviceId = videoInputDevices[0].deviceId;
+
+        const backCamera = videoInputDevices.find(
+          (device) =>
+            device.label.toLowerCase().includes('back') ||
+            device.label.toLowerCase().includes('rear') ||
+            device.label.toLowerCase().includes('environment'),
+        );
+
+        const selectedDeviceId = backCamera
+          ? backCamera.deviceId
+          : videoInputDevices[0].deviceId;
+
         // Initialize scanning
         const controlsInstance = await codeReader.current.decodeFromVideoDevice(
           selectedDeviceId,

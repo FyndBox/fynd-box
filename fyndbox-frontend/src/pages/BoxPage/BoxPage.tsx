@@ -27,6 +27,8 @@ import EntityCard from '../../components/EntityCard/EntityCard';
 import { EntityType } from '../../types/entityTypes';
 import EntityActionModal from '../../components/modal/EntityActionModal';
 import QRScanner from '../../components/QRScanner/QRScanner';
+import Sidebar from '../../components/Sidebar/Sidebar';
+import { useFooterActions } from '../../hooks/useFooterActions';
 
 const BoxPage: FC = () => {
   const { t } = useTranslation();
@@ -39,7 +41,16 @@ const BoxPage: FC = () => {
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
   const [entityType, setEntityType] = useState<EntityType>('item');
   const [editingData, setEditingData] = useState<any | null>(null);
-  const [showQRScanner, setShowQRScanner] = useState(false);
+  const {
+    handleFavoriteClick,
+    handleScanClick,
+    handleScanSuccess,
+    handleCancelScan,
+    handleSettingsClick,
+    handleCloseSidebar,
+    showQRScanner,
+    isSidebarOpen,
+  } = useFooterActions();
 
   // Fetch storage details using storageId
   const {
@@ -69,20 +80,6 @@ const BoxPage: FC = () => {
   const { mutate: createItem } = useCreateItem();
   const { mutate: updateItem } = useUpdateItem();
   const { mutate: deleteItem } = useDeleteItem();
-
-  const handleScanSuccess = (data: string) => {
-    setTimeout(() => {
-      setShowQRScanner(false);
-      const url = new URL(data);
-      const path = url.pathname;
-
-      navigate(path, { replace: true });
-    }, 500);
-  };
-
-  const handleCancelScan = () => {
-    setShowQRScanner(false); // Hide QR Scanner on cancel
-  };
 
   if (!storageId || !boxId) {
     return <div>Error: Storage ID or Box ID is missing.</div>;
@@ -181,18 +178,39 @@ const BoxPage: FC = () => {
       return;
     }
 
-    // Write basic HTML structure for the new window
     newWindow.document.write(`
       <html>
         <head>
           <title>Print QR Code</title>
           <style>
-            body {
+            * {
+              box-sizing: border-box;
+            }
+            html, body {
+              margin: 0;
+              padding: 0;
+              width: 100%;
+              height: 100%;
               display: flex;
               justify-content: center;
               align-items: center;
-              height: 100vh;
-              margin: 0;
+            }
+            #qrcode {
+              width: 256px;
+              height: 256px;
+            }
+            @media print {
+              @page {
+                margin: 0;
+              }
+              html, body {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+              }
             }
           </style>
         </head>
@@ -209,26 +227,13 @@ const BoxPage: FC = () => {
       if (qrCodeContainer) {
         const root = createRoot(qrCodeContainer);
         root.render(<QRCode value={currentUrl} size={256} />);
+
         setTimeout(() => {
-          newWindow.print(); // Trigger the print
-          newWindow.close(); // Close the new window after printing
+          newWindow.print();
+          newWindow.close();
         }, 500);
       }
     }, 300);
-  };
-
-  const handleFavoriteClick = () => {
-    console.log('Favorite button clicked');
-    // Iimplement and Navigate to favorites page
-  };
-
-  const handleScanClick = () => {
-    setShowQRScanner(true);
-  };
-
-  const handleProfileClick = () => {
-    console.log('Profile button clicked');
-    // Implement and Navigate to profile
   };
 
   return (
@@ -238,7 +243,9 @@ const BoxPage: FC = () => {
         <Typography variant="h6">{storage?.name}</Typography>
       </BackButton>
       <Divider />
-      <SearchField />
+      {/*Hide the search field
+        <SearchField />
+    */}
 
       {/* BoxDetails component */}
       {box && (
@@ -294,7 +301,7 @@ const BoxPage: FC = () => {
       <DashboardFooter
         onFavoriteClick={handleFavoriteClick}
         onScanClick={handleScanClick}
-        onProfileClick={handleProfileClick}
+        onSettingsClick={handleSettingsClick}
       />
       <EntityActionModal
         key={modalMode}
@@ -306,6 +313,7 @@ const BoxPage: FC = () => {
         onSave={handleSave}
         onDelete={handleDelete}
       />
+      <Sidebar open={isSidebarOpen} onClose={handleCloseSidebar} />
     </BoxContainer>
   );
 };

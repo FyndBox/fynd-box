@@ -9,6 +9,7 @@ export const DashboardContainer = styled(Container)(({ theme }) => ({
 
 export const MainContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(0.1),
+  paddingTop: theme.spacing(5),
 }));
 
 export const SubContainer = styled(Box)(({}) => ({
