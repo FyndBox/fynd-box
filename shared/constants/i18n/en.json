@@ -24,15 +24,19 @@
     "guideSteps": {
       "stepOne": {
         "title": "Create Account",
-        "description": "Start by creating an account. It is free and entails obligations, but enables access to Fyndbox when you want and how much you want."
+        "description": "Start by creating an account. It's easy, and you'll immediately get access to all the features in the app."
       },
       "stepTwo": {
-        "title": "Create Account",
-        "description": "Start by creating an account. It is free and entails obligations, but enables access to Fyndbox when you want and how much you want."
+        "title": "Add a Unit",
+        "description": "Add a place where your items will be organized, such as the attic, storage room, basement, or garage. This helps you keep track of where your boxes are located."
       },
       "stepThree": {
-        "title": "Create Account",
-        "description": "Start by creating an account. It is free and entails obligations, but enables access to Fyndbox when you want and how much you want."
+        "title": "Create a Box",
+        "description": "Create a box to start organizing your things. Each box can represent a specific category or area for easier management."
+      },
+      "stepFour": {
+        "title": "Add Items to the Box",
+        "description": "Add the items you want to store in the box. This way, you'll have full control over what's in each box and where it's placed."
       },
       "next": "Next",
       "back": "Back"
@@ -51,8 +55,48 @@
     "footer": {
       "favorite":"Favorites",
       "scan": "Scan",
-      "profile": "Profile"
+      "settings": "Settings"
     }
+  },
+  "settings": {
+    "account" : {
+      "title": "Account Settings" 
+    },
+    "security": {
+      "title": "Security Settings"
+    },
+    "about" : {
+      "title": "About Fyndbox"
+    }
+  },
+  "qrCode":{
+    "title":"Scan the QR Code",
+    "error": "Unable to scan QR code. Please try again.",
+    "attemptError": "Failed to scan QR code after several attempts.",
+    "noQrCodeFound": "No QR Code found. Please try again.",
+    "noCameraFound": "No camera found."
+  },
+  "sidebar":{
+    "title": "Welcome {{user}}",
+    "logout": "Logout",
+    "deactivate": "Deactivate account",
+    "menuItems": [
+      {
+        "text": "Account Settings",
+        "icon": "account_circle",
+        "section": "account"
+      },
+      {
+        "text": "Login and Security",
+        "icon": "lock",
+        "section": "security"
+      },
+      {
+        "text": "About the Company",
+        "icon": "info",
+        "section": "about"
+      }
+    ]
   },
   "box": {
     "printQRcode": "Print QR Code",

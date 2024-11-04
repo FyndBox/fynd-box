@@ -7,11 +7,20 @@ import DashboardPage from './pages/DashboardPage/DashboardPage';
 import UserGuidePage from './pages/UserGuidePage/UserGuidePage';
 import AuthGuard from './components/AuthGuard';
 import BoxPage from './pages/BoxPage/BoxPage';
+import SettingsPage from './pages/SettingsPage/SettingsPage';
 
 const App: FC = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+          path="/box/:storageId/:boxId"
+          element={
+            <AuthGuard>
+              <BoxPage />
+            </AuthGuard>
+          }
+        />
         <Route
           path="/dashboard"
           element={
@@ -21,10 +30,10 @@ const App: FC = () => {
           }
         />
         <Route
-          path="/box/:storageId/:boxId"
+          path="/settings"
           element={
             <AuthGuard>
-              <BoxPage />
+              <SettingsPage />
             </AuthGuard>
           }
         />
