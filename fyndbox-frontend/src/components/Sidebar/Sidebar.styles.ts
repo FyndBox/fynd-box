@@ -2,7 +2,7 @@ import { Avatar, Box, styled } from '@mui/material';
 import { BaseButton } from '../../styles/commonStyles';
 
 export const SidebarContainer = styled(Box)(({ theme }) => ({
-  width: 400,
+  width: 350,
   padding: theme.spacing(2.5),
 }));
 

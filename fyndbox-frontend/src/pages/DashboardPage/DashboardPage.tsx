@@ -29,6 +29,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import QRScanner from '../../components/QRScanner/QRScanner';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import { useFooterActions } from '../../hooks/useFooterActions';
 
 const DashboardPage: FC = () => {
   const { t } = useTranslation();
@@ -37,11 +38,9 @@ const DashboardPage: FC = () => {
     number | null
   >(null);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
   const [entityType, setEntityType] = useState<EntityType>('storage');
   const [editingData, setEditingData] = useState<any | null>(null);
-  const [showQRScanner, setShowQRScanner] = useState(false);
   const { data: storages, isLoading, error } = useStorages();
   const { mutate: createStorage } = useCreateStorage();
   const { mutate: updateStorage } = useUpdateStorage();
@@ -49,6 +48,16 @@ const DashboardPage: FC = () => {
   const { mutate: createBox } = useCreateBox();
   const { mutate: updateBox } = useUpdateBox();
   const { mutate: deleteBox } = useDeleteBox();
+  const {
+    handleFavoriteClick,
+    handleScanClick,
+    handleScanSuccess,
+    handleCancelScan,
+    handleSettingsClick,
+    handleCloseSidebar,
+    showQRScanner,
+    isSidebarOpen,
+  } = useFooterActions();
 
   const handleToggleExpand = (index: number) => {
     setExpandedStorageIndex(expandedStorageIndex === index ? null : index);
@@ -73,39 +82,6 @@ const DashboardPage: FC = () => {
     setModalMode('edit');
     setEditingData(data);
     setModalOpen(true);
-  };
-
-  const handleFavoriteClick = () => {
-    console.log('Favorite button clicked');
-    // Iimplement and Navigate to favorites page
-  };
-
-  const handleScanClick = () => {
-    setShowQRScanner(true);
-  };
-
-  const handleScanSuccess = (data: string) => {
-    setTimeout(() => {
-      setShowQRScanner(false);
-      const url = new URL(data);
-      const path = url.pathname;
-
-      navigate(path, { replace: true });
-    }, 500);
-  };
-
-  const handleCancelScan = () => {
-    setShowQRScanner(false); // Hide QR Scanner on cancel
-  };
-
-  const handleProfileClick = () => {
-    console.log('Profile button clicked');
-    // Implement and Navigate to profile
-    setSidebarOpen(true);
-  };
-
-  const handleCloseSidebar = () => {
-    setSidebarOpen(false);
   };
 
   const handleSave = (data: {
@@ -150,7 +126,8 @@ const DashboardPage: FC = () => {
   return (
     <DashboardContainer>
       <TopBar />
-      <SearchField />
+      {/* Hide the Search Field For now */}
+      {/* <SearchField /> */}
       <MainContainer>
         {isLoading && <Typography variant="body1">Loading...</Typography>}
         {error && (
@@ -229,7 +206,7 @@ const DashboardPage: FC = () => {
       <DashboardFooter
         onFavoriteClick={handleFavoriteClick}
         onScanClick={handleScanClick}
-        onProfileClick={handleProfileClick}
+        onSettingsClick={handleSettingsClick}
       />
       <EntityActionModal
         key={modalMode}
@@ -241,7 +218,6 @@ const DashboardPage: FC = () => {
         onSave={handleSave}
         onDelete={handleDelete}
       />
-      {/* Sidebar component */}
       <Sidebar open={isSidebarOpen} onClose={handleCloseSidebar} />
     </DashboardContainer>
   );
