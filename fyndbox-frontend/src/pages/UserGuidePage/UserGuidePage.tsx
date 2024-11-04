@@ -6,8 +6,11 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 import SliderCard from '../../components/SliderCard/SliderCard';
-import { FullPageContainer } from '../../styles/commonStyles';
-import { StyledArrowBack, GoBackButton } from './UserGuide.styles';
+import {
+  FullPageContainer,
+  GoBackButton,
+  StyledArrowBack,
+} from '../../styles/commonStyles';
 import { guideSteps } from '../../data/guideSteps';
 
 const UserGuidePage: FC = () => {

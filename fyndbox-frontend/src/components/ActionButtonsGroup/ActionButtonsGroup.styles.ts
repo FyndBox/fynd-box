@@ -7,6 +7,11 @@ export const SaveButton = styled(BaseButton)(({ theme }) => ({
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },
+  '&.Mui-disabled': {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    opacity: 0.6,
+  },
 }));
 
 export const DeleteButton = styled(BaseButton)(({ theme }) => ({
