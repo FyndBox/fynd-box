@@ -27,6 +27,7 @@ import EntityCard from '../../components/EntityCard/EntityCard';
 import { EntityType } from '../../types/entityTypes';
 import EntityActionModal from '../../components/modal/EntityActionModal';
 import QRScanner from '../../components/QRScanner/QRScanner';
+import Sidebar from '../../components/Sidebar/Sidebar';
 
 const BoxPage: FC = () => {
   const { t } = useTranslation();
@@ -40,6 +41,7 @@ const BoxPage: FC = () => {
   const [entityType, setEntityType] = useState<EntityType>('item');
   const [editingData, setEditingData] = useState<any | null>(null);
   const [showQRScanner, setShowQRScanner] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   // Fetch storage details using storageId
   const {
@@ -226,9 +228,12 @@ const BoxPage: FC = () => {
     setShowQRScanner(true);
   };
 
-  const handleProfileClick = () => {
-    console.log('Profile button clicked');
-    // Implement and Navigate to profile
+  const handleSettingsClick = () => {
+    setSidebarOpen(true);
+  };
+
+  const handleCloseSidebar = () => {
+    setSidebarOpen(false);
   };
 
   return (
@@ -294,7 +299,7 @@ const BoxPage: FC = () => {
       <DashboardFooter
         onFavoriteClick={handleFavoriteClick}
         onScanClick={handleScanClick}
-        onProfileClick={handleProfileClick}
+        onSettingsClick={handleSettingsClick}
       />
       <EntityActionModal
         key={modalMode}
@@ -306,6 +311,7 @@ const BoxPage: FC = () => {
         onSave={handleSave}
         onDelete={handleDelete}
       />
+      <Sidebar open={isSidebarOpen} onClose={handleCloseSidebar} />
     </BoxContainer>
   );
 };

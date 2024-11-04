@@ -98,9 +98,7 @@ const DashboardPage: FC = () => {
     setShowQRScanner(false); // Hide QR Scanner on cancel
   };
 
-  const handleProfileClick = () => {
-    console.log('Profile button clicked');
-    // Implement and Navigate to profile
+  const handleSettingsClick = () => {
     setSidebarOpen(true);
   };
 
@@ -229,7 +227,7 @@ const DashboardPage: FC = () => {
       <DashboardFooter
         onFavoriteClick={handleFavoriteClick}
         onScanClick={handleScanClick}
-        onProfileClick={handleProfileClick}
+        onSettingsClick={handleSettingsClick}
       />
       <EntityActionModal
         key={modalMode}
@@ -241,7 +239,6 @@ const DashboardPage: FC = () => {
         onSave={handleSave}
         onDelete={handleDelete}
       />
-      {/* Sidebar component */}
       <Sidebar open={isSidebarOpen} onClose={handleCloseSidebar} />
     </DashboardContainer>
   );
