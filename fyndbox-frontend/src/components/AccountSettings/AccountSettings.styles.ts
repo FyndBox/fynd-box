@@ -12,10 +12,10 @@ export const ProfileContainer = styled(Box)(({ theme }) => ({
   margin: theme.spacing(3, 0),
 }));
 
-export const ProfileAvatar = styled(Avatar)(({ theme }) => ({
-  padding: theme.spacing(2),
+export const ProfileAvatar = styled(Avatar)(({}) => ({
   width: 100,
   height: 100,
+  objectFit: 'cover',
 }));
 
 export const AvatarButton = styled(IconButton)(({ theme }) => ({
