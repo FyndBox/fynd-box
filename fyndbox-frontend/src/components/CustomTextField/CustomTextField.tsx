@@ -4,11 +4,13 @@ import { TextField, InputAdornment, TextFieldProps } from '@mui/material';
 interface CustomTextFieldProps extends Omit<TextFieldProps, 'variant'> {
   startIcon?: ReactNode;
   endIcon?: ReactNode;
+  readOnly?: boolean;
 }
 
 const CustomTextField: FC<CustomTextFieldProps> = ({
   startIcon,
   endIcon,
+  readOnly,
   ...props
 }) => {
   return (
@@ -18,6 +20,7 @@ const CustomTextField: FC<CustomTextFieldProps> = ({
       variant="standard"
       slotProps={{
         input: {
+          readOnly: readOnly,
           startAdornment: startIcon ? (
             <InputAdornment position="start">{startIcon}</InputAdornment>
           ) : undefined,

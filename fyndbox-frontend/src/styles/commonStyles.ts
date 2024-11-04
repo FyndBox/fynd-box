@@ -1,6 +1,7 @@
 import { Box, Button, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { SvgIcon } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
 
 export const FullPageContainer = styled(Container)({
   minHeight: '100vh',
@@ -34,4 +35,21 @@ export const ButtonsGroupWrapper = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   textAlign: 'center',
   padding: theme.spacing(6, 0),
+}));
+
+export const GoBackButton = styled(Button)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  textAlign: 'left',
+  padding: theme.spacing(2, 0),
+}));
+
+export const StyledArrowBack = styled(ArrowBack)(({ theme }) => ({
+  fontSize: 'small',
+  borderRadius: '50%',
+  color: theme.palette.common.white,
+  backgroundColor: theme.palette.primary.main,
+  width: '30px',
+  height: '30px',
 }));
