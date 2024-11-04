@@ -24,16 +24,7 @@ const SettingsPage: FC = () => {
   };
 
   const getHeading = () => {
-    switch (section) {
-      case 'account':
-        return 'Account Settings';
-      case 'security':
-        return 'Security Settings';
-      case 'about':
-        return 'About the Company';
-      default:
-        return 'No Settings Found';
-    }
+    return t(`settings.${section}.title`, 'No Settings Found');
   };
 
   const renderContent = () => {

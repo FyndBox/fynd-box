@@ -58,6 +58,17 @@
       "settings": "Settings"
     }
   },
+  "settings": {
+    "account" : {
+      "title": "Account Settings" 
+    },
+    "security": {
+      "title": "Security Settings"
+    },
+    "about" : {
+      "title": "About Fyndbox"
+    }
+  },
   "qrCode":{
     "title":"Scan the QR Code",
     "error": "Unable to scan QR code. Please try again.",

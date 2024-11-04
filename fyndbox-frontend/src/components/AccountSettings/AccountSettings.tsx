@@ -1,64 +1,63 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Avatar, IconButton, CircularProgress } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { AccountCircle, Check, Email, PhotoCamera } from '@mui/icons-material';
 import { useUser } from '../../hooks/useUser';
 import { useUploadImage } from '../../hooks/useImage';
-import { CustomIcon, TextFieldsContainer } from '../../styles/commonStyles';
+import {
+  ButtonsGroupWrapper,
+  CustomIcon,
+  TextFieldsContainer,
+} from '../../styles/commonStyles';
 import CustomTextField from '../CustomTextField/CustomTextField';
 import { SaveButton } from '../ActionButtonsGroup/ActionButtonsGroup.styles';
+import {
+  AccountSettingsContainer,
+  AvatarButton,
+  ProfileAvatar,
+  ProfileContainer,
+} from './AccountSettings.styles';
 
 const AccountSettings: FC = () => {
   const { t } = useTranslation();
   const { data: user, error, isLoading } = useUser();
-  const [name, setName] = useState(user?.name || '');
-  const [email] = useState(user?.email || ''); // Email is readonly, so we don't need a setState for it
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [profileImage, setProfileImage] = useState<string | null>(null);
   const [nameError, setNameError] = useState(false);
-  const [profileImage, setProfileImage] = useState<string | null>(
-    user?.image || null,
-  );
 
-  // Use the custom hook for uploading an image
+  // Update state when user data is loaded
+  useEffect(() => {
+    if (user) {
+      setName(user.name || '');
+      setEmail(user.email || '');
+      setProfileImage(user.image || null);
+    }
+  }, [user]);
+
   const { mutate: uploadImage, isPending } = useUploadImage();
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      // Use the mutation hook to upload the file
       uploadImage(file, {
         onSuccess: (data) => {
-          setProfileImage(data.imageUrl); // Set the uploaded image URL as the profile image
+          setProfileImage(data.imageUrl);
         },
       });
     }
   };
 
   const handleSave = () => {
-    // Save the changes (name and profile image)
     console.log('Name:', name);
     console.log('Profile Image URL:', profileImage);
-    // Here you would call an API to update the user data in the backend
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <Box position="relative" mb={3}>
-        <Avatar
-          src={profileImage || ''}
-          alt={name}
-          sx={{ width: 100, height: 100 }}
-        />
-        <IconButton
-          color="primary"
-          component="label"
-          sx={{
-            position: 'absolute',
-            bottom: -10,
-            right: -10,
-            backgroundColor: 'white',
-            boxShadow: 2,
-          }}
-        >
+    <AccountSettingsContainer>
+      <ProfileContainer>
+        <ProfileAvatar src={profileImage || ''} alt={name} />
+        <AvatarButton color="primary">
           <input
             hidden
             accept="image/*"
@@ -66,8 +65,8 @@ const AccountSettings: FC = () => {
             onChange={handleImageChange}
           />
           {isPending ? <CircularProgress size={24} /> : <PhotoCamera />}
-        </IconButton>
-      </Box>
+        </AvatarButton>
+      </ProfileContainer>
 
       <TextFieldsContainer>
         <CustomTextField
@@ -77,7 +76,6 @@ const AccountSettings: FC = () => {
           onChange={(e) => {
             setName(e.target.value);
             setNameError(false);
-            // if (error) setError(null);
           }}
           error={nameError}
           helperText={
@@ -105,20 +103,21 @@ const AccountSettings: FC = () => {
         />
       </TextFieldsContainer>
 
-      <SaveButton
-        variant="contained"
-        sx={{ mt: 3 }}
-        fullWidth
-        startIcon={
-          <CustomIcon>
-            <Check />
-          </CustomIcon>
-        }
-        onClick={() => handleSave()}
-      >
-        {t('modal.save')}
-      </SaveButton>
-    </Box>
+      <ButtonsGroupWrapper>
+        <SaveButton
+          variant="contained"
+          fullWidth
+          startIcon={
+            <CustomIcon>
+              <Check />
+            </CustomIcon>
+          }
+          onClick={handleSave}
+        >
+          {t('modal.save')}
+        </SaveButton>
+      </ButtonsGroupWrapper>
+    </AccountSettingsContainer>
   );
 };
 
