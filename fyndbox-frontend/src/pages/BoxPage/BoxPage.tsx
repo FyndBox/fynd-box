@@ -28,6 +28,7 @@ import { EntityType } from '../../types/entityTypes';
 import EntityActionModal from '../../components/modal/EntityActionModal';
 import QRScanner from '../../components/QRScanner/QRScanner';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import { useFooterActions } from '../../hooks/useFooterActions';
 
 const BoxPage: FC = () => {
   const { t } = useTranslation();
@@ -40,8 +41,16 @@ const BoxPage: FC = () => {
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
   const [entityType, setEntityType] = useState<EntityType>('item');
   const [editingData, setEditingData] = useState<any | null>(null);
-  const [showQRScanner, setShowQRScanner] = useState(false);
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const {
+    handleFavoriteClick,
+    handleScanClick,
+    handleScanSuccess,
+    handleCancelScan,
+    handleSettingsClick,
+    handleCloseSidebar,
+    showQRScanner,
+    isSidebarOpen,
+  } = useFooterActions();
 
   // Fetch storage details using storageId
   const {
@@ -71,20 +80,6 @@ const BoxPage: FC = () => {
   const { mutate: createItem } = useCreateItem();
   const { mutate: updateItem } = useUpdateItem();
   const { mutate: deleteItem } = useDeleteItem();
-
-  const handleScanSuccess = (data: string) => {
-    setTimeout(() => {
-      setShowQRScanner(false);
-      const url = new URL(data);
-      const path = url.pathname;
-
-      navigate(path, { replace: true });
-    }, 500);
-  };
-
-  const handleCancelScan = () => {
-    setShowQRScanner(false); // Hide QR Scanner on cancel
-  };
 
   if (!storageId || !boxId) {
     return <div>Error: Storage ID or Box ID is missing.</div>;
@@ -217,23 +212,6 @@ const BoxPage: FC = () => {
         }, 500);
       }
     }, 300);
-  };
-
-  const handleFavoriteClick = () => {
-    console.log('Favorite button clicked');
-    // Iimplement and Navigate to favorites page
-  };
-
-  const handleScanClick = () => {
-    setShowQRScanner(true);
-  };
-
-  const handleSettingsClick = () => {
-    setSidebarOpen(true);
-  };
-
-  const handleCloseSidebar = () => {
-    setSidebarOpen(false);
   };
 
   return (
