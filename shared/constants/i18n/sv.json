@@ -48,7 +48,7 @@
       "placeholder": "Sök"
     },
     "entity": {
-      "addStorage": "Lägg till enhet",
+      "addStorage": "Lägg till lagring",
       "addBox": "Lägg till låda",
       "addItem": "Lägg till artikel"
     },
@@ -59,22 +59,22 @@
     }
   },
   "settings": {
-    "account": {
-      "title": "Account Settings"
+    "account" : {
+      "title": "Kontoinställningar" 
     },
     "security": {
-      "title": "Security Settings"
+      "title": "Inloggning och säkerhet"
     },
-    "about": {
-      "title": "About Fyndbox"
+    "about" : {
+      "title": "Om Fyndbox"
     }
   },
-  "qrCode": {
-    "title": "Scan the QR Code",
-    "error": "Unable to scan QR code. Please try again.",
+  "qrCode":{
+    "title":"Skanna QR-koden",
+    "error": "Det gick inte att skanna QR-koden. Försök igen.",
     "attemptError": "Failed to scan QR code after several attempts.",
-    "noQrCodeFound": "No QR Code found. Please try again.",
-    "noCameraFound": "No camera found."
+    "noQrCodeFound": "Det gick inte att skanna QR-koden efter flera försök.",
+    "noCameraFound": "Ingen kamera hittades."
   },
   "sidebar": {
     "title": "Välkommen {{user}}",
@@ -108,9 +108,9 @@
     "add": "Lägg till {{type}}",
     "edit": "Edit {{type}}",
     "delete": "Ta bort",
-    "cancel": "Cancel",
-    "save": "Spara",
-    "image": {
+    "cancel": "Ångra",
+    "save":"Spara",
+    "image":{
       "label": "Bild"
     },
     "name": {
