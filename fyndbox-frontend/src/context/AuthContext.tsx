@@ -7,7 +7,11 @@ import {
   useRef,
 } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { login as loginApi, signup as signupApi, updatePassword as updatePasswordApi } from '../api/authService';
+import {
+  login as loginApi,
+  signup as signupApi,
+  updatePassword as updatePasswordApi,
+} from '../api/authService';
 
 const getTokenFromLocalStorage = (): string | null => {
   try {
@@ -144,15 +148,8 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setLoading(true);
 
     try {
-      const { access_token } = await updatePasswordApi(
-        currentPassword,
-        newPassword,
-      );
-      setToken(access_token);
-      setTokenInLocalStorage(access_token);
-      startLogoutTimer();
-
-      return true; // Indicating success
+      await updatePasswordApi(currentPassword, newPassword);
+      return true;
     } catch (err) {
       setError(
         err instanceof Error ? err.message : 'An unknown error occurred',

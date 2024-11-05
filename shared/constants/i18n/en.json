@@ -59,18 +59,18 @@
     }
   },
   "settings": {
-    "account" : {
-      "title": "Account Settings" 
+    "account": {
+      "title": "Account Settings"
     },
     "security": {
       "title": "Security Settings"
     },
-    "about" : {
+    "about": {
       "title": "About Fyndbox"
     }
   },
-  "qrCode":{
-    "title":"Scan the QR Code",
+  "qrCode": {
+    "title": "Scan the QR Code",
     "error": "Unable to scan QR code. Please try again.",
     "attemptError": "Failed to scan QR code after several attempts.",
     "noQrCodeFound": "No QR Code found. Please try again.",
@@ -286,14 +286,10 @@
       }
     }
   },
-  "securitysettings": {
+  "security": {
     "title": "Security Settings",
     "savePassword": "Save Password",
     "currentPassword": "Current Password",
-    "newPassword": "New Password",
-    "incorrectCurrentPassword": "Incorrect Current Password",
-    "passwordUpdateSuccess": "Password Update Success",
-    "incorrectPasswordError": "Incorrect Password Error",
-    "updatepassErrorMessage": "* Please enter a valid password: \n - Must contain 8-20 characters \n - Must contain at least one letter \n - Must contain at least one number \n - Must contain at least one special character (only @$!%*#?& are allowed)"
+    "newPassword": "New Password"
   }
 }

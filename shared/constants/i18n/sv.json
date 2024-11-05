@@ -1,4 +1,4 @@
-{   
+{
   "home": {
     "title": "Välkommen till FyndBox",
     "description": "Vi erbjuder en effektiv och smidig lösning för att få fullständig kontroll över ditt lager. Med vår webbplatform kan du enkelt organisera och hantera dina inventarier genom att lägga till lådor och ange bilder samt antal för varje objekt.",
@@ -53,30 +53,30 @@
       "addItem": "Lägg till artikel"
     },
     "footer": {
-      "favorite":"Favoriter",
+      "favorite": "Favoriter",
       "scan": "Scan",
       "settings": "Inställningar"
     }
   },
   "settings": {
-    "account" : {
-      "title": "Account Settings" 
+    "account": {
+      "title": "Account Settings"
     },
     "security": {
       "title": "Security Settings"
     },
-    "about" : {
+    "about": {
       "title": "About Fyndbox"
     }
   },
-  "qrCode":{
-    "title":"Scan the QR Code",
+  "qrCode": {
+    "title": "Scan the QR Code",
     "error": "Unable to scan QR code. Please try again.",
     "attemptError": "Failed to scan QR code after several attempts.",
     "noQrCodeFound": "No QR Code found. Please try again.",
     "noCameraFound": "No camera found."
   },
-  "sidebar":{
+  "sidebar": {
     "title": "Välkommen {{user}}",
     "logout": "Logga ut",
     "deactivate": "Inaktivera konto",
@@ -109,8 +109,8 @@
     "edit": "Edit {{type}}",
     "delete": "Ta bort",
     "cancel": "Cancel",
-    "save":"Spara",
-    "image":{
+    "save": "Spara",
+    "image": {
       "label": "Bild"
     },
     "name": {
@@ -131,28 +131,28 @@
     "deleteConfirmation": "Är du säker på att du vill ta bort {{type}}? Denna åtgärd kan inte ångras"
   },
   "types": {
-      "storage": "Lagring",
-      "box": "Låda",
-      "item": "Artikel"
+    "storage": "Lagring",
+    "box": "Låda",
+    "item": "Artikel"
   },
-  "common":{
+  "common": {
     "email": {
       "label": "E-postadress",
       "placeholder": "exempel@domän.com",
       "errorMessage": "* Vänligen ange giltig e-postadress"
-      },
+    },
     "password": {
       "label": "Lösenord",
       "placeholder": "",
       "loginErrorMessage": "* Lösenord krävs",
       "signupErrorMessage": "* Vänligen ange ett giltigt lösenord: \n - Måste innehålla 8-20 tecken \n - Måste innehålla minst en bokstav \n - Måste innehålla minst en siffra \n - Måste innehålla minst ett specialtecken (endast @$!%*#?& är tillåtna)"
-    }, 
-    "language":{
+    },
+    "language": {
       "option1": "Svenska",
       "option2": "English"
     },
     "notifications": {
-      "noBoxForStorage" : "Inga lådor hittades för denna lagring"
+      "noBoxForStorage": "Inga lådor hittades för denna lagring"
     },
     "loading": "Loading ..."
   },
@@ -215,7 +215,7 @@
         "error": "Det gick inte att hämta lagringsutrymme"
       },
       "create": {
-        "success": "Lagring har skapats", 
+        "success": "Lagring har skapats",
         "error": "Det gick inte att skapa lagring"
       },
       "update": {
@@ -278,18 +278,18 @@
       "notFoundById": "Artikel med ID {{id}} hittades inte",
       "boxIDRequired": "Låda ID krävs för uppdateringen"
     },
-    "images":{
+    "images": {
       "upload": {
         "success": "Bilden har laddats upp",
         "error": "Det gick inte att ladda upp bilden",
         "noFileProvided": "Ingen fil laddad upp"
       }
     }
+  },
+  "security": {
+    "title": "Security Settings",
+    "savePassword": "Save Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password"
   }
 }
-
-
-
-
-
-  

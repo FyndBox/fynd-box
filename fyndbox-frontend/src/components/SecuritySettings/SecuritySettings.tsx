@@ -4,13 +4,13 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import { isPasswordValid } from '../../utils/validation';
-import PageHeader from '../../components/PageHeader/PageHeader';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
-import { FullPageContainer, TextFieldsContainer } from '../../styles/commonStyles';
+import { TextFieldsContainer } from '../../styles/commonStyles';
 import { ButtonsGroupWrapper } from '../../styles/commonStyles';
 import { SaveButton } from '../ActionButtonsGroup/ActionButtonsGroup.styles';
+import { SecuritySettingsContainer } from './SecuritySettings.styles';
 
-export const SecuritySetting = () => {
+export const SecuritySettings = () => {
   const { t } = useTranslation();
   const { updatePassword, error, setError } = useAuth();
 
@@ -21,42 +21,26 @@ export const SecuritySetting = () => {
   const [newPasswordError, setNewPasswordError] = useState(false);
 
   const handlePasswordUpdate = async () => {
-    // Reset error states
     setCurrentPasswordError(false);
     setNewPasswordError(false);
     setError(null);
 
-    // Validate inputs
-    const isCurrentPasswordValid = currentPassword.trim() !== '';
-    const isNewPasswordValid = isPasswordValid(newPassword);
-
-    setCurrentPasswordError(!isCurrentPasswordValid);
-    setNewPasswordError(!isNewPasswordValid);
-
-    if (!isCurrentPasswordValid || !isNewPasswordValid) return;
-
-    // Attempt to update password
-    try {
+    if (isPasswordValid(newPassword)) {
       const success = await updatePassword(currentPassword, newPassword);
-      if (!success) {
+      if (success) {
         setCurrentPasswordError(true);
         alert(t('securitysettings.incorrectCurrentPassword'));
         return;
       }
-
-      alert(t('securitysettings.passwordUpdateSuccess'));
-    } catch (err) {
-      alert(t('securitysettings.passwordUpdateError'));
     }
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
+    setShowPassword(!showPassword);
   };
 
   return (
-    <FullPageContainer>
-      <PageHeader heading={t('securitysettings.title')} />
+    <SecuritySettingsContainer>
       <TextFieldsContainer>
         <CustomTextField
           label={t('securitysettings.currentPassword')}
@@ -69,9 +53,7 @@ export const SecuritySetting = () => {
           }}
           error={currentPasswordError}
           helperText={
-            currentPasswordError
-              ? t('securitysettings.incorrectPasswordError')
-              : ''
+            currentPasswordError ? t('common.password.loginErrorMessage') : ''
           }
           startIcon={<Lock />}
           endIcon={
@@ -92,7 +74,7 @@ export const SecuritySetting = () => {
           }}
           error={newPasswordError}
           helperText={
-            newPasswordError ? t('securitysettings.updatepassErrorMessage') : ''
+            newPasswordError ? t('common.password.loginErrorMessage') : ''
           }
           startIcon={<Lock />}
           endIcon={
@@ -104,12 +86,16 @@ export const SecuritySetting = () => {
       </TextFieldsContainer>
 
       <ButtonsGroupWrapper>
-        <SaveButton variant="contained" fullWidth onClick={handlePasswordUpdate}>
+        <SaveButton
+          variant="contained"
+          fullWidth
+          onClick={handlePasswordUpdate}
+        >
           {t('securitysettings.savePassword')}
         </SaveButton>
       </ButtonsGroupWrapper>
-    </FullPageContainer>
+    </SecuritySettingsContainer>
   );
 };
 
-export default SecuritySetting;
+export default SecuritySettings;
