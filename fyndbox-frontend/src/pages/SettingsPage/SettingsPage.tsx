@@ -11,6 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
+import AboutUs from '../../components/AboutUs/AboutUs';
 
 const SettingsPage: FC = () => {
   const location = useLocation();
@@ -47,11 +48,7 @@ const SettingsPage: FC = () => {
         );
       case 'about':
         return (
-          <Box>
-            <Typography variant="body1" mt={2}>
-              Company information goes here.
-            </Typography>
-          </Box>
+          <AboutUs/>
         );
       default:
         return (

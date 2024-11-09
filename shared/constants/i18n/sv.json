@@ -66,7 +66,18 @@
       "title": "Inloggning och säkerhet"
     },
     "about" : {
-      "title": "Om Fyndbox"
+      "title": "Om Fyndbox",
+      "welcomeText": "Välkommen till Fyndbox – din smarta lösning för att skapa ordning och struktur bland dina saker! \n Fyndbox är appen som hjälper dig att enkelt organisera, katalogisera och hålla koll på alla dina tillhörigheter, oavsett om de finns på vinden, i förrådet, garaget eller i källaren. Med Fyndbox slipper du slösa tid på att leta, och du får en klar översikt över var allt finns med bara ett par tryck på skärmen.",
+      "addUnitTitle": "Lägg till en enhet",
+      "addUnitText": "Börja med att skapa en plats för dina saker exempelvis vinden, garaget eller förrådet. Genom att ange platser får du enkelt en struktur för var lådorna finns och kan hålla bättre koll på var dina saker förvaras.",
+      "createBoxTitle": "Skapa en låda",
+      "createBoxText": "Skapa lådor som representerar olika kategorier, områden eller teman. Varje låda kan namnges efter vad den innehåller, vilket gör att du kan hålla sakerna organiserade på ett smidigt sätt.",
+      "addItemTitle" : "Lägg till artiklar i lådan",
+      "addItemText": "Lägg till de artiklar du vill förvara i varje låda. Det här ger dig en tydlig bild av exakt vad som finns i varje låda och minimerar risken att något faller i glömska.",
+      "printQRcodeTitle": "Skriv ut en QR-kod för din låda",
+      "printQRcodeText": "Fyndbox låter dig spara eller skriva ut en QR-kod för varje låda. Fäst QR-koden på lådan och du kan enkelt scanna den för att direkt se lådans innehåll i appen – perfekt när du snabbt vill få koll på vad som finns var.",
+      "withFyndboxText": "Med Fyndbox får du en översiktlig och strukturerad förvaring av alla dina prylar. Organisera smart och hitta dina saker snabbare allt i en och samma app.",
+      "contactUsText": "Kontakta oss gärna via info@fyndbox.com om du har några frågor eller funderingar!"
     }
   },
   "qrCode":{
