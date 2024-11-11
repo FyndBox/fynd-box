@@ -45,7 +45,6 @@ export const SignupPage = () => {
     if (isNameValid(name) && isEmailValid(email) && isPasswordValid(password)) {
       const success = await signup(name, email, password);
       if (success) {
-        alert('Signup successful!');
         navigate('/dashboard');
       }
     }
@@ -61,8 +60,8 @@ export const SignupPage = () => {
       <PageHeader heading={t('signup.title')} />
       <TextFieldsContainer>
         <CustomTextField
-          label={t('signup.name.label')}
-          placeholder={t('signup.name.placeholder')}
+          label={t('common.name.label')}
+          placeholder={t('common.name.placeholder')}
           value={name}
           onChange={(e) => {
             setName(e.target.value);
@@ -72,7 +71,7 @@ export const SignupPage = () => {
           error={nameError}
           helperText={
             nameError
-              ? t('signup.name.errorMessage')
+              ? t('common.name.errorMessage')
                   .split('\n')
                   .map((line, index) => (
                     <span key={index}>

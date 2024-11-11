@@ -1,17 +1,22 @@
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
-import { isPasswordValid } from '../../utils/validation';
+import {
+  isPasswordValid,
+  isPasswordValidForLogin,
+} from '../../utils/validation';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
 import { TextFieldsContainer } from '../../styles/commonStyles';
 import { ButtonsGroupWrapper } from '../../styles/commonStyles';
 import { SaveButton } from '../ActionButtonsGroup/ActionButtonsGroup.styles';
 import { SecuritySettingsContainer } from './SecuritySettings.styles';
+import { useNavigate } from 'react-router-dom';
 
 export const SecuritySettings = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { updatePassword, error, setError } = useAuth();
 
   const [currentPassword, setCurrentPassword] = useState('');
@@ -21,16 +26,16 @@ export const SecuritySettings = () => {
   const [newPasswordError, setNewPasswordError] = useState(false);
 
   const handlePasswordUpdate = async () => {
-    setCurrentPasswordError(false);
-    setNewPasswordError(false);
-    setError(null);
+    setCurrentPasswordError(!isPasswordValidForLogin(currentPassword));
+    setNewPasswordError(!isPasswordValid(newPassword));
 
-    if (isPasswordValid(newPassword)) {
+    if (
+      isPasswordValid(newPassword) &&
+      isPasswordValidForLogin(currentPassword)
+    ) {
       const success = await updatePassword(currentPassword, newPassword);
       if (success) {
-        setCurrentPasswordError(true);
-        alert(t('securitysettings.incorrectCurrentPassword'));
-        return;
+        navigate('/dashboard');
       }
     }
   };
@@ -43,7 +48,7 @@ export const SecuritySettings = () => {
     <SecuritySettingsContainer>
       <TextFieldsContainer>
         <CustomTextField
-          label={t('securitysettings.currentPassword')}
+          label={t('settings.security.currentPassword')}
           type={showPassword ? 'text' : 'password'}
           value={currentPassword}
           onChange={(e) => {
@@ -62,9 +67,8 @@ export const SecuritySettings = () => {
             </IconButton>
           }
         />
-
         <CustomTextField
-          label={t('securitysettings.newPassword')}
+          label={t('settings.security.newPassword')}
           type={showPassword ? 'text' : 'password'}
           value={newPassword}
           onChange={(e) => {
@@ -74,7 +78,16 @@ export const SecuritySettings = () => {
           }}
           error={newPasswordError}
           helperText={
-            newPasswordError ? t('common.password.loginErrorMessage') : ''
+            newPasswordError
+              ? t('common.password.signupErrorMessage')
+                  .split('\n')
+                  .map((line, index) => (
+                    <span key={index}>
+                      {line}
+                      <br />
+                    </span>
+                  ))
+              : ''
           }
           startIcon={<Lock />}
           endIcon={
@@ -84,16 +97,20 @@ export const SecuritySettings = () => {
           }
         />
       </TextFieldsContainer>
-
       <ButtonsGroupWrapper>
         <SaveButton
           variant="contained"
           fullWidth
           onClick={handlePasswordUpdate}
         >
-          {t('securitysettings.savePassword')}
+          {t('settings.security.savePassword')}
         </SaveButton>
       </ButtonsGroupWrapper>
+      {error && (
+        <Typography variant="caption" color="error">
+          {error}
+        </Typography>
+      )}
     </SecuritySettingsContainer>
   );
 };

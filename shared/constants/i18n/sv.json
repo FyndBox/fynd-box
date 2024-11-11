@@ -10,12 +10,7 @@
   },
   "signup": {
     "title": "Skapa nytt konto",
-    "submit": "Bli medlem",
-    "name": {
-      "label": "Namn",
-      "placeholder": "John Doe",
-      "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
-    }
+    "submit": "Bli medlem"
   },
   "userGuide": {
     "title": "Så här fungerar det",
@@ -63,7 +58,10 @@
       "title": "Kontoinställningar" 
     },
     "security": {
-      "title": "Inloggning och säkerhet"
+      "title": "Säkerhetsinställningar",
+      "savePassword": "Spara lösenord",
+      "currentPassword": "Aktuellt lösenord",
+      "newPassword": "Nytt lösenord"
     },
     "about" : {
       "title": "Om Fyndbox"
@@ -87,8 +85,8 @@
         "section": "account"
       },
       {
-        "text": "Inloggning och säkerhet",
-        "icon": "lock",
+        "text": "Säkerhetsinställningar",
+        "icon": "security",
         "section": "security"
       },
       {
@@ -136,6 +134,11 @@
     "item": "Artikel"
   },
   "common": {
+    "name": {
+      "label": "Namn",
+      "placeholder": "John Doe",
+      "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
+    },
     "email": {
       "label": "E-postadress",
       "placeholder": "exempel@domän.com",
@@ -285,11 +288,5 @@
         "noFileProvided": "Ingen fil laddad upp"
       }
     }
-  },
-  "security": {
-    "title": "Security Settings",
-    "savePassword": "Save Password",
-    "currentPassword": "Current Password",
-    "newPassword": "New Password"
   }
 }

@@ -10,12 +10,7 @@
   },
   "signup": {
     "title": "Create new account",
-    "submit": "Become a Member",
-    "name": {
-      "label": "Name",
-      "placeholder": "John Doe",
-      "errorMessage": "* Please enter a valid name: \n - The name must contain only letters and spaces \n - The name must be 3-50 characters long"
-    }
+    "submit": "Become a Member"
   },
   "userGuide": {
     "title": "This is how it works",
@@ -63,7 +58,10 @@
       "title": "Account Settings"
     },
     "security": {
-      "title": "Security Settings"
+      "title": "Security Settings",
+      "savePassword": "Save password",
+      "currentPassword": "Current password",
+      "newPassword": "New password"
     },
     "about": {
       "title": "About Fyndbox"
@@ -87,8 +85,8 @@
         "section": "account"
       },
       {
-        "text": "Login and Security",
-        "icon": "lock",
+        "text": "Security Settings",
+        "icon": "security",
         "section": "security"
       },
       {
@@ -136,6 +134,11 @@
     "item": "Item"
   },
   "common": {
+    "name": {
+      "label": "Name",
+      "placeholder": "John Doe",
+      "errorMessage": "* Please enter a valid name: \n - The name must contain only letters and spaces \n - The name must be 3-50 characters long"
+    },
     "email": {
       "label": "Email",
       "placeholder": "example@domain.com",
@@ -285,11 +288,5 @@
         "noFileProvided": "No file uploaded"
       }
     }
-  },
-  "security": {
-    "title": "Security Settings",
-    "savePassword": "Save Password",
-    "currentPassword": "Current Password",
-    "newPassword": "New Password"
   }
 }
