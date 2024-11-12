@@ -109,7 +109,7 @@ export const SignupPage = () => {
           error={passwordError}
           helperText={
             passwordError
-              ? t('common.password.signupErrorMessage')
+              ? t('common.password.invalidPasswordError')
                   .split('\n')
                   .map((line, index) => (
                     <span key={index}>

@@ -77,7 +77,7 @@ const LoginPage: FC = () => {
           }}
           error={passwordError}
           helperText={
-            passwordError ? t('common.password.loginErrorMessage') : ''
+            passwordError ? t('common.password.passwordRequiredError') : ''
           }
           startIcon={<Lock />}
           endIcon={

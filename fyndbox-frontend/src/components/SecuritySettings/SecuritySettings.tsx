@@ -52,7 +52,9 @@ export const SecuritySettings = () => {
           }}
           error={currentPasswordError}
           helperText={
-            currentPasswordError ? t('common.password.loginErrorMessage') : ''
+            currentPasswordError
+              ? t('common.password.passwordRequiredError')
+              : ''
           }
           startIcon={<Lock />}
           endIcon={
@@ -73,7 +75,7 @@ export const SecuritySettings = () => {
           error={newPasswordError}
           helperText={
             newPasswordError
-              ? t('common.password.signupErrorMessage')
+              ? t('common.password.invalidPasswordError')
                   .split('\n')
                   .map((line, index) => (
                     <span key={index}>
