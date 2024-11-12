@@ -1,18 +1,18 @@
 import { FC } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import AccountSettings from '../../components/AccountSettings/AccountSettings';
 import SecuritySettings from '../../components/SecuritySettings/SecuritySettings';
+import AboutUs from '../../components/AboutUs/AboutUs';
 import {
   FullPageContainer,
   GoBackButton,
   StyledArrowBack,
 } from '../../styles/commonStyles';
-import { useTranslation } from 'react-i18next';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
-import AboutUs from '../../components/AboutUs/AboutUs';
 
 const SettingsPage: FC = () => {
   const location = useLocation();
@@ -36,9 +36,7 @@ const SettingsPage: FC = () => {
       case 'security':
         return <SecuritySettings />;
       case 'about':
-        return (
-          <AboutUs/>
-        );
+        return <AboutUs />;
       default:
         return (
           <Typography variant="h5">

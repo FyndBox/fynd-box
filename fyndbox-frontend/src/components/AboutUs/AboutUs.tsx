@@ -25,9 +25,6 @@ const AboutUs: FC = () => {
   ];
 
   const contactUsText = t('settings.about.contactUsText');
-  {
-    t('settings.about.email');
-  }
 
   const [beforeEmail, afterEmail] = contactUsText.split('{email}');
 
