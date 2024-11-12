@@ -2,6 +2,7 @@ import { IconButton, Typography } from '@mui/material';
 import { Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { isPasswordValid, isPasswordNonEmpty } from '../../utils/validation';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
@@ -9,7 +10,6 @@ import { TextFieldsContainer } from '../../styles/commonStyles';
 import { ButtonsGroupWrapper } from '../../styles/commonStyles';
 import { SaveButton } from '../ActionButtonsGroup/ActionButtonsGroup.styles';
 import { SecuritySettingsContainer } from './SecuritySettings.styles';
-import { useNavigate } from 'react-router-dom';
 
 export const SecuritySettings = () => {
   const { t } = useTranslation();
@@ -21,12 +21,18 @@ export const SecuritySettings = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [currentPasswordError, setCurrentPasswordError] = useState(false);
   const [newPasswordError, setNewPasswordError] = useState(false);
+  const [passwordMatchError, setPasswordMatchError] = useState(false);
 
   const handlePasswordUpdate = async () => {
-    setCurrentPasswordError(!isPasswordNonEmpty(currentPassword));
-    setNewPasswordError(!isPasswordValid(newPassword));
+    const isCurrentPasswordValid = isPasswordNonEmpty(currentPassword);
+    const isNewPasswordValid = isPasswordValid(newPassword);
+    const isDifferentPasswords = currentPassword !== newPassword;
 
-    if (isPasswordValid(newPassword) && isPasswordNonEmpty(currentPassword)) {
+    setCurrentPasswordError(!isCurrentPasswordValid);
+    setNewPasswordError(!isNewPasswordValid);
+    setPasswordMatchError(!isDifferentPasswords);
+
+    if (isCurrentPasswordValid && isNewPasswordValid && isDifferentPasswords) {
       const success = await updatePassword(currentPassword, newPassword);
       if (success) {
         navigate('/dashboard');
@@ -101,6 +107,11 @@ export const SecuritySettings = () => {
       {error && (
         <Typography variant="caption" color="error">
           {error}
+        </Typography>
+      )}
+      {passwordMatchError && (
+        <Typography variant="caption" color="error">
+          {t('settings.security.passwordMatchError')}
         </Typography>
       )}
     </SecuritySettingsContainer>

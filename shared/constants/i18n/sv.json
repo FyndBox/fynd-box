@@ -60,7 +60,8 @@
       "title": "Säkerhetsinställningar",
       "savePassword": "Spara lösenord",
       "currentPassword": "Aktuellt lösenord",
-      "newPassword": "Nytt lösenord"
+      "newPassword": "Nytt lösenord",
+      "passwordMatchError": "Det nya lösenordet måste skilja sig från det nuvarande lösenordet"
     },
     "about" : {
       "title": "Om Fyndbox",

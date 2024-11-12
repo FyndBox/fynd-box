@@ -60,7 +60,8 @@
       "title": "Security Settings",
       "savePassword": "Save password",
       "currentPassword": "Current password",
-      "newPassword": "New password"
+      "newPassword": "New password",
+      "passwordMatchError": "New password must be different from the current password"
     },
     "about" : {
       "title": "About Fyndbox",
