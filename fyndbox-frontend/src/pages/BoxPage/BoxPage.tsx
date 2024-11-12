@@ -24,7 +24,7 @@ import {
 } from '../../hooks/useItem';
 import EntityCard from '../../components/EntityCard/EntityCard';
 import { EntityType } from '../../types/entityTypes';
-import EntityActionModal from '../../components/modal/EntityActionModal';
+import EntityActionModal from '../../components/Modal/EntityActionModal';
 import QRScanner from '../../components/QRScanner/QRScanner';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import { useFooterActions } from '../../hooks/useFooterActions';

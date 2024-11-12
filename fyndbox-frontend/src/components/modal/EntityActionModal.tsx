@@ -1,24 +1,24 @@
 import { FC, useEffect, useState } from 'react';
 import { Modal, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import CustomTextField from '../../components/CustomTextField/CustomTextField';
-import ModalHeading from './ModalHeading';
-import ImageUploader from './ImageUploader';
+import { Close } from '@mui/icons-material';
+import CustomTextField from '../CustomTextField/CustomTextField';
 import { EntityType } from '../../types/entityTypes';
+import { TextFieldsContainer } from '../../styles/commonStyles';
+import ActionButtonsGroup from '../ActionButtonsGroup/ActionButtonsGroup';
+import ModalHeading from './ModalHeading';
 import {
+  ModalContainer,
   ModalBox,
   CancelButton,
   QuantityContainer,
-  ButtonContainer,
-  QuantityCounter,
   QuantityLabel,
+  ButtonContainer,
   StepperButton,
+  QuantityCounter,
   ActionButtonsContainer,
-  ModalContainer,
 } from './EntityActionModal.styles';
-import { TextFieldsContainer } from '../../styles/commonStyles';
-import { Close } from '@mui/icons-material';
-import ActionButtonsGroup from '../ActionButtonsGroup/ActionButtonsGroup';
+import ImageUploader from './ImageUploader';
 
 interface EntityActionModalProps {
   open: boolean;
