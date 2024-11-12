@@ -75,7 +75,8 @@
       "printQRcodeTitle": "Skriv ut en QR-kod för din låda",
       "printQRcodeText": "Fyndbox låter dig spara eller skriva ut en QR-kod för varje låda. Fäst QR-koden på lådan och du kan enkelt scanna den för att direkt se lådans innehåll i appen – perfekt när du snabbt vill få koll på vad som finns var.",
       "withFyndboxText": "Med Fyndbox får du en översiktlig och strukturerad förvaring av alla dina prylar. Organisera smart och hitta dina saker snabbare allt i en och samma app.",
-      "contactUsText": "Kontakta oss gärna via info@fyndbox.com om du har några frågor eller funderingar!"
+      "contactUsText": "Kontakta oss gärna via {email} om du har några frågor eller funderingar!",
+      "email": "info@fyndbox.com"
     }
   },
   "qrCode":{

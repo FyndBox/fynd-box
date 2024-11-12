@@ -75,7 +75,8 @@
       "printQRcodeTitle": "Print a QR Code for Your Box",
       "printQRcodeText": "Fyndbox allows you to save or print a QR code for each box. Attach the QR code to the box, and you can easily scan it to see the contents right in the app – perfect for quickly finding what you’re looking for.",
       "withFyndboxText": "With Fyndbox, you’ll enjoy a comprehensive and organized storage system for all your belongings. Organize smarter and locate your items faster – all in one app.",
-      "contactUsText": "Feel free to contact us at info@fyndbox.com if you have any questions or need support!"
+      "contactUsText": "Feel free to contact us at {email} if you have any questions or need support!",
+      "email": "info@fyndbox.com"
     }
   },
   "qrCode": {
