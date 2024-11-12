@@ -15,7 +15,6 @@
   "userGuide": {
     "title": "Så här fungerar det",
     "description": "Fyndbox erbjuder enkelt lösning för att få kontroll över ditt förvaring.",
-    "back": "Gå tillbaka",
     "guideSteps": {
       "stepOne": {
         "title": "Skapa Konto",
@@ -169,6 +168,7 @@
     "notifications": {
       "noBoxForStorage": "Inga lådor hittades för denna lagring"
     },
+    "back": "Gå tillbaka",
     "loading": "Loading ..."
   },
   "api": {

@@ -14,8 +14,7 @@
   },
   "userGuide": {
     "title": "This is how it works",
-    "description": "Findbox offers a simple solution to gain control over your storage.",
-    "back": "Go back",
+    "description": "Fyndbox offers a simple solution to gain control over your storage.",
     "guideSteps": {
       "stepOne": {
         "title": "Create Account",
@@ -169,6 +168,7 @@
     "notifications": {
       "noBoxForStorage": "No Boxes found for this storage"
     },
+    "back": "Go back",
     "loading": "Loading ..."
   },
   "api": {
