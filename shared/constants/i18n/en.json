@@ -1,4 +1,4 @@
-{   
+{
   "home": {
     "title": "Welcome to FyndBox",
     "description": "We offer an efficient and flexible solution to gain complete control over your inventory. With our web platform, you can easily organize and manage your inventory by adding boxes and specifying images and quantities for each item.",
@@ -7,15 +7,10 @@
   "login": {
     "title": "Log in",
     "submit": "Log in"
-  }, 
+  },
   "signup": {
     "title": "Create new account",
-    "submit": "Become a Member",
-    "name": {
-      "label": "Name",
-      "placeholder": "John Doe",
-      "errorMessage": "* Please enter a valid name: \n - The name must contain only letters and spaces \n - The name must be 3-50 characters long"
-    }
+    "submit": "Become a Member"
   },
   "userGuide": {
     "title": "This is how it works",
@@ -53,17 +48,20 @@
       "addItem": "Add item"
     },
     "footer": {
-      "favorite":"Favorites",
+      "favorite": "Favorites",
       "scan": "Scan",
       "settings": "Settings"
     }
   },
   "settings": {
-    "account" : {
-      "title": "Account Settings" 
+    "account": {
+      "title": "Account Settings"
     },
     "security": {
-      "title": "Security Settings"
+      "title": "Security Settings",
+      "savePassword": "Save password",
+      "currentPassword": "Current password",
+      "newPassword": "New password"
     },
     "about" : {
       "title": "About Fyndbox",
@@ -80,14 +78,14 @@
       "contactUsText": "Feel free to contact us at info@fyndbox.com if you have any questions or need support!"
     }
   },
-  "qrCode":{
-    "title":"Scan the QR Code",
+  "qrCode": {
+    "title": "Scan the QR Code",
     "error": "Unable to scan QR code. Please try again.",
     "attemptError": "Failed to scan QR code after several attempts.",
     "noQrCodeFound": "No QR Code found. Please try again.",
     "noCameraFound": "No camera found."
   },
-  "sidebar":{
+  "sidebar": {
     "title": "Welcome {{user}}",
     "logout": "Logout",
     "deactivate": "Deactivate account",
@@ -98,8 +96,8 @@
         "section": "account"
       },
       {
-        "text": "Login and Security",
-        "icon": "lock",
+        "text": "Security Settings",
+        "icon": "security",
         "section": "security"
       },
       {
@@ -120,8 +118,8 @@
     "edit": "Edit {{type}}",
     "delete": "Delete",
     "cancel": "Cancel",
-    "save":"Save",
-    "image":{
+    "save": "Save",
+    "image": {
       "label": "Image"
     },
     "name": {
@@ -142,28 +140,33 @@
     "deleteConfirmation": "Are you sure you want to delete {{type}}? This action cannot be undone"
   },
   "types": {
-      "storage": "Storage",
-      "box": "Box",
-      "item": "Item"
+    "storage": "Storage",
+    "box": "Box",
+    "item": "Item"
   },
-  "common":{
+  "common": {
+    "name": {
+      "label": "Name",
+      "placeholder": "John Doe",
+      "errorMessage": "* Please enter a valid name: \n - The name must contain only letters and spaces \n - The name must be 3-50 characters long"
+    },
     "email": {
       "label": "Email",
       "placeholder": "example@domain.com",
       "errorMessage": "* Please enter a valid email address"
-      },
+    },
     "password": {
       "label": "Password",
       "placeholder": "",
-      "loginErrorMessage": "* Password required",
-      "signupErrorMessage": "* Please enter a valid password: \n - Must contain 8-20 characters \n - Must contain at least one letter \n - Must contain at least one number \n - Must contain at least one special character (only @$!%*#?& are allowed)"
+      "passwordRequiredError": "* Password required",
+      "invalidPasswordError": "* Please enter a valid password: \n - Must contain 8-20 characters \n - Must contain at least one letter \n - Must contain at least one number \n - Must contain at least one special character (only @$!%*#?& are allowed)"
     },
-    "language":{
+    "language": {
       "option1": "Svenska",
       "option2": "English"
     },
     "notifications": {
-      "noBoxForStorage" : "No Boxes found for this storage"
+      "noBoxForStorage": "No Boxes found for this storage"
     },
     "loading": "Loading ..."
   },
@@ -175,7 +178,7 @@
           "invalidCredentials": "Invalid credentials"
         }
       },
-      "signup": { 
+      "signup": {
         "success": "User registered successfully",
         "error": {
           "registrationFailed": "Error registering user",
@@ -289,7 +292,7 @@
       "notFoundById": "Item with ID {{id}} not found",
       "boxIDRequired": "Box ID is required for the update"
     },
-    "images":{
+    "images": {
       "upload": {
         "success": "Image uploaded successfully",
         "error": "Image upload failed",
@@ -298,5 +301,3 @@
     }
   }
 }
-
-

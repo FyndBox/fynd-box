@@ -3,7 +3,7 @@ import { IconButton, Typography } from '@mui/material';
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { isEmailValid, isPasswordValidForLogin } from '../../utils/validation';
+import { isEmailValid, isPasswordNonEmpty } from '../../utils/validation';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
@@ -28,9 +28,9 @@ const LoginPage: FC = () => {
 
   const handleLoginClick = async () => {
     setEmailError(!isEmailValid(email));
-    setPasswordError(!isPasswordValidForLogin(password));
+    setPasswordError(!isPasswordNonEmpty(password));
 
-    if (isEmailValid(email) && isPasswordValidForLogin(password)) {
+    if (isEmailValid(email) && isPasswordNonEmpty(password)) {
       const success = await login(email, password);
 
       if (success) {
@@ -77,7 +77,7 @@ const LoginPage: FC = () => {
           }}
           error={passwordError}
           helperText={
-            passwordError ? t('common.password.loginErrorMessage') : ''
+            passwordError ? t('common.password.passwordRequiredError') : ''
           }
           startIcon={<Lock />}
           endIcon={

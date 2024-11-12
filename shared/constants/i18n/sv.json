@@ -1,4 +1,4 @@
-{   
+{
   "home": {
     "title": "Välkommen till FyndBox",
     "description": "Vi erbjuder en effektiv och smidig lösning för att få fullständig kontroll över ditt lager. Med vår webbplatform kan du enkelt organisera och hantera dina inventarier genom att lägga till lådor och ange bilder samt antal för varje objekt.",
@@ -10,12 +10,7 @@
   },
   "signup": {
     "title": "Skapa nytt konto",
-    "submit": "Bli medlem",
-    "name": {
-      "label": "Namn",
-      "placeholder": "John Doe",
-      "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
-    }
+    "submit": "Bli medlem"
   },
   "userGuide": {
     "title": "Så här fungerar det",
@@ -53,7 +48,7 @@
       "addItem": "Lägg till artikel"
     },
     "footer": {
-      "favorite":"Favoriter",
+      "favorite": "Favoriter",
       "scan": "Scan",
       "settings": "Inställningar"
     }
@@ -63,7 +58,10 @@
       "title": "Kontoinställningar" 
     },
     "security": {
-      "title": "Inloggning och säkerhet"
+      "title": "Säkerhetsinställningar",
+      "savePassword": "Spara lösenord",
+      "currentPassword": "Aktuellt lösenord",
+      "newPassword": "Nytt lösenord"
     },
     "about" : {
       "title": "Om Fyndbox",
@@ -87,7 +85,7 @@
     "noQrCodeFound": "Det gick inte att skanna QR-koden efter flera försök.",
     "noCameraFound": "Ingen kamera hittades."
   },
-  "sidebar":{
+  "sidebar": {
     "title": "Välkommen {{user}}",
     "logout": "Logga ut",
     "deactivate": "Inaktivera konto",
@@ -98,8 +96,8 @@
         "section": "account"
       },
       {
-        "text": "Inloggning och säkerhet",
-        "icon": "lock",
+        "text": "Säkerhetsinställningar",
+        "icon": "security",
         "section": "security"
       },
       {
@@ -142,28 +140,33 @@
     "deleteConfirmation": "Är du säker på att du vill ta bort {{type}}? Denna åtgärd kan inte ångras"
   },
   "types": {
-      "storage": "Lagring",
-      "box": "Låda",
-      "item": "Artikel"
+    "storage": "Lagring",
+    "box": "Låda",
+    "item": "Artikel"
   },
-  "common":{
+  "common": {
+    "name": {
+      "label": "Namn",
+      "placeholder": "John Doe",
+      "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
+    },
     "email": {
       "label": "E-postadress",
       "placeholder": "exempel@domän.com",
       "errorMessage": "* Vänligen ange giltig e-postadress"
-      },
+    },
     "password": {
       "label": "Lösenord",
       "placeholder": "",
-      "loginErrorMessage": "* Lösenord krävs",
-      "signupErrorMessage": "* Vänligen ange ett giltigt lösenord: \n - Måste innehålla 8-20 tecken \n - Måste innehålla minst en bokstav \n - Måste innehålla minst en siffra \n - Måste innehålla minst ett specialtecken (endast @$!%*#?& är tillåtna)"
-    }, 
-    "language":{
+      "passwordRequiredError": "* Lösenord krävs",
+      "invalidPasswordError": "* Vänligen ange ett giltigt lösenord: \n - Måste innehålla 8-20 tecken \n - Måste innehålla minst en bokstav \n - Måste innehålla minst en siffra \n - Måste innehålla minst ett specialtecken (endast @$!%*#?& är tillåtna)"
+    },
+    "language": {
       "option1": "Svenska",
       "option2": "English"
     },
     "notifications": {
-      "noBoxForStorage" : "Inga lådor hittades för denna lagring"
+      "noBoxForStorage": "Inga lådor hittades för denna lagring"
     },
     "loading": "Loading ..."
   },
@@ -226,7 +229,7 @@
         "error": "Det gick inte att hämta lagringsutrymme"
       },
       "create": {
-        "success": "Lagring har skapats", 
+        "success": "Lagring har skapats",
         "error": "Det gick inte att skapa lagring"
       },
       "update": {
@@ -289,7 +292,7 @@
       "notFoundById": "Artikel med ID {{id}} hittades inte",
       "boxIDRequired": "Låda ID krävs för uppdateringen"
     },
-    "images":{
+    "images": {
       "upload": {
         "success": "Bilden har laddats upp",
         "error": "Det gick inte att ladda upp bilden",
@@ -298,9 +301,3 @@
     }
   }
 }
-
-
-
-
-
-  
