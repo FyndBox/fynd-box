@@ -7,7 +7,11 @@ import {
   useRef,
 } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { login as loginApi, signup as signupApi } from '../api/authService';
+import {
+  login as loginApi,
+  signup as signupApi,
+  updatePassword as updatePasswordApi,
+} from '../api/authService';
 
 const getTokenFromLocalStorage = (): string | null => {
   try {
@@ -35,6 +39,10 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<boolean>;
   signup: (name: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
+  updatePassword: (
+    currentPassword: string,
+    newPassword: string,
+  ) => Promise<boolean>;
   isAuthenticated: boolean;
   error: string | null;
   setError: (error: string | null) => void;
@@ -132,6 +140,26 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     clearLogoutTimer();
   };
 
+  const updatePassword = async (
+    currentPassword: string,
+    newPassword: string,
+  ): Promise<boolean> => {
+    setError(null);
+    setLoading(true);
+
+    try {
+      await updatePasswordApi(currentPassword, newPassword);
+      return true;
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : 'An unknown error occurred',
+      );
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -139,6 +167,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         login,
         signup,
         logout,
+        updatePassword,
         isAuthenticated,
         error,
         setError,

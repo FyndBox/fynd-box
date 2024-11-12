@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import { Box, Typography, TextField, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import AccountSettings from '../../components/AccountSettings/AccountSettings';
+import SecuritySettings from '../../components/SecuritySettings/SecuritySettings';
 import {
   FullPageContainer,
   GoBackButton,
@@ -32,19 +33,7 @@ const SettingsPage: FC = () => {
       case 'account':
         return <AccountSettings />;
       case 'security':
-        return (
-          <Box>
-            <TextField
-              label="Password"
-              type="password"
-              fullWidth
-              margin="normal"
-            />
-            <Button variant="contained" color="primary">
-              Update Password
-            </Button>
-          </Box>
-        );
+        return <SecuritySettings />;
       case 'about':
         return (
           <Box>

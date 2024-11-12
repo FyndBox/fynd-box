@@ -1,6 +1,11 @@
 import { FC } from 'react';
 import { Box, Divider, Drawer, Typography } from '@mui/material';
-import { AccountCircle, Lock, Info, ChevronRight } from '@mui/icons-material';
+import {
+  AccountCircle,
+  Info,
+  ChevronRight,
+  Security,
+} from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import {
@@ -53,7 +58,7 @@ const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
 
   const iconMap: { [key: string]: JSX.Element } = {
     account_circle: <AccountCircle />,
-    lock: <Lock />,
+    security: <Security />,
     info: <Info />,
   };
 
