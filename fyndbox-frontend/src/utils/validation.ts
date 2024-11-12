@@ -17,12 +17,9 @@ export const isEmailValid = (email: string): boolean => {
 export const isPasswordValid = (password: string): boolean => {
   const passwordRegex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/;
-  if (!password || !passwordRegex.test(password)) {
-    return false;
-  }
-  return true;
+  return !!password && passwordRegex.test(password);
 };
 
-export const isPasswordValidForLogin = (password: string): boolean => {
-  return password.trim() !== '';
+export const isPasswordNonEmpty = (password: string): boolean => {
+  return password.trim().length > 0;
 };

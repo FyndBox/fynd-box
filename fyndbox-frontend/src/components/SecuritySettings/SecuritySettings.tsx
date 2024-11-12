@@ -3,10 +3,7 @@ import { Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
-import {
-  isPasswordValid,
-  isPasswordValidForLogin,
-} from '../../utils/validation';
+import { isPasswordValid, isPasswordNonEmpty } from '../../utils/validation';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
 import { TextFieldsContainer } from '../../styles/commonStyles';
 import { ButtonsGroupWrapper } from '../../styles/commonStyles';
@@ -26,13 +23,10 @@ export const SecuritySettings = () => {
   const [newPasswordError, setNewPasswordError] = useState(false);
 
   const handlePasswordUpdate = async () => {
-    setCurrentPasswordError(!isPasswordValidForLogin(currentPassword));
+    setCurrentPasswordError(!isPasswordNonEmpty(currentPassword));
     setNewPasswordError(!isPasswordValid(newPassword));
 
-    if (
-      isPasswordValid(newPassword) &&
-      isPasswordValidForLogin(currentPassword)
-    ) {
+    if (isPasswordValid(newPassword) && isPasswordNonEmpty(currentPassword)) {
       const success = await updatePassword(currentPassword, newPassword);
       if (success) {
         navigate('/dashboard');
