@@ -94,11 +94,7 @@ export const SecuritySettings = () => {
         />
       </TextFieldsContainer>
       <ButtonsGroupWrapper>
-        <SaveButton
-          variant="contained"
-          fullWidth
-          onClick={handlePasswordUpdate}
-        >
+        <SaveButton variant="contained" onClick={handlePasswordUpdate}>
           {t('settings.security.savePassword')}
         </SaveButton>
       </ButtonsGroupWrapper>

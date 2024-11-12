@@ -101,11 +101,7 @@ const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
           ))}
         </SidebarElementContainer>
         <ButtonsGroupWrapper>
-          <DeactivateButton
-            variant="contained"
-            onClick={handleDeactivate}
-            fullWidth
-          >
+          <DeactivateButton variant="contained" onClick={handleDeactivate}>
             {t('sidebar.deactivate')}
           </DeactivateButton>
           <LogoutButton variant="outlined" onClick={handleLogout} fullWidth>

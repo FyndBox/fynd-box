@@ -13,10 +13,12 @@ import {
   QuantityCounter,
   QuantityLabel,
   StepperButton,
+  ActionButtonsContainer,
+  ModalContainer,
 } from './EntityActionModal.styles';
 import { TextFieldsContainer } from '../../styles/commonStyles';
-import ActionButtonsGroup from '../ActionButtonsGroup/ActionButtonsGroup';
 import { Close } from '@mui/icons-material';
+import ActionButtonsGroup from '../ActionButtonsGroup/ActionButtonsGroup';
 
 interface EntityActionModalProps {
   open: boolean;
@@ -94,84 +96,87 @@ const EntityActionModal: FC<EntityActionModalProps> = ({
 
   return (
     <Modal open={open} onClose={onClose}>
-      <ModalBox>
-        <CancelButton onClick={onClose}>
-          <Close />
-        </CancelButton>
+      <ModalContainer>
+        <ModalBox>
+          <CancelButton onClick={onClose}>
+            <Close />
+          </CancelButton>
 
-        <ModalHeading mode={mode} type={entityType} />
+          <ModalHeading mode={mode} type={entityType} />
 
-        <TextFieldsContainer>
-          <CustomTextField
-            label={t('modal.name.label')}
-            placeholder={t('modal.name.placeholder')}
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-              setNameError(false);
-              if (error) setError(null);
+          <TextFieldsContainer>
+            <CustomTextField
+              label={t('modal.name.label')}
+              placeholder={t('modal.name.placeholder')}
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                setNameError(false);
+                if (error) setError(null);
+              }}
+              error={nameError}
+              helperText={
+                nameError
+                  ? t('modal.name.errorMessage', {
+                      type: t(`types.${entityType}`),
+                    })
+                      .split('\n')
+                      .map((line, index) => (
+                        <span key={index}>
+                          {line}
+                          <br />
+                        </span>
+                      ))
+                  : ''
+              }
+            />
+            <CustomTextField
+              label={t('modal.description.label')}
+              placeholder={t('modal.description.placeholder')}
+              value={description}
+              multiline
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
+            />
+          </TextFieldsContainer>
+
+          {/* Quantity Counter */}
+          {entityType === 'item' && (
+            <QuantityContainer>
+              <QuantityLabel variant="body1">
+                {t('modal.quantity.label')}
+              </QuantityLabel>
+              <ButtonContainer>
+                <StepperButton onClick={handleDecrease}>-</StepperButton>
+                <QuantityCounter variant="body1">{quantity}</QuantityCounter>
+                <StepperButton onClick={handleIncrease}>+</StepperButton>
+              </ButtonContainer>
+            </QuantityContainer>
+          )}
+
+          <ImageUploader
+            label={t('modal.image.label')}
+            initialImage={image}
+            onImageUpload={(uploadedImage) => {
+              setImage(uploadedImage ?? '');
             }}
-            error={nameError}
-            helperText={
-              nameError
-                ? t('modal.name.errorMessage', {
-                    type: t(`types.${entityType}`),
-                  })
-                    .split('\n')
-                    .map((line, index) => (
-                      <span key={index}>
-                        {line}
-                        <br />
-                      </span>
-                    ))
-                : ''
-            }
           />
-          <CustomTextField
-            label={t('modal.description.label')}
-            placeholder={t('modal.description.placeholder')}
-            value={description}
-            multiline
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-          />
-        </TextFieldsContainer>
-
-        {/* Quantity Counter */}
-        {entityType === 'item' && (
-          <QuantityContainer>
-            <QuantityLabel variant="body1">
-              {t('modal.quantity.label')}
-            </QuantityLabel>
-            <ButtonContainer>
-              <StepperButton onClick={handleDecrease}>-</StepperButton>
-              <QuantityCounter variant="body1">{quantity}</QuantityCounter>
-              <StepperButton onClick={handleIncrease}>+</StepperButton>
-            </ButtonContainer>
-          </QuantityContainer>
-        )}
-
-        <ImageUploader
-          label={t('modal.image.label')}
-          initialImage={image}
-          onImageUpload={(uploadedImage) => {
-            setImage(uploadedImage ?? '');
-          }}
-        />
-
-        <ActionButtonsGroup
-          showDeleteButton={mode === 'edit'}
-          entityType={entityType}
-          onSaveClick={handleSave}
-          onDeleteClick={onDelete}
-        />
-        {error && (
-          <Typography variant="caption" color="error">
-            {error}
-          </Typography>
-        )}
-      </ModalBox>
+          <ActionButtonsContainer>
+            <ActionButtonsGroup
+              showDeleteButton={mode === 'edit'}
+              entityType={entityType}
+              onSaveClick={handleSave}
+              onDeleteClick={onDelete}
+            />
+          </ActionButtonsContainer>
+          {error && (
+            <Typography variant="caption" color="error">
+              {error}
+            </Typography>
+          )}
+        </ModalBox>
+      </ModalContainer>
     </Modal>
   );
 };

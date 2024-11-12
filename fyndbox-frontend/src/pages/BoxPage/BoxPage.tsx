@@ -289,11 +289,7 @@ const BoxPage: FC = () => {
 
       {/* QR Code Button */}
       <ButtonContainer>
-        <PrintQRButton
-          fullWidth
-          variant="contained"
-          onClick={handlePrintQRCode}
-        >
+        <PrintQRButton variant="contained" onClick={handlePrintQRCode}>
           {t('box.printQRcode')}
         </PrintQRButton>
       </ButtonContainer>

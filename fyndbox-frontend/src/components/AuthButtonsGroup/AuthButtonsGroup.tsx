@@ -20,12 +20,12 @@ const AuthButtonsGroup: FC<AuthButtonsGroupProps> = ({
   return (
     <ButtonsGroupWrapper>
       {showLoginButton && (
-        <LoginButton fullWidth variant="contained" onClick={onLoginClick}>
+        <LoginButton variant="contained" onClick={onLoginClick}>
           {t('login.submit')}
         </LoginButton>
       )}
       {showRegisterButton && (
-        <RegisterButton fullWidth variant="outlined" onClick={onRegisterClick}>
+        <RegisterButton variant="outlined" onClick={onRegisterClick}>
           {t('signup.submit')}
         </RegisterButton>
       )}

@@ -1,5 +1,18 @@
 import { Box, Button, IconButton, styled, Typography } from '@mui/material';
 
+export const ModalContainer = styled(Box)(({}) => ({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 1300,
+}));
+
 export const ModalBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
   position: 'absolute',
@@ -11,6 +24,8 @@ export const ModalBox = styled(Box)(({ theme }) => ({
   borderRadius: '16px',
   padding: theme.spacing(2),
   textAlign: 'center',
+  maxHeight: '90vh',
+  overflowY: 'auto',
 }));
 
 export const CancelButton = styled(IconButton)(({ theme }) => ({
@@ -85,4 +100,15 @@ export const StepperButton = styled(Button)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
   },
   borderRadius: 0,
+}));
+
+export const ActionButtonsContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  padding: theme.spacing(2, 0),
+  position: 'sticky',
+  bottom: 0,
+  backgroundColor: theme.palette.secondary.main,
+  zIndex: 10,
+  justifyContent: 'center',
+  alignItems: 'center',
 }));
