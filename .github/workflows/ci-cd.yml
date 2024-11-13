@@ -30,22 +30,36 @@ jobs:
           npm install -g pnpm@${{ env.PNPM_VERSION }}
           echo "PNPM version: $(pnpm --version)"
 
-      # Step 4: Install dependencies in frontend
+      # Step 4: Force Git to handle case-sensitive files
+      - name: Handle case-sensitive files
+        run: |
+          git config core.ignorecase false
+          git ls-files | xargs -I {} rm -f {}
+          git checkout .
+
+      # Step 5: Clean old build artifacts
+      - name: Clean old build artifacts
+        run: |
+          rm -rf fyndbox-frontend/dist
+          rm -rf node_modules/.cache
+          find . -name "*.tsbuildinfo" -delete
+
+      # Step 6: Install dependencies in frontend
       - name: Install dependencies (frontend workspace)
         run: |
           pnpm --filter fyndbox-frontend install
 
-      # Step 5: Lint the frontend
+      # Step 7: Lint the frontend
       - name: Lint Frontend
         run: |
           pnpm --filter fyndbox-frontend lint
 
-      # Step 6: Build the frontend
+      # Step 8: Build the frontend
       - name: Build Frontend
         run: |
           pnpm --filter fyndbox-frontend build
 
-      # Step 7: Deploy frontend to One.com
+      # Step 9: Deploy frontend to One.com
       - name: Deploy to One.com
         run: |
           lftp -u "${{ secrets.ONE_COM_USERNAME }},${{ secrets.ONE_COM_PASSWORD }}" ftp://ftp.fyndbox.com -e "mirror -R ./fyndbox-frontend/dist /; bye"
