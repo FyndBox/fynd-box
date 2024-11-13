@@ -37,7 +37,7 @@ jobs:
         run: |
           pnpm install
 
-      # Create the .env.production file during the GitHub Actions run
+      # Step 5: Create the .env.production file during the GitHub Actions run
       - name: Create .env.production
         run: |
           echo "VITE_API_URL=https://fyndbox-cddc55cc8183.herokuapp.com" > fyndbox-frontend/.env.production
@@ -46,28 +46,42 @@ jobs:
         run: |
           cat fyndbox-frontend/.env.production
 
-      # Step 5: Build the shared package
+      # Step 6: Build the shared package
       - name: Build shared package
         run: |
           pnpm --filter @fyndbox/shared build
 
-      # Step 6: Install frontend dependencies (this will also pick up the shared package)
+      # Step 7: Force Git to handle case-sensitive files
+      - name: Handle case-sensitive files
+        run: |
+          git config core.ignorecase false
+          git ls-files | xargs -I {} rm -f {}
+          git checkout .
+
+      # Step 8: Clean old build artifacts
+      - name: Clean old build artifacts
+        run: |
+          rm -rf fyndbox-frontend/dist
+          rm -rf node_modules/.cache
+          find . -name "*.tsbuildinfo" -delete
+
+      # Step 9: Install frontend dependencies (this will also pick up the shared package)
       - name: Install frontend dependencies
         run: |
           pnpm --filter fyndbox-frontend install
 
-      # Step 7: Build the frontend
+      # Step 10: Build the frontend
       - name: Build Frontend
         run: |
           pnpm --filter fyndbox-frontend build
 
-      # Step 8: Install `lftp`
+      # Step 11: Install `lftp`
       - name: Install lftp
         run: |
           sudo apt-get update
           sudo apt-get install -y lftp
 
-      # Step 9: Disable strict host key checking
+      # Step 12: Disable strict host key checking
       - name: Disable strict host key checking
         run: |
           mkdir -p ~/.ssh
@@ -75,7 +89,7 @@ jobs:
           echo "    StrictHostKeyChecking no" >> ~/.ssh/config
           echo "    UserKnownHostsFile=/dev/null" >> ~/.ssh/config
 
-      # Step 9: Deploy frontend to One.com
+      # Step 13: Deploy frontend to One.com
       - name: Deploy to One.com
         run: |
           lftp -u "${{ secrets.ONE_COM_USERNAME }},${{ secrets.ONE_COM_PASSWORD }}" sftp://ssh.fyndbox.com -e "mirror -R ./fyndbox-frontend/dist .; bye"
