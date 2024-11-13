@@ -43,7 +43,7 @@ export class UserService extends BaseService {
 
   async findByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOne({
-      where: { email },
+      where: { email: email.toLowerCase() },
       relations: ['storages'],
     });
     if (!user) {

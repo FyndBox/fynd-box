@@ -42,7 +42,6 @@ const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
       <ButtonsGroupWrapper>
         <SaveButton
           variant="contained"
-          fullWidth
           startIcon={
             <CustomIcon>
               <Check />
@@ -56,7 +55,6 @@ const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
         {showDeleteButton && (
           <DeleteButton
             variant="contained"
-            fullWidth
             startIcon={
               <CustomIcon>
                 <Delete />

@@ -14,8 +14,7 @@
   },
   "userGuide": {
     "title": "This is how it works",
-    "description": "Findbox offers a simple solution to gain control over your storage.",
-    "back": "Go back",
+    "description": "Fyndbox offers a simple solution to gain control over your storage.",
     "guideSteps": {
       "stepOne": {
         "title": "Create Account",
@@ -61,7 +60,8 @@
       "title": "Security Settings",
       "savePassword": "Save password",
       "currentPassword": "Current password",
-      "newPassword": "New password"
+      "newPassword": "New password",
+      "passwordMatchError": "New password must be different from the current password"
     },
     "about" : {
       "title": "About Fyndbox",
@@ -169,6 +169,7 @@
     "notifications": {
       "noBoxForStorage": "No Boxes found for this storage"
     },
+    "back": "Go back",
     "loading": "Loading ..."
   },
   "api": {

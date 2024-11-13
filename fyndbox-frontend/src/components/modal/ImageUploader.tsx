@@ -2,13 +2,13 @@ import { FC, useEffect, useState } from 'react';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { Clear } from '@mui/icons-material';
 import imageFallback from '../../assets/AddImage.png'; // Use your fallback image here
-import {
-  ClearButton,
-  ImageBox,
-  ImageLabel,
-  ImageUploaderContainer,
-} from './EntityActionModal.styles';
 import { useUploadImage } from '../../hooks/useImage';
+import {
+  ImageUploaderContainer,
+  ImageLabel,
+  ImageBox,
+  ClearButton,
+} from './EntityActionModal.styles';
 
 interface ImageUploaderProps {
   initialImage?: string;

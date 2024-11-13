@@ -15,7 +15,6 @@
   "userGuide": {
     "title": "Så här fungerar det",
     "description": "Fyndbox erbjuder enkelt lösning för att få kontroll över ditt förvaring.",
-    "back": "Gå tillbaka",
     "guideSteps": {
       "stepOne": {
         "title": "Skapa Konto",
@@ -61,7 +60,8 @@
       "title": "Säkerhetsinställningar",
       "savePassword": "Spara lösenord",
       "currentPassword": "Aktuellt lösenord",
-      "newPassword": "Nytt lösenord"
+      "newPassword": "Nytt lösenord",
+      "passwordMatchError": "Det nya lösenordet måste skilja sig från det nuvarande lösenordet"
     },
     "about" : {
       "title": "Om Fyndbox",
@@ -169,6 +169,7 @@
     "notifications": {
       "noBoxForStorage": "Inga lådor hittades för denna lagring"
     },
+    "back": "Gå tillbaka",
     "loading": "Loading ..."
   },
   "api": {

@@ -80,7 +80,7 @@ export class AuthService extends BaseService {
     const defaultStorage = await this.storageService.create(
       {
         name: 'Garage',
-        description: 'Min Garage',
+        description: 'My Garage',
       },
       newUser.id,
     );

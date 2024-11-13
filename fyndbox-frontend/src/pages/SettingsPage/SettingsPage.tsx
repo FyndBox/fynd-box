@@ -51,7 +51,7 @@ const SettingsPage: FC = () => {
       <GoBackButton onClick={handleBackClick}>
         <StyledArrowBack />
         <Typography variant="h6" component="span" pl={1}>
-          {t('userGuide.back')}
+          {t('common.back')}
         </Typography>
       </GoBackButton>
       <PageHeader heading={getHeading()} />

@@ -143,7 +143,6 @@ const AccountSettings: FC = () => {
       <ButtonsGroupWrapper>
         <SaveButton
           variant="contained"
-          fullWidth
           startIcon={
             <CustomIcon>
               <Check />
