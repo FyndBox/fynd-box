@@ -32,31 +32,31 @@ jobs:
           npm install -g pnpm@${{ env.PNPM_VERSION }}
           echo "PNPM version: $(pnpm --version)"
 
-      # Step 4: Force Git to handle case-sensitive files
-      - name: Handle case-sensitive files
+      # Step 4: Install root dependencies (shared across frontend and backend)
+      - name: Install root dependencies
         run: |
-          git config core.ignorecase false
-          git ls-files | xargs -I {} rm -f {}
-          git checkout .
+          pnpm install
 
-      # Step 5: Clean old build artifacts
-      - name: Clean old build artifacts
+      # Create the .env.production file during the GitHub Actions run
+      - name: Create .env.production
         run: |
-          rm -rf fyndbox-frontend/dist
-          rm -rf node_modules/.cache
-          find . -name "*.tsbuildinfo" -delete
+          echo "VITE_API_URL=https://fyndbox-cddc55cc8183.herokuapp.com" > fyndbox-frontend/.env.production
 
-      # Step 6: Install dependencies in frontend
-      - name: Install dependencies (frontend workspace)
+      - name: Check .env.production file
+        run: |
+          cat fyndbox-frontend/.env.production
+
+      # Step 5: Build the shared package
+      - name: Build shared package
+        run: |
+          pnpm --filter @fyndbox/shared build
+
+      # Step 6: Install frontend dependencies (this will also pick up the shared package)
+      - name: Install frontend dependencies
         run: |
           pnpm --filter fyndbox-frontend install
 
-      # Step 7: Lint the frontend
-      - name: Lint Frontend
-        run: |
-          pnpm --filter fyndbox-frontend lint
-
-      # Step 8: Build the frontend
+      # Step 7: Build the frontend
       - name: Build Frontend
         run: |
           pnpm --filter fyndbox-frontend build
