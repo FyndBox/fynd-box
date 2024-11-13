@@ -1,4 +1,4 @@
-{   
+{
   "home": {
     "title": "Välkommen till FyndBox",
     "description": "Vi erbjuder en effektiv och smidig lösning för att få fullständig kontroll över ditt lager. Med vår webbplatform kan du enkelt organisera och hantera dina inventarier genom att lägga till lådor och ange bilder samt antal för varje objekt.",
@@ -10,17 +10,11 @@
   },
   "signup": {
     "title": "Skapa nytt konto",
-    "submit": "Bli medlem",
-    "name": {
-      "label": "Namn",
-      "placeholder": "John Doe",
-      "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
-    }
+    "submit": "Bli medlem"
   },
   "userGuide": {
     "title": "Så här fungerar det",
     "description": "Fyndbox erbjuder enkelt lösning för att få kontroll över ditt förvaring.",
-    "back": "Gå tillbaka",
     "guideSteps": {
       "stepOne": {
         "title": "Skapa Konto",
@@ -48,35 +42,51 @@
       "placeholder": "Sök"
     },
     "entity": {
-      "addStorage": "Lägg till enhet",
+      "addStorage": "Lägg till lagring",
       "addBox": "Lägg till låda",
       "addItem": "Lägg till artikel"
     },
     "footer": {
-      "favorite":"Favoriter",
+      "favorite": "Favoriter",
       "scan": "Scan",
       "settings": "Inställningar"
     }
   },
   "settings": {
     "account" : {
-      "title": "Account Settings" 
+      "title": "Kontoinställningar" 
     },
     "security": {
-      "title": "Security Settings"
+      "title": "Säkerhetsinställningar",
+      "savePassword": "Spara lösenord",
+      "currentPassword": "Aktuellt lösenord",
+      "newPassword": "Nytt lösenord",
+      "passwordMatchError": "Det nya lösenordet måste skilja sig från det nuvarande lösenordet"
     },
     "about" : {
-      "title": "About Fyndbox"
+      "title": "Om Fyndbox",
+      "welcomeText": "Välkommen till Fyndbox – din smarta lösning för att skapa ordning och struktur bland dina saker! \n Fyndbox är appen som hjälper dig att enkelt organisera, katalogisera och hålla koll på alla dina tillhörigheter, oavsett om de finns på vinden, i förrådet, garaget eller i källaren. Med Fyndbox slipper du slösa tid på att leta, och du får en klar översikt över var allt finns med bara ett par tryck på skärmen.",
+      "addUnitTitle": "Lägg till en enhet",
+      "addUnitText": "Börja med att skapa en plats för dina saker exempelvis vinden, garaget eller förrådet. Genom att ange platser får du enkelt en struktur för var lådorna finns och kan hålla bättre koll på var dina saker förvaras.",
+      "createBoxTitle": "Skapa en låda",
+      "createBoxText": "Skapa lådor som representerar olika kategorier, områden eller teman. Varje låda kan namnges efter vad den innehåller, vilket gör att du kan hålla sakerna organiserade på ett smidigt sätt.",
+      "addItemTitle" : "Lägg till artiklar i lådan",
+      "addItemText": "Lägg till de artiklar du vill förvara i varje låda. Det här ger dig en tydlig bild av exakt vad som finns i varje låda och minimerar risken att något faller i glömska.",
+      "printQRcodeTitle": "Skriv ut en QR-kod för din låda",
+      "printQRcodeText": "Fyndbox låter dig spara eller skriva ut en QR-kod för varje låda. Fäst QR-koden på lådan och du kan enkelt scanna den för att direkt se lådans innehåll i appen – perfekt när du snabbt vill få koll på vad som finns var.",
+      "withFyndboxText": "Med Fyndbox får du en översiktlig och strukturerad förvaring av alla dina prylar. Organisera smart och hitta dina saker snabbare allt i en och samma app.",
+      "contactUsText": "Kontakta oss gärna via {email} om du har några frågor eller funderingar!",
+      "email": "info@fyndbox.com"
     }
   },
   "qrCode":{
-    "title":"Scan the QR Code",
-    "error": "Unable to scan QR code. Please try again.",
+    "title":"Skanna QR-koden",
+    "error": "Det gick inte att skanna QR-koden. Försök igen.",
     "attemptError": "Failed to scan QR code after several attempts.",
-    "noQrCodeFound": "No QR Code found. Please try again.",
-    "noCameraFound": "No camera found."
+    "noQrCodeFound": "Det gick inte att skanna QR-koden efter flera försök.",
+    "noCameraFound": "Ingen kamera hittades."
   },
-  "sidebar":{
+  "sidebar": {
     "title": "Välkommen {{user}}",
     "logout": "Logga ut",
     "deactivate": "Inaktivera konto",
@@ -87,8 +97,8 @@
         "section": "account"
       },
       {
-        "text": "Inloggning och säkerhet",
-        "icon": "lock",
+        "text": "Säkerhetsinställningar",
+        "icon": "security",
         "section": "security"
       },
       {
@@ -108,7 +118,7 @@
     "add": "Lägg till {{type}}",
     "edit": "Edit {{type}}",
     "delete": "Ta bort",
-    "cancel": "Cancel",
+    "cancel": "Ångra",
     "save":"Spara",
     "image":{
       "label": "Bild"
@@ -131,29 +141,35 @@
     "deleteConfirmation": "Är du säker på att du vill ta bort {{type}}? Denna åtgärd kan inte ångras"
   },
   "types": {
-      "storage": "Lagring",
-      "box": "Låda",
-      "item": "Artikel"
+    "storage": "Lagring",
+    "box": "Låda",
+    "item": "Artikel"
   },
-  "common":{
+  "common": {
+    "name": {
+      "label": "Namn",
+      "placeholder": "John Doe",
+      "errorMessage": "* Vänligen ange ett giltigt namn: \n - Namnet får bara innehålla bokstäver och mellanslag \n - Namnet måste vara 3-50 tecken långt"
+    },
     "email": {
       "label": "E-postadress",
       "placeholder": "exempel@domän.com",
       "errorMessage": "* Vänligen ange giltig e-postadress"
-      },
+    },
     "password": {
       "label": "Lösenord",
       "placeholder": "",
-      "loginErrorMessage": "* Lösenord krävs",
-      "signupErrorMessage": "* Vänligen ange ett giltigt lösenord: \n - Måste innehålla 8-20 tecken \n - Måste innehålla minst en bokstav \n - Måste innehålla minst en siffra \n - Måste innehålla minst ett specialtecken (endast @$!%*#?& är tillåtna)"
-    }, 
-    "language":{
+      "passwordRequiredError": "* Lösenord krävs",
+      "invalidPasswordError": "* Vänligen ange ett giltigt lösenord: \n - Måste innehålla 8-20 tecken \n - Måste innehålla minst en bokstav \n - Måste innehålla minst en siffra \n - Måste innehålla minst ett specialtecken (endast @$!%*#?& är tillåtna)"
+    },
+    "language": {
       "option1": "Svenska",
       "option2": "English"
     },
     "notifications": {
-      "noBoxForStorage" : "Inga lådor hittades för denna lagring"
+      "noBoxForStorage": "Inga lådor hittades för denna lagring"
     },
+    "back": "Gå tillbaka",
     "loading": "Loading ..."
   },
   "api": {
@@ -215,7 +231,7 @@
         "error": "Det gick inte att hämta lagringsutrymme"
       },
       "create": {
-        "success": "Lagring har skapats", 
+        "success": "Lagring har skapats",
         "error": "Det gick inte att skapa lagring"
       },
       "update": {
@@ -278,7 +294,7 @@
       "notFoundById": "Artikel med ID {{id}} hittades inte",
       "boxIDRequired": "Låda ID krävs för uppdateringen"
     },
-    "images":{
+    "images": {
       "upload": {
         "success": "Bilden har laddats upp",
         "error": "Det gick inte att ladda upp bilden",
@@ -287,9 +303,3 @@
     }
   }
 }
-
-
-
-
-
-  

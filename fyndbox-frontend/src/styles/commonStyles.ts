@@ -25,7 +25,7 @@ export const BaseButton = styled(Button)(({ theme }) => ({
   borderRadius: '28px',
   padding: theme.spacing(1.25, 2),
   textTransform: 'none',
-  width: '20rem',
+  minWidth: '20rem',
 }));
 
 export const ButtonsGroupWrapper = styled(Box)(({ theme }) => ({
@@ -34,7 +34,7 @@ export const ButtonsGroupWrapper = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
   alignItems: 'center',
   textAlign: 'center',
-  padding: theme.spacing(6, 0),
+  padding: theme.spacing(3, 0),
 }));
 
 export const GoBackButton = styled(Button)(({ theme }) => ({

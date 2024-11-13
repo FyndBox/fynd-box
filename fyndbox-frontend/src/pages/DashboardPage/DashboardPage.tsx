@@ -16,7 +16,7 @@ import {
   SubContainer,
 } from './DashboardPage.styles';
 import { EntityType } from '../../types/entityTypes';
-import EntityActionModal from '../../components/modal/EntityActionModal';
+import EntityActionModal from '../../components/Modal/EntityActionModal';
 import {
   useCreateStorage,
   useDeleteStorage,

@@ -40,7 +40,7 @@ const UserGuidePage: FC = () => {
       <GoBackButton onClick={handleBackClick}>
         <StyledArrowBack />
         <Typography variant="h6" component="span" pl={1}>
-          {t('userGuide.back')}
+          {t('common.back')}
         </Typography>
       </GoBackButton>
       <Typography variant="h2">{t('userGuide.title')}</Typography>

@@ -69,7 +69,6 @@ const AccountSettings: FC = () => {
       { user: { name, image: profileImage ?? undefined } },
       {
         onSuccess: () => {
-          console.log('User updated successfully');
           setInitialName(name);
           setInitialProfileImage(profileImage);
           setIsChanged(false);
@@ -108,8 +107,8 @@ const AccountSettings: FC = () => {
 
       <TextFieldsContainer>
         <CustomTextField
-          label="Name"
-          placeholder="Name"
+          label={t('common.name.label')}
+          placeholder={t('common.name.placeholder')}
           value={name}
           onChange={(e) => {
             setName(e.target.value);
@@ -118,7 +117,7 @@ const AccountSettings: FC = () => {
           error={nameError}
           helperText={
             nameError
-              ? t('signup.name.errorMessage')
+              ? t('common.name.errorMessage')
                   .split('\n')
                   .map((line, index) => (
                     <span key={index}>
@@ -144,7 +143,6 @@ const AccountSettings: FC = () => {
       <ButtonsGroupWrapper>
         <SaveButton
           variant="contained"
-          fullWidth
           startIcon={
             <CustomIcon>
               <Check />

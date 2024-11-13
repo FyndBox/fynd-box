@@ -1,14 +1,16 @@
 import { FC } from 'react';
-import { Box, Typography, TextField, Button } from '@mui/material';
+import { Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import AccountSettings from '../../components/AccountSettings/AccountSettings';
+import SecuritySettings from '../../components/SecuritySettings/SecuritySettings';
+import AboutUs from '../../components/AboutUs/AboutUs';
 import {
   FullPageContainer,
   GoBackButton,
   StyledArrowBack,
 } from '../../styles/commonStyles';
-import { useTranslation } from 'react-i18next';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
@@ -32,27 +34,9 @@ const SettingsPage: FC = () => {
       case 'account':
         return <AccountSettings />;
       case 'security':
-        return (
-          <Box>
-            <TextField
-              label="Password"
-              type="password"
-              fullWidth
-              margin="normal"
-            />
-            <Button variant="contained" color="primary">
-              Update Password
-            </Button>
-          </Box>
-        );
+        return <SecuritySettings />;
       case 'about':
-        return (
-          <Box>
-            <Typography variant="body1" mt={2}>
-              Company information goes here.
-            </Typography>
-          </Box>
-        );
+        return <AboutUs />;
       default:
         return (
           <Typography variant="h5">
@@ -67,7 +51,7 @@ const SettingsPage: FC = () => {
       <GoBackButton onClick={handleBackClick}>
         <StyledArrowBack />
         <Typography variant="h6" component="span" pl={1}>
-          {t('userGuide.back')}
+          {t('common.back')}
         </Typography>
       </GoBackButton>
       <PageHeader heading={getHeading()} />
