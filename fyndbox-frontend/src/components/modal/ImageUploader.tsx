@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { Clear } from '@mui/icons-material';
 import imageFallback from '../../assets/AddImage.png'; // Use your fallback image here
-import { useUploadImage } from '../../hooks/useImage';
+import { useDeleteImage, useUploadImage } from '../../hooks/useImage';
 import {
   ImageUploaderContainer,
   ImageLabel,
@@ -22,7 +22,12 @@ const ImageUploader: FC<ImageUploaderProps> = ({
   label = 'Image',
 }) => {
   const [image, setImage] = useState<string | undefined>(initialImage ?? '');
-  const { mutate: uploadImage, error, isPending } = useUploadImage();
+  const {
+    mutate: uploadImage,
+    error: uploadError,
+    isPending,
+  } = useUploadImage();
+  const { mutate: deleteImage, error: deleteError } = useDeleteImage();
 
   useEffect(() => {
     setImage(initialImage ?? '');
@@ -44,8 +49,20 @@ const ImageUploader: FC<ImageUploaderProps> = ({
   };
 
   const handleClearImage = () => {
-    setImage('');
-    onImageUpload('');
+    if (image) {
+      const imageKey = new URL(image).pathname.substring(1);
+      const decodedKey = decodeURIComponent(imageKey);
+
+      deleteImage(decodedKey, {
+        onSuccess: () => {
+          setImage('');
+          onImageUpload('');
+        },
+        onError: (err) => {
+          console.error('Error deleting image:', err);
+        },
+      });
+    }
   };
 
   return (
@@ -66,15 +83,20 @@ const ImageUploader: FC<ImageUploaderProps> = ({
         {isPending && <CircularProgress size={24} />}
       </Box>
 
-      {error && (
-        <Typography variant="body2" color="error">
-          Error uploading image
-        </Typography>
-      )}
       {image && (
         <ClearButton size="small" onClick={handleClearImage}>
           <Clear />
         </ClearButton>
+      )}
+      {uploadError && (
+        <Typography variant="caption" color="error">
+          {uploadError.message}
+        </Typography>
+      )}
+      {deleteError && (
+        <Typography variant="caption" color="error">
+          {deleteError.message}
+        </Typography>
       )}
     </ImageUploaderContainer>
   );

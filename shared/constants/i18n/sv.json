@@ -299,6 +299,11 @@
         "success": "Bilden har laddats upp",
         "error": "Det gick inte att ladda upp bilden",
         "noFileProvided": "Ingen fil laddad upp"
+      },
+      "delete": {
+        "success": "Image deleted successfully",
+        "error": "Failed to delete the image",
+        "noKeyProvided": "No key provided for deletion"
       }
     }
   }

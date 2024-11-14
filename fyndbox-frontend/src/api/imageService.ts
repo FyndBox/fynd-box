@@ -20,3 +20,11 @@ export const uploadImage = async (
     ),
   );
 };
+
+export const deleteImage = async (key: string): Promise<void> => {
+  return handleApiCall(
+    apiClient.delete<ApiResponse<void>>('/images/delete', {
+      data: { key },
+    }),
+  );
+};
