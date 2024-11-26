@@ -80,8 +80,6 @@ export class ImageController {
     @Request() req: any,
   ): Promise<ApiResponse<null>> {
     const lang = req.language;
-
-    console.log('Key', key);
     try {
       if (!key) {
         throw new HttpException(
