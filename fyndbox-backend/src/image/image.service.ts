@@ -33,4 +33,13 @@ export class ImageService {
     // Return the URL of the uploaded image
     return uploadResult.Location;
   }
+
+  async deleteImage(key: string): Promise<void> {
+    // Prepare S3 upload parameters
+    const params = {
+      Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
+      Key: key,
+    };
+    await this.s3.deleteObject(params).promise();
+  }
 }
