@@ -42,8 +42,9 @@ export class UserService extends BaseService {
   }
 
   async findByEmail(email: string): Promise<User> {
+    const normalizedEmail = email.trim().toLowerCase();
     const user = await this.userRepository.findOne({
-      where: { email: email.toLowerCase() },
+      where: { email: normalizedEmail },
       relations: ['storages'],
     });
     if (!user) {
@@ -51,7 +52,7 @@ export class UserService extends BaseService {
         this.translationService.getTranslation(
           'api.users.notFoundByEmail',
           this.getLang(),
-          { email },
+          { email: normalizedEmail },
         ),
       );
     }
@@ -61,7 +62,7 @@ export class UserService extends BaseService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
     user.name = createUserDto.name;
-    user.email = createUserDto.email;
+    user.email = createUserDto.email.trim().toLowerCase();
 
     // Hash the password before storing it
     const saltOrRounds = 10;
