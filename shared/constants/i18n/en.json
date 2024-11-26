@@ -299,6 +299,11 @@
         "success": "Image uploaded successfully",
         "error": "Image upload failed",
         "noFileProvided": "No file uploaded"
+      },
+      "delete": {
+        "success": "Image deleted successfully",
+        "error": "Failed to delete the image",
+        "noKeyProvided": "No key provided for deletion"
       }
     }
   }
