@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import {
@@ -23,6 +23,10 @@ const LandingPage: FC = () => {
     navigate('/signup');
   };
 
+  const contactUsText = t('settings.about.contactUsText');
+
+  const [beforeEmail, afterEmail] = contactUsText.split('{email}');
+
   return (
     <HomeContainer>
       <HomeSubContainer>
@@ -41,6 +45,17 @@ const LandingPage: FC = () => {
           <GuideLink href="/user-guide" underline="always">
             {t('home.guideLink')}
           </GuideLink>
+          <Typography variant="body2" pt={2}>
+            {beforeEmail}
+            <Link
+              href={`mailto:${t('settings.about.email')}`}
+              underline="always"
+              color="info"
+            >
+              {t('settings.about.email')}
+            </Link>
+            {afterEmail}
+          </Typography>
         </Box>
         <LanguageSelector />
       </HomeSubContainer>
