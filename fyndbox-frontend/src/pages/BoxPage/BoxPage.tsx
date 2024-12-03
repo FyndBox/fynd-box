@@ -242,10 +242,6 @@ const BoxPage: FC = () => {
         <Typography variant="h6">{storage?.name}</Typography>
       </BackButton>
       <Divider />
-      {/*Hide the search field
-        <SearchField />
-    */}
-
       {/* BoxDetails component */}
       {box && (
         <BoxDetails

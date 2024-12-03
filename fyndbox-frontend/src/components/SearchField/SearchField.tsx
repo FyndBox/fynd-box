@@ -1,11 +1,19 @@
 import { FC, useState } from 'react';
 import { IconButton, InputAdornment } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Search, Clear } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 
-import { SearchFieldContainer, SearchTextField } from './SearchField.styles';
+import {
+  SearchFieldContainer,
+  SearchIconButton,
+  SearchTextField,
+} from './SearchField.styles';
 
-const SearchField: FC = () => {
+interface SearchFieldProps {
+  onSearch: (query: string) => void;
+}
+
+const SearchField: FC<SearchFieldProps> = ({ onSearch }) => {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -14,7 +22,19 @@ const SearchField: FC = () => {
   };
 
   const handleSearchClick = () => {
-    console.log('Searching for:', searchQuery);
+    console.log(searchQuery);
+    onSearch(searchQuery.trim()); // Trigger the search with the trimmed query
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      onSearch(searchQuery.trim()); // Trigger the search on Enter key press
+    }
+  };
+
+  const handleClearClick = () => {
+    setSearchQuery(''); // Clear the search query
+    onSearch(''); // Reset the search results
   };
 
   return (
@@ -24,13 +44,25 @@ const SearchField: FC = () => {
         placeholder={t('dashboard.search.placeholder')}
         value={searchQuery}
         onChange={handleSearchChange}
+        onKeyUp={handleKeyPress}
         slotProps={{
           input: {
-            startAdornment: (
-              <InputAdornment position="start">
-                <IconButton onClick={handleSearchClick}>
-                  <SearchIcon />
-                </IconButton>
+            endAdornment: (
+              <InputAdornment position="end">
+                {searchQuery && (
+                  <>
+                    <IconButton onClick={handleClearClick}>
+                      <Clear />
+                    </IconButton>
+                    <SearchIconButton
+                      onClick={handleSearchClick}
+                      disabled={!searchQuery}
+                      disableRipple
+                    >
+                      <Search />
+                    </SearchIconButton>
+                  </>
+                )}
               </InputAdornment>
             ),
           },

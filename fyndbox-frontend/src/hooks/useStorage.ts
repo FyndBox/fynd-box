@@ -5,6 +5,7 @@ import {
   createStorage,
   updateStorage,
   deleteStorage,
+  searchStorages,
 } from '../api/storageService';
 import { Storage } from '../types/storage';
 
@@ -13,10 +14,11 @@ interface UpdateStorageData {
   storage: Partial<Storage>;
 }
 
-export const useStorages = () => {
+export const useStorages = (keyword?: string) => {
   return useQuery<Storage[], Error>({
-    queryKey: ['storages'],
-    queryFn: getStorages,
+    queryKey: keyword ? ['storages', 'search', keyword] : ['storages'],
+    queryFn: keyword ? () => searchStorages(keyword) : getStorages,
+    enabled: keyword !== undefined, // Only enable the query when needed
   });
 };
 

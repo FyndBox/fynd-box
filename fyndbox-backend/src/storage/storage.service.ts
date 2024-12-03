@@ -18,6 +18,37 @@ export class StorageService extends BaseService {
     super();
   }
 
+  async search(userId: string, keyword: string): Promise<Storage[]> {
+    const storages = await this.storageRepository.find({
+      where: { userId },
+      relations: ['boxes', 'boxes.items'],
+    });
+
+    const filteredStorages = storages
+      .map((storage) => {
+        const filteredBoxes = storage.boxes
+          .map((box) => {
+            const filteredItems = box.items.filter((item) =>
+              item.name.toLowerCase().includes(keyword.toLowerCase()),
+            );
+
+            if (filteredItems.length > 0) {
+              return { ...box, items: filteredItems };
+            }
+            return null;
+          })
+          .filter((box) => box !== null);
+
+        if (filteredBoxes.length > 0) {
+          return { ...storage, boxes: filteredBoxes };
+        }
+        return null;
+      })
+      .filter((storage) => storage !== null);
+
+    return filteredStorages;
+  }
+
   async findAll(userId: string): Promise<Storage[]> {
     return this.storageRepository.find({
       where: { userId },
