@@ -225,6 +225,10 @@
         "success": "Storages retrieved successfully",
         "error": "Error retrieving storages"
       },
+      "search": {
+        "success": "Search completed successfully",
+        "error": "An error occurred while performing the search"
+      },
       "get": {
         "notFound": "Storage not found",
         "success": "Storage retrieved successfully",

@@ -1,10 +1,17 @@
-import { Box, styled, TextField } from '@mui/material';
+import { Box, IconButton, styled, TextField } from '@mui/material';
 
 export const SearchFieldContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3, 0),
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+}));
+
+export const SearchIconButton = styled(IconButton)(({ theme }) => ({
+  backgroundColor: theme.palette.common.black,
+  color: theme.palette.common.white,
+  borderRadius: '50%',
+  padding: theme.spacing(1),
 }));
 
 export const SearchTextField = styled(TextField)(({ theme }) => ({
