@@ -11,6 +11,7 @@ import {
   UseGuards,
   Param,
   NotFoundException,
+  Query,
 } from '@nestjs/common';
 import { instanceToPlain } from 'class-transformer';
 import { AuthGuard } from '@nestjs/passport';
@@ -28,6 +29,42 @@ export class StorageController {
     private readonly storageService: StorageService,
     private readonly translationService: TranslationService,
   ) {}
+
+  @Get('search')
+  async search(
+    @Request() req: any,
+    @Query('keyword') keyword: string,
+  ): Promise<ApiResponse<StorageResponseDto[]>> {
+    const lang = req.language;
+    try {
+      const storages = await this.storageService.search(
+        req.user.userId,
+        keyword,
+      );
+      return {
+        statusCode: HttpStatus.OK,
+        success: true,
+        message: this.translationService.getTranslation(
+          'api.storages.search.success',
+          lang,
+        ),
+        data: instanceToPlain(storages) as StorageResponseDto[],
+      };
+    } catch (error) {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+          success: false,
+          message: this.translationService.getTranslation(
+            'api.storages.search.error',
+            lang,
+          ),
+          error: error.message,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 
   @Get()
   async findAll(

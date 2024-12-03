@@ -29,6 +29,7 @@ import { useNavigate } from 'react-router-dom';
 import QRScanner from '../../components/QRScanner/QRScanner';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import { useFooterActions } from '../../hooks/useFooterActions';
+import SearchField from '../../components/SearchField/SearchField';
 
 const DashboardPage: FC = () => {
   const { t } = useTranslation();
@@ -40,7 +41,8 @@ const DashboardPage: FC = () => {
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
   const [entityType, setEntityType] = useState<EntityType>('storage');
   const [editingData, setEditingData] = useState<any | null>(null);
-  const { data: storages, isLoading, error } = useStorages();
+  const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const { data: storages, isLoading, error } = useStorages(searchKeyword);
   const { mutate: createStorage } = useCreateStorage();
   const { mutate: updateStorage } = useUpdateStorage();
   const { mutate: deleteStorage } = useDeleteStorage();
@@ -122,16 +124,24 @@ const DashboardPage: FC = () => {
     setModalOpen(false);
   };
 
+  const handleSearchChange = (keyword: string) => {
+    setSearchKeyword(keyword);
+  };
+
   return (
     <DashboardContainer>
       <TopBar />
-      {/* Hide the Search Field For now */}
-      {/* <SearchField /> */}
+      <SearchField onSearch={handleSearchChange} />
       <MainContainer>
         {isLoading && <Typography variant="body1">Loading...</Typography>}
         {error && (
           <Typography variant="body1" color="error">
             Error loading storages
+          </Typography>
+        )}
+        {!isLoading && storages?.length === 0 && (
+          <Typography variant="h6" textAlign="center" color="textSecondary">
+            No Storages Found
           </Typography>
         )}
         {storages?.map((storage, index) => (

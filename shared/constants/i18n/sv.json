@@ -225,6 +225,10 @@
         "success": "Lagringar har hämtats",
         "error": "Det gick inte att hämta lagring"
       },
+      "search": {
+        "success": "Search completed successfully",
+        "error": "An error occurred while performing the search"
+      },
       "get": {
         "notFound": "Lagring hittades inte",
         "success": "Lagringsutrymmet har hämtats",

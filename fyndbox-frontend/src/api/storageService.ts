@@ -40,3 +40,12 @@ export const deleteStorage = async (storageId: number): Promise<void> => {
     apiClient.delete<ApiResponse<void>>(`/storages/${storageId}`),
   );
 };
+
+// Search storages by keyword
+export const searchStorages = async (keyword: string): Promise<Storage[]> => {
+  return handleApiCall(
+    apiClient.get<ApiResponse<Storage[]>>(
+      `/storages/search?keyword=${keyword}`,
+    ),
+  );
+};
