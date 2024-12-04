@@ -15,6 +15,7 @@ import { UpdatePasswordDto } from './dto/update-password.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { ApiResponse } from '@fyndbox/shared/types/api-response';
 import { TranslationService } from 'src/translation/translation.service';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -121,6 +122,38 @@ export class AuthController {
           error: error.message,
         },
         HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  @Post('forgot-password')
+  async forgotPassword(
+    @Body() forgotPasswordDto: ForgotPasswordDto,
+    @Request() req: any,
+  ): Promise<ApiResponse<void>> {
+    const lang = req.language;
+    try {
+      await this.authService.forgotPassword(forgotPasswordDto.email);
+      return {
+        statusCode: HttpStatus.OK,
+        success: true,
+        message: this.translationService.getTranslation(
+          'api.auth.forgotPassword.success',
+          lang,
+        ),
+      };
+    } catch (error) {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+          success: false,
+          message: this.translationService.getTranslation(
+            'api.auth.forgotPassword.error',
+            lang,
+          ),
+          error: error.message,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }

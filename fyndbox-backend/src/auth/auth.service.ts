@@ -14,9 +14,12 @@ import { CreateUserDto } from '../user/dto/create-user.dto';
 import { TranslationService } from 'src/translation/translation.service';
 import { StorageService } from 'src/storage/storage.service';
 import { BoxService } from 'src/box/box.service';
+import * as postmark from 'postmark';
 
 @Injectable({ scope: Scope.REQUEST })
 export class AuthService extends BaseService {
+  private postmarkClient;
+
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
@@ -25,6 +28,9 @@ export class AuthService extends BaseService {
     private boxService: BoxService,
   ) {
     super();
+    this.postmarkClient = new postmark.ServerClient(
+      process.env.POSTMARK_API_KEY,
+    );
   }
 
   async login(loginDto: LoginDto): Promise<{ access_token: string }> {
@@ -122,5 +128,30 @@ export class AuthService extends BaseService {
 
     const hashedPassword = await bcrypt.hash(updatePasswordDto.newPassword, 10);
     await this.userService.update(userId, { password: hashedPassword });
+  }
+
+  async forgotPassword(email: string): Promise<void> {
+    const user = await this.userService.findByEmail(email);
+
+    // Generate reset token
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    user.resetToken = resetToken;
+    user.resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour expiry
+    await this.userRepository.save(user);
+
+    // Generate reset URL
+    const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+
+    // Send email using Postmark template
+    await this.postmarkClient.sendEmailWithTemplate({
+      From: process.env.POSTMARK_FROM_EMAIL,
+      To: email,
+      TemplateId: parseInt(process.env.POSTMARK_TEMPLATE_ID, 10),
+      TemplateModel: {
+        name: user.name, // User's name
+        reset_url: resetUrl, // Reset URL
+        email: email,
+      },
+    });
   }
 }
