@@ -18,9 +18,3 @@ export const HomeSubContainer = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   padding: theme.spacing(0, 2),
 }));
-
-export const GuideLink = styled(Link)(({ theme }) => ({
-  display: 'inline-block',
-  cursor: 'pointer',
-  color: theme.palette.secondary.contrastText,
-}));

@@ -8,6 +8,7 @@ import UserGuidePage from './pages/UserGuidePage/UserGuidePage';
 import AuthGuard from './components/AuthGuard';
 import BoxPage from './pages/BoxPage/BoxPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
 
 const App: FC = () => {
   return (
@@ -38,6 +39,7 @@ const App: FC = () => {
           }
         />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/user-guide" element={<UserGuidePage />} />
         <Route path="/" element={<LandingPage />} />

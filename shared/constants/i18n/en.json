@@ -6,7 +6,13 @@
   },
   "login": {
     "title": "Log in",
+    "forgotPassword": "Forgot your password?",
     "submit": "Log in"
+  },
+  "forgotPassword": {
+    "title": "Forgot your password?",
+    "description": "Enter your email address and we will send you a link to reset your password.",
+    "submit": "Send"
   },
   "signup": {
     "title": "Create new account",

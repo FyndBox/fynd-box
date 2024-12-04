@@ -6,7 +6,13 @@
   },
   "login": {
     "title": "Logga in",
+    "forgotPassword": "Glömt ditt lösenord?",
     "submit": "Logga in"
+  },
+  "forgotPassword": {
+    "title": "Glömt ditt lösenord?",
+    "description": "Ange din e-postadress så skickar vi en länk för att återställa ditt lösenord.",
+    "submit": "Skicka"
   },
   "signup": {
     "title": "Skapa nytt konto",
