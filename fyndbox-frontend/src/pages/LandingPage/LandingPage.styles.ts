@@ -1,4 +1,4 @@
-import { Box, Container, Link } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const HomeContainer = styled(Container)(({ theme }) => ({

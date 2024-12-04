@@ -1,72 +1,75 @@
 import { FC, useState } from 'react';
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
 import {
+  CustomLink,
   FullPageContainer,
   TextFieldsContainer,
 } from '../../styles/commonStyles';
 import { useTranslation } from 'react-i18next';
 import AppHeader from '../../components/AppHeader/AppHeader';
+import PageHeader from '../../components/PageHeader/PageHeader';
+import { Email } from '@mui/icons-material';
+import { useAuth } from '../../hooks/useAuth';
+import { isEmailValid } from '../../utils/validation';
+import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
+import { ButtonContainer, SendButton } from './ForgotPasswordPage.styles';
 
 const ForgotPasswordPage: FC = () => {
   const { t } = useTranslation();
+  const { error, setError } = useAuth();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSendEmail = async () => {
-    setEmailError(false);
-    setErrorMessage('');
-    setSuccessMessage('');
+    setEmailError(!isEmailValid(email));
 
-    if (!email || !email.includes('@')) {
-      setEmailError(true);
-      return;
-    }
-
-    try {
+    if (isEmailValid(email)) {
+      // const success = await login(email, password);
       // await sendForgotPasswordEmail(email); // API call
-      setSuccessMessage(t('forgotPassword.successMessage'));
-    } catch (error: any) {
-      setErrorMessage(error.message || t('forgotPassword.errorMessage'));
+      //   if (success) {
+      //     navigate('/dashboard');
+      //   }
     }
   };
 
   return (
     <FullPageContainer>
       <AppHeader />
-      <Typography variant="h4" gutterBottom>
-        {t('forgotPassword.title')}
+      <PageHeader heading={t('forgotPassword.title')} />
+      <Typography variant="body1" py={2}>
+        {t('forgotPassword.description')}
       </Typography>
       <TextFieldsContainer>
         <CustomTextField
           label={t('common.email.label')}
+          type="email"
           placeholder={t('common.email.placeholder')}
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmailError(false);
+            setEmail(e.target.value);
+            if (error) setError(null);
+          }}
           error={emailError}
           helperText={emailError ? t('common.email.errorMessage') : ''}
+          startIcon={<Email />}
         />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSendEmail}
-          sx={{ marginTop: 2 }}
-        >
-          {t('forgotPassword.submitButton')}
-        </Button>
       </TextFieldsContainer>
-      {successMessage && (
-        <Typography variant="body1" color="success" sx={{ marginTop: 2 }}>
-          {successMessage}
+      <ButtonContainer>
+        <SendButton variant="contained" onClick={handleSendEmail}>
+          {t('forgotPassword.submit')}
+        </SendButton>
+      </ButtonContainer>
+      {error && (
+        <Typography variant="caption" color="error">
+          {error}
         </Typography>
       )}
-      {errorMessage && (
-        <Typography variant="body1" color="error" sx={{ marginTop: 2 }}>
-          {errorMessage}
-        </Typography>
-      )}
+      <CustomLink href="/login" underline="always">
+        {t('forgotPassword.backToLogin')}
+      </CustomLink>
+      <LanguageSelector />
     </FullPageContainer>
   );
 };

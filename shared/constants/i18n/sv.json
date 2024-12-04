@@ -12,7 +12,8 @@
   "forgotPassword": {
     "title": "Glömt ditt lösenord?",
     "description": "Ange din e-postadress så skickar vi en länk för att återställa ditt lösenord.",
-    "submit": "Skicka"
+    "submit": "Skicka",
+    "backToLogin": "Tillbaka till inloggningssidan"
   },
   "signup": {
     "title": "Skapa nytt konto",
