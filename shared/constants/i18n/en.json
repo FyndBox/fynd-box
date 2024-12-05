@@ -200,6 +200,10 @@
           "updateFailed": "Error updating password",
           "incorrectPassword": "Current password is incorrect"
         }
+      }, 
+      "forgotPassword": {
+        "success": "A reset password link has been sent to your email address. Please check your inbox.",
+        "error": "We encountered an error while attempting to send the reset password email. Please try again later."
       }
     },
     "users": {

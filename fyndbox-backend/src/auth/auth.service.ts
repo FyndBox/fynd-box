@@ -6,6 +6,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import * as postmark from 'postmark';
+import * as crypto from 'crypto';
 import { UserService } from '../user/user.service';
 import { BaseService } from '../common/base.service';
 import { LoginDto } from './dto/login.dto';
@@ -14,7 +16,6 @@ import { CreateUserDto } from '../user/dto/create-user.dto';
 import { TranslationService } from 'src/translation/translation.service';
 import { StorageService } from 'src/storage/storage.service';
 import { BoxService } from 'src/box/box.service';
-import * as postmark from 'postmark';
 
 @Injectable({ scope: Scope.REQUEST })
 export class AuthService extends BaseService {
@@ -28,9 +29,11 @@ export class AuthService extends BaseService {
     private boxService: BoxService,
   ) {
     super();
-    this.postmarkClient = new postmark.ServerClient(
-      process.env.POSTMARK_API_KEY,
-    );
+    const postmarkApiKey = process.env.POSTMARK_API_KEY;
+    if (!postmarkApiKey) {
+      throw new Error('POSTMARK_API_KEY is not set in environment variables');
+    }
+    this.postmarkClient = new postmark.ServerClient(postmarkApiKey);
   }
 
   async login(loginDto: LoginDto): Promise<{ access_token: string }> {
@@ -133,23 +136,34 @@ export class AuthService extends BaseService {
   async forgotPassword(email: string): Promise<void> {
     const user = await this.userService.findByEmail(email);
 
-    // Generate reset token
     const resetToken = crypto.randomBytes(32).toString('hex');
     user.resetToken = resetToken;
-    user.resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour expiry
-    await this.userRepository.save(user);
+    user.resetTokenExpiry = new Date(Date.now() + 3600000); // Token expires in 1 hour
+    await this.userService.update(user.id, {
+      resetToken,
+      resetTokenExpiry: user.resetTokenExpiry,
+    });
 
-    // Generate reset URL
-    const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+    const frontendUrl = process.env.FRONTEND_URL;
+    const fromEmail = process.env.POSTMARK_FROM_EMAIL;
+    const templateId = process.env.POSTMARK_TEMPLATE_ID;
 
-    // Send email using Postmark template
+    if (!frontendUrl || !fromEmail || !templateId) {
+      throw new Error(
+        'FRONTEND_URL, POSTMARK_FROM_EMAIL, or POSTMARK_TEMPLATE_ID is missing in environment variables',
+      );
+    }
+    // Generate the reset URL
+    const resetUrl = `${frontendUrl}/reset-password?token=${resetToken}`;
+
+    // Send the reset password email
     await this.postmarkClient.sendEmailWithTemplate({
-      From: process.env.POSTMARK_FROM_EMAIL,
+      From: fromEmail,
       To: email,
-      TemplateId: parseInt(process.env.POSTMARK_TEMPLATE_ID, 10),
+      TemplateId: parseInt(templateId, 10),
       TemplateModel: {
-        name: user.name, // User's name
-        reset_url: resetUrl, // Reset URL
+        name: user.name || 'User',
+        reset_url: resetUrl,
         email: email,
       },
     });

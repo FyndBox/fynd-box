@@ -200,6 +200,10 @@
           "updateFailed": "Fel vid uppdatering av lösenord",
           "incorrectPassword": "Aktuellt lösenord är felaktigt"
         }
+      },
+      "forgotPassword": {
+        "success": "En länk för att återställa lösenordet har skickats till din e-postadress. Kontrollera din inkorg.",
+        "error": "Ett fel uppstod vid försök att skicka e-post för återställning av lösenord. Försök igen senare."
       }
     },
     "users": {
