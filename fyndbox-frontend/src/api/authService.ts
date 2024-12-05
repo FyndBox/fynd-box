@@ -43,3 +43,11 @@ export const updatePassword = async (
     }),
   );
 };
+
+export const forgotPassword = async (email: string): Promise<void> => {
+  return handleApiCall(
+    apiClient.post<ApiResponse<void>>('/auth/forgot-password', {
+      email,
+    }),
+  );
+};

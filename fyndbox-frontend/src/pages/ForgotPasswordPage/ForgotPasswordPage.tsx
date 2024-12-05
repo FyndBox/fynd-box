@@ -17,26 +17,38 @@ import { ButtonContainer, SendButton } from './ForgotPasswordPage.styles';
 
 const ForgotPasswordPage: FC = () => {
   const { t } = useTranslation();
-  const { error, setError } = useAuth();
+  const { forgotPassword, error, setError, loading } = useAuth();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSendEmail = async () => {
     setEmailError(!isEmailValid(email));
 
     if (isEmailValid(email)) {
-      // const success = await login(email, password);
-      // await sendForgotPasswordEmail(email); // API call
-      //   if (success) {
-      //     navigate('/dashboard');
-      //   }
+      setError(null);
+      try {
+        const success = await forgotPassword(email);
+        if (success) {
+          setSuccessMessage(t('api.auth.forgotPassword.success'));
+          setEmail('');
+        }
+      } catch (err) {
+        setSuccessMessage('');
+      }
     }
   };
 
   return (
     <FullPageContainer>
       <AppHeader />
+      {loading && <Typography variant="body1">Loading...</Typography>}
       <PageHeader heading={t('forgotPassword.title')} />
+      {successMessage && (
+        <Typography variant="caption" color="info">
+          {successMessage}
+        </Typography>
+      )}
       <Typography variant="body1" py={2}>
         {t('forgotPassword.description')}
       </Typography>
