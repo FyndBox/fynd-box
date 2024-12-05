@@ -16,6 +16,7 @@ import { CreateUserDto } from '../user/dto/create-user.dto';
 import { TranslationService } from 'src/translation/translation.service';
 import { StorageService } from 'src/storage/storage.service';
 import { BoxService } from 'src/box/box.service';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Injectable({ scope: Scope.REQUEST })
 export class AuthService extends BaseService {
@@ -135,6 +136,9 @@ export class AuthService extends BaseService {
 
   async forgotPassword(email: string): Promise<void> {
     const user = await this.userService.findByEmail(email);
+    if (!user) {
+      throw new BadRequestException('User not found.');
+    }
 
     const resetToken = crypto.randomBytes(32).toString('hex');
     user.resetToken = resetToken;
@@ -166,6 +170,31 @@ export class AuthService extends BaseService {
         reset_url: resetUrl,
         email: email,
       },
+    });
+  }
+
+  async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<void> {
+    const { email, resetToken, newPassword } = resetPasswordDto;
+
+    const user = await this.userService.findByEmail(email);
+    if (!user) {
+      throw new BadRequestException('User not found.');
+    }
+
+    if (!user.resetToken || user.resetToken !== resetToken) {
+      throw new BadRequestException('Invalid reset token.');
+    }
+
+    if (user.resetTokenExpiry && user.resetTokenExpiry < new Date()) {
+      throw new BadRequestException('Reset token has expired.');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await this.userService.update(user.id, {
+      password: hashedPassword,
+      resetToken: undefined,
+      resetTokenExpiry: undefined,
     });
   }
 }

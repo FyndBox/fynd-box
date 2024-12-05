@@ -204,6 +204,10 @@
       "forgotPassword": {
         "success": "En länk för att återställa lösenordet har skickats till din e-postadress. Kontrollera din inkorg.",
         "error": "Ett fel uppstod vid försök att skicka e-post för återställning av lösenord. Försök igen senare."
+      },
+      "resetPassword": {
+        "success": "Lösenordet har återställts framgångsrikt",
+        "error": "Ett fel inträffade vid återställning av lösenordet"
       }
     },
     "users": {

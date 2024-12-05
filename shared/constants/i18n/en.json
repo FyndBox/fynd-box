@@ -204,6 +204,10 @@
       "forgotPassword": {
         "success": "A reset password link has been sent to your email address. Please check your inbox.",
         "error": "We encountered an error while attempting to send the reset password email. Please try again later."
+      },
+      "resetPassword": {
+        "success": "Password reset successfully",
+        "error": "An error occurred while resetting the password"
       }
     },
     "users": {
