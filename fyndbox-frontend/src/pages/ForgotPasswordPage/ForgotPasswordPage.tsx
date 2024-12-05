@@ -43,12 +43,12 @@ const ForgotPasswordPage: FC = () => {
     <FullPageContainer>
       <AppHeader />
       {loading && <Typography variant="body1">Loading...</Typography>}
-      <PageHeader heading={t('forgotPassword.title')} />
       {successMessage && (
         <Typography variant="caption" color="info">
           {successMessage}
         </Typography>
       )}
+      <PageHeader heading={t('forgotPassword.title')} />
       <Typography variant="body1" py={2}>
         {t('forgotPassword.description')}
       </Typography>
