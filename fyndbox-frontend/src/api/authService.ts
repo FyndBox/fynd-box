@@ -51,3 +51,17 @@ export const forgotPassword = async (email: string): Promise<void> => {
     }),
   );
 };
+
+export interface ResetPasswordDto {
+  email: string;
+  resetToken: string;
+  newPassword: string;
+}
+
+export const resetPassword = async (
+  resetPasswordDto: ResetPasswordDto,
+): Promise<void> => {
+  return handleApiCall(
+    apiClient.post<ApiResponse<void>>('/auth/reset-password', resetPasswordDto),
+  );
+};

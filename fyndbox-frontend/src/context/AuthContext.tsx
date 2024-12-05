@@ -12,6 +12,7 @@ import {
   signup as signupApi,
   updatePassword as updatePasswordApi,
   forgotPassword as forgotPasswordApi,
+  resetPassword as resetPasswordApi,
 } from '../api/authService';
 
 const getTokenFromLocalStorage = (): string | null => {
@@ -45,6 +46,11 @@ interface AuthContextType {
     newPassword: string,
   ) => Promise<boolean>;
   forgotPassword: (email: string) => Promise<boolean>;
+  resetPassword: (
+    email: string,
+    resetToken: string,
+    password: string,
+  ) => Promise<boolean>;
   isAuthenticated: boolean;
   error: string | null;
   setError: (error: string | null) => void;
@@ -179,6 +185,26 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }
   };
 
+  const resetPassword = async (
+    email: string,
+    resetToken: string,
+    newPassword: string,
+  ): Promise<boolean> => {
+    setError(null);
+    setLoading(true);
+    try {
+      await resetPasswordApi({ email, resetToken, newPassword });
+      return true;
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : 'An unknown error occurred',
+      );
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -188,6 +214,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         logout,
         updatePassword,
         forgotPassword,
+        resetPassword,
         isAuthenticated,
         error,
         setError,
