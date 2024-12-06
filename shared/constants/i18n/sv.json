@@ -29,7 +29,8 @@
     "submit": "Reset Password",
     "success": "Password reset successfully.",
     "error": {
-      "invalidTokenOrEmail": "Invalid or expired token."
+      "invalidTokenOrEmail": "Invalid or expired token.",
+      "mismatch": "New password and confirm password must match."
     },
     "backToLogin": "Back to Login"
   },

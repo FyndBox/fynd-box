@@ -1,51 +1,60 @@
 import { FC, useState } from 'react';
-import { Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
+import { Lock, Visibility, VisibilityOff } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
 import {
   CustomLink,
   FullPageContainer,
   TextFieldsContainer,
 } from '../../styles/commonStyles';
-import { useTranslation } from 'react-i18next';
 import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import { useAuth } from '../../hooks/useAuth';
 import { ButtonContainer, SendButton } from './ResetPasswordPage.styles';
+import { isPasswordNonEmpty, isPasswordValid } from '../../utils/validation';
+import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
 const ResetPasswordPage: FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const resetToken = searchParams.get('token');
+  const email = searchParams.get('email');
   const { resetPassword, error, setError, loading } = useAuth();
-  const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordError, setPasswordError] = useState(false);
+  const [newPasswordError, setNewPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [passwordMatchError, setPasswordMatchError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleResetPassword = async () => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const resetToken = searchParams.get('reset-token');
-    const email = searchParams.get('email');
+    const isNewPasswordValid = isPasswordValid(newPassword);
+    const isConfirmPasswordValid = isPasswordNonEmpty(confirmPassword);
+    const doPasswordsMatch = newPassword === confirmPassword;
 
-    if (!resetToken || !email) {
-      setError('Invalid or expired reset token.');
-      return;
-    }
+    setNewPasswordError(!isNewPasswordValid);
+    setPasswordMatchError(!doPasswordsMatch);
 
-    const success = await resetPassword(email, resetToken, password);
-    if (success) {
-      setSuccessMessage('Password reset successfully.');
+    if (isNewPasswordValid && isConfirmPasswordValid && doPasswordsMatch) {
+      const success = await resetPassword(email!, resetToken!, newPassword);
+
+      if (success) {
+        navigate('/login');
+      }
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
     <FullPageContainer>
       <AppHeader />
       {loading && <Typography variant="body1">Loading...</Typography>}
-      {successMessage && (
-        <Typography variant="caption" color="info">
-          {successMessage}
-        </Typography>
-      )}
       <PageHeader heading={t('resetPassword.title')} />
       <Typography variant="body1" py={2}>
         {t('resetPassword.description')}
@@ -53,22 +62,37 @@ const ResetPasswordPage: FC = () => {
       <TextFieldsContainer>
         <CustomTextField
           label={t('resetPassword.newPassword.label')}
-          type="password"
           placeholder={t('resetPassword.newPassword.placeholder')}
-          value={password}
+          type={showPassword ? 'text' : 'password'}
+          value={newPassword}
           onChange={(e) => {
-            setPasswordError(false);
-            setPassword(e.target.value);
+            setNewPassword(e.target.value);
+            setNewPasswordError(false);
             if (error) setError(null);
           }}
-          error={passwordError}
+          error={newPasswordError}
           helperText={
-            passwordError ? t('resetPassword.newPassword.errorMessage') : ''
+            newPasswordError
+              ? t('common.password.invalidPasswordError')
+                  .split('\n')
+                  .map((line, index) => (
+                    <span key={index}>
+                      {line}
+                      <br />
+                    </span>
+                  ))
+              : ''
+          }
+          startIcon={<Lock />}
+          endIcon={
+            <IconButton onClick={togglePasswordVisibility} edge="end">
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
           }
         />
         <CustomTextField
           label={t('resetPassword.confirmPassword.label')}
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           placeholder={t('resetPassword.confirmPassword.placeholder')}
           value={confirmPassword}
           onChange={(e) => {
@@ -79,11 +103,22 @@ const ResetPasswordPage: FC = () => {
           error={confirmPasswordError}
           helperText={
             confirmPasswordError
-              ? t('resetPassword.confirmPassword.errorMessage')
+              ? t('common.password.passwordRequiredError')
               : ''
+          }
+          startIcon={<Lock />}
+          endIcon={
+            <IconButton onClick={togglePasswordVisibility} edge="end">
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
           }
         />
       </TextFieldsContainer>
+      {passwordMatchError && (
+        <Typography variant="caption" color="error">
+          {t('resetPassword.error.mismatch')}
+        </Typography>
+      )}
       <ButtonContainer>
         <SendButton variant="contained" onClick={handleResetPassword}>
           {t('resetPassword.submit')}
@@ -95,8 +130,9 @@ const ResetPasswordPage: FC = () => {
         </Typography>
       )}
       <CustomLink href="/login" underline="always">
-        {t('resetPassword.backToLogin')}
+        {t('forgotPassword.backToLogin')}
       </CustomLink>
+      <LanguageSelector />
     </FullPageContainer>
   );
 };

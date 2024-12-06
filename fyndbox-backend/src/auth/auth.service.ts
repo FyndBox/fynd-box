@@ -147,16 +147,16 @@ export class AuthService extends BaseService {
 
     const frontendUrl = process.env.FRONTEND_URL;
     const fromEmail = process.env.POSTMARK_FROM_EMAIL;
-    const templateId = process.env.POSTMARK_TEMPLATE_ID;
+    const templateId = process.env.POSTMARK_FORGOT_PASSWORD_TEMPLATE_ID;
     const productName = process.env.PRODUCT_NAME;
 
     if (!frontendUrl || !fromEmail || !templateId) {
       throw new Error(
-        'FRONTEND_URL, POSTMARK_FROM_EMAIL, or POSTMARK_TEMPLATE_ID is missing in environment variables',
+        'FRONTEND_URL, POSTMARK_FROM_EMAIL, PRODUCT_NAME, or POSTMARK_FORGOT_PASSWORD_TEMPLATE_ID is missing in environment variables',
       );
     }
     // Generate the reset URL
-    const resetUrl = `${frontendUrl}/reset-password?token=${resetToken}`;
+    const resetUrl = `${frontendUrl}/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`;
 
     // Send the reset password email
     await this.postmarkClient.sendEmailWithTemplate({
