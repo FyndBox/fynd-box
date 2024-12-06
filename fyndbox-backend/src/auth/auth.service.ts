@@ -136,9 +136,6 @@ export class AuthService extends BaseService {
 
   async forgotPassword(email: string): Promise<void> {
     const user = await this.userService.findByEmail(email);
-    if (!user) {
-      throw new BadRequestException('User not found.');
-    }
 
     const resetToken = crypto.randomBytes(32).toString('hex');
     user.resetToken = resetToken;
@@ -151,6 +148,7 @@ export class AuthService extends BaseService {
     const frontendUrl = process.env.FRONTEND_URL;
     const fromEmail = process.env.POSTMARK_FROM_EMAIL;
     const templateId = process.env.POSTMARK_TEMPLATE_ID;
+    const productName = process.env.PRODUCT_NAME;
 
     if (!frontendUrl || !fromEmail || !templateId) {
       throw new Error(
@@ -167,8 +165,11 @@ export class AuthService extends BaseService {
       TemplateId: parseInt(templateId, 10),
       TemplateModel: {
         name: user.name || 'User',
-        reset_url: resetUrl,
-        email: email,
+        action_url: resetUrl,
+        company_name: productName,
+        product_name: productName,
+        product_url: frontendUrl,
+        company_address: fromEmail,
       },
     });
   }
