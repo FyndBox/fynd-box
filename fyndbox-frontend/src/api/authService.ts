@@ -65,3 +65,15 @@ export const resetPassword = async (
     apiClient.post<ApiResponse<void>>('/auth/reset-password', resetPasswordDto),
   );
 };
+
+export const validateResetToken = async (
+  email: string,
+  resetToken: string,
+): Promise<void> => {
+  return handleApiCall(
+    apiClient.post<ApiResponse<void>>('/auth/validate-reset-token', {
+      email,
+      resetToken,
+    }),
+  );
+};

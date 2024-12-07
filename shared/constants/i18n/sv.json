@@ -30,7 +30,8 @@
     "success": "Password reset successfully.",
     "error": {
       "invalidTokenOrEmail": "Invalid or expired token.",
-      "mismatch": "New password and confirm password must match."
+      "mismatch": "New password and confirm password must match.",
+      "tokenInvalidOrUsed": "Token is invalid or has been used."
     },
     "backToLogin": "Back to Login"
   },
@@ -227,6 +228,10 @@
       "resetPassword": {
         "success": "Lösenordet har återställts framgångsrikt",
         "error": "Ett fel inträffade vid återställning av lösenordet"
+      }, 
+      "validate-reset-token": {
+        "success": "Token is valid",
+        "error": "Token is invalid"
       }
     },
     "users": {

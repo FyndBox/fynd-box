@@ -42,6 +42,7 @@ export class UserService extends BaseService {
   }
 
   async findByEmail(email: string): Promise<User> {
+    console.log(email);
     const normalizedEmail = email.trim().toLowerCase();
     const user = await this.userRepository.findOne({
       where: { email: normalizedEmail },

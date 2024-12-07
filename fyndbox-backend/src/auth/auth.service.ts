@@ -198,4 +198,21 @@ export class AuthService extends BaseService {
       resetTokenExpiry: undefined,
     });
   }
+
+  async validateResetToken(email: string, resetToken: string): Promise<void> {
+    const user = await this.userService.findByEmail(email);
+
+    if (
+      !user ||
+      user.resetToken !== resetToken ||
+      user.resetTokenExpiry! < new Date()
+    ) {
+      throw new BadRequestException(
+        this.translationService.getTranslation(
+          'resetPassword.error.tokenInvalidOrUsed',
+          this.getLang(),
+        ),
+      );
+    }
+  }
 }
