@@ -4,11 +4,17 @@ import { useNavigate } from 'react-router-dom';
 export const useFooterActions = () => {
   const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isSidebarRightOpen, setSidebarRightOpen] = useState(false);
   const [showQRScanner, setShowQRScanner] = useState(false);
 
   const handleFavoriteClick = () => {
-    console.log('Favorite button clicked');
+    //console.log('Favorite button clicked');
+    setSidebarRightOpen(true);
     // Navigate to favorites page or implement favorite functionality
+  };
+
+  const handleCloseSidebarRight = () => {
+    setSidebarRightOpen(false);
   };
 
   const handleScanClick = () => {
@@ -43,7 +49,9 @@ export const useFooterActions = () => {
     handleCancelScan,
     handleSettingsClick,
     handleCloseSidebar,
+    handleCloseSidebarRight,
     showQRScanner,
     isSidebarOpen,
+    isSidebarRightOpen
   };
 };

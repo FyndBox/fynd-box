@@ -28,6 +28,7 @@ import EntityActionModal from '../../components/Modal/EntityActionModal';
 import QRScanner from '../../components/QRScanner/QRScanner';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import { useFooterActions } from '../../hooks/useFooterActions';
+import SidebarRight from '../../components/SidebarRight/SidebarRight';
 
 const BoxPage: FC = () => {
   const { t } = useTranslation();
@@ -47,8 +48,10 @@ const BoxPage: FC = () => {
     handleCancelScan,
     handleSettingsClick,
     handleCloseSidebar,
+    handleCloseSidebarRight,
     showQRScanner,
     isSidebarOpen,
+    isSidebarRightOpen
   } = useFooterActions();
 
   // Fetch storage details using storageId
@@ -305,6 +308,7 @@ const BoxPage: FC = () => {
         onDelete={handleDelete}
       />
       <Sidebar open={isSidebarOpen} onClose={handleCloseSidebar} />
+      <SidebarRight open={isSidebarRightOpen} onClose={handleCloseSidebarRight} />
     </BoxContainer>
   );
 };

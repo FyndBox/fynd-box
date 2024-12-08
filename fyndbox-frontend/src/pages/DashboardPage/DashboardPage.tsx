@@ -30,6 +30,7 @@ import QRScanner from '../../components/QRScanner/QRScanner';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import { useFooterActions } from '../../hooks/useFooterActions';
 import SearchField from '../../components/SearchField/SearchField';
+import SidebarRight from '../../components/SidebarRight/SidebarRight';
 
 const DashboardPage: FC = () => {
   const { t } = useTranslation();
@@ -56,8 +57,10 @@ const DashboardPage: FC = () => {
     handleCancelScan,
     handleSettingsClick,
     handleCloseSidebar,
+    handleCloseSidebarRight,
     showQRScanner,
     isSidebarOpen,
+    isSidebarRightOpen
   } = useFooterActions();
 
   const handleToggleExpand = (index: number) => {
@@ -228,6 +231,7 @@ const DashboardPage: FC = () => {
         onDelete={handleDelete}
       />
       <Sidebar open={isSidebarOpen} onClose={handleCloseSidebar} />
+      <SidebarRight open={isSidebarRightOpen} onClose={handleCloseSidebarRight} />
     </DashboardContainer>
   );
 };
