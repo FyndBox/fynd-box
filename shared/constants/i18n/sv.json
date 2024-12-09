@@ -31,7 +31,7 @@
     "error": {
       "invalidTokenOrEmail": "Invalid or expired token.",
       "mismatch": "New password and confirm password must match.",
-      "tokenInvalidOrUsed": "Token is invalid or has been used."
+      "tokenInvalidOrUsed": "The reset link you used is invalid, expired, or has already been used. Please request a new reset link to proceed."
     },
     "backToLogin": "Back to Login"
   },

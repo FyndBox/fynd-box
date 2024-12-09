@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { IconButton, Typography } from '@mui/material';
+import { CardContent, IconButton, Typography } from '@mui/material';
 import { Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -12,7 +12,12 @@ import {
 import AppHeader from '../../components/AppHeader/AppHeader';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import { useAuth } from '../../hooks/useAuth';
-import { ButtonContainer, SendButton } from './ResetPasswordPage.styles';
+import {
+  ButtonContainer,
+  ErrorCard,
+  ErrorCardContainer,
+  SendButton,
+} from './ResetPasswordPage.styles';
 import { isPasswordNonEmpty, isPasswordValid } from '../../utils/validation';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 
@@ -30,16 +35,16 @@ const ResetPasswordPage: FC = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [tokenError, setTokenError] = useState('');
+  const [tokenError, setTokenError] = useState(false);
 
   useEffect(() => {
     const checkTokenValidity = async () => {
       if (email && resetToken) {
-        try {
-          await validateResetToken(email, resetToken);
-        } catch (err: any) {
-          console.log(err);
-          setTokenError(err.message);
+        const isTokenValid = await validateResetToken(email, resetToken);
+        if (isTokenValid) {
+          setTokenError(false);
+        } else {
+          setTokenError(true);
         }
       }
     };
@@ -74,9 +79,15 @@ const ResetPasswordPage: FC = () => {
       <AppHeader />
       {loading && <Typography variant="body1">Loading...</Typography>}
       {tokenError && (
-        <Typography variant="body1" color="error" py={2}>
-          {tokenError}
-        </Typography>
+        <ErrorCardContainer>
+          <ErrorCard>
+            <CardContent>
+              <Typography variant="body1" textAlign="center" gutterBottom>
+                {t('resetPassword.error.tokenInvalidOrUsed')}
+              </Typography>
+            </CardContent>
+          </ErrorCard>
+        </ErrorCardContainer>
       )}
       {!tokenError && (
         <>
@@ -149,12 +160,12 @@ const ResetPasswordPage: FC = () => {
               {t('resetPassword.submit')}
             </SendButton>
           </ButtonContainer>
+          {error && (
+            <Typography variant="caption" color="error">
+              {error}
+            </Typography>
+          )}
         </>
-      )}
-      {error && (
-        <Typography variant="caption" color="error">
-          {error}
-        </Typography>
       )}
       <CustomLink href="/login" underline="always">
         {t('forgotPassword.backToLogin')}
