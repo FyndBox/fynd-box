@@ -8,6 +8,7 @@ import PageHeader from '../../components/PageHeader/PageHeader';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
 import CustomTextField from '../../components/CustomTextField/CustomTextField';
 import {
+  CustomLink,
   FullPageContainer,
   TextFieldsContainer,
 } from '../../styles/commonStyles';
@@ -100,6 +101,9 @@ const LoginPage: FC = () => {
         onLoginClick={handleLoginClick}
         onRegisterClick={handleSignupClick}
       />
+      <CustomLink href="/forgot-password" underline="always">
+        {t('login.forgotPassword')}
+      </CustomLink>
       <LanguageSelector />
     </FullPageContainer>
   );

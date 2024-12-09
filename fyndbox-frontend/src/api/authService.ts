@@ -43,3 +43,37 @@ export const updatePassword = async (
     }),
   );
 };
+
+export const forgotPassword = async (email: string): Promise<void> => {
+  return handleApiCall(
+    apiClient.post<ApiResponse<void>>('/auth/forgot-password', {
+      email,
+    }),
+  );
+};
+
+export interface ResetPasswordDto {
+  email: string;
+  resetToken: string;
+  newPassword: string;
+}
+
+export const resetPassword = async (
+  resetPasswordDto: ResetPasswordDto,
+): Promise<void> => {
+  return handleApiCall(
+    apiClient.post<ApiResponse<void>>('/auth/reset-password', resetPasswordDto),
+  );
+};
+
+export const validateResetToken = async (
+  email: string,
+  resetToken: string,
+): Promise<void> => {
+  return handleApiCall(
+    apiClient.post<ApiResponse<void>>('/auth/validate-reset-token', {
+      email,
+      resetToken,
+    }),
+  );
+};

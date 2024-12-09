@@ -108,6 +108,9 @@ importers:
       pg:
         specifier: ^8.12.0
         version: 8.12.0
+      postmark:
+        specifier: ^4.0.5
+        version: 4.0.5
       reflect-metadata:
         specifier: ^0.2.0
         version: 0.2.2
@@ -3587,6 +3590,9 @@ packages:
   postgres-interval@1.2.0:
     resolution: {integrity: sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==}
     engines: {node: '>=0.10.0'}
+
+  postmark@4.0.5:
+    resolution: {integrity: sha512-nerZdd3TwOH4CgGboZnlUM/q7oZk0EqpZgJL+Y3Nup8kHeaukxouQ6JcFF3EJEijc4QbuNv1TefGhboAKtf/SQ==}
 
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
@@ -8576,6 +8582,12 @@ snapshots:
   postgres-interval@1.2.0:
     dependencies:
       xtend: 4.0.2
+
+  postmark@4.0.5:
+    dependencies:
+      axios: 1.7.7
+    transitivePeerDependencies:
+      - debug
 
   prelude-ls@1.2.1: {}
 
