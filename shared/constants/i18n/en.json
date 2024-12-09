@@ -6,7 +6,34 @@
   },
   "login": {
     "title": "Log in",
+    "forgotPassword": "Forgot your password?",
     "submit": "Log in"
+  },
+  "forgotPassword": {
+    "title": "Forgot your password?",
+    "description": "Enter your email address and we will send you a link to reset your password.",
+    "submit": "Send Reset Link",
+    "backToLogin": "Back to login page"
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "description": "Please enter your new password below.",
+    "newPassword": {
+      "label": "New Password",
+      "placeholder": "Enter new password"
+    },
+    "confirmPassword": {
+      "label": "Confirm Password",
+      "placeholder": "Re-enter new password"
+    },
+    "submit": "Reset Password",
+    "success": "Password reset successfully.",
+    "error": {
+      "invalidTokenOrEmail": "Invalid or expired token.",
+      "mismatch": "New password and confirm password must match.",
+      "tokenInvalidOrUsed": "The reset link you used is invalid, expired, or has already been used. Please request a new reset link to proceed."
+    },
+    "backToLogin": "Back to Login"
   },
   "signup": {
     "title": "Create new account",
@@ -193,6 +220,18 @@
           "updateFailed": "Error updating password",
           "incorrectPassword": "Current password is incorrect"
         }
+      }, 
+      "forgotPassword": {
+        "success": "A reset password link has been sent to your email address. Please check your inbox.",
+        "error": "We encountered an error while attempting to send the reset password email. Please try again later."
+      },
+      "resetPassword": {
+        "success": "Password reset successfully",
+        "error": "An error occurred while resetting the password"
+      },
+      "validate-reset-token": {
+        "success": "Token is valid",
+        "error": "Token is invalid"
       }
     },
     "users": {

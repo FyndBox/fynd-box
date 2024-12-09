@@ -3,7 +3,12 @@ import axios from 'axios';
 const getToken = () => localStorage.getItem('token');
 const getLanguage = () => localStorage.getItem('appLanguage');
 
-const publicRoutes = ['/auth/login', '/auth/signup'];
+const publicRoutes = [
+  '/auth/login',
+  '/auth/signup',
+  '/auth/forgot-password',
+  '/auth/reset-password',
+];
 
 const apiClient = axios.create({
   baseURL:

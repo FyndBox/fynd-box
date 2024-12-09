@@ -3,13 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import AuthButtonsGroup from '../../components/AuthButtonsGroup/AuthButtonsGroup';
-import {
-  GuideLink,
-  HomeContainer,
-  HomeSubContainer,
-} from './LandingPage.styles';
+import { HomeContainer, HomeSubContainer } from './LandingPage.styles';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 import appLogo from '../../assets/FyndBox.png';
+import { CustomLink } from '../../styles/commonStyles';
 
 const LandingPage: FC = () => {
   const navigate = useNavigate();
@@ -42,9 +39,9 @@ const LandingPage: FC = () => {
           onRegisterClick={handleSignupClick}
         />
         <Box>
-          <GuideLink href="/user-guide" underline="always">
+          <CustomLink href="/user-guide" underline="always">
             {t('home.guideLink')}
-          </GuideLink>
+          </CustomLink>
           <Typography variant="body2" pt={2}>
             {beforeEmail}
             <Link

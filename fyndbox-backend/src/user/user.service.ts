@@ -73,7 +73,14 @@ export class UserService extends BaseService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    await this.userRepository.update(id, updateUserDto);
+    const sanitizedUpdateDto = Object.entries(updateUserDto).reduce(
+      (acc, [key, value]) => {
+        (acc as any)[key] = value === undefined ? null : value;
+        return acc;
+      },
+      {} as Partial<UpdateUserDto>,
+    );
+    await this.userRepository.update(id, sanitizedUpdateDto);
     return this.findOne(id);
   }
 
