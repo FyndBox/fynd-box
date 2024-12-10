@@ -37,7 +37,8 @@
   },
   "signup": {
     "title": "Create new account",
-    "submit": "Become a Member"
+    "submit": "Become a Member",
+    "sendEmailMessage": "A confirmation email has been sent to your registered email address. Please check your inbox to explore your account."
   },
   "userGuide": {
     "title": "This is how it works",

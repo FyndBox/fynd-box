@@ -28,7 +28,7 @@ import LanguageSelector from '../../components/LanguageSelector/LanguageSelector
 export const SignupPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { signup, error, setError } = useAuth();
+  const { signup, error, setError, loading } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,6 +36,7 @@ export const SignupPage = () => {
   const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSignupClick = async () => {
     setNameError(!isNameValid(name));
@@ -45,6 +46,7 @@ export const SignupPage = () => {
     if (isNameValid(name) && isEmailValid(email) && isPasswordValid(password)) {
       const success = await signup(name, email, password);
       if (success) {
+        setSuccessMessage(t('signup.sendEmailMessage'));
         navigate('/dashboard');
       }
     }
@@ -57,6 +59,12 @@ export const SignupPage = () => {
   return (
     <FullPageContainer>
       <AppHeader />
+      {loading && <Typography variant="body1">Loading...</Typography>}
+      {successMessage && (
+        <Typography variant="caption" color="info">
+          {successMessage}
+        </Typography>
+      )}
       <PageHeader heading={t('signup.title')} />
       <TextFieldsContainer>
         <CustomTextField

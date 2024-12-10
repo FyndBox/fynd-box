@@ -37,7 +37,8 @@
   },
   "signup": {
     "title": "Skapa nytt konto",
-    "submit": "Bli medlem"
+    "submit": "Bli medlem",
+    "sendEmailMessage": "Ett bekräftelsemail har skickats till din registrerade e-postadress. Kontrollera din inkorg för att utforska ditt konto."
   },
   "userGuide": {
     "title": "Så här fungerar det",
