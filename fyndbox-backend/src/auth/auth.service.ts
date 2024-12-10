@@ -104,6 +104,35 @@ export class AuthService extends BaseService {
       newUser.id,
     );
 
+    const frontendUrl = process.env.FRONTEND_URL;
+    const fromEmail = process.env.POSTMARK_FROM_EMAIL;
+    const templateId = process.env.POSTMARK_WELCOME_TEMPLATE_ID;
+    const productName = process.env.PRODUCT_NAME;
+
+    if (!frontendUrl || !fromEmail || !templateId || !productName) {
+      throw new Error(
+        'FRONTEND_URL, POSTMARK_FROM_EMAIL, PRODUCT_NAME, or POSTMARK_WELCOME_TEMPLATE_ID is missing in environment variables',
+      );
+    }
+
+    // login URL
+    const loginUrl = `${frontendUrl}/login`;
+
+    await this.postmarkClient.sendEmailWithTemplate({
+      From: fromEmail,
+      To: createUserDto.email,
+      TemplateId: parseInt(templateId, 10),
+      TemplateModel: {
+        name: createUserDto.name,
+        email: createUserDto.email,
+        product_name: productName,
+        product_url: frontendUrl,
+        login_url: loginUrl,
+        company_name: productName,
+        company_address: fromEmail,
+      },
+    });
+
     const payload = { email: newUser.email, sub: newUser.id };
     const access_token = this.jwtService.sign(payload);
 
