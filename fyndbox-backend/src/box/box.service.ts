@@ -23,6 +23,7 @@ export class BoxService extends BaseService {
     return this.boxRepository.find({
       where: { storageId },
       relations: ['items'],
+      order: { createdAt: 'DESC' },
     });
   }
 
