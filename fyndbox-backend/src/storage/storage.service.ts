@@ -53,6 +53,7 @@ export class StorageService extends BaseService {
     return this.storageRepository.find({
       where: { userId },
       relations: ['boxes'],
+      order: { createdAt: 'DESC' },
     });
   }
 
