@@ -310,6 +310,10 @@
         "success": "Lådan raderad",
         "error": "Fel vid radering av lådan"
       },
+      "getFavorites": {
+        "success": "Favorite boxes fetched successfully",
+        "error": "Failed to fetch favorite boxes"
+      },
       "notFoundById": "Lådan med ID {{id}} hittades inte",
       "storageIDRequired": "Lagring ID krävs för uppdateringen"
     },
