@@ -50,3 +50,8 @@ export const deleteBox = async (
     apiClient.delete<ApiResponse<void>>(`/boxes/${storageId}/${boxId}`),
   );
 };
+
+// Get all favorite boxes for the logged-in user
+export const getFavoriteBoxes = async (): Promise<Box[]> => {
+  return handleApiCall(apiClient.get<ApiResponse<Box[]>>('/boxes/favorites'));
+};
