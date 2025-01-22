@@ -5,9 +5,11 @@ export const useFooterActions = () => {
   const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [showQRScanner, setShowQRScanner] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
 
   const handleFavoriteClick = () => {
-    console.log('Favorite button clicked');
+    setShowFavorites((prev) => !prev); // Toggle favorites view
+    console.log('Favorite button clicked, toggling favorites view');
     // Navigate to favorites page or implement favorite functionality
   };
 
@@ -44,6 +46,7 @@ export const useFooterActions = () => {
     handleSettingsClick,
     handleCloseSidebar,
     showQRScanner,
+    showFavorites,
     isSidebarOpen,
   };
 };

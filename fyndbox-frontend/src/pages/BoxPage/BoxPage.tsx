@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowBackIos } from '@mui/icons-material';
 import { Typography, CircularProgress, Divider, Box } from '@mui/material';
 import { useStorage } from '../../hooks/useStorage';
-import { useBox, useUpdateBox } from '../../hooks/useBox';
+import { useBox, useFavoriteBoxes, useUpdateBox } from '../../hooks/useBox';
 import BoxDetails from '../../components/BoxDetails/BoxDetails';
 import {
   BackButton,
@@ -48,6 +48,7 @@ const BoxPage: FC = () => {
     handleSettingsClick,
     handleCloseSidebar,
     showQRScanner,
+    showFavorites,
     isSidebarOpen,
   } = useFooterActions();
 
@@ -67,6 +68,8 @@ const BoxPage: FC = () => {
 
   // Initialize updateBox hook
   const { mutate: updateBox } = useUpdateBox();
+  const { data: favoriteBoxes, isLoading: isLoadingFavorites } =
+    useFavoriteBoxes();
 
   // Fetch all items for the box
   const {
