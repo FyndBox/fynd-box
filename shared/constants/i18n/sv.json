@@ -6,11 +6,39 @@
   },
   "login": {
     "title": "Logga in",
+    "forgotPassword": "Glömt ditt lösenord?",
     "submit": "Logga in"
+  },
+  "forgotPassword": {
+    "title": "Glömt ditt lösenord?",
+    "description": "Ange din e-postadress så skickar vi en länk för att återställa ditt lösenord.",
+    "submit": "Skicka återställningslänk",
+    "backToLogin": "Tillbaka till inloggningssidan"
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "description": "Please enter your new password below.",
+    "newPassword": {
+      "label": "New Password",
+      "placeholder": "Enter new password"
+    },
+    "confirmPassword": {
+      "label": "Confirm Password",
+      "placeholder": "Re-enter new password"
+    },
+    "submit": "Reset Password",
+    "success": "Password reset successfully.",
+    "error": {
+      "invalidTokenOrEmail": "Invalid or expired token.",
+      "mismatch": "New password and confirm password must match.",
+      "tokenInvalidOrUsed": "The reset link you used is invalid, expired, or has already been used. Please request a new reset link to proceed."
+    },
+    "backToLogin": "Back to Login"
   },
   "signup": {
     "title": "Skapa nytt konto",
-    "submit": "Bli medlem"
+    "submit": "Bli medlem",
+    "sendEmailMessage": "Ett bekräftelsemail har skickats till din registrerade e-postadress. Kontrollera din inkorg för att utforska ditt konto."
   },
   "userGuide": {
     "title": "Så här fungerar det",
@@ -193,6 +221,18 @@
           "updateFailed": "Fel vid uppdatering av lösenord",
           "incorrectPassword": "Aktuellt lösenord är felaktigt"
         }
+      },
+      "forgotPassword": {
+        "success": "En länk för att återställa lösenordet har skickats till din e-postadress. Kontrollera din inkorg.",
+        "error": "Ett fel uppstod vid försök att skicka e-post för återställning av lösenord. Försök igen senare."
+      },
+      "resetPassword": {
+        "success": "Lösenordet har återställts framgångsrikt",
+        "error": "Ett fel inträffade vid återställning av lösenordet"
+      }, 
+      "validate-reset-token": {
+        "success": "Token is valid",
+        "error": "Token is invalid"
       }
     },
     "users": {
@@ -269,6 +309,10 @@
       "delete": {
         "success": "Lådan raderad",
         "error": "Fel vid radering av lådan"
+      },
+      "getFavorites": {
+        "success": "Favorite boxes fetched successfully",
+        "error": "Failed to fetch favorite boxes"
       },
       "notFoundById": "Lådan med ID {{id}} hittades inte",
       "storageIDRequired": "Lagring ID krävs för uppdateringen"

@@ -23,6 +23,7 @@ export class BoxService extends BaseService {
     return this.boxRepository.find({
       where: { storageId },
       relations: ['items'],
+      order: { createdAt: 'DESC' },
     });
   }
 
@@ -89,5 +90,17 @@ export class BoxService extends BaseService {
       );
     }
     await this.boxRepository.remove(box);
+  }
+
+  async findFavoriteBoxes(userId: string): Promise<Box[]> {
+    return this.boxRepository.find({
+      where: {
+        isFavorite: true,
+        storage: {
+          userId: userId,
+        },
+      },
+      relations: ['storage'],
+    });
   }
 }

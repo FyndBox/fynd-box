@@ -1,4 +1,4 @@
-import { Box, Container, Link } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const HomeContainer = styled(Container)(({ theme }) => ({
@@ -17,10 +17,4 @@ export const HomeSubContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   textAlign: 'center',
   padding: theme.spacing(0, 2),
-}));
-
-export const GuideLink = styled(Link)(({ theme }) => ({
-  display: 'inline-block',
-  cursor: 'pointer',
-  color: theme.palette.secondary.contrastText,
 }));

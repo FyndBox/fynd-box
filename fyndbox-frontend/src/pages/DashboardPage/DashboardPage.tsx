@@ -23,7 +23,12 @@ import {
   useStorages,
   useUpdateStorage,
 } from '../../hooks/useStorage';
-import { useCreateBox, useDeleteBox, useUpdateBox } from '../../hooks/useBox';
+import {
+  useCreateBox,
+  useDeleteBox,
+  useUpdateBox,
+  useFavoriteBoxes,
+} from '../../hooks/useBox';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import QRScanner from '../../components/QRScanner/QRScanner';
@@ -50,6 +55,8 @@ const DashboardPage: FC = () => {
   const { mutate: createBox } = useCreateBox();
   const { mutate: updateBox } = useUpdateBox();
   const { mutate: deleteBox } = useDeleteBox();
+  const { data: favoriteBoxes, isLoading: isLoadingFavorites } =
+    useFavoriteBoxes();
   const {
     handleFavoriteClick,
     handleScanClick,
@@ -59,6 +66,7 @@ const DashboardPage: FC = () => {
     handleCloseSidebar,
     handleCloseSidebarRight,
     showQRScanner,
+    showFavorites,
     isSidebarOpen,
     isSidebarRightOpen
   } = useFooterActions();

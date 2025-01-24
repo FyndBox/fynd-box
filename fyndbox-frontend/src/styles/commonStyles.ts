@@ -1,4 +1,4 @@
-import { Box, Button, Container } from '@mui/material';
+import { Box, Button, Container, Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { SvgIcon } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
@@ -52,4 +52,11 @@ export const StyledArrowBack = styled(ArrowBack)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
   width: '30px',
   height: '30px',
+}));
+
+export const CustomLink = styled(Link)(({ theme }) => ({
+  display: 'inline-block',
+  cursor: 'pointer',
+  textAlign: 'center',
+  color: theme.palette.secondary.contrastText,
 }));
