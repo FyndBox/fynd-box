@@ -28,7 +28,7 @@ import EntityActionModal from '../../components/Modal/EntityActionModal';
 import QRScanner from '../../components/QRScanner/QRScanner';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import { useFooterActions } from '../../hooks/useFooterActions';
-import SidebarRight from '../../components/SidebarRight/SidebarRight';
+import FavoritesSidebar from '../../components/FavoritesSidebar/FavoritesSidebar';
 
 const BoxPage: FC = () => {
   const { t } = useTranslation();
@@ -48,11 +48,10 @@ const BoxPage: FC = () => {
     handleCancelScan,
     handleSettingsClick,
     handleCloseSidebar,
-    handleCloseSidebarRight,
+    handleCloseFavbar,
     showQRScanner,
     showFavorites,
     isSidebarOpen,
-    isSidebarRightOpen
   } = useFooterActions();
 
   // Fetch storage details using storageId
@@ -71,9 +70,7 @@ const BoxPage: FC = () => {
 
   // Initialize updateBox hook
   const { mutate: updateBox } = useUpdateBox();
-  const { data: favoriteBoxes, isLoading: isLoadingFavorites } =
-    useFavoriteBoxes();
-
+  const { data: favoriteBoxes } = useFavoriteBoxes();
   // Fetch all items for the box
   const {
     data: items,
@@ -311,7 +308,11 @@ const BoxPage: FC = () => {
         onDelete={handleDelete}
       />
       <Sidebar open={isSidebarOpen} onClose={handleCloseSidebar} />
-      <SidebarRight open={isSidebarRightOpen} onClose={handleCloseSidebarRight} />
+      <FavoritesSidebar
+        open={showFavorites}
+        favorites={favoriteBoxes}
+        onClose={handleCloseFavbar}
+      />
     </BoxContainer>
   );
 };

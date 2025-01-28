@@ -35,7 +35,7 @@ import QRScanner from '../../components/QRScanner/QRScanner';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import { useFooterActions } from '../../hooks/useFooterActions';
 import SearchField from '../../components/SearchField/SearchField';
-import SidebarRight from '../../components/SidebarRight/SidebarRight';
+import FavoritesSidebar from '../../components/FavoritesSidebar/FavoritesSidebar';
 
 const DashboardPage: FC = () => {
   const { t } = useTranslation();
@@ -55,8 +55,7 @@ const DashboardPage: FC = () => {
   const { mutate: createBox } = useCreateBox();
   const { mutate: updateBox } = useUpdateBox();
   const { mutate: deleteBox } = useDeleteBox();
-  const { data: favoriteBoxes, isLoading: isLoadingFavorites } =
-    useFavoriteBoxes();
+  const { data: favoriteBoxes } = useFavoriteBoxes();
   const {
     handleFavoriteClick,
     handleScanClick,
@@ -64,11 +63,10 @@ const DashboardPage: FC = () => {
     handleCancelScan,
     handleSettingsClick,
     handleCloseSidebar,
-    handleCloseSidebarRight,
+    handleCloseFavbar,
     showQRScanner,
     showFavorites,
     isSidebarOpen,
-    isSidebarRightOpen
   } = useFooterActions();
 
   const handleToggleExpand = (index: number) => {
@@ -239,7 +237,11 @@ const DashboardPage: FC = () => {
         onDelete={handleDelete}
       />
       <Sidebar open={isSidebarOpen} onClose={handleCloseSidebar} />
-      <SidebarRight open={isSidebarRightOpen} onClose={handleCloseSidebarRight} />
+      <FavoritesSidebar
+        open={showFavorites}
+        favorites={favoriteBoxes}
+        onClose={handleCloseFavbar}
+      />
     </DashboardContainer>
   );
 };

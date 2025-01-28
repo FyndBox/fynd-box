@@ -64,6 +64,7 @@ export const useUpdateBox = () => {
       queryClient.invalidateQueries({ queryKey: ['box', storageId, boxId] });
       queryClient.invalidateQueries({ queryKey: ['boxes', storageId] });
       queryClient.invalidateQueries({ queryKey: ['storages'] });
+      queryClient.invalidateQueries({ queryKey: ['favoriteBoxes'] });
     },
     onError: (error: Error) => {
       console.error('Error updating box', error);

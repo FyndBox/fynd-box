@@ -8,9 +8,7 @@ export const useFooterActions = () => {
   const [showFavorites, setShowFavorites] = useState(false);
 
   const handleFavoriteClick = () => {
-    setShowFavorites((prev) => !prev); // Toggle favorites view
-    console.log('Favorite button clicked, toggling favorites view');
-    // Navigate to favorites page or implement favorite functionality
+    setShowFavorites((prev) => !prev);
   };
 
   const handleScanClick = () => {
@@ -38,6 +36,10 @@ export const useFooterActions = () => {
     setSidebarOpen(false);
   };
 
+  const handleCloseFavbar = () => {
+    setShowFavorites(false);
+  };
+
   return {
     handleFavoriteClick,
     handleScanClick,
@@ -45,6 +47,7 @@ export const useFooterActions = () => {
     handleCancelScan,
     handleSettingsClick,
     handleCloseSidebar,
+    handleCloseFavbar,
     showQRScanner,
     showFavorites,
     isSidebarOpen,
