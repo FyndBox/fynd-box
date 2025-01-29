@@ -6,7 +6,16 @@ import {
   createBox,
   updateBox,
   deleteBox,
+  getFavoriteBoxes,
 } from '../api/boxServices';
+
+// Fetch favorite boxes
+export const useFavoriteBoxes = () => {
+  return useQuery<Box[], Error>({
+    queryKey: ['favoriteBoxes'],
+    queryFn: getFavoriteBoxes,
+  });
+};
 
 // Fetch all boxes for a given storage
 export const useBoxes = (storageId: string) => {
@@ -55,6 +64,7 @@ export const useUpdateBox = () => {
       queryClient.invalidateQueries({ queryKey: ['box', storageId, boxId] });
       queryClient.invalidateQueries({ queryKey: ['boxes', storageId] });
       queryClient.invalidateQueries({ queryKey: ['storages'] });
+      queryClient.invalidateQueries({ queryKey: ['favoriteBoxes'] });
     },
     onError: (error: Error) => {
       console.error('Error updating box', error);

@@ -5,10 +5,10 @@ export const useFooterActions = () => {
   const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [showQRScanner, setShowQRScanner] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
 
   const handleFavoriteClick = () => {
-    console.log('Favorite button clicked');
-    // Navigate to favorites page or implement favorite functionality
+    setShowFavorites((prev) => !prev);
   };
 
   const handleScanClick = () => {
@@ -36,6 +36,10 @@ export const useFooterActions = () => {
     setSidebarOpen(false);
   };
 
+  const handleCloseFavbar = () => {
+    setShowFavorites(false);
+  };
+
   return {
     handleFavoriteClick,
     handleScanClick,
@@ -43,7 +47,9 @@ export const useFooterActions = () => {
     handleCancelScan,
     handleSettingsClick,
     handleCloseSidebar,
+    handleCloseFavbar,
     showQRScanner,
+    showFavorites,
     isSidebarOpen,
   };
 };

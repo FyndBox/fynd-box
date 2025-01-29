@@ -91,4 +91,16 @@ export class BoxService extends BaseService {
     }
     await this.boxRepository.remove(box);
   }
+
+  async findFavoriteBoxes(userId: string): Promise<Box[]> {
+    return this.boxRepository.find({
+      where: {
+        isFavorite: true,
+        storage: {
+          userId: userId,
+        },
+      },
+      relations: ['storage'],
+    });
+  }
 }

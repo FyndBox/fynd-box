@@ -30,6 +30,39 @@ export class BoxController {
     private readonly translationService: TranslationService,
   ) {}
 
+  @Get('favorites')
+  async getFavoriteBoxes(
+    @Request() req: any,
+  ): Promise<ApiResponse<BoxResponseDto[]>> {
+    const lang = req.language;
+    const userId = req.user.userId;
+    try {
+      const favoriteBoxes = await this.boxService.findFavoriteBoxes(userId);
+      return {
+        statusCode: HttpStatus.OK,
+        success: true,
+        message: this.translationService.getTranslation(
+          'api.boxes.getFavorites.success',
+          lang,
+        ),
+        data: instanceToPlain(favoriteBoxes) as BoxResponseDto[],
+      };
+    } catch (error) {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+          success: false,
+          message: this.translationService.getTranslation(
+            'api.boxes.getFavorites.error',
+            lang,
+          ),
+          error: error.message,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
   @Get(':storageId')
   async findAll(
     @Param('storageId') storageId: string,

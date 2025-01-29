@@ -3,5 +3,6 @@ export interface Box {
   name: string;
   description?: string;
   image?: string;
+  storageId?: string;
   isFavorite?: boolean;
 }

@@ -136,6 +136,10 @@
       }
     ]
   },
+  "favoritesSidebar": {
+    "title": "Favorite Boxes",
+    "noItemsFound": "No Favorite items yet"
+  },
   "box": {
     "printQRcode": "Print QR Code",
     "addFavorite": "Add to favorite",
@@ -309,6 +313,10 @@
       "delete": {
         "success": "Box deleted successfully",
         "error": "Error deleting box"
+      },
+      "getFavorites": {
+        "success": "Favorite boxes fetched successfully",
+        "error": "Failed to fetch favorite boxes"
       },
       "notFoundById": "Box with ID {{id}} not found",
       "storageIDRequired": "Storage ID is required for the update"

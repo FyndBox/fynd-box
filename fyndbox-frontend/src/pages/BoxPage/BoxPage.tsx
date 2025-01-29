@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowBackIos } from '@mui/icons-material';
 import { Typography, CircularProgress, Divider, Box } from '@mui/material';
 import { useStorage } from '../../hooks/useStorage';
-import { useBox, useUpdateBox } from '../../hooks/useBox';
+import { useBox, useFavoriteBoxes, useUpdateBox } from '../../hooks/useBox';
 import BoxDetails from '../../components/BoxDetails/BoxDetails';
 import {
   BackButton,
@@ -28,6 +28,7 @@ import EntityActionModal from '../../components/Modal/EntityActionModal';
 import QRScanner from '../../components/QRScanner/QRScanner';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import { useFooterActions } from '../../hooks/useFooterActions';
+import FavoritesSidebar from '../../components/FavoritesSidebar/FavoritesSidebar';
 
 const BoxPage: FC = () => {
   const { t } = useTranslation();
@@ -47,7 +48,9 @@ const BoxPage: FC = () => {
     handleCancelScan,
     handleSettingsClick,
     handleCloseSidebar,
+    handleCloseFavbar,
     showQRScanner,
+    showFavorites,
     isSidebarOpen,
   } = useFooterActions();
 
@@ -67,7 +70,7 @@ const BoxPage: FC = () => {
 
   // Initialize updateBox hook
   const { mutate: updateBox } = useUpdateBox();
-
+  const { data: favoriteBoxes } = useFavoriteBoxes();
   // Fetch all items for the box
   const {
     data: items,
@@ -305,6 +308,11 @@ const BoxPage: FC = () => {
         onDelete={handleDelete}
       />
       <Sidebar open={isSidebarOpen} onClose={handleCloseSidebar} />
+      <FavoritesSidebar
+        open={showFavorites}
+        favorites={favoriteBoxes}
+        onClose={handleCloseFavbar}
+      />
     </BoxContainer>
   );
 };
