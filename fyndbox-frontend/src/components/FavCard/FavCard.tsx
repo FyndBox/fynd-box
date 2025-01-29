@@ -8,11 +8,18 @@ import { FavCardContainer } from './FavCard.styles';
 interface FavCardProps {
   name: string;
   image: string;
+  description?: string;
   onDelete: () => void;
   onClick: () => void;
 }
 
-const FavCard: FC<FavCardProps> = ({ name, image, onDelete, onClick }) => {
+const FavCard: FC<FavCardProps> = ({
+  name,
+  image,
+  description,
+  onDelete,
+  onClick,
+}) => {
   return (
     <FavCardContainer onClick={onClick}>
       <Box display="flex" alignItems="center">
@@ -23,10 +30,9 @@ const FavCard: FC<FavCardProps> = ({ name, image, onDelete, onClick }) => {
             <ImageBox src={BoxIconSvg} alt={'Box Icon'} />
           )}
         </Box>
-        <Box ml={2}>
-          <Typography variant="subtitle1" fontWeight="bold">
-            {name}
-          </Typography>
+        <Box flex={3}>
+          <Typography variant="h6">{name}</Typography>
+          <Typography variant="body1">{description}</Typography>
         </Box>
       </Box>
       <IconButton

@@ -5,11 +5,12 @@ export const FavCardContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
   padding: theme.spacing(2),
-  marginBottom: theme.spacing(2),
-  border: `1px solid ${theme.palette.secondary.contrastText}`,
   '&:hover': {
     backgroundColor: theme.palette.secondary.dark,
   },
   cursor: 'pointer',
   transition: 'background-color 0.2s',
+  borderBottom: `1px solid ${theme.palette.grey[300]}`,
+  marginTop: theme.spacing(0),
+  width: '100%',
 }));

@@ -136,6 +136,10 @@
       }
     ]
   },
+  "favoritesSidebar": {
+    "title": "Favorite Boxes",
+    "noItemsFound": "No Favorite items yet"
+  },
   "box": {
     "printQRcode": "Print QR Code",
     "addFavorite": "Add to favorite",
