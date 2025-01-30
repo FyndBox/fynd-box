@@ -134,6 +134,51 @@ export class UserController {
     }
   }
 
+  @Put('deactivate')
+  @UseGuards(AuthGuard('jwt'))
+  async deactivateUser(@Request() req: any): Promise<ApiResponse<void>> {
+    const lang = req.language;
+    try {
+      const userId = req.user.userId;
+      await this.userService.deactivateUser(userId);
+      return {
+        statusCode: HttpStatus.OK,
+        success: true,
+        message: this.translationService.getTranslation(
+          'api.users.deactivate.success',
+          lang,
+          {
+            id: userId.toString(),
+          },
+        ),
+      };
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        return {
+          statusCode: HttpStatus.NOT_FOUND,
+          success: false,
+          message: this.translationService.getTranslation(
+            'api.users.me.notFound',
+            lang,
+          ),
+          error: error.message,
+        };
+      }
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+          success: false,
+          message: this.translationService.getTranslation(
+            'api.users.deactivate.error',
+            lang,
+          ),
+          error: error.message,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
   @Put()
   @UseGuards(AuthGuard('jwt'))
   async update(

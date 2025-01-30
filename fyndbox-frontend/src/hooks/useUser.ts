@@ -4,6 +4,7 @@ import {
   getUserById,
   updateUser,
   deleteUser,
+  deactivateUser,
 } from '../api/userService';
 import { User } from '../types/user';
 
@@ -35,6 +36,20 @@ export const useUpdateUser = () => {
     },
     onError: (error: Error) => {
       console.error('Error updating user', error);
+    },
+  });
+};
+
+export const useDeactivateUser = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, Error>({
+    mutationFn: () => deactivateUser(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error: Error) => {
+      console.error('Error deactivating user', error);
     },
   });
 };

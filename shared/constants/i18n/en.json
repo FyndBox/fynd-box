@@ -150,6 +150,7 @@
     "add": "Add {{type}}",
     "edit": "Edit {{type}}",
     "delete": "Delete",
+    "deactivate": "Deactivate",
     "cancel": "Cancel",
     "save": "Save",
     "image": {
@@ -170,7 +171,9 @@
       "piece_plural": "{{count}} pcs"
     },
     "deleteTitle": "Delete {{type}} ?",
-    "deleteConfirmation": "Are you sure you want to delete {{type}}? This action cannot be undone"
+    "deleteConfirmation": "Are you sure you want to delete {{type}}? This action cannot be undone.",
+    "deactivateTitle": "Deactivate Account ?",
+    "deactivateConfirmation": "Are you sure you want to deactivate the account? This action cannot be undone."
   },
   "types": {
     "storage": "Storage",
@@ -256,6 +259,10 @@
       "update": {
         "success": "User updated successfully",
         "error": "Error updating user"
+      },
+      "deactivate": {
+        "success": "User with ID {{id}} deactivated successfully",
+        "error": "Failed to deactivate the account"
       },
       "delete": {
         "success": "User deleted successfully",
