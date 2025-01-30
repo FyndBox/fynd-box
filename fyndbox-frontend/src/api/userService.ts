@@ -15,6 +15,10 @@ export const updateUser = async (userData: Partial<User>): Promise<User> => {
   return handleApiCall(apiClient.put<ApiResponse<User>>(`/users`, userData));
 };
 
+export const deactivateUser = async (): Promise<void> => {
+  return handleApiCall(apiClient.put<ApiResponse<void>>(`/users/deactivate`));
+};
+
 export const deleteUser = async (): Promise<void> => {
   return handleApiCall(apiClient.delete<ApiResponse<void>>(`/users`));
 };

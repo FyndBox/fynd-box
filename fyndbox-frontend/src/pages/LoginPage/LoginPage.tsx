@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { IconButton, Typography } from '@mui/material';
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
@@ -26,6 +26,10 @@ const LoginPage: FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+
+  useEffect(() => {
+    setError(null);
+  }, []);
 
   const handleLoginClick = async () => {
     setEmailError(!isEmailValid(email));
