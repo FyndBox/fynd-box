@@ -3,6 +3,7 @@ import {
   UnauthorizedException,
   BadRequestException,
   Scope,
+  ForbiddenException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -44,6 +45,15 @@ export class AuthService extends BaseService {
       throw new UnauthorizedException(
         this.translationService.getTranslation(
           'api.auth.login.error.invalidCredentials',
+          this.getLang(),
+        ),
+      );
+    }
+
+    if (!user.isActive) {
+      throw new ForbiddenException(
+        this.translationService.getTranslation(
+          'api.auth.login.error.accountInactive',
           this.getLang(),
         ),
       );

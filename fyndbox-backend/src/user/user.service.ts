@@ -84,6 +84,12 @@ export class UserService extends BaseService {
     return this.findOne(id);
   }
 
+  async deactivateUser(userId: string): Promise<void> {
+    const user = await this.findOne(userId);
+    user.isActive = false;
+    await this.userRepository.save(user);
+  }
+
   async remove(id: string): Promise<void> {
     const user = await this.findOne(id);
     if (!user) {

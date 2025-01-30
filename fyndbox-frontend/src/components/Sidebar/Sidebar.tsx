@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Box, Divider, Drawer, Typography } from '@mui/material';
 import {
   AccountCircle,
@@ -21,7 +21,8 @@ import {
 import { ButtonsGroupWrapper } from '../../styles/commonStyles';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
-import { useUser } from '../../hooks/useUser';
+import { useDeactivateUser, useUser } from '../../hooks/useUser';
+import DeactivateConfirmationDialog from '../DeactivateConfirmationDialog/DeactivateConfirmationDialog';
 
 const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
   open,
@@ -29,16 +30,35 @@ const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [isDeactivateDialogOpen, setDeactivateDialogOpen] = useState(false);
 
   const { logout } = useAuth();
   const { data: user } = useUser();
+  const { mutateAsync: deactivateUser } = useDeactivateUser();
 
   const handleLogout = () => {
     logout();
     onClose();
   };
 
-  const handleDeactivate = () => {};
+  const handleCloseDeactivateDialog = () => {
+    setDeactivateDialogOpen(false);
+  };
+
+  const handleDeactivate = async () => {
+    try {
+      await deactivateUser();
+      logout();
+      setDeactivateDialogOpen(false);
+      onClose();
+    } catch (error) {
+      console.error('Error deactivating user:', error);
+    }
+  };
+
+  const handleOpenDeactivateDialog = () => {
+    setDeactivateDialogOpen(true);
+  };
 
   const handleNavigation = (section: string) => {
     navigate(`/settings?section=${section}`);
@@ -69,48 +89,58 @@ const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
   }>;
 
   return (
-    <Drawer anchor="left" open={open} onClose={onClose}>
-      <Box display="flex" alignItems="center" p={2}>
-        <AvatarContainer src={user?.image || ''} alt={user?.name}>
-          {!user?.image && getUserInitials(user?.name!)}
-        </AvatarContainer>
-        <Typography variant="h4">
-          {t('sidebar.title', {
-            user: user && getDisplayName(user.name),
-          })}
-        </Typography>
-      </Box>
-      <Divider orientation="horizontal" />
-      <SidebarContainer>
-        <SidebarElementContainer>
-          {menuItems.map((item, index) => (
-            <LinkElement key={index}>
-              <LinkButton
-                fullWidth
-                onClick={() => handleNavigation(item.section)}
-              >
-                <IconButtonContainer>
-                  {iconMap[item.icon]}
-                  <Typography variant="body1" ml={2}>
-                    {item.text}
-                  </Typography>
-                </IconButtonContainer>
-                <ChevronRight />
-              </LinkButton>
-            </LinkElement>
-          ))}
-        </SidebarElementContainer>
-        <ButtonsGroupWrapper>
-          <DeactivateButton variant="contained" onClick={handleDeactivate}>
-            {t('sidebar.deactivate')}
-          </DeactivateButton>
-          <LogoutButton variant="outlined" onClick={handleLogout} fullWidth>
-            {t('sidebar.logout')}
-          </LogoutButton>
-        </ButtonsGroupWrapper>
-        <LanguageSelector />
-      </SidebarContainer>
-    </Drawer>
+    <>
+      <Drawer anchor="left" open={open} onClose={onClose}>
+        <Box display="flex" alignItems="center" p={2}>
+          <AvatarContainer src={user?.image || ''} alt={user?.name}>
+            {!user?.image && getUserInitials(user?.name!)}
+          </AvatarContainer>
+          <Typography variant="h4">
+            {t('sidebar.title', {
+              user: user && getDisplayName(user.name),
+            })}
+          </Typography>
+        </Box>
+        <Divider orientation="horizontal" />
+        <SidebarContainer>
+          <SidebarElementContainer>
+            {menuItems.map((item, index) => (
+              <LinkElement key={index}>
+                <LinkButton
+                  fullWidth
+                  onClick={() => handleNavigation(item.section)}
+                >
+                  <IconButtonContainer>
+                    {iconMap[item.icon]}
+                    <Typography variant="body1" ml={2}>
+                      {item.text}
+                    </Typography>
+                  </IconButtonContainer>
+                  <ChevronRight />
+                </LinkButton>
+              </LinkElement>
+            ))}
+          </SidebarElementContainer>
+          <ButtonsGroupWrapper>
+            <DeactivateButton
+              variant="contained"
+              onClick={handleOpenDeactivateDialog}
+            >
+              {t('sidebar.deactivate')}
+            </DeactivateButton>
+            <LogoutButton variant="outlined" onClick={handleLogout} fullWidth>
+              {t('sidebar.logout')}
+            </LogoutButton>
+          </ButtonsGroupWrapper>
+          <LanguageSelector />
+        </SidebarContainer>
+      </Drawer>
+      <DeactivateConfirmationDialog
+        isOpen={isDeactivateDialogOpen}
+        onConfirm={handleDeactivate}
+        onCancel={handleCloseDeactivateDialog}
+      />
+    </>
   );
 };
 

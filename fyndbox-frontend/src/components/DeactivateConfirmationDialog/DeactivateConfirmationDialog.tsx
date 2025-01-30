@@ -1,20 +1,17 @@
 import { FC } from 'react';
 import { Dialog, DialogContent, DialogTitle, Typography } from '@mui/material';
-import { ActionButtonsContainer } from './DeleteConfirmationDialog.styles';
-import { EntityType } from '../../types/entityTypes';
 import { useTranslation } from 'react-i18next';
+import { ActionButtonsContainer } from '../DeleteConfirmationDialog/DeleteConfirmationDialog.styles';
 import { CancelButton, ConfirmButton } from '../../styles/commonStyles';
 
-interface DeleteConfirmationDialogProps {
+interface DeactivateConfirmationDialogProps {
   isOpen: boolean;
-  entityType: EntityType;
   onConfirm: () => void;
   onCancel: () => void;
 }
 
-const DeleteConfirmationDialog: FC<DeleteConfirmationDialogProps> = ({
+const DeleteConfirmationDialog: FC<DeactivateConfirmationDialogProps> = ({
   isOpen,
-  entityType,
   onConfirm,
   onCancel,
 }) => {
@@ -26,19 +23,19 @@ const DeleteConfirmationDialog: FC<DeleteConfirmationDialogProps> = ({
       disableEnforceFocus
       disableRestoreFocus
     >
-      <DialogTitle>
-        {t('modal.deleteTitle', { type: t(`types.${entityType}`) })}
-      </DialogTitle>
+      <DialogTitle>{t('modal.deactivateTitle')}</DialogTitle>
       <DialogContent dividers>
         <Typography variant="body1">
-          {t('modal.deleteConfirmation', { type: t(`types.${entityType}`) })}
+          {t('modal.deactivateConfirmation')}
         </Typography>
       </DialogContent>
       <ActionButtonsContainer>
         <CancelButton variant="outlined" onClick={onCancel}>
           {t('modal.cancel')}
         </CancelButton>
-        <ConfirmButton onClick={onConfirm}> {t('modal.delete')}</ConfirmButton>
+        <ConfirmButton onClick={onConfirm}>
+          {t('modal.deactivate')}
+        </ConfirmButton>
       </ActionButtonsContainer>
     </Dialog>
   );

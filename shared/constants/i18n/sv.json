@@ -150,6 +150,7 @@
     "add": "Lägg till {{type}}",
     "edit": "Edit {{type}}",
     "delete": "Ta bort",
+    "deactivate": "Inaktivera",
     "cancel": "Ångra",
     "save":"Spara",
     "image":{
@@ -170,7 +171,9 @@
       "piece_plural": "{{count}} st"
     },
     "deleteTitle": "Ta bort {{type}} ?",
-    "deleteConfirmation": "Är du säker på att du vill ta bort {{type}}? Denna åtgärd kan inte ångras"
+    "deleteConfirmation": "Är du säker på att du vill ta bort {{type}}? Denna åtgärd kan inte ångras.",
+    "deactivateTitle": "Inaktivera konto ?",
+    "deactivateConfirmation": "Är du säker på att du vill inaktivera ditt konto? Denna åtgärd kan inte ångras."
   },
   "types": {
     "storage": "Lagring",
@@ -209,7 +212,8 @@
       "login": {
         "success": "Inloggningen lyckades",
         "error": {
-          "invalidCredentials": "Ogiltiga användaruppgifter"
+          "invalidCredentials": "Ogiltiga användaruppgifter",
+          "accountInactive": "Ditt konto är inaktivt. Vänligen kontakta supporten på info@fyndbox.com."
         }
       },
       "signup": {
@@ -252,6 +256,10 @@
       "create": {
         "success": "Användaren skapades",
         "error": "Det gick inte att skapa användare"
+      },
+      "deactivate": {
+        "success": "Användare med ID {{id}} inaktiverat framgångsrikt",
+        "error": "Misslyckades med att inaktivera kontot"
       },
       "update": {
         "success": "Användare har uppdaterats",

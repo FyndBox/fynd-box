@@ -6,7 +6,7 @@ import {
   Visibility,
   VisibilityOff,
 } from '@mui/icons-material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
@@ -37,6 +37,10 @@ export const SignupPage = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    setError(null);
+  }, []);
 
   const handleSignupClick = async () => {
     setNameError(!isNameValid(name));
