@@ -1,4 +1,4 @@
-import { Box, Button, Container, Link } from '@mui/material';
+import { Box, Button, Container, DialogActions, Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { SvgIcon } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
@@ -65,6 +65,10 @@ export const DialogBaseButton = styled(Button)(({}) => ({
   borderRadius: '28px',
   textTransform: 'none',
   width: '8rem',
+}));
+
+export const ActionButtonsContainer = styled(DialogActions)(({ theme }) => ({
+  padding: theme.spacing(2),
 }));
 
 export const CancelButton = styled(DialogBaseButton)(({ theme }) => ({

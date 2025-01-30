@@ -22,7 +22,7 @@ import { ButtonsGroupWrapper } from '../../styles/commonStyles';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import { useDeactivateUser, useUser } from '../../hooks/useUser';
-import DeactivateConfirmationDialog from '../DeactivateConfirmationDialog/DeactivateConfirmationDialog';
+import ConfirmationDialog from '../ConfirmationDialog/ConfirmationDialog';
 
 const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
   open,
@@ -135,8 +135,11 @@ const Sidebar: FC<{ open: boolean; onClose: () => void }> = ({
           <LanguageSelector />
         </SidebarContainer>
       </Drawer>
-      <DeactivateConfirmationDialog
+      <ConfirmationDialog
         isOpen={isDeactivateDialogOpen}
+        titleKey="modal.deactivateTitle"
+        messageKey="modal.deactivateConfirmation"
+        confirmButtonTextKey="modal.deactivate"
         onConfirm={handleDeactivate}
         onCancel={handleCloseDeactivateDialog}
       />
