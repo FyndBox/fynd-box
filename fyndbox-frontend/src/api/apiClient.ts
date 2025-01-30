@@ -46,7 +46,7 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     const errorMessage =
-      error.response?.data?.message || 'An error occurred. Please try again.';
+      error.response?.data?.error || 'An error occurred. Please try again.';
     return Promise.reject(new Error(errorMessage));
   },
 );

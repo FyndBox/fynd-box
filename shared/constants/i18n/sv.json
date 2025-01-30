@@ -212,7 +212,8 @@
       "login": {
         "success": "Inloggningen lyckades",
         "error": {
-          "invalidCredentials": "Ogiltiga användaruppgifter"
+          "invalidCredentials": "Ogiltiga användaruppgifter",
+          "accountInactive": "Ditt konto är inaktivt. Vänligen kontakta supporten på info@fyndbox.com."
         }
       },
       "signup": {
