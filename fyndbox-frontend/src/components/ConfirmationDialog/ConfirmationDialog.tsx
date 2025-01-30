@@ -1,21 +1,33 @@
 import { FC } from 'react';
 import { Dialog, DialogContent, DialogTitle, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { ActionButtonsContainer } from '../DeleteConfirmationDialog/DeleteConfirmationDialog.styles';
-import { CancelButton, ConfirmButton } from '../../styles/commonStyles';
+import {
+  ActionButtonsContainer,
+  CancelButton,
+  ConfirmButton,
+} from '../../styles/commonStyles';
 
-interface DeactivateConfirmationDialogProps {
+interface ConfirmationDialogProps {
   isOpen: boolean;
+  titleKey: string;
+  messageKey: string;
+  confirmButtonTextKey: string;
+  titleParams?: Record<string, string>;
   onConfirm: () => void;
   onCancel: () => void;
 }
 
-const DeleteConfirmationDialog: FC<DeactivateConfirmationDialogProps> = ({
+const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
   isOpen,
+  titleKey,
+  messageKey,
+  confirmButtonTextKey,
+  titleParams = {},
   onConfirm,
   onCancel,
 }) => {
   const { t } = useTranslation();
+
   return (
     <Dialog
       open={isOpen}
@@ -23,22 +35,20 @@ const DeleteConfirmationDialog: FC<DeactivateConfirmationDialogProps> = ({
       disableEnforceFocus
       disableRestoreFocus
     >
-      <DialogTitle>{t('modal.deactivateTitle')}</DialogTitle>
+      <DialogTitle>{t(titleKey, titleParams)}</DialogTitle>
       <DialogContent dividers>
-        <Typography variant="body1">
-          {t('modal.deactivateConfirmation')}
-        </Typography>
+        <Typography variant="body1">{t(messageKey, titleParams)}</Typography>
       </DialogContent>
       <ActionButtonsContainer>
         <CancelButton variant="outlined" onClick={onCancel}>
           {t('modal.cancel')}
         </CancelButton>
         <ConfirmButton onClick={onConfirm}>
-          {t('modal.deactivate')}
+          {t(confirmButtonTextKey)}
         </ConfirmButton>
       </ActionButtonsContainer>
     </Dialog>
   );
 };
 
-export default DeleteConfirmationDialog;
+export default ConfirmationDialog;

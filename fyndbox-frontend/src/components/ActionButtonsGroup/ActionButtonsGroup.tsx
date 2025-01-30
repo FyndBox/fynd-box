@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Check, Delete } from '@mui/icons-material';
 import { ButtonsGroupWrapper, CustomIcon } from '../../styles/commonStyles';
 import { DeleteButton, SaveButton } from './ActionButtonsGroup.styles';
-import DeleteConfirmationDialog from '../../components/DeleteConfirmationDialog/DeleteConfirmationDialog';
 import { EntityType } from '../../types/entityTypes';
+import ConfirmationDialog from '../ConfirmationDialog/ConfirmationDialog';
 
 interface ActionButtonsGroupProps {
   showDeleteButton?: boolean;
@@ -67,11 +67,14 @@ const ActionButtonsGroup: FC<ActionButtonsGroupProps> = ({
         )}
       </ButtonsGroupWrapper>
 
-      <DeleteConfirmationDialog
+      <ConfirmationDialog
         isOpen={isDeleteDialogOpen}
+        titleKey="modal.deleteTitle"
+        messageKey="modal.deleteConfirmation"
+        confirmButtonTextKey="modal.delete"
+        titleParams={{ type: t(`types.${entityType}`) }}
         onConfirm={handleConfirmDelete}
         onCancel={handleCloseDeleteDialog}
-        entityType={entityType}
       />
     </>
   );
