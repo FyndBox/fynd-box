@@ -365,6 +365,21 @@
         "error": "Failed to delete the image",
         "noKeyProvided": "No key provided for deletion"
       }
+    },
+   "notifications": {
+      "getAll": {
+        "success": "Notifications retrieved successfully",
+        "error": "Failed to retrieve notifications"
+      },
+      "markRead": {
+        "success": "Notification marked as read",
+        "error": "Failed to mark notification as read"
+      },
+      "delete": {
+        "success": "Notification deleted successfully",
+        "error": "Failed to delete notification"
+      },
+      "notFoundById": "Notification with ID {{id}} not found"
     }
   }
 }

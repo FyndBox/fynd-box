@@ -365,6 +365,21 @@
         "error": "Failed to delete the image",
         "noKeyProvided": "No key provided for deletion"
       }
+    },
+    "notifications": {
+      "getAll": {
+        "success": "Aviseringar hämtades framgångsrikt",
+        "error": "Det gick inte att hämta aviseringar"
+      },
+      "markRead": {
+        "success": "Aviseringen har markerats som läst",
+        "error": "Det gick inte att markera aviseringen som läst"
+      },
+      "delete": {
+        "success": "Aviseringen raderades framgångsrikt",
+        "error": "Det gick inte att radera aviseringen"
+      },
+      "notFoundById": "Aviseringen med ID {{id}} hittades inte"
     }
   }
 }
