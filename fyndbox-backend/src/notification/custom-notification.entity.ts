@@ -15,7 +15,13 @@ export class CustomNotification {
   id: string;
 
   @Column({ type: 'text', nullable: false })
+  title: string;
+
+  @Column({ type: 'text', nullable: false })
   message: string;
+
+  @Column({ nullable: true })
+  avatar: string;
 
   @Column({ default: false })
   isRead: boolean;
@@ -29,6 +35,9 @@ export class CustomNotification {
 
   @Column({ type: 'uuid' })
   userId: string;
+
+  @Column({ type: 'uuid' })
+  boxId: string;
 
   @CreateDateColumn()
   createdAt: Date;

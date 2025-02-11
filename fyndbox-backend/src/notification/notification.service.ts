@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, Scope } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cron } from '@nestjs/schedule';
 import { Repository } from 'typeorm';
@@ -6,8 +6,9 @@ import { TranslationService } from 'src/translation/translation.service';
 import { CustomNotification } from './custom-notification.entity';
 import { BaseService } from 'src/common/base.service';
 import { BoxService } from 'src/box/box.service';
+import { Box } from 'src/box/box.entity';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class NotificationService extends BaseService {
   constructor(
     @InjectRepository(CustomNotification)
@@ -46,10 +47,17 @@ export class NotificationService extends BaseService {
     await this.notificationRepository.save(notification);
   }
 
-  async create(message: string, userId: string): Promise<CustomNotification> {
+  async create(
+    title: string,
+    message: string,
+    box: Box,
+  ): Promise<CustomNotification> {
     const notification = new CustomNotification();
+    notification.title = title;
     notification.message = message;
-    notification.userId = userId;
+    notification.userId = box.storage.user.id;
+    notification.avatar = box.image;
+    notification.boxId = box.id;
 
     return this.notificationRepository.save(notification);
   }
@@ -80,8 +88,9 @@ export class NotificationService extends BaseService {
 
     for (const box of outdatedBoxes) {
       if (box.storage && box.storage.user) {
-        const message = `Reminder: The box '${box.name}' (ID: ${box.id}) in storage '${box.storage.name}' has not been modified for more than 7 days.`;
-        await this.create(message, box.storage.user.id);
+        const title = `The box '${box.name}' in storage '${box.storage.name}'`;
+        const message = 'Inactive for over a week';
+        await this.create(title, message, box);
       }
     }
   }

@@ -202,7 +202,10 @@
       "option2": "English"
     },
     "notifications": {
-      "noBoxForStorage": "Inga lådor hittades för denna lagring"
+      "title": "Aviseringar",
+      "seeAll": "Se alla",
+      "noBoxForStorage": "Inga lådor hittades för denna lagring",
+      "noNotifications": "Inga aviseringar"
     },
     "back": "Gå tillbaka",
     "loading": "Loading ..."
