@@ -7,16 +7,23 @@ import {
   MenuItem,
   Badge,
   Avatar,
+  Tooltip,
 } from '@mui/material';
-import { Notifications, FiberManualRecord } from '@mui/icons-material';
+import { formatDistanceToNow } from 'date-fns';
+import {
+  Notifications,
+  MarkEmailRead,
+  MarkEmailUnread,
+} from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import {
   useMarkNotificationAsRead,
   useNotifications,
 } from '../../hooks/useCustomNotification';
-import BoxIconSvg from '../../assets/box-icon.svg';
-import { formatDistanceToNow } from 'date-fns';
+import BoxIconSvg from '../../assets/box-icon-black.svg';
+
 import { CustomNotification } from '../../types/custom-notification';
+import { CustomMenuItem } from './CustomNotifications.styles';
 
 const CustomNotifications: FC = () => {
   const { t } = useTranslation();
@@ -49,50 +56,6 @@ const CustomNotifications: FC = () => {
       createdAt: '2025-02-10T12:15:00Z',
       updatedAt: '2025-02-10T12:15:00Z',
     },
-    {
-      id: '3',
-      title: 'Box in Storage',
-      message: 'Inactive for over a week',
-      avatar: 'https://randomuser.me/api/portraits/men/3.jpg',
-      isRead: false,
-      userId: 'user_003',
-      boxId: 'box_oo1',
-      createdAt: '2025-02-09T18:45:00Z',
-      updatedAt: '2025-02-09T18:45:00Z',
-    },
-    {
-      id: '4',
-      title: 'Box in Storage',
-      message: 'Inactive for over a week',
-      avatar: 'https://randomuser.me/api/portraits/women/1.jpg',
-      isRead: true,
-      userId: 'user_004',
-      boxId: 'box_oo1',
-      createdAt: '2025-02-08T10:30:00Z',
-      updatedAt: '2025-02-08T10:30:00Z',
-    },
-    {
-      id: '5',
-      title: 'Box in Storage',
-      message: 'Inactive for over a week',
-      avatar: 'https://randomuser.me/api/portraits/women/2.jpg',
-      isRead: false,
-      userId: 'user_005',
-      boxId: 'box_oo1',
-      createdAt: '2025-02-07T20:15:00Z',
-      updatedAt: '2025-02-07T20:15:00Z',
-    },
-    {
-      id: '6',
-      title: 'Box in Storage',
-      message: 'Inactive for over a week',
-      avatar: 'https://randomuser.me/api/portraits/men/4.jpg',
-      isRead: false,
-      userId: 'user_006',
-      boxId: 'box_oo1',
-      createdAt: '2025-02-06T08:00:00Z',
-      updatedAt: '2025-02-06T08:00:00Z',
-    },
   ];
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -103,7 +66,7 @@ const CustomNotifications: FC = () => {
     setAnchorEl(null);
   };
 
-  const handleMarkAsRead = (id: string) => {
+  const handleMarkAsRead = (id: string, isRead: boolean) => {
     markAsRead(id);
   };
 
@@ -150,41 +113,40 @@ const CustomNotifications: FC = () => {
             </Typography>
           </MenuItem>
         ) : (
-          testNotifications &&
           testNotifications.map((notification) => (
-            <MenuItem
-              key={notification.id}
-              onClick={() => {
-                handleMarkAsRead(notification.id);
-                handleCloseMenu();
-              }}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1.5,
-                bgcolor: notification.isRead ? 'white' : '#E8F0FE',
-                borderBottom: '1px solid #f0f0f0',
-                py: 1.2,
-              }}
-            >
+            <CustomMenuItem key={notification.id} isRead={notification.isRead}>
+              {/* Avatar */}
               <Avatar
                 src={notification.avatar || BoxIconSvg}
                 alt="box-avatar"
                 sx={{ width: 40, height: 40 }}
               />
 
-              <Box flexGrow={1}>
+              {/* Notification Text */}
+              <Box flexGrow={1} overflow="hidden">
                 {/* Title in bold */}
-                <Typography variant="body1" fontWeight="bold">
+                <Typography
+                  variant="body1"
+                  fontWeight="bold"
+                  sx={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
                   {notification.title}
-                  &nbsp;
-                  {!notification.isRead && (
-                    <FiberManualRecord sx={{ fontSize: 12, color: 'blue' }} />
-                  )}
                 </Typography>
 
                 {/* Secondary text in normal weight */}
-                <Typography variant="body2" color="textSecondary">
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  sx={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
                   {notification.message}
                 </Typography>
 
@@ -195,7 +157,25 @@ const CustomNotifications: FC = () => {
                   })}
                 </Typography>
               </Box>
-            </MenuItem>
+
+              {/* Read/Unread Icon with Tooltip */}
+              <Tooltip
+                title={notification.isRead ? 'Mark as Unread' : 'Mark as Read'}
+              >
+                <IconButton
+                  size="small"
+                  onClick={() =>
+                    handleMarkAsRead(notification.id, notification.isRead)
+                  }
+                >
+                  {notification.isRead ? (
+                    <MarkEmailRead sx={{ fontSize: 18, color: 'gray' }} />
+                  ) : (
+                    <MarkEmailUnread sx={{ fontSize: 18, color: 'blue' }} />
+                  )}
+                </IconButton>
+              </Tooltip>
+            </CustomMenuItem>
           ))
         )}
       </Menu>
