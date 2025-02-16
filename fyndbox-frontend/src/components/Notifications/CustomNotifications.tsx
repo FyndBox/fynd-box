@@ -1,20 +1,6 @@
 import { FC, useState } from 'react';
-import {
-  Box,
-  IconButton,
-  Typography,
-  Menu,
-  MenuItem,
-  Badge,
-  Avatar,
-  Tooltip,
-} from '@mui/material';
+import { Box, IconButton, MenuItem, Badge, Tooltip } from '@mui/material';
 import { formatDistanceToNow } from 'date-fns';
-import {
-  Notifications,
-  MarkEmailRead,
-  MarkEmailUnread,
-} from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import {
   useMarkNotificationAsRead,
@@ -23,7 +9,22 @@ import {
 import BoxIconSvg from '../../assets/box-icon-black.svg';
 
 import { CustomNotification } from '../../types/custom-notification';
-import { CustomMenuItem } from './CustomNotifications.styles';
+import {
+  CustomAvatar,
+  CustomMenu,
+  CustomMenuItem,
+  CustomNotificationTitle,
+  NoNotificationsText,
+  NotificationDate,
+  NotificationHeader,
+  NotificationMessage,
+  NotificationTextWrapper,
+  NotificationTitle,
+  SeeAllText,
+  StyledNotification,
+  StyledReadIcon,
+  StyledUnreadIcon,
+} from './CustomNotifications.styles';
 
 const CustomNotifications: FC = () => {
   const { t } = useTranslation();
@@ -66,7 +67,7 @@ const CustomNotifications: FC = () => {
     setAnchorEl(null);
   };
 
-  const handleMarkAsRead = (id: string, isRead: boolean) => {
+  const handleMarkAsRead = (id: string) => {
     markAsRead(id);
   };
 
@@ -74,111 +75,66 @@ const CustomNotifications: FC = () => {
     <Box>
       <IconButton edge="end" color="secondary" onClick={handleOpenMenu}>
         <Badge badgeContent={unreadCount} color="error">
-          <Notifications sx={{ fontSize: 30 }} />
+          <StyledNotification />
         </Badge>
       </IconButton>
-      <Menu
+      <CustomMenu
         id="notifications-menu"
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleCloseMenu}
-        slotProps={{
-          paper: {
-            sx: {
-              maxHeight: 400,
-              width: 350,
-              padding: 1,
-            },
-          },
-        }}
       >
-        <Box display="flex" justifyContent="space-between" px={2} py={1}>
-          <Typography variant="h6" fontWeight="bold">
+        <NotificationHeader>
+          <CustomNotificationTitle>
             {t('common.notifications.title')}
-          </Typography>
-          <Typography
-            variant="body2"
-            color="primary"
-            sx={{ cursor: 'pointer' }}
-            onClick={handleCloseMenu}
-          >
+          </CustomNotificationTitle>
+          <SeeAllText onClick={handleCloseMenu}>
             {t('common.notifications.seeAll')}
-          </Typography>
-        </Box>
+          </SeeAllText>
+        </NotificationHeader>
 
         {testNotifications && testNotifications.length === 0 ? (
           <MenuItem onClick={handleCloseMenu}>
-            <Typography variant="body2">
+            <NoNotificationsText>
               {t('common.notifications.noNotifications')}
-            </Typography>
+            </NoNotificationsText>
           </MenuItem>
         ) : (
           testNotifications.map((notification) => (
             <CustomMenuItem key={notification.id} isRead={notification.isRead}>
-              {/* Avatar */}
-              <Avatar
+              <CustomAvatar
                 src={notification.avatar || BoxIconSvg}
                 alt="box-avatar"
-                sx={{ width: 40, height: 40 }}
               />
-
-              {/* Notification Text */}
-              <Box flexGrow={1} overflow="hidden">
-                {/* Title in bold */}
-                <Typography
-                  variant="body1"
-                  fontWeight="bold"
-                  sx={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                >
-                  {notification.title}
-                </Typography>
-
-                {/* Secondary text in normal weight */}
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  sx={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                >
+              <NotificationTextWrapper>
+                <NotificationTitle>{notification.title}</NotificationTitle>
+                <NotificationMessage>
                   {notification.message}
-                </Typography>
-
-                {/* Date - how long ago */}
-                <Typography variant="caption" color="textSecondary">
+                </NotificationMessage>
+                <NotificationDate>
                   {formatDistanceToNow(new Date(notification.updatedAt), {
                     addSuffix: true,
                   })}
-                </Typography>
-              </Box>
-
-              {/* Read/Unread Icon with Tooltip */}
+                </NotificationDate>
+              </NotificationTextWrapper>
               <Tooltip
                 title={notification.isRead ? 'Mark as Unread' : 'Mark as Read'}
               >
                 <IconButton
                   size="small"
-                  onClick={() =>
-                    handleMarkAsRead(notification.id, notification.isRead)
-                  }
+                  onClick={() => handleMarkAsRead(notification.id)}
                 >
                   {notification.isRead ? (
-                    <MarkEmailRead sx={{ fontSize: 18, color: 'gray' }} />
+                    <StyledReadIcon />
                   ) : (
-                    <MarkEmailUnread sx={{ fontSize: 18, color: 'blue' }} />
+                    <StyledUnreadIcon />
                   )}
                 </IconButton>
               </Tooltip>
             </CustomMenuItem>
           ))
         )}
-      </Menu>
+      </CustomMenu>
     </Box>
   );
 };
