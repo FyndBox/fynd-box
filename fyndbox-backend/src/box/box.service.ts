@@ -103,4 +103,17 @@ export class BoxService extends BaseService {
       relations: ['storage'],
     });
   }
+
+  async findOutdatedBoxes(): Promise<Box[]> {
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    return this.boxRepository
+      .createQueryBuilder('box')
+      .leftJoinAndSelect('box.storage', 'storage')
+      .leftJoinAndSelect('storage.user', 'user')
+      .where('box.updatedAt < :sevenDaysAgo', { sevenDaysAgo })
+      .andWhere('user.id IS NOT NULL')
+      .getMany();
+  }
 }

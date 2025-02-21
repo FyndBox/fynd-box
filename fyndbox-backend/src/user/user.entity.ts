@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 import { Storage } from '../storage/storage.entity';
-
+import { CustomNotification } from '../notification/custom-notification.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
@@ -30,6 +30,9 @@ export class User {
 
   @OneToMany(() => Storage, (storage) => storage.user)
   storages: Storage[];
+
+  @OneToMany(() => CustomNotification, (notification) => notification.user)
+  notifications: CustomNotification[];
 
   @Column({ nullable: true })
   image: string;

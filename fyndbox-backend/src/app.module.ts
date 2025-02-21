@@ -9,9 +9,12 @@ import { StorageModule } from './storage/storage.module';
 import { BoxModule } from './box/box.module';
 import { ItemModule } from './item/item.module';
 import { ImageModule } from './image/image.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -89,6 +92,7 @@ import { ImageModule } from './image/image.module';
     BoxModule,
     ItemModule,
     ImageModule,
+    NotificationModule,
   ],
 })
 export class AppModule {}
