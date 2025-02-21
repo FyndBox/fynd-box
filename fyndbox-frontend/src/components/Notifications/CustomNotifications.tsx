@@ -8,7 +8,6 @@ import {
 } from '../../hooks/useCustomNotification';
 import BoxIconSvg from '../../assets/box-icon-black.svg';
 
-import { CustomNotification } from '../../types/custom-notification';
 import {
   CustomAvatar,
   CustomMenu,
@@ -33,31 +32,6 @@ const CustomNotifications: FC = () => {
   const { mutate: markAsRead } = useMarkNotificationAsRead();
 
   const unreadCount = notifications?.filter((n) => !n.isRead).length;
-
-  const testNotifications: CustomNotification[] = [
-    {
-      id: '1',
-      title: 'Box in Storage',
-      message: 'Inactive for over a week',
-      avatar: '',
-      isRead: false,
-      userId: 'user_001',
-      boxId: 'box_oo1',
-      createdAt: '2025-02-10T15:30:00Z',
-      updatedAt: '2025-02-10T15:30:00Z',
-    },
-    {
-      id: '2',
-      title: 'Box in Storage',
-      message: 'Inactive for over a week',
-      avatar: 'https://randomuser.me/api/portraits/men/2.jpg',
-      isRead: true,
-      userId: 'user_002',
-      boxId: 'box_oo1',
-      createdAt: '2025-02-10T12:15:00Z',
-      updatedAt: '2025-02-10T12:15:00Z',
-    },
-  ];
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -93,14 +67,15 @@ const CustomNotifications: FC = () => {
           </SeeAllText>
         </NotificationHeader>
 
-        {testNotifications && testNotifications.length === 0 ? (
+        {notifications && notifications.length === 0 ? (
           <MenuItem onClick={handleCloseMenu}>
             <NoNotificationsText>
               {t('common.notifications.noNotifications')}
             </NoNotificationsText>
           </MenuItem>
         ) : (
-          testNotifications.map((notification) => (
+          notifications &&
+          notifications.map((notification) => (
             <CustomMenuItem key={notification.id} isRead={notification.isRead}>
               <CustomAvatar
                 src={notification.avatar || BoxIconSvg}
